@@ -10,5 +10,5 @@ IFShare é uma plataforma projetada para que os membros do Instituto Federal do 
 
 - Frontend: HTML, CSS, JavaScript
 - Backend: PHP
-- Banco de Dados: MySql
+- Banco de Dados: PHPMyAdmin
 - Ferramentas de Desenvolvimento: Git, GitHub, VSCode
