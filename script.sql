@@ -1,4 +1,5 @@
 -- Active: 1694899644536@@127.0.0.1@3306@ifshare
+
 CREATE TABLE usuario (
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     nome_completo VARCHAR(100) NOT NULL,
@@ -6,11 +7,12 @@ CREATE TABLE usuario (
     email VARCHAR(100) NOT NULL UNIQUE,
     senha VARCHAR(100) NOT NULL,
     data_nascimento DATE NOT NULL,
-    genero ENUM('Masculino', 'Feminino', 'Outro'),
+    genero ENUM('MASCULINO', 'FEMININO', 'OUTRO'),
     foto_perfil VARCHAR(255),
     bio VARCHAR(250),
+    tipoUsuario ENUM('ADM', 'USUARIO', 'ESTUDANTE') NOT NULL,
     data_criacao DATETIME DEFAULT CURRENT_TIMESTAMP,
-    campus VARCHAR(70) NOT NULL
+    matricula VARCHAR(75)
 );
 
 CREATE TABLE postagem (
@@ -33,7 +35,7 @@ CREATE TABLE comentarios (
 );
 
 CREATE TABLE curtida (
-    id INT AUTO_INCREMENT PRIMARY KEY,
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     id_postagem INT,
     id_usuario INT,
     data_curtida DATETIME DEFAULT CURRENT_TIMESTAMP,
@@ -41,11 +43,11 @@ CREATE TABLE curtida (
     FOREIGN KEY (id_usuario) REFERENCES usuario(id)
 );
 
-CREATE TABLE seguidor (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    id_usuario INT,
-    id_seguidor INT,
-    data_seguindo DATETIME DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (id_usuario) REFERENCES usuario(id),
-    FOREIGN KEY (id_seguidor) REFERENCES usuario(id)
+CREATE TABLE denuncia (
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    motivo TEXT NOT NULL,
+    id_usuario INT NOT NULL,
+    id_postagem INT NOT NULL,
+    FOREIGN KEY (id_postagem) REFERENCES postagem(id),
+    FOREIGN KEY (id_usuario) REFERENCES usuario(id)
 );
