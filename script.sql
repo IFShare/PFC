@@ -1,4 +1,6 @@
--- Active: 1694899644536@@127.0.0.1@3306@ifshare
+CREATE DATABASE ifshare;
+
+use ifshare;
 
 CREATE TABLE usuario (
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -6,8 +8,6 @@ CREATE TABLE usuario (
     nome_usuario VARCHAR(70) NOT NULL UNIQUE,
     email VARCHAR(100) NOT NULL UNIQUE,
     senha VARCHAR(100) NOT NULL,
-    data_nascimento DATE NOT NULL,
-    genero ENUM('MASCULINO', 'FEMININO', 'OUTRO'),
     foto_perfil VARCHAR(255),
     bio VARCHAR(250),
     tipoUsuario ENUM('ADM', 'USUARIO', 'ESTUDANTE') NOT NULL,
