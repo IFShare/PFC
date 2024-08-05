@@ -3,6 +3,7 @@
     require_once(__DIR__ . "/../../connection/Connection.php");
     require_once(__DIR__ . "/../../controller/UsuarioController.php");
 
+    $usuarioController = new UsuarioController();
     
 
 ?>
@@ -27,18 +28,6 @@
             padding: 0;
             background: linear-gradient(90deg, #81a880, #004f44);
         }
-
-        option {
-            color: black;
-        }
-
-        p{
-            color: white;
-        }
-
-        .h4{
-            color: white;
-        }
         .form-container {
             height: 100%; /* altr ctnr */
         }
@@ -50,12 +39,12 @@
         .title-ifshare {
             font-size: 5rem; /* Tamanho da fonte maior */
             margin-bottom: 0; /* Espaçamento entre IFSHARE e Crie*/
-            color: white; /* Cor do ifshare */
+            color: #000; /* Cor do ifshare */
         }
         
         .btn-custom {
             background-color: #004f44; /* cor de fundo*/
-            color: white; /* cor do texto */
+            color: black; /* cor do texto */
             border: none; /* remove borda padrao */
             border-radius: 30px; /* arredonda */
             padding: 5px 20px; /* espacamento interno */
@@ -70,7 +59,7 @@
         }
         .form-control, .form-select {
             border-radius: 8px; /* Bordas arredondadas */
-            border: 1px solid white; /* Cor da borda */
+            border: 1px solid #000; /* Cor da borda */
             padding: 8px; /* Reduzir o padding interno para diminuir a altura */
             font-size: 14px; /* Diminuir o tamanho da fonte */
             line-height: 1.2; /* Reduzir o espaçamento entre linhas */
@@ -78,7 +67,7 @@
             transition: border-color 0.3s, box-shadow 0.3s; /* Transição suave */
             height: 30px; /* Definir uma altura fixa */
             background-color: transparent; /* Cor de fundo para combinar com o site */
-            color: white; /* Cor do texto */
+            color: #000; /* Cor do texto */
         }
 
         .form-control:focus, .form-select:focus {
@@ -90,7 +79,7 @@
 
         .form-label {
             font-size: 16px; /* Tamanho da fonte */
-            color: white; /* Cor do texto */
+            color: #000; /* Cor do texto */
             margin-bottom: 4px; /* Espaço abaixo do rótulo */
         }
 

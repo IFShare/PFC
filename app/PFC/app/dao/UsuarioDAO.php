@@ -3,7 +3,7 @@
 #INCLUDES
 
 include_once(__DIR__ . "/../connection/Connection.php");
-include_once(__DIR__ . "/../model/Usuario.php");
+include_once(__DIR__ . "/../model/Uusario.php");
 
 class UsuarioDAO
 {
@@ -36,7 +36,7 @@ class UsuarioDAO
             " bio, tipoUsuario, data_criacao, matricula)" .
 
             " VALUES (:nomeCompleto, :nomeUsuario, :email, :senha, :bio .
-               :tipoUsuario, :data_criacao, :compMatricula)";
+               :tipoUsuario, :data_criacao, :matricula)";
 
         $stm = $conn->prepare($sql);
         $stm->bindValue("nomeCompleto", $usuario->getNomeSobrenome());
@@ -47,8 +47,7 @@ class UsuarioDAO
         $stm->bindValue("bio", $usuario->getBio());
         $stm->bindValue("tipoUsuario", $usuario->getTipoUsuario());
         $stm->bindValue("data_criacao", $usuario->getDataCriacao());
-        $stm->bindValue("compMatricula", $usuario->getCompMatricula());
-
+        $stm->bindValue("matricula", $usuario->getMatricula());
 
         $stm->execute();
     }
@@ -62,7 +61,7 @@ class UsuarioDAO
 
         $sql = "UPDATE usuario SET nome_completo = :nomeCompleto, nome_usuario = :nomeUsuario," .
             " email = :email, senha = :senha, bio = :bio = tipoUsuario = :tipoUsuario," .
-            " data_criacao = :data_criacao, compMatricula = :compMatricula " .
+            " data_criacao = :data_criacao, matricula = :matricula " .
             " WHERE id = :id";
 
         $stm = $conn->prepare($sql);
@@ -74,7 +73,7 @@ class UsuarioDAO
         $stm->bindValue("bio", $usuario->getBio());
         $stm->bindValue("tipoUsuario", $usuario->getTipoUsuario());
         $stm->bindValue("data_criacao", $usuario->getDataCriacao());
-        $stm->bindValue("compMatricula", $usuario->getCompMatricula());
+        $stm->bindValue("matricula", $usuario->getMatricula());
         $stm->bindValue("id", $usuario->getId());
 
         $stm->execute();
@@ -137,7 +136,7 @@ class UsuarioDAO
             $usuario->setBio($reg['bio']);
             $usuario->setTipoUsuario($reg['tipoUsuario']);
             $usuario->setDataCriacao($reg['data_criacao']);
-            $usuario->setCompMatricula($reg['compMatricula']);
+            $usuario->setMatricula($reg['matricula']);
             array_push($usuarios, $usuario);
         }
 
