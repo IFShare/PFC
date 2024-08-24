@@ -29,7 +29,7 @@ class Controller {
 
     }
 
-    protected function loadView(string $path, array $dados, string $msgErro = "", string $msgSucesso = "") {
+    protected function loadView(string $path, array $dados) {
         
         //Verificar os dados que estão sendo recebidos na função
         //echo "<pre>" . print_r($dados, true) . "</pre>";
@@ -42,7 +42,7 @@ class Controller {
             require $caminho;
 
         } else {
-            echo "Erro ao carrega a view solicitada<br>";
+            echo "Erro ao carregar a view solicitada<br>";
             echo "Caminho: " . $caminho;
         }
     }

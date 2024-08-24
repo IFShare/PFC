@@ -7,7 +7,7 @@ define("DB_USER", "root");
 define("DB_PASSWORD", "");
 
 //Constante com a URL do sistema
-define("BASEURL", "/PFC");
+define("BASEURL", "/PFC/app");
 
 //Nome do sistema
 define('APP_NAME', 'IfShare');

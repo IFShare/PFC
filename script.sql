@@ -12,7 +12,7 @@ CREATE TABLE usuario (
     bio VARCHAR(250),
     tipoUsuario ENUM('ADM', 'USUARIO', 'ESTUDANTE') NOT NULL,
     data_criacao DATETIME DEFAULT CURRENT_TIMESTAMP,
-    matricula VARCHAR(75)
+    CompMatricula VARCHAR(75)
 );
 
 CREATE TABLE postagem (

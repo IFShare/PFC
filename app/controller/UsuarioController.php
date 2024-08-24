@@ -25,13 +25,13 @@ class UsuarioController extends Controller
         $this->handleAction();
     }
 
-    protected function list(string $msgErro = "", string $msgSucesso = "")
+    protected function list()
     {
         $usuarios = $this->usuarioDao->list();
         //print_r($usuarios);
         $dados["lista"] = $usuarios;
 
-        $this->loadView("usuario/list.php", $dados, $msgErro, $msgSucesso);
+        $this->loadView("usuario/list.php", $dados);
     }
 
 
@@ -39,14 +39,14 @@ class UsuarioController extends Controller
     {
         //Captura os dados do formulário
         $dados["id"] = isset($_POST['id']) ? $_POST['id'] : 0;
-        $nomeSobrenome = trim($_POST['nomeSobrenome']) ? trim($_POST['nomeSobrenome']) : NULL;
-        $nomeUsuario = trim($_POST['nomeUsuario']) ? trim($_POST['nomeUsuario']) : NULL;
-        $email = trim($_POST['email']) ? trim($_POST['email']) : NULL;
-        $senha = trim($_POST['senha']) ? trim($_POST['senha']) : NULL;
+        $nomeSobrenome = isset($_POST['nomeSobrenome']) ? trim($_POST['nomeSobrenome']) : NULL;
+        $nomeUsuario = isset($_POST['nomeUsuario']) ? trim($_POST['nomeUsuario']) : NULL;
+        $email = isset($_POST['email']) ? trim($_POST['email']) : NULL;
+        $senha = isset($_POST['senha']) ? trim($_POST['senha']) : NULL;
         $bio = NULL;
-        $tipoUsuario = trim($_POST['tipoUsuario']) ? trim($_POST['tipoUsuario']) : NULL;
-        $dataCriacao = trim($_POST['dataCriacao']) ? trim($_POST['dataCriacao']) : NULL;
-        $compMatricula = trim($_POST['compMatricula']) ? trim($_POST['compMatricula']) : NULL;
+        $tipoUsuario = isset($_POST['tipoUsuario']) ? isset($_POST['tipoUsuario']) : NULL;
+        $dataCriacao = ($dados["id"] == 0) ? date('Y-m-d H:i:s') : NULL;  // Captura a data de criação apenas para novos registros
+        $compMatricula = NULL;
 
 
         //Cria objeto Usuario
@@ -56,9 +56,9 @@ class UsuarioController extends Controller
         $usuario->setEmail($email);
         $usuario->setSenha($senha);
         $usuario->setBio($bio);
-        $usuario->setSenha($tipoUsuario);
-        $usuario->setSenha($dataCriacao);
-        $usuario->setSenha($compMatricula);
+        $usuario->setTipoUsuario($tipoUsuario);
+        $usuario->setDataCriacao($dataCriacao);
+        $usuario->setCompMatricula($compMatricula);
 
 
 
@@ -90,7 +90,7 @@ class UsuarioController extends Controller
         $dados["usuario"] = $usuario;
         $dados["tipoUsuario"] = TipoUsuario::getAllAsArray();
 
-        $msgsErro = implode("<br>", $erros);
+        $msgsErro = implode($erros);
         $this->loadView("usuario/form.php", $dados, $msgsErro);
     }
 
@@ -104,3 +104,7 @@ class UsuarioController extends Controller
         $this->loadView("usuario/form.php", $dados);
     }
 }
+
+#Criar objeto da classe para assim executar o construtor
+new UsuarioController();
+

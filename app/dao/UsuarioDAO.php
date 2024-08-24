@@ -97,6 +97,21 @@ class UsuarioDAO
 
     ####################################################################################
 
+    #CONTA O NÚMERO DE USUÁRIOS DO SISTEMA
+
+    public function count() {
+        $conn = Connection::getConnection();
+
+        $sql = "SELECT COUNT(*) total FROM usuario";
+        $stm = $conn->prepare($sql);
+        $stm->execute();
+        $result = $stm->fetchAll();
+
+        return $result[0]["total"];
+    }
+
+    ####################################################################################
+
     #BUSCA UM USUÁRIO PELO ID
 
     public function findById(int $id)

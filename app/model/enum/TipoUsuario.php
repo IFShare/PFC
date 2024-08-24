@@ -6,8 +6,9 @@
 
         const USUARIO = "USUARIO";
         const ADMINISTRADOR = "ADMINISTRADOR";
+        const ESTUDANTE = "ESTUDANTE";
 
         public static function getAllAsArray() {
-            return [TipoUsuario::USUARIO, TipoUsuario::ADMINISTRADOR];
+            return [TipoUsuario::USUARIO, TipoUsuario::ADMINISTRADOR, TipoUsuario::ESTUDANTE];
         }
 }
