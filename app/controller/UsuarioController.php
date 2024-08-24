@@ -43,9 +43,9 @@ class UsuarioController extends Controller
         $nomeUsuario = isset($_POST['nomeUsuario']) ? trim($_POST['nomeUsuario']) : NULL;
         $email = isset($_POST['email']) ? trim($_POST['email']) : NULL;
         $senha = isset($_POST['senha']) ? trim($_POST['senha']) : NULL;
-        $bio = NULL;
-        $tipoUsuario = isset($_POST['tipoUsuario']) ? isset($_POST['tipoUsuario']) : NULL;
-        $dataCriacao = ($dados["id"] == 0) ? date('Y-m-d H:i:s') : NULL;  // Captura a data de criação apenas para novos registros
+       //$bio = NULL;
+        $tipoUsuario = isset($_POST['tipoUsuario']) ? $_POST['tipoUsuario'] : NULL;
+        $dataCriacao = ($dados["id"] == 0) ? date('Y-m-d') : NULL;  // Captura a data de criação apenas para novos registros
         $compMatricula = NULL;
 
 
@@ -55,19 +55,17 @@ class UsuarioController extends Controller
         $usuario->setNomeUsuario($nomeUsuario);
         $usuario->setEmail($email);
         $usuario->setSenha($senha);
-        $usuario->setBio($bio);
+        $usuario->setBio(null);
         $usuario->setTipoUsuario($tipoUsuario);
         $usuario->setDataCriacao($dataCriacao);
         $usuario->setCompMatricula($compMatricula);
-
-
 
         //Validar os dados
         $erros = $this->usuarioService->validarDados($usuario);
         if (empty($erros)) {
             //Persiste o objeto
             try {
-
+                
                 if ($dados["id"] == 0)  //Inserindo
                     $this->usuarioDao->insert($usuario);
                 else { //Alterando
@@ -80,7 +78,8 @@ class UsuarioController extends Controller
                 $this->list("", $msg);
                 exit;
             } catch (PDOException $e) {
-                $erros = "[Erro ao salvar o usuário na base de dados.]";
+                //echo $e->getMessage();
+                $erros = array("Erro ao salvar o usuário na base de dados.");
             }
         }
 
@@ -90,7 +89,9 @@ class UsuarioController extends Controller
         $dados["usuario"] = $usuario;
         $dados["tipoUsuario"] = TipoUsuario::getAllAsArray();
 
-        $msgsErro = implode($erros);
+        $msgsErro = implode("<br>", $erros);
+        //echo $msgsErro;
+        //exit;
         $this->loadView("usuario/form.php", $dados, $msgsErro);
     }
 

@@ -32,11 +32,11 @@ class UsuarioDAO
     {
         $conn = Connection::getConnection();
 
-        $sql = "INSERT INTO usuario (nome_completo, nome_usuario, email, senha " .
-            " bio, tipoUsuario, data_criacao, matricula)" .
+        $sql = "INSERT INTO usuario (nome_completo, nome_usuario, email, senha, " .
+            " bio, tipoUsuario, data_criacao, compMatricula)" .
 
-            " VALUES (:nomeCompleto, :nomeUsuario, :email, :senha, :bio .
-               :tipoUsuario, :data_criacao, :compMatricula)";
+            " VALUES (:nomeCompleto, :nomeUsuario, :email, :senha, :bio, " .
+            " :tipoUsuario, :data_criacao, :compMatricula)";
 
         $stm = $conn->prepare($sql);
         $stm->bindValue("nomeCompleto", $usuario->getNomeSobrenome());
