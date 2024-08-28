@@ -1,14 +1,13 @@
 <?php
 require_once(__DIR__ . "/../include/header.php");
-require_once(__DIR__ . "/../include/formCSS.html");
-
 ?>
 
+<link rel="stylesheet" href="<?= BASEURL ?>/view/css/form.css">
 
 <div class="container-fluid form-container">
-    <div class="row h-100"> <!-- 100% da altura da tela -->
+    <div class="row h-100 d-flex flex-column justify-content-center align-items-center"> <!-- 100% da altura da tela -->
 
-        <div class="col-md-6 d-flex flex-column justify-content-center align-items-center info-container">
+        <div class="col-md-4 d-flex flex-column justify-content-center align-items-center info-container">
             <h1 class="display-4 font-abril title-ifshare">IFSHARE</h1>
             <h2 class="h4">Crie sua conta</h2>
             <p class="lead">Conecte-se com todos os IF's</p>
@@ -21,7 +20,7 @@ require_once(__DIR__ . "/../include/formCSS.html");
         </div>
 
 
-        <div class="col-md-6 d-flex justify-content-center align-items-center">
+        <div class="col-md-4 d-flex justify-content-center align-items-center">
             <div class="row w-75 mt-5">
                 <!-- h2 class="mb-4 text-center">Cadastro</h2> -->
 
@@ -72,12 +71,13 @@ require_once(__DIR__ . "/../include/formCSS.html");
                 </form>
             </div>
 
-            <div class="row w-75 mt-5">
-                <?php require_once(__DIR__ . "/../include/msg.php"); ?>
-                TESTE
             </div>
 
-        </div>
+            <div class="col-md-3 d-flex justify-content-center align-items-center">
+                <?php require_once(__DIR__ . "/../include/msg.php"); ?>
+            </div>
+
+        
 
     </div>
 

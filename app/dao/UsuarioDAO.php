@@ -135,6 +135,31 @@ class UsuarioDAO
             " - Erro: mais de um usuário encontrado.");
     }
 
+    //Método para buscar um usuário por seu login e senha
+    public function findByEmailSenha(string $email, string $senha) {
+        $conn = Connection::getConnection();
+
+        $sql = "SELECT * FROM usuario u" .
+               " WHERE u.email = ?";
+        $stm = $conn->prepare($sql);    
+        $stm->execute([$email]);
+        $result = $stm->fetchAll();
+
+        $usuarios = $this->mapUsuarios($result);
+
+        if(count($usuarios) == 1) {
+            //Tratamento para senha criptografada
+            if ($usuarios[0]->getSenha())
+                return $usuarios[0];
+            else
+                return null;
+        } elseif(count($usuarios) == 0)
+            return null;
+
+        die("UsuarioDAO.findByEmailSenha()" . 
+            " - Erro: mais de um usuário encontrado.");
+    }
+
     ####################################################################################
 
     #CONVERTE REGISTRO DA BASE EM OBJETO

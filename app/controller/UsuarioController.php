@@ -43,7 +43,7 @@ class UsuarioController extends Controller
         $nomeUsuario = isset($_POST['nomeUsuario']) ? trim($_POST['nomeUsuario']) : NULL;
         $email = isset($_POST['email']) ? trim($_POST['email']) : NULL;
         $senha = isset($_POST['senha']) ? trim($_POST['senha']) : NULL;
-       //$bio = NULL;
+        //$bio = NULL;
         $tipoUsuario = isset($_POST['tipoUsuario']) ? $_POST['tipoUsuario'] : NULL;
         $dataCriacao = ($dados["id"] == 0) ? date('Y-m-d') : NULL;  // Captura a data de criação apenas para novos registros
         $compMatricula = NULL;
@@ -65,7 +65,7 @@ class UsuarioController extends Controller
         if (empty($erros)) {
             //Persiste o objeto
             try {
-                
+
                 if ($dados["id"] == 0)  //Inserindo
                     $this->usuarioDao->insert($usuario);
                 else { //Alterando
@@ -104,8 +104,32 @@ class UsuarioController extends Controller
         $dados["tipoUsuario"] = TipoUsuario::getAllAsArray();
         $this->loadView("usuario/form.php", $dados);
     }
+
+    //Método para excluir
+    protected function delete()
+    {
+        $usuario = $this->findUsuarioById();
+        if ($usuario) {
+            //Excluir
+            $this->usuarioDao->deleteById($usuario->getId());
+            $this->list("", "Usuário excluído com sucesso!");
+        } else {
+            //Mensagem q não encontrou o usuário
+            $this->list("Usuário não encontrado!");
+        }
+    }
+
+    //Método para buscar o usuário com base no ID recebido por parâmetro GET
+    private function findUsuarioById()
+    {
+        $id = 0;
+        if (isset($_GET['id']))
+            $id = $_GET['id'];
+
+        $usuario = $this->usuarioDao->findById($id);
+        return $usuario;
+    }
 }
 
 #Criar objeto da classe para assim executar o construtor
 new UsuarioController();
-
