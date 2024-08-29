@@ -5,10 +5,10 @@
         public static string $SEPARADOR = "|";
 
         const USUARIO = "USUARIO";
-        const ADMINISTRADOR = "ADMINISTRADOR";
+        const ADM = "ADM";
         const ESTUDANTE = "ESTUDANTE";
 
         public static function getAllAsArray() {
-            return [TipoUsuario::USUARIO, TipoUsuario::ADMINISTRADOR, TipoUsuario::ESTUDANTE];
+            return [TipoUsuario::USUARIO, TipoUsuario::ADM, TipoUsuario::ESTUDANTE];
         }
 }

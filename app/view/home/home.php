@@ -3,17 +3,22 @@
 
 require_once(__DIR__ . "/../include/header.php");
 require_once(__DIR__ . "/../include/menu.php");
+
 ?>
 
-<div class="row mt-3 justify-content-center">
-    <div class="col-12 text-center">
-        <span>Usuários ativos: </span>
+<link rel="stylesheet" href="<?= BASEURL ?>/view/css/home.css">
 
-        <span class="badge badge-info">
+<div class="row mt-3 justify-content-center w-100">
+    <div class="col-3 textCentral">
+        <div class="text-center">Usuários ativos: 
+
+        <span class="badge badge-info text-center bg-dark">
             <?= $dados["totalUsuarios"] ?>
         </span>
 
-        <ul>
+        </div>
+
+        <ul class="text-left">
             <?php
             foreach ($dados["listaUsuarios"] as $u) {
                 echo "<li>" . $u->getNomeUsuario() . "</li>";
@@ -23,15 +28,22 @@ require_once(__DIR__ . "/../include/menu.php");
 
     </div>
 
-    <div>
-        <a href="/PFC/app/controller/UsuarioController.php?action=create">FORM DE TESTES</a>
-        <p>em andamento.</p>
-    </div>
+    <?php
+
+            if($_SESSION[SESSAO_USUARIO_TIPO_USUARIO] == "ADM") {
+                echo "<div class='btnInsertDiv'>
+                        <a class='btn btn-custom btnInsert' href='/PFC/app/controller/UsuarioController.php?action=create'>INSERÇÃO DE NOVOS USUÁRIOS</a>
+                      </div>";
+                } else {
+                     echo "";
+            }
+?>
+
+    
 
 
 </div>
 
-</div>
 
 <?php
 require_once(__DIR__ . "/../include/footer.php");

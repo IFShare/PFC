@@ -17,7 +17,7 @@ class Usuario
 
         public function __construct() {
                 $this->dataCriacao = null;
-                $this->compMatricula = null; // Garante que a propriedade seja inicializada
+                $this->compMatricula = null;
             }
         
 

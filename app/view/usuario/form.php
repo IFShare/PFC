@@ -14,7 +14,7 @@ require_once(__DIR__ . "/../include/header.php");
 
             <button type="submit" form="formUsuario" class="btn btn-custom">Criar</button>
             <div>
-                <a class="btn btn-secondary"
+                <a class="btn btn-secondary mt-2"
                     href="<?= BASEURL ?>/controller/HomeController.php?action=home">Voltar</a>
             </div>
         </div>

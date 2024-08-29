@@ -6,32 +6,27 @@ $nome = "(Sessão expirada)";
 if (isset($_SESSION[SESSAO_USUARIO_NOME_USUARIO]))
     $nome = $_SESSION[SESSAO_USUARIO_NOME_USUARIO];
 ?>
-<div class="d-flex flex-column justify-content-center align-items-center w-100">
-<nav class="col-12 navbar navbar-expand-lg navbar-light bg-light">
-    <div class="collapse navbar-collapse" id="conteudoNavbarSuportado">
-        <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-                <a class="nav-link" href="<?= HOME_PAGE ?>">Home</a>
-            </li>
+    <nav class="navbar navbar-expand-lg navbar-light bg-transparent">
+        <div class="collapse navbar-collapse" id="conteudoNavbarSuportado">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="<?= HOME_PAGE ?>">Home</a>
+                </li>
 
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
-                    role="button" data-toggle="dropdown" aria-haspopup="true"
-                    aria-expanded="false"> Cadastros </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item"
-                        href="<?= BASEURL . '/controller/UsuarioController.php?action=list' ?>">Usuários</a>
-                    <a class="dropdown-item" href="#">Outro cadastro</a>
-                </div>
-            </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="<?= BASEURL . '/controller/UsuarioController.php?action=list' ?>" id="navbarDropdown"
+                        role="button" data-toggle="dropdown" aria-haspopup="true"
+                        aria-expanded="false"> Listagem</a>
+                </li>
 
-            <li class="nav-item active">
-                <a class="nav-link" href="<?= LOGOUT_PAGE ?>">Sair</a>
-            </li>
-        </ul>
+                <li class="nav-item active">
+                    <a class="nav-link" href="<?= LOGOUT_PAGE ?>">Sair</a>
+                </li>
+            </ul>
 
-        <ul class="navbar-nav mr-left">
-            <li class="nav-item active"><?= $nome ?></li>
-        </ul>
-    </div>
-</nav>
+            <ul class="navbar-nav mr-left">
+                <li class="nav-item active"><?= $nome ?></li>
+            </ul>
+        </div>
+    </nav>
+

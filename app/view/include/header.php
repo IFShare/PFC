@@ -13,4 +13,4 @@
    
 </head>
 
-<body class="d-flex align-items-center">
+<body>

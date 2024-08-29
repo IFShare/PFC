@@ -6,6 +6,8 @@ require_once(__DIR__ . "/../include/header.php");
 require_once(__DIR__ . "/../include/menu.php");
 ?>
 
+<link rel="stylesheet" href="<?= BASEURL ?>/view/css/list.css">
+
 <h3 class="text-center">Usuários</h3>
 
 <div class="container">
@@ -22,9 +24,8 @@ require_once(__DIR__ . "/../include/menu.php");
     </div>
 
     <div class="row" style="margin-top: 10px;">
-        <div class="col-12">
-            <table id="tabUsuarios" class='table table-striped table-bordered'>
-                <thead>
+        <div class="col-12 tableUser">
+            <table id="tabUsuarios" class='table'>
                     <tr>
                         <th>ID</th>
                         <th>Nome completo</th>
@@ -34,8 +35,6 @@ require_once(__DIR__ . "/../include/menu.php");
                         <th>Alterar</th>
                         <th>Excluir</th>
                     </tr>
-                </thead>
-                <tbody>
                     <?php foreach($dados['lista'] as $usu): ?>
                         <tr>
                             <td><?php echo $usu->getId(); ?></td>
@@ -54,7 +53,6 @@ require_once(__DIR__ . "/../include/menu.php");
                             </td>
                         </tr>
                     <?php endforeach; ?>
-                </tbody>
             </table>
         </div>
     </div>

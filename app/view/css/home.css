@@ -1,0 +1,36 @@
+body{
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(90deg, #81a880, #004f44);
+}
+
+.btnInsertDiv{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.btnInsert {
+    background-color: #004f44;
+    color: white;
+    border: none;
+    border-radius: 30px;
+    padding: 5px 20px;
+    font-size: 18px;
+    font-weight: bold;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s, transform 0.3s;
+
+}
+
+.btnInsert:hover {
+    background-color: #81a880;
+    transform: scale(1.05);
+}
+
+.textCentral{
+    color: black;
+}

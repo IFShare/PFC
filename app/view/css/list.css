@@ -1,0 +1,57 @@
+body{
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(90deg, #81a880, #004f44);
+}
+
+td, th{
+    border: none;
+    border-radius: 10px;
+    font-weight: bold;
+    padding: 10px;
+    text-decoration: none;
+}
+
+td {
+    background: none;
+    background: black;
+}
+
+tr{
+    border: none;
+}
+
+table{
+    width: 75%;
+    border: none;
+    margin-bottom: 15px;
+    padding: 10px 35px 35px 35px;
+    border-radius: 15px;
+    background: rgba(0, 0, 0, 0.834);
+    text-align: center;
+}
+
+.tableUser{
+    border: none;
+}
+
+
+.btn-success {
+    background-color: #004f44;
+    color: white;
+    border: none;
+    border-radius: 30px;
+    padding: 5px 20px;
+    font-size: 18px;
+    font-weight: bold;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s, transform 0.3s;
+
+}
+
+.btn-success:hover {
+    background-color: #81a880;
+    transform: scale(1.05);
+}
