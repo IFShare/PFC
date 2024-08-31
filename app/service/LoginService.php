@@ -11,11 +11,11 @@ class LoginService {
 
         //Valida o campo email
         if(! $email)
-            array_push($arrayMsg, "O campo [Email] é obrigatório.");
+            ($arrayMsg['emailLogin'] = "O campo [Email] é obrigatório.");
 
         //Valida o campo senha
         if(! $senha)
-            array_push($arrayMsg, "O campo [Senha] é obrigatório.");
+            ($arrayMsg['senhalLogin'] = "O campo [Senha] é obrigatório.");
 
         return $arrayMsg;
     }

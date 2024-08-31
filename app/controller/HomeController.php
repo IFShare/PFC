@@ -27,7 +27,7 @@ class HomeController extends Controller {
         $dados["listaUsuarios"] = $listaUsuario;
 
         //echo "<pre>" . print_r($dados, true) . "</pre>";
-        $this->loadView("home/home.php", $dados);
+        $this->loadView("home/home.php", $dados, []);
     }
 
 }

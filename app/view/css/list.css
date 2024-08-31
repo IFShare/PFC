@@ -6,21 +6,18 @@ body{
     background: linear-gradient(90deg, #81a880, #004f44);
 }
 
-td, th{
-    border: none;
-    border-radius: 10px;
+td{
+    border-radius: 20px;
+    border: 2px solid black;
     font-weight: bold;
     padding: 10px;
     text-decoration: none;
+    background-color: transparent;
 }
 
-td {
-    background: none;
-    background: black;
-}
-
-tr{
-    border: none;
+th{
+    color: white;
+    border: 2px solid black;
 }
 
 table{
@@ -28,13 +25,8 @@ table{
     border: none;
     margin-bottom: 15px;
     padding: 10px 35px 35px 35px;
-    border-radius: 15px;
-    background: rgba(0, 0, 0, 0.834);
+    background: transparent;
     text-align: center;
-}
-
-.tableUser{
-    border: none;
 }
 
 

@@ -12,20 +12,19 @@ class UsuarioService
 
         //Validar campos vazios
         if (! $usuario->getNomeSobrenome())
-            array_push($erros, "O campo [Nome e Sobrenome] é obrigatório.");
+            $erros['nomeSobrenome'] = "Preecnha seu nome e sobrenome";
 
         if (! $usuario->getNomeUsuario())
-            array_push($erros, "O campo [Nome de usuário] é obrigatório.");
+            $erros['nomeUsuario'] = "Preecnha seu nome de usuário";
 
         if (! $usuario->getEmail())
-            array_push($erros, "O campo [E-mail] é obrigatório.");
+            $erros['email'] = "Preecnha seu nome email";
 
         if (! $usuario->getSenha())
-            array_push($erros, "O campo [Senha] é obrigatório.");
+            $erros['senha'] = "Preecnha sua senha";
 
         if (! $usuario->getTipoUsuario())
-            array_push($erros, "O campo [Tipo Usuário] é obrigatório.");
-
+            $erros['tipoUsuario'] = "Escolha o tipo de usuário";
 
         return $erros;
     }

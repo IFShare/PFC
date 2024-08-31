@@ -4,6 +4,8 @@
 
 require_once(__DIR__ . "/../include/header.php");
 require_once(__DIR__ . "/../include/menu.php");
+
+if($_SESSION[SESSAO_USUARIO_TIPO_USUARIO] == "ADM"):
 ?>
 
 <link rel="stylesheet" href="<?= BASEURL ?>/view/css/list.css">
@@ -25,7 +27,7 @@ require_once(__DIR__ . "/../include/menu.php");
 
     <div class="row" style="margin-top: 10px;">
         <div class="col-12 tableUser">
-            <table id="tabUsuarios" class='table'>
+            <table id="tabUsuarios">
                     <tr>
                         <th>ID</th>
                         <th>Nome completo</th>
@@ -57,6 +59,12 @@ require_once(__DIR__ . "/../include/menu.php");
         </div>
     </div>
 </div>
+
+<?php
+                else:
+                    echo "Você não tem acesso a esta página.<br>";
+                    ?>
+            <?php endif;?>
 
 <?php  
 require_once(__DIR__ . "/../include/footer.php");

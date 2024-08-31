@@ -6,6 +6,9 @@ $nome = "(Sessão expirada)";
 if (isset($_SESSION[SESSAO_USUARIO_NOME_USUARIO]))
     $nome = $_SESSION[SESSAO_USUARIO_NOME_USUARIO];
 ?>
+
+<link rel="stylesheet" href="<?= BASEURL ?>/view/css/menu.css">
+
     <nav class="navbar navbar-expand-lg navbar-light bg-transparent">
         <div class="collapse navbar-collapse" id="conteudoNavbarSuportado">
             <ul class="navbar-nav mr-auto">
@@ -13,11 +16,19 @@ if (isset($_SESSION[SESSAO_USUARIO_NOME_USUARIO]))
                     <a class="nav-link" href="<?= HOME_PAGE ?>">Home</a>
                 </li>
 
+                <?php
+
+                if($_SESSION[SESSAO_USUARIO_TIPO_USUARIO] == "ADM"):
+
+                    ?>
+
                 <li class="nav-item">
                     <a class="nav-link" href="<?= BASEURL . '/controller/UsuarioController.php?action=list' ?>" id="navbarDropdown"
                         role="button" data-toggle="dropdown" aria-haspopup="true"
                         aria-expanded="false"> Listagem</a>
                 </li>
+
+                <?php endif; ?>
 
                 <li class="nav-item active">
                     <a class="nav-link" href="<?= LOGOUT_PAGE ?>">Sair</a>

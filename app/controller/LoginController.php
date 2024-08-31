@@ -18,7 +18,7 @@ class LoginController extends Controller {
     }
 
     protected function login() {
-        $this->loadView("login/login.php", []);
+        $this->loadView("login/login.php", [], []);
     }
 
     /* Método para logar um usuário a partir dos dados informados no formulário */
@@ -43,7 +43,7 @@ class LoginController extends Controller {
         }
 
         //Se há erros, volta para o formulário            
-        $msg = implode("<br>", $erros);
+        $msg = $erros;
         $dados["email"] = $email;
         $dados["senha"] = $senha;
 
@@ -54,7 +54,7 @@ class LoginController extends Controller {
     protected function logout() {
         $this->loginService->removerUsuarioSessao();
 
-        $this->loadView("login/login.php", [], "", "Usuário deslogado com suscesso!");
+        $this->loadView("login/login.php", [], []);
     }
 
 }

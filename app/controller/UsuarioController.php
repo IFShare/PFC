@@ -31,7 +31,7 @@ class UsuarioController extends Controller
         //print_r($usuarios);
         $dados["lista"] = $usuarios;
 
-        $this->loadView("usuario/list.php", $dados);
+        $this->loadView("usuario/list.php", $dados, []);
     }
 
 
@@ -89,10 +89,10 @@ class UsuarioController extends Controller
         $dados["usuario"] = $usuario;
         $dados["tipoUsuario"] = TipoUsuario::getAllAsArray();
 
-        $msgsErro = implode("<br>", $erros);
+        $msgErro = $erros;
         //echo $msgsErro;
         //exit;
-        $this->loadView("usuario/form.php", $dados, $msgsErro);
+        $this->loadView("usuario/form.php", $dados, $msgErro);
     }
 
     //Método create
@@ -102,7 +102,15 @@ class UsuarioController extends Controller
 
         $dados["id"] = 0;
         $dados["tipoUsuario"] = TipoUsuario::getAllAsArray();
-        $this->loadView("usuario/form.php", $dados);
+        $this->loadView("usuario/form.php", $dados, []);
+    }
+
+    protected function createCadastro()
+    {
+        //echo "Chamou o método create!";
+
+        $dados["id"] = 0;
+        $this->loadView("login/cadastro.php", $dados, []);
     }
 
     //Método para excluir
