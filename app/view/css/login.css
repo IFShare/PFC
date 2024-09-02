@@ -1,0 +1,109 @@
+body, html{
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(90deg, #81a880, #004f44);
+}
+
+h4{
+    text-align: center;
+    margin: 0;
+}
+
+.container{
+    height: 100%;
+}
+
+.coluna{
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.alert {
+    background-color: transparent;
+    color: black;
+    border: 2px solid red;
+}
+
+form{
+    width: 50%;
+    box-shadow: 5px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 20px;
+    padding:  10px 25px 25px 25px;
+    transition: all 0.5s ease-in;
+}
+
+form:hover{
+    box-shadow: 4px 5px rgba(0, 0, 0, 0.3);
+}
+
+.btn-custom {
+    background-color: #004f44;
+    color: white;
+    border: none;
+    border-radius: 30px;
+    padding: 5px 20px;
+    margin-top: 20px;
+    font-size: 18px;
+    font-weight: bold;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.btn-custom:hover {
+    background-color: #81a880;
+    transform: scale(1.05);
+}
+
+.form-control {
+    border-radius: 8px;
+    border: 2px solid #004f44;
+    padding: 8px;
+    font-size: 17px;
+    line-height: 1.2;
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+    transition: border-color 0.3s, box-shadow 0.3s;
+    height: 50px;
+    background-color: transparent;
+    color: white;
+    cursor: default;
+}
+
+.form-control:hover{
+    border: 2px solid white;
+}
+
+.form-control::placeholder{
+    color: black;
+    font-size: 17px;
+}
+
+.form-control:focus{
+    cursor: text;
+}
+
+.form-group:first-of-type{
+    margin-bottom: 20px;
+}
+
+label {
+    color: white;
+}
+
+.form-control:focus {
+    color: white;
+    background-color: transparent;
+    border-color: #fff;
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+.form-label {
+    font-size: 16px;
+    color: white;
+    margin-bottom: 4px;
+}
