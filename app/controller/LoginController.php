@@ -38,7 +38,7 @@ class LoginController extends Controller {
                 header("location: " . HOME_PAGE);     
                 exit;
             } else {
-                $erros['ambos'] = "Login ou senha informados são inválidos!";
+                $erros['ambos'] = "<p class='mb-0 fw-bold text-danger'>Login ou senha informados são inválidos!</p>";
             }
         }
 

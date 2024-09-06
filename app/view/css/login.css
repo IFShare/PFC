@@ -1,109 +1,73 @@
-body, html{
-    height: 100%;
-    width: 100%;
-    margin: 0;
-    padding: 0;
-    background: linear-gradient(90deg, #81a880, #004f44);
+.font-abril {
+    font-family: 'Abril Fatface', cursive; /* Fonte personalizada */
+}
+.title-ifshare {
+    font-size: 3rem; /* Ajuste o tamanho da fonte conforme necessário */
+    color: #000; /* Cor desejada */
 }
 
-h4{
-    text-align: center;
-    margin: 0;
-}
+    body, html {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        background: linear-gradient(90deg, #81a880, #004f44);
+    }
 
-.container{
-    height: 100%;
-}
+    .form-container {
+        height: 100vh; /* altura da tela inteira */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
 
-.coluna{
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-}
+    .form-content {
+        background-color: #fff; /* Cor de fundo do formulário */
+        border-radius: 8px; /* Bordas arredondadas */
+        padding: 20px; /* Espaçamento interno */
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra */
+        max-width: 400px; /* Largura máxima do formulário */
+        width: 100%; /* Largura total dentro do máximo */
+    }
 
-.alert {
-    background-color: transparent;
-    color: black;
-    border: 2px solid red;
-}
+    .btn-custom {
+        background-color: #004f44; /* Cor de fundo */
+        color: #fff; /* Cor do texto */
+        border: none; /* Remove a borda padrão */
+        border-radius: 30px; /* Bordas arredondadas */
+        padding: 10px 20px; /* Espaçamento interno */
+        font-size: 16px; /* Tamanho da fonte */
+        font-weight: bold; /* Peso da fonte */
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra */
+        transition: background-color 0.3s, transform 0.3s; /* Transição */
+    }
 
-form{
-    width: 50%;
-    box-shadow: 5px 6px rgba(0, 0, 0, 0.1);
-    border-radius: 20px;
-    padding:  10px 25px 25px 25px;
-    transition: all 0.5s ease-in;
-}
+    .btn-custom:hover {
+        background-color: #81a880; /* Cor do botão ao passar o mouse */
+        transform: scale(1.05); /* Aumenta o botão */
+    }
 
-form:hover{
-    box-shadow: 4px 5px rgba(0, 0, 0, 0.3);
-}
+    .form-control, .form-select {
+        border-radius: 8px; /* Bordas arredondadas */
+        border: 1px solid #000; /* Cor da borda */
+        padding: 8px; /* Reduzir o padding interno para diminuir a altura */
+        font-size: 14px; /* Diminuir o tamanho da fonte */
+        line-height: 1.2; /* Reduzir o espaçamento entre linhas */
+        box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1); /* Sombra interna */
+        transition: border-color 0.3s, box-shadow 0.3s; /* Transição suave */
+        height: 30px; /* Definir uma altura fixa */
+        background-color: transparent; /* Cor de fundo para combinar com o site */
+        color: #000; /* Cor do texto */
+    }
 
-.btn-custom {
-    background-color: #004f44;
-    color: white;
-    border: none;
-    border-radius: 30px;
-    padding: 5px 20px;
-    margin-top: 20px;
-    font-size: 18px;
-    font-weight: bold;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    transition: background-color 0.3s, transform 0.3s;
-}
+    .form-control:focus, .form-select:focus {
+        background-color: transparent; /* Manter o fundo transparente ao foco */
+        border-color: #fff; /* Borda branca ao foco */
+        outline: none; /* Remove o contorno padrão */
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.2); /* Sombra externa ao foco */
+    }
 
-.btn-custom:hover {
-    background-color: #81a880;
-    transform: scale(1.05);
-}
-
-.form-control {
-    border-radius: 8px;
-    border: 2px solid #004f44;
-    padding: 8px;
-    font-size: 17px;
-    line-height: 1.2;
-    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
-    transition: border-color 0.3s, box-shadow 0.3s;
-    height: 50px;
-    background-color: transparent;
-    color: white;
-    cursor: default;
-}
-
-.form-control:hover{
-    border: 2px solid white;
-}
-
-.form-control::placeholder{
-    color: black;
-    font-size: 17px;
-}
-
-.form-control:focus{
-    cursor: text;
-}
-
-.form-group:first-of-type{
-    margin-bottom: 20px;
-}
-
-label {
-    color: white;
-}
-
-.form-control:focus {
-    color: white;
-    background-color: transparent;
-    border-color: #fff;
-    outline: none;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
-}
-
-.form-label {
-    font-size: 16px;
-    color: white;
-    margin-bottom: 4px;
-}
+    .form-label {
+        font-size: 16px; /* Tamanho da fonte */
+        color: #000; /* Cor do texto */
+        margin-bottom: 4px; /* Espaço abaixo do rótulo */
+    }
