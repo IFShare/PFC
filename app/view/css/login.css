@@ -94,16 +94,15 @@
     }
 
     /* Campos de entrada com contorno vermelho */
-    .form-control.error {
-        border: 1px solid #d9534f; /* Contorno vermelho */
-        box-shadow: 0 0 0 2px rgba(217, 83, 79, 0.2); /* Sombra ao redor do campo */
-        background-color: transparent; /* Fundo transparente para combinação com o site */
-    }
+.form-control.error {
+    border: 1px solid #d9534f; /* Contorno vermelho */
+    box-shadow: 0 0 0 2px rgba(217, 83, 79, 0.2); /* Sombra ao redor do campo */
+    background-color: transparent; /* Fundo transparente para combinação com o site */
+}
 
-    /* Adicionar classe "error" ao input para destacar */
-    .form-control.error:focus {
-        border-color: #d9534f; /* Contorno vermelho ao focar */
-        box-shadow: 0 0 0 2px rgba(217, 83, 79, 0.3); /* Sombra mais pronunciada ao focar */
-    }
-
+/* Adicionar classe "error" ao input para destacar */
+.form-control.error:focus {
+    border-color: #d9534f; /* Contorno vermelho ao focar */
+    box-shadow: 0 0 0 2px rgba(217, 83, 79, 0.3); /* Sombra mais pronunciada ao focar */
+}
    
