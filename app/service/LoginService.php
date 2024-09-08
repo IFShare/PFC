@@ -11,11 +11,11 @@ class LoginService {
 
         //Valida o campo email
         if(! $email)
-        $arrayMsg['emailLogin'] = "Preencha seu e-mail.";
+        $arrayMsg['emailLogin'] = "Informe seu e-mail:";
 
         //Valida o campo senha
         if(! $senha)
-        $arrayMsg['senhaLogin'] = "preencha sua senha";
+        $arrayMsg['senhaLogin'] = "Informe sua senha:";
 
         return $arrayMsg;
     }
