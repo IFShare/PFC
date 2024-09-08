@@ -1,14 +1,14 @@
-.font-abril {
-    font-family: 'Abril Fatface', cursive; /* Fonte personalizada */
-}
-.title-ifshare {
-    font-size: 4rem; /* Ajuste o tamanho da fonte conforme necessário */
-    color: #000; /* Cor desejada */
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); /* Sombra do texto */
-    margin-bottom: 2px;
-}
+    .font-abril {
+        font-family: 'Abril Fatface', cursive; /* Fonte personalizada */
+    }
+    .title-ifshare {
+        font-size: 4rem; /* Ajuste o tamanho da fonte conforme necessário */
+        color: #000; /* Cor desejada */
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); /* Sombra do texto */
+        margin-bottom: 2px;
+    }
 
- .texto-login {
+    .texto-login {
         font-family: 'Arial', sans-serif; /* Fonte mais simples e elegante */
         font-size: 1rem; /* Tamanho do texto ajustado */
         color: #333; /* Cor escura para contraste com o fundo claro */
@@ -40,7 +40,7 @@
         max-width: 400px; /* Largura máxima do formulário */
         width: 100%; /* Largura total dentro do máximo */
         transition: transform 0.3s ease, box-shadow 0.3s ease; /* Transição suave */
-} 
+    } 
 
     .btn-custom {
         background-color: #004f44; /* Cor de fundo */
@@ -93,16 +93,16 @@
         margin-bottom: 0; /* Remove margem adicional */
     }
 
-    /* Campos de entrada com contorno vermelho */
-.form-control.error {
-    border: 1px solid #d9534f; /* Contorno vermelho */
-    box-shadow: 0 0 0 2px rgba(217, 83, 79, 0.2); /* Sombra ao redor do campo */
-    background-color: transparent; /* Fundo transparente para combinação com o site */
-}
+        /* Campos de entrada com contorno vermelho */
+    .form-control.error {
+        border: 1px solid #d9534f; /* Contorno vermelho */
+        box-shadow: 0 0 0 2px rgba(217, 83, 79, 0.2); /* Sombra ao redor do campo */
+        background-color: transparent; /* Fundo transparente para combinação com o site */
+    }
 
-/* Adicionar classe "error" ao input para destacar */
-.form-control.error:focus {
-    border-color: #d9534f; /* Contorno vermelho ao focar */
-    box-shadow: 0 0 0 2px rgba(217, 83, 79, 0.3); /* Sombra mais pronunciada ao focar */
-}
+    /* Adicionar classe "error" ao input para destacar */
+    .form-control.error:focus {
+        border-color: #d9534f; /* Contorno vermelho ao focar */
+        box-shadow: 0 0 0 2px rgba(217, 83, 79, 0.3); /* Sombra mais pronunciada ao focar */
+    }
    
