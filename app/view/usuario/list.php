@@ -20,9 +20,6 @@ if($_SESSION[SESSAO_USUARIO_TIPO_USUARIO] == "ADM"):
                 Inserir</a>
         </div>
 
-        <div class="col-9">
-            <?php require_once(__DIR__ . "/../include/msg.php"); ?>
-        </div>
     </div>
 
     <div class="row" style="margin-top: 10px;">

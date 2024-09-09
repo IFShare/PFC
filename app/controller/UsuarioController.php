@@ -17,7 +17,7 @@ class UsuarioController extends Controller
     public function __construct()
     {
         if (!$this->usuarioLogado())
-            exit;
+          exit;
 
         $this->usuarioDao = new UsuarioDAO();
         $this->usuarioService = new UsuarioService();
@@ -43,10 +43,8 @@ class UsuarioController extends Controller
         $nomeUsuario = isset($_POST['nomeUsuario']) ? trim($_POST['nomeUsuario']) : NULL;
         $email = isset($_POST['email']) ? trim($_POST['email']) : NULL;
         $senha = isset($_POST['senha']) ? trim($_POST['senha']) : NULL;
-        //$bio = NULL;
         $tipoUsuario = isset($_POST['tipoUsuario']) ? $_POST['tipoUsuario'] : NULL;
         $dataCriacao = ($dados["id"] == 0) ? date('Y-m-d') : NULL;  // Captura a data de criação apenas para novos registros
-        $compMatricula = NULL;
 
 
         //Cria objeto Usuario
@@ -58,7 +56,7 @@ class UsuarioController extends Controller
         $usuario->setBio(null);
         $usuario->setTipoUsuario($tipoUsuario);
         $usuario->setDataCriacao($dataCriacao);
-        $usuario->setCompMatricula($compMatricula);
+        $usuario->setCompMatricula(null);
 
         //Validar os dados
         $erros = $this->usuarioService->validarDados($usuario);
@@ -105,13 +103,25 @@ class UsuarioController extends Controller
         $this->loadView("usuario/form.php", $dados, []);
     }
 
-    protected function createCadastro()
-    {
-        //echo "Chamou o método create!";
+   
 
-        $dados["id"] = 0;
-        $this->loadView("login/cadastro.php", $dados, []);
+    //Método edit
+    protected function edit() {
+        $usuario = $this->findUsuarioById();
+        
+        if($usuario) {
+            $usuario->setSenha("");
+            
+            //Setar os dados
+            $dados["id"] = $usuario->getId();
+            $dados["usuario"] = $usuario;
+            $dados["tipoUsuario"] = TipoUsuario::getAllAsArray(); 
+
+            $this->loadView("usuario/form.php", $dados, []);
+        } else 
+            $this->list("Usuário não encontrado");
     }
+
 
     //Método para excluir
     protected function delete()

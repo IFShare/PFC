@@ -32,7 +32,11 @@ require_once(__DIR__ . "/../include/menu.php");
 
             if($_SESSION[SESSAO_USUARIO_TIPO_USUARIO] == "ADM") {
                 echo "<div class='btnInsertDiv'>
-                        <a class='btn btn-custom btnInsert' href='/PFC/app/controller/UsuarioController.php?action=create'>INSERIR NOVO USUÁRIO</a>
+                        <a class='btn btn-custom' href='/PFC/app/controller/UsuarioController.php?action=create'>INSERIR NOVO USUÁRIO</a>
+                      </div>
+
+                      <div class='post btnInsertDiv mt-2'>
+                        <a href='/PFC/app/controller/PostagemController.php?action=createPost' class='btn btn-custom'>ADICIONAR POSTAGEM</a>
                       </div>";
                 } else {
                      echo "";
@@ -44,11 +48,9 @@ require_once(__DIR__ . "/../include/menu.php");
 
 </div>
 
-<div class="row">
-    <div class="col-12">
-        <div class="post">
-            <a href=""></a>
-        </div>
+<div class="row w-100 mt-3">
+    <div class="col-12 d-flex justify-content-center">
+
     </div>
 </div>
 

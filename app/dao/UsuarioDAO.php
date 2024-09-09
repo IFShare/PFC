@@ -36,7 +36,7 @@ class UsuarioDAO
             " bio, tipoUsuario, dataCriacao, compMatricula)" .
 
             " VALUES (:nomeCompleto, :nomeUsuario, :email, :senha, :bio, " .
-            " :tipoUsuario, :data_criacao, :compMatricula)";
+            " :tipoUsuario, CURRENT_DATE, :compMatricula)";
 
         $stm = $conn->prepare($sql);
         $stm->bindValue("nomeCompleto", $usuario->getNomeSobrenome());
@@ -46,7 +46,6 @@ class UsuarioDAO
         $stm->bindValue("senha", $senhaCript);
         $stm->bindValue("bio", $usuario->getBio());
         $stm->bindValue("tipoUsuario", $usuario->getTipoUsuario());
-        $stm->bindValue("dataCriacao", $usuario->getDataCriacao());
         $stm->bindValue("compMatricula", $usuario->getCompMatricula());
 
 

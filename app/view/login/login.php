@@ -17,44 +17,46 @@ require_once(__DIR__ . "/../include/header.php");
 
         <!-- Formulário de Login -->
         <form id="frmLogin" action="./LoginController.php?action=logon" method="POST" class="text-start">
-        <div class="mb-3">
-    <label for="txtEmail" class="form-label">
-        <?php
-        if (isset($msgErro['emailLogin'])) {
-            echo "<p class='text-danger'>" . $msgErro['emailLogin'] . "</p>";
-        } else {
-            echo "Email:";
-        }
-        ?>
-    </label>
-    <input type="text" class="form-control <?php echo isset($msgErro['emailLogin']) ? 'error' : ''; ?>" name="email" id="txtEmail"
-           placeholder="Informe o email"
-           value="<?php echo isset($dados['email']) ? $dados['email'] : '' ?>" />        
-</div>
+            <div class="mb-3">
+                <label for="txtEmail" class="form-label">
+                    <?php
+                    if (isset($msgErro['emailLogin'])) {
+                        echo "<p class='text-danger'>" . $msgErro['emailLogin'] . "</p>";
+                    } else {
+                        echo "Email:";
+                    }
+                    ?>
+                </label>
+                <input type="text" class="form-control <?php echo isset($msgErro['emailLogin']) ? 'error' : ''; ?>" name="email" id="txtEmail"
+                    placeholder="Informe o email"
+                    value="<?php echo isset($dados['email']) ? $dados['email'] : '' ?>" />
+            </div>
 
-<div class="mb-3">
-    <label for="txtSenha" class="form-label">
-        <?php
-        if (isset($msgErro['senhaLogin'])) {
-            echo "<p class='text-danger'>" . $msgErro['senhaLogin'] . "</p>";
-        } else {
-            echo "Senha:";
-        }
-        ?>
-    </label>
-    <input type="password" class="form-control <?php echo isset($msgErro['senhaLogin']) ? 'error' : ''; ?>" name="senha" id="txtSenha"
-           placeholder="Informe a senha"
-           value="<?php echo isset($dados['senha']) ? $dados['senha'] : '' ?>" />        
-</div>
+            <div class="mb-3">
+                <label for="txtSenha" class="form-label">
+                    <?php
+                    if (isset($msgErro['senhaLogin'])) {
+                        echo "<p class='text-danger'>" . $msgErro['senhaLogin'] . "</p>";
+                    } else {
+                        echo "Senha:";
+                    }
+                    ?>
+                </label>
+                <input type="password" class="form-control <?php echo isset($msgErro['senhaLogin']) ? 'error' : ''; ?>" name="senha" id="txtSenha"
+                    placeholder="Informe a senha"
+                    value="<?php echo isset($dados['senha']) ? $dados['senha'] : '' ?>" />
+            </div>
 
             <?php
-    
-            if(isset($msgErro['ambos'])) 
+
+            if (isset($msgErro['ambos']))
                 echo $msgErro['ambos'];
             ?>
 
             <button type="submit" class="btn btn-custom w-100">Logar</button>
         </form>
+
+        <a href="<?= BASEURL ?>/controller/LoginController.php?action=createCadastro">Não possui cadastro? Clique aqui</a>
     </div>
 </div>
 

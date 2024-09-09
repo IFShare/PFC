@@ -2,17 +2,23 @@
 #Classe controller para a Logar do sistema
 require_once(__DIR__ . "/Controller.php");
 require_once(__DIR__ . "/../dao/UsuarioDAO.php");
+
 require_once(__DIR__ . "/../service/LoginService.php");
+require_once(__DIR__ . "/../service/UsuarioService.php");
+
 require_once(__DIR__ . "/../model/Usuario.php");
+require_once(__DIR__ . "/../model/enum/TipoUsuario.php");
 
 class LoginController extends Controller {
 
     private LoginService $loginService;
     private UsuarioDAO $usuarioDao;
+    private UsuarioService $usuarioService;
 
     public function __construct() {
         $this->loginService = new LoginService();
         $this->usuarioDao = new UsuarioDAO();
+        $this->usuarioService = new UsuarioService();
         
         $this->handleAction();
     }
@@ -56,6 +62,57 @@ class LoginController extends Controller {
 
         $this->loadView("login/login.php", [], []);
     }
+
+
+    protected function createCadastro() {
+        $this->loadView("login/cadastro.php", [], []);
+    }
+
+    protected function saveCadastro() {
+        //Captura os dados do formulário
+        $nomeSobrenome = isset($_POST['nomeSobrenome']) ? trim($_POST['nomeSobrenome']) : NULL;
+        $nomeUsuario = isset($_POST['nomeUsuario']) ? trim($_POST['nomeUsuario']) : NULL;
+        $email = isset($_POST['email']) ? trim($_POST['email']) : NULL;
+        $senha = isset($_POST['senha']) ? trim($_POST['senha']) : NULL;
+
+        //Cria objeto Usuario
+        $usuario = new Usuario();
+        $usuario->setNomeSobrenome($nomeSobrenome);
+        $usuario->setNomeUsuario($nomeUsuario);
+        $usuario->setEmail($email);
+        $usuario->setSenha($senha);
+        $usuario->setBio(null);
+        $usuario->setTipoUsuario(TipoUsuario::ESTUDANTE);
+        $usuario->setCompMatricula(null);
+
+        
+        //Validar os dados
+        $erros = $this->usuarioService->validarDados($usuario);
+
+        if(empty($erros)) {
+            //Persiste o objeto
+            try {
+                $this->usuarioDao->insert($usuario);
+
+                //TODO - Enviar mensagem de sucesso
+                $msg = "Usuário salvo com sucesso.";
+                header("location: " . LOGIN_PAGE);
+                exit;
+            } catch (PDOException $e) {
+                //echo $e->getMessage();
+                $erros = array("Erro ao salvar o usuário na base de dados." . $e);
+            }
+        }
+
+        //Se há erros, volta para o formulário
+
+        //Carregar os valores recebidos por POST de volta para o formulário
+        $dados["usuario"] = $usuario;
+        $this->loadView("login/cadastro.php", $dados, $erros);
+
+    }
+
+
 
 }
 

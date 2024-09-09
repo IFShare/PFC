@@ -13,7 +13,7 @@ body{
 }
 
 
-.btnInsert {
+.btn-custom {
     background-color: #004f44;
     color: white;
     border: none;
@@ -26,7 +26,7 @@ body{
 
 }
 
-.btnInsert:hover {
+.btn-custom:hover {
     background-color: #81a880;
     transform: scale(1.05);
 }

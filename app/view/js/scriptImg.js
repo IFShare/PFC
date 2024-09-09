@@ -1,0 +1,26 @@
+const file =
+document.querySelector('#fileImg');
+
+const img = 
+document.querySelector('#img');
+
+img.addEventListener("click", function() {
+    file.click();
+});
+
+file.addEventListener("change", function(e) {
+
+    if(file.files.lenght <= 0) {
+        return;
+    }
+
+    let reader = new FileReader();
+
+    reader.onload = function() {
+        img.src = reader.result;
+        console.log(reader.result);
+    }
+
+    reader.readAsDataURL(file.files[0]);
+
+})
