@@ -5,7 +5,6 @@
 require_once(__DIR__ . "/../include/header.php");
 require_once(__DIR__ . "/../include/menu.php");
 
-if($_SESSION[SESSAO_USUARIO_TIPO_USUARIO] == "ADM"):
 ?>
 
 <link rel="stylesheet" href="<?= BASEURL ?>/view/css/list.css">
@@ -57,11 +56,6 @@ if($_SESSION[SESSAO_USUARIO_TIPO_USUARIO] == "ADM"):
     </div>
 </div>
 
-<?php
-                else:
-                    echo "Você não tem acesso a esta página.<br>";
-                    ?>
-            <?php endif;?>
 
 <?php  
 require_once(__DIR__ . "/../include/footer.php");

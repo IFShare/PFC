@@ -17,6 +17,11 @@ class PostagemController extends Controller
         if (!$this->usuarioLogado())
             exit;
 
+        if (! $this->usuarioIsAdminStudent()) {
+            echo "Acesso negado!";
+            exit;
+        }
+
         $this->postDao = new PostagemDAO();
         $this->postService = new PostagemService();
 
@@ -35,27 +40,35 @@ class PostagemController extends Controller
 
     protected function save()
     {
+
         //Captura os dados do formulário
-        $dados["id"] = isset($_POST['id']) ? $_POST['id'] : 0;
-        $imagem["id"] = isset($_FILES['imagem']) ? $_FILES['imagem'] : 0;
-
-        
-        $legenda["id"] = isset($_POST['legenda']) ? $_POST['legenda'] : 0;
-        $dataPostagem = ($dados["id"] == 0) ? date('Y-m-d') : NULL;  // Captura a data de criação apenas para novos registros
+        $legenda = trim($_POST['legenda']) ? trim($_POST['legenda']) : null;
+        $imagem = isset($_FILES['imagem']) ? $_FILES['imagem'] : null;
 
 
-        //Cria objeto Usuario
+        if ($imagem && isset($imagem['size']) && $imagem['size'] > 0) {
+            $Nomeimagem = "../imgPosts/" . $_FILES['imagem']['name'];
+            move_uploaded_file($_FILES['imagem']['tmp_name'], $Nomeimagem);
+        } else {
+            $Nomeimagem = "";
+        }
+
+
+        /* echo $legenda . "<br>";
+        print_r($imagem);
+        */
+
         $post = new Post();
+        $post->setLegenda($legenda);
+        $post->setImagem($Nomeimagem);
 
-        $post->setDataPostagem($dataPostagem);
         //Validar os dados
-        $erros = $this->postService->validarDados($post);
+        $erros = $this->postService->validarDados($post, $imagem);
         if (empty($erros)) {
             //Persiste o objeto
             try {
 
-                if ($dados["id"] == 0)  //Inserindo
-                    $this->postDao->insertPost($post);
+                $this->postDao->insertPost($post);
 
                 //TODO - Enviar mensagem de sucesso
                 $msg = "Post salvo com sucesso.";
@@ -63,19 +76,16 @@ class PostagemController extends Controller
                 exit;
             } catch (PDOException $e) {
                 //echo $e->getMessage();
-                $erros = array("Erro ao salvar a postagem na base de dados.");
+                $erros = array("Erro ao salvar a postagem na base de dados." . $e);
             }
         }
-
         //Se há erros, volta para o formulário
 
         //Carregar os valores recebidos por POST de volta para o formulário
         $dados["post"] = $post;
+        exit;
 
-        $msgErro = $erros;
-        //echo $msgsErro;
-        //exit;
-        $this->loadView("postagem/postForm.php", $dados, $msgErro);
+        $this->loadView("postagem/postForm.php", $dados, $erros);
     }
 
     //Método create
@@ -84,7 +94,6 @@ class PostagemController extends Controller
         $dados["id"] = 0;
         $this->loadView("postagem/postForm.php", $dados, []);
     }
-
 }
 
 #Criar objeto da classe para assim executar o construtor

@@ -44,7 +44,7 @@ require_once(__DIR__ . "/../include/header.php");
                 </label>
                 <input type="password" class="form-control <?php echo isset($msgErro['senhaLogin']) ? 'error' : ''; ?>" name="senha" id="txtSenha"
                     placeholder="Informe a senha"
-                    value="<?php echo isset($dados['senha']) ? $dados['senha'] : '' ?>" />
+                    value="" />
             </div>
 
             <?php
@@ -56,7 +56,7 @@ require_once(__DIR__ . "/../include/header.php");
             <button type="submit" class="btn btn-custom w-100">Logar</button>
         </form>
 
-        <a href="<?= BASEURL ?>/controller/LoginController.php?action=createCadastro">Não possui cadastro? Clique aqui</a>
+        <a href="<?= BASEURL ?>/controller/LoginController.php?action=createCadastro">Cadastrar-se</a>
     </div>
 </div>
 

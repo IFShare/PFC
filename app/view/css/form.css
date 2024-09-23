@@ -105,10 +105,22 @@ p {
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
 }
 
+.form-control:focus + .form-control::placeholder{
+    content: "";
+}
+
 .form-label {
     font-size: 18px;
     color: black;
     margin-bottom: 4px;
+}
+
+.label-invalid {
+    color: red;
+}
+
+.label-valid {
+    color: rgb(0, 197, 0);
 }
 
 #formPost {
@@ -121,16 +133,19 @@ p {
 }
 
 #txtLegenda {
+    border-width: 3px;
     resize: none;
     height: 150px;
 }
 
 .img {
-    width: 250px;
-    height: 250px;
+    width: 350px;
+    min-width: 300px;
+    height: auto;
+    max-height: 450px;
     margin: 20px 0;
     border-radius: 10%;
-    border: 5px solid black;
+    border: 2px solid white;
     cursor: pointer;
     overflow: hidden;
     display: flex;

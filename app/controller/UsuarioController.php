@@ -18,6 +18,11 @@ class UsuarioController extends Controller
     {
         if (!$this->usuarioLogado())
           exit;
+          
+        if(! $this->usuarioIsAdmin()) {
+            echo "Acesso negado!";
+            exit;
+        }  
 
         $this->usuarioDao = new UsuarioDAO();
         $this->usuarioService = new UsuarioService();
@@ -27,11 +32,14 @@ class UsuarioController extends Controller
 
     protected function list()
     {
+
         $usuarios = $this->usuarioDao->list();
         //print_r($usuarios);
         $dados["lista"] = $usuarios;
 
         $this->loadView("usuario/list.php", $dados, []);
+
+        
     }
 
 
@@ -77,7 +85,7 @@ class UsuarioController extends Controller
                 exit;
             } catch (PDOException $e) {
                 //echo $e->getMessage();
-                $erros = array("Erro ao salvar o usuário na base de dados.");
+                $erros["banco"] = "Erro ao salvar o usuário na base de dados.<br>Tente novamente mais tarde.";
             }
         }
 
@@ -87,10 +95,9 @@ class UsuarioController extends Controller
         $dados["usuario"] = $usuario;
         $dados["tipoUsuario"] = TipoUsuario::getAllAsArray();
 
-        $msgErro = $erros;
         //echo $msgsErro;
         //exit;
-        $this->loadView("usuario/form.php", $dados, $msgErro);
+        $this->loadView("usuario/form.php", $dados, $erros);
     }
 
     //Método create

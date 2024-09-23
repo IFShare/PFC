@@ -5,9 +5,17 @@
 include_once(__DIR__ . "/../connection/Connection.php");
 include_once(__DIR__ . "/../model/Post.php");
 include_once(__DIR__ . "/../model/Usuario.php");
+include_once(__DIR__ . "/../service/LoginService.php");
 
 class PostagemDAO
 {
+    private LoginService $loginService;
+
+    public function __construct()
+    {
+        $this->loginService = new LoginService();        
+    }
+
 
     #LISTAGEM DE POSTAGENS
 
@@ -34,12 +42,12 @@ class PostagemDAO
         $conn = Connection::getConnection();
 
         $sql = "INSERT INTO postagem (imagem, legenda, dataPostagem, id_usuario" .
-            " VALUES (:postagem, :legenda, :ddataPostagem, :id_usuario";
+            " VALUES (:postagem, :legenda, now(), :id_usuario)";
 
         $stm = $conn->prepare($sql);
         $stm->bindValue("imagem", $post->getImagem());
-        $stm->bindValue("legenda", $post->getDataPostagem());
-        $stm->bindValue("id_usuario", $post->getUsuario()->getId());
+        $stm->bindValue("legenda", $post->getLegenda());
+        $stm->bindValue("id_usuario", $this->loginService->getIdUsuarioLogado());
 
         $stm->execute();
     }

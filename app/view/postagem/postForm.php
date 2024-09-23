@@ -1,5 +1,6 @@
 <?php
 require_once(__DIR__ . "/../include/header.php");
+require_once(__DIR__ . "/../include/menu.php");
 
 
 
@@ -12,10 +13,9 @@ if ($_SESSION[SESSAO_USUARIO_TIPO_USUARIO] == "ESTUDANTE" || $_SESSION[SESSAO_US
 
             <div class="col-md-6 p-0 d-flex flex-column justify-content-center align-items-center info-container">
                 <h1 class="display-4 font-abril title-ifshare">IFSHARE</h1>
-                <h2 class="h4">Crie sua conta</h2>
-                <p class="lead">Conecte-se com todos os IF's</p>
+                <h2 class="h4">Realizar postagem</h2>
 
-                <button type="submit" form="formUsuario" class="btn btn-custom">Criar</button>
+                <button type="submit" form="formPost" class="btn btn-custom">Publicar</button>
                 <div>
                     <a class="btn btn-secondary mt-2"
                         href="<?= BASEURL ?>/controller/HomeController.php?action=home">Voltar</a>
@@ -32,32 +32,23 @@ if ($_SESSION[SESSAO_USUARIO_TIPO_USUARIO] == "ESTUDANTE" || $_SESSION[SESSAO_US
                         <!-- IMAGEM -->
                         <div class="mb-3">
 
-                        <div class="img">
-                            <img src="" alt="" id="img">
-                        </div>
+                            <div class="img">
+                                <img src="/PFC/app/assets/escolha.png" alt="" id="img">
+                            </div>
 
-                            <input type="file" class="form-control" id="fileImg" name="imagem" accept="image/*" hidden
-                            value="<?php echo (isset($dados["post"]) ? $dados["post"]->getImagem() : ''); ?>" />
-                        </div>
+                            <?php
+                                if (isset($msgErro['imagem'])) {
+                                    echo "<p class='mb-0 fw-bold text-danger'>" . $msgErro['imagem'] . "</p>";
+                                }
+                                ?>
 
-                        <input type="hidden" id="hddId" name="id" value="<?= $dados['id']; ?>" />
+                            <input type="file" class="form-control" id="fileImg" name="imagem" accept="image/*" hidden />
+                        </div>
 
                         <!-- LEGENDA -->
                         <div class="mb-3 legenda">
-                            <label for="txtLegenda" class="form-label">
-                                <?php
-                                if (isset($msgErro['legenda'])) {
-                                    echo "<p class='mb-0 fw-bold text-danger'>" . $msgErro['legenda'] . "</p>";
-                                }else {
-                                    echo "Legenda";
-                                }
-                                ?>
-                            </label>
-                            <textarea class="form-control" id="txtLegenda" name="legenda rows="9" cols="50" 
-                            value="<?php echo (isset($dados["post"]) ? $dados["post"]->getLegenda() : ''); ?>"></textarea>                        
+                            <textarea class="form-control" id="txtLegenda" name="legenda" rows="9" cols="50"></textarea>                        
                         </div>
-
-                        <input type="hidden" id="hddId" name="id" value="<?= $dados['id']; ?>" />
 
                     </form>
                 </div>

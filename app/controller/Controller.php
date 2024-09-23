@@ -60,4 +60,20 @@ class Controller {
         return true;
     }
 
+    protected function usuarioIsAdmin() {
+        //Habilitar o recurso de sessão no PHP nesta página
+        if($_SESSION[SESSAO_USUARIO_TIPO_USUARIO] == TipoUsuario::ADM)
+            return true;
+
+        return false;
+    }
+
+    protected function usuarioIsAdminStudent() {
+        //Habilitar o recurso de sessão no PHP nesta página
+        if($_SESSION[SESSAO_USUARIO_TIPO_USUARIO] == TipoUsuario::ESTUDANTE || $_SESSION[SESSAO_USUARIO_TIPO_USUARIO] == TipoUsuario::ADM)
+            return true;
+
+        return false;
+    }
+
 }

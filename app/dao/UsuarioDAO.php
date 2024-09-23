@@ -55,13 +55,14 @@ class UsuarioDAO
     ####################################################################################
 
     //ATUALIZAÇÃO DE USUÁRIO
+
     public function update(Usuario $usuario)
     {
         $conn = Connection::getConnection();
 
         $sql = "UPDATE usuario SET nomeCompleto = :nomeCompleto, nomeUsuario = :nomeUsuario," .
             " email = :email, senha = :senha, bio = :bio = tipoUsuario = :tipoUsuario," .
-            " data_criacao = :dataCriacao, compMatricula = :compMatricula " .
+            " dataCriacao = :dataCriacao, compMatricula = :compMatricula " .
             " WHERE id = :id";
 
         $stm = $conn->prepare($sql);
@@ -107,6 +108,21 @@ class UsuarioDAO
         $result = $stm->fetchAll();
 
         return $result[0]["total"];
+    }
+
+    ####################################################################################
+
+    #VERIFICA SE UM EMAIL JÁ FOI CADASTRADO.
+
+    public function emailJaCadastrado(string $email): bool {
+        $conn = Connection::getConnection();
+        $sql = "SELECT COUNT(*) as total FROM usuario WHERE email = :email";
+        $stm = $conn->prepare($sql);
+        $stm->bindValue(':email', $email);
+        $stm->execute();
+        $result = $stm->fetch();
+
+        return $result['total'] > 0;
     }
 
     ####################################################################################

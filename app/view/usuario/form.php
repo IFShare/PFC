@@ -1,5 +1,6 @@
 <?php
 require_once(__DIR__ . "/../include/header.php");
+require_once(__DIR__ . "/../include/menu.php");
 
 
 
@@ -12,8 +13,15 @@ if ($_SESSION[SESSAO_USUARIO_TIPO_USUARIO] == "ADM"): ?>
 
             <div class="col-md-6 p-0 d-flex flex-column justify-content-center align-items-center info-container">
                 <h1 class="display-4 font-abril title-ifshare">IFSHARE</h1>
-                <h2 class="h4">Crie sua conta</h2>
-                <p class="lead">Conecte-se com todos os IF's</p>
+                <h2 class="h4">
+                    <?php
+                    if (isset($msgErro["banco"])) {
+                        echo "<p class='mb-0 fw-bold label-invalid'>" . $msgErro["banco"] . "</p>";
+                    } else {
+                        echo "Crie um novo usuário";
+                    }
+                    ?>
+                </h2>
 
                 <button type="submit" form="formUsuario" class="btn btn-custom">Criar</button>
                 <div>
@@ -30,74 +38,103 @@ if ($_SESSION[SESSAO_USUARIO_TIPO_USUARIO] == "ADM"): ?>
                     <form method="POST" id="formUsuario"
                         action="<?= BASEURL ?>/controller/UsuarioController.php?action=save">
                         <!-- Nome e sobrenome -->
-                        <div class="mb-3">
+                        <div class="form-group mb-3">
                             <label for="txtNomeSobrenome" class="form-label">
                                 <?php
                                 if (isset($msgErro['nomeSobrenome'])) {
-                                    echo "<p class='mb-0 fw-bold text-danger'>" . $msgErro['nomeSobrenome'] . "</p>";
-                                }else {
-                                    echo "Nome e sobrenome";
+                                    echo "<p class='mb-0 fw-bold label-invalid'>" . $msgErro['nomeSobrenome'] . "</p>";
+                                } elseif ((isset($dados["usuario"]) ? $dados["usuario"]->getNomeSobrenome() : '')) {
+                                    echo "<p class='mb-0 fw-bold form-label label-valid'>" . (isset($dados["usuario"]) ? $dados["usuario"]->getNomeSobrenome() : '') . "</p>";
+                                } else {
+                                    echo "<p class='mb-0 form-label'>Nome e sobrenome</p>";
                                 }
                                 ?>
                             </label>
-                            <input placeholder="Insira o nome e sobrenome do usuário"
-                                type="text" class="form-control" id="txtNomeSobrenome" name="nomeSobrenome" value="<?php echo (isset($dados["usuario"]) ? $dados["usuario"]->getNomeSobrenome() : ''); ?>" />
+                            <input
+                                placeholder="Insira seu nome e sobrenome." onfocus="this.placeholder=''" ; onblur="this.placeholder='Insira seu nome e sobrenome.'" ;
+                                type="text"
+                                class="form-control"
+                                id="txtNomeSobrenome"
+                                name="nomeSobrenome"
+                                value="<?php echo (isset($dados["usuario"]) ? $dados["usuario"]->getNomeSobrenome() : ''); ?>" />
                         </div>
 
                         <!-- Nome de usuário -->
-                        <div class="mb-3">
+                        <div class="form-group mb-3">
                             <label for="txtNomeUsuario" class="form-label">
                                 <?php
                                 if (isset($msgErro['nomeUsuario'])) {
-                                    echo "<p class='mb-0 fw-bold text-danger'>" . $msgErro['nomeUsuario'] . "</p>";
+                                    echo "<p class='mb-0 fw-bold label-invalid'>" . $msgErro['nomeUsuario'] . "</p>";
+                                } elseif ((isset($dados["usuario"]) ? $dados["usuario"]->getNomeUsuario() : '')) {
+                                    echo "<p class='mb-0 fw-bold form-label label-valid'>" . (isset($dados["usuario"]) ? $dados["usuario"]->getNomeUsuario() : '') . "</p>";
                                 } else {
-                                    echo "Nome de usuário";
+                                    echo "<p class='mb-0 form-label'>Nome de usuário</p>";
                                 }
                                 ?>
                             </label>
-                            <input placeholder="Insira o nome de usuário"
-                                type="text" class="form-control" id="txtNomeUsuario" name="nomeUsuario" value="<?php echo (isset($dados["usuario"]) ? $dados["usuario"]->getNomeUsuario() : ''); ?>" />
+                            <input
+                                placeholder="Insira seu nome de usuário." onfocus="this.placeholder=''" ; onblur="this.placeholder='Insira seu nome de usuário.'" ;
+                                type="text"
+                                class="form-control"
+                                id="txtNomeUsuario"
+                                name="nomeUsuario"
+                                value="<?php echo (isset($dados["usuario"]) ? $dados["usuario"]->getNomeUsuario() : ''); ?>" />
                         </div>
 
                         <!-- E-mail -->
-                        <div class="mb-3">
+                        <div class="form-group mb-3">
                             <label for="txtEmail" class="form-label">
                                 <?php
                                 if (isset($msgErro['email'])) {
-                                    echo "<p class='mb-0 fw-bold text-danger'>" . $msgErro['email'] . "</p>";
+                                    echo "<p class='mb-0 fw-bold label-invalid'>" . $msgErro['email'] . "</p>";
+                                } elseif ((isset($dados["usuario"]) ? $dados["usuario"]->getEmail() : '')) {
+                                    echo "<p class='mb-0 fw-bold form-label label-valid'>" . (isset($dados["usuario"]) ? $dados["usuario"]->getEmail() : '') . "</p>";
                                 } else {
-                                    echo "E-mail";
+                                    echo "<p class='mb-0 form-label'>E-mail</p>";
                                 }
                                 ?>
-
                             </label>
-                            <input placeholder="Insira o email do usuário"
-                                type="email" class="form-control" id="txtEmail" name="email" value="<?php echo (isset($dados["usuario"]) ? $dados["usuario"]->getEmail() : ''); ?>" />
+                            <input
+                                placeholder="Insira seu e-mail." onfocus="this.placeholder=''" ; onblur="this.placeholder='Insira seu e-mail.'" ;
+                                type="email"
+                                class="form-control"
+                                id="txtEmail"
+                                name="email"
+                                value="<?php echo (isset($dados["usuario"]) ? $dados["usuario"]->getEmail() : ''); ?>" />
                         </div>
 
                         <!-- Senha -->
-                        <div class="mb-3">
+                        <div class="form-group mb-3">
                             <label for="txtSenha" class="form-label">
                                 <?php
                                 if (isset($msgErro['senha'])) {
-                                    echo "<p class='mb-0 fw-bold text-danger'>" . $msgErro['senha'] . "</p>";
+                                    echo "<p class='mb-0 fw-bold label-invalid'>" . $msgErro['senha'] . "</p>";
+                                } elseif ((isset($dados["usuario"]) ? $dados["usuario"]->getSenha() : '')) {
+                                    echo "<p class='mb-0 fw-bold form-label label-valid'>Senha válida</p>";
                                 } else {
-                                    echo "Senha";
+                                    echo "<p class='mb-0 form-label'>Senha</p>";
                                 }
                                 ?>
                             </label>
-                            <input placeholder="Insira a senha do usuário"
-                                type="password" class="form-control" id="txtSenha" name="senha" value="<?php echo (isset($dados["usuario"]) ? $dados["usuario"]->getSenha() : ''); ?>" />
+                            <input
+                                placeholder="Insira sua senha." onfocus="this.placeholder=''" ; onblur="this.placeholder='Insira sua senha.'" ;
+                                type="password"
+                                class="form-control"
+                                id="txtSenha"
+                                name="senha"
+                                value="<?php echo (isset($dados["usuario"]) ? $dados["usuario"]->getSenha() : ''); ?>" />
                         </div>
 
                         <!-- Tipo de usuário -->
                         <div class="mb-3">
-                            <label for="selTipoUsuario" class="form-label">
+                            <label for="txtSenha" class="form-label">
                                 <?php
                                 if (isset($msgErro['tipoUsuario'])) {
-                                    echo "<p class='mb-0 fw-bold text-danger'>" . $msgErro['tipoUsuario'] . "</p>";
+                                    echo "<p class='mb-0 fw-bold label-invalid'>" . $msgErro['tipoUsuario'] . "</p>";
+                                } elseif ((isset($dados["usuario"]) ? $dados["usuario"]->getTipoUsuario() : '')) {
+                                    echo "<p class='mb-0 fw-bold form-label label-valid'>" . (isset($dados["usuario"]) ? $dados["usuario"]->getTipoUsuario() : '') . "</p>";
                                 } else {
-                                    echo "Tipo de Usuário";
+                                    echo "<p class='mb-0 form-label'>Tipo de usuário</p>";
                                 }
                                 ?>
                             </label>
@@ -130,6 +167,8 @@ else:
     echo "Você não tem acesso a esta página.<br>";
 ?>
 <?php endif; ?>
+
+<script src="<?= BASEURL ?>/view/js/form.js"></script>
 
 <?php
 require_once(__DIR__ . "/../include/footer.php");
