@@ -41,8 +41,8 @@ class PostagemDAO
     {
         $conn = Connection::getConnection();
 
-        $sql = "INSERT INTO postagem (imagem, legenda, dataPostagem, id_usuario" .
-            " VALUES (:postagem, :legenda, now(), :id_usuario)";
+        $sql = "INSERT INTO postagem (imagem, legenda, dataPostagem, id_usuario)" .
+            " VALUES (:imagem, :legenda, now(), :id_usuario)";
 
         $stm = $conn->prepare($sql);
         $stm->bindValue("imagem", $post->getImagem());

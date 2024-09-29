@@ -5,10 +5,12 @@ require_once(__DIR__ . '/Usuario.php');
     class Post {
         private ?int $id;
         private ?string $imagem;
-        private ?int $legenda;
-        private ?int $dataPostagem;
+        private ?string $legenda;
+        private $dataPostagem;
         private ?Usuario $usuario;
 
+        
+        
 
         /**
          * Get the value of id

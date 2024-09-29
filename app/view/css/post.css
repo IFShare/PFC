@@ -1,0 +1,29 @@
+.container{
+    margin-top: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+}
+
+section{
+    margin: 0;
+    width: 100%;
+}
+
+.imgPost {
+    width: 100%;
+    margin-bottom: 15px;
+    border-radius: 15px;
+    transition: all 0.3s;
+}
+
+.imgPost:hover{
+    transform: scale(103%);
+}
+
+.post {
+    width: 100%;
+    column-count: 4;
+    column-gap: 25px;
+}

@@ -2,6 +2,7 @@
 
 require_once(__DIR__ . "/../dao/PostagemDAO.php");
 require_once(__DIR__ . "/../service/PostagemService.php");
+require_once(__DIR__ . "/../service/ArquivoService.php");
 require_once(__DIR__ . "/Controller.php");
 require_once(__DIR__ . "/../model/Post.php");
 
@@ -10,6 +11,7 @@ class PostagemController extends Controller
 
     private PostagemDAO  $postDao;
     private PostagemService  $postService;
+    private ArquivoService  $arqService;
 
     //Método construtor do controller - será executado a cada requisição a está classe
     public function __construct()
@@ -24,6 +26,7 @@ class PostagemController extends Controller
 
         $this->postDao = new PostagemDAO();
         $this->postService = new PostagemService();
+        $this->arqService = new ArquivoService();
 
         $this->handleAction();
     }
@@ -31,10 +34,10 @@ class PostagemController extends Controller
     protected function listPosts()
     {
         $postagens = $this->postDao->listPosts();
-        //print_r($usuarios);
-        $dados["lista"] = $postagens;
+        print_r($postagens);
+        $dados["listPosts"] = $postagens;
 
-        $this->loadView("postagem/list.php", $dados, []);
+        $this->loadView("home/home.php", $dados, []);
     }
 
 
@@ -46,13 +49,6 @@ class PostagemController extends Controller
         $imagem = isset($_FILES['imagem']) ? $_FILES['imagem'] : null;
 
 
-        if ($imagem && isset($imagem['size']) && $imagem['size'] > 0) {
-            $Nomeimagem = "../imgPosts/" . $_FILES['imagem']['name'];
-            move_uploaded_file($_FILES['imagem']['tmp_name'], $Nomeimagem);
-        } else {
-            $Nomeimagem = "";
-        }
-
 
         /* echo $legenda . "<br>";
         print_r($imagem);
@@ -60,23 +56,28 @@ class PostagemController extends Controller
 
         $post = new Post();
         $post->setLegenda($legenda);
-        $post->setImagem($Nomeimagem);
 
         //Validar os dados
         $erros = $this->postService->validarDados($post, $imagem);
         if (empty($erros)) {
-            //Persiste o objeto
-            try {
+            $nomeArquivo = $this->arqService->salvarArquivo($imagem);
+            if($nomeArquivo)
+                $post->setImagem($nomeArquivo);
+            else
+                $erros = array("Erro ao salvar o arquivo da postagem.");
 
-                $this->postDao->insertPost($post);
+            if(empty($erros)) {
+                //Persiste o objeto
+                try {
+                    $this->postDao->insertPost($post);
 
-                //TODO - Enviar mensagem de sucesso
-                $msg = "Post salvo com sucesso.";
-                $this->listPosts("", $msg);
-                exit;
-            } catch (PDOException $e) {
-                //echo $e->getMessage();
-                $erros = array("Erro ao salvar a postagem na base de dados." . $e);
+                    header("location: " . HOME_PAGE);
+                    exit;
+                } catch (PDOException $e) {
+                    echo $e->getMessage();
+                    exit;
+                    $erros = array("Erro ao salvar a postagem na base de dados." . $e);
+                }
             }
         }
         //Se há erros, volta para o formulário
