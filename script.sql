@@ -1,10 +1,9 @@
--- Active: 1694899644536@@127.0.0.1@3306@ifshare
 -- phpMyAdmin SQL Dump
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 02/09/2024 às 20:09
+-- Tempo de geração: 30/09/2024 às 18:52
 -- Versão do servidor: 10.4.32-MariaDB
 -- Versão do PHP: 8.2.12
 
@@ -31,9 +30,9 @@ SET time_zone = "+00:00";
 CREATE TABLE `comentarios` (
   `id` int(11) NOT NULL,
   `conteudo` text NOT NULL,
-  `data_comentario` datetime DEFAULT current_timestamp(),
-  `id_postagem` int(11) NOT NULL,
-  `id_usuario` int(11) NOT NULL
+  `dataComentario` datetime DEFAULT current_timestamp(),
+  `idPostagem` int(11) NOT NULL,
+  `idUsuario` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -44,9 +43,9 @@ CREATE TABLE `comentarios` (
 
 CREATE TABLE `curtida` (
   `id` int(11) NOT NULL,
-  `id_postagem` int(11) DEFAULT NULL,
-  `id_usuario` int(11) DEFAULT NULL,
-  `data_curtida` datetime DEFAULT current_timestamp()
+  `idPostagem` int(11) DEFAULT NULL,
+  `idUsuario` int(11) DEFAULT NULL,
+  `dataCurtida` datetime DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -58,8 +57,8 @@ CREATE TABLE `curtida` (
 CREATE TABLE `denuncia` (
   `id` int(11) NOT NULL,
   `motivo` text NOT NULL,
-  `id_usuario` int(11) NOT NULL,
-  `id_postagem` int(11) NOT NULL
+  `idUsuario` int(11) NOT NULL,
+  `idPostagem` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -72,8 +71,8 @@ CREATE TABLE `postagem` (
   `id` int(11) NOT NULL,
   `imagem` varchar(255) NOT NULL,
   `legenda` text DEFAULT NULL,
-  `data_postagem` datetime DEFAULT current_timestamp(),
-  `id_usuario` int(11) NOT NULL
+  `dataPostagem` datetime DEFAULT current_timestamp(),
+  `idUsuario` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -100,9 +99,10 @@ CREATE TABLE `usuario` (
 --
 
 INSERT INTO `usuario` (`id`, `nomeCompleto`, `nomeUsuario`, `email`, `senha`, `fotoPerfil`, `bio`, `tipoUsuario`, `dataCriacao`, `compMatricula`) VALUES
-(7, 'Matheus de Souza Cardoso', 'MathU', 'mathcardoso792@gmail.com', '$2y$10$WBiSmuPxg7EwFCweokTfiOUSBx5NEK0YkMxjtdSadEOGDJohUiz8S', NULL, NULL, 'ADM', '2024-08-27 21:19:08', NULL),
-(13, 'matheus cardoso estudante', 'MathuEstudante', 'mathcardosoEstudante792@gmail.com', '$2y$10$hjWaDmguGMN1V7Ltru2gIOCNjuJi3s7ZTdPitrK1jYNiV5JufB45C', NULL, NULL, 'ESTUDANTE', '2024-08-29 00:00:00', NULL),
-(14, 'Julia Vitória', 'taegvils', 'juliaVitoria@gmail.com', '$2y$10$s2sVCzs4Pw8uNgrKQIYS2e4JHZKBdRqK3yCPnqA8R8c8odUVM0Vnq', NULL, NULL, 'USUARIO', '2024-08-31 00:00:00', NULL);
+(7, 'Matheus de Souza Cardoso', 'MathU', 'mathcardoso792@gmail.com', '$2y$10$GKixarBnfrEH404Lm7n6/e.VhUjiL..USvfQ7ye063vrMQ9fFvsFa', NULL, NULL, 'ADM', NULL, NULL),
+(15, 'Daniel', 'daniel', 'daniel@yahoo.com', '$2y$10$povgDGd72ud5FQfzL7d1PeaYpWabXlb94UoJgal.E.GwQmUNq64le', NULL, NULL, 'ESTUDANTE', NULL, NULL),
+(17, 'matheus cardoso', 'matheuzin', 'mathcardoso@gmail.com', '$2y$10$o8u6a/wOa0zTu1NuYvnuLeWw0m21T9yQuus6DXz4B8pB1x8KhOA4e', NULL, NULL, 'ESTUDANTE', NULL, NULL),
+(26, 'nicolly rosso', 'nick', 'nick_@outlook.com', '$2y$10$bEBmyotPZ0NA428ntJgygORObErsu0wHP6ffFzDfeQZsDvO0.0oKK', NULL, NULL, 'ESTUDANTE', '2024-09-30 00:00:00', NULL);
 
 --
 -- Índices para tabelas despejadas
@@ -113,38 +113,38 @@ INSERT INTO `usuario` (`id`, `nomeCompleto`, `nomeUsuario`, `email`, `senha`, `f
 --
 ALTER TABLE `comentarios`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `id_postagem` (`id_postagem`),
-  ADD KEY `id_usuario` (`id_usuario`);
+  ADD KEY `idPostagem` (`idPostagem`),
+  ADD KEY `idUsuario` (`idUsuario`);
 
 --
 -- Índices de tabela `curtida`
 --
 ALTER TABLE `curtida`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `id_postagem` (`id_postagem`),
-  ADD KEY `id_usuario` (`id_usuario`);
+  ADD KEY `idPostagem` (`idPostagem`),
+  ADD KEY `idUsuario` (`idUsuario`);
 
 --
 -- Índices de tabela `denuncia`
 --
 ALTER TABLE `denuncia`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `id_postagem` (`id_postagem`),
-  ADD KEY `id_usuario` (`id_usuario`);
+  ADD KEY `idPostagem` (`idPostagem`),
+  ADD KEY `idUsuario` (`idUsuario`);
 
 --
 -- Índices de tabela `postagem`
 --
 ALTER TABLE `postagem`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `id_usuario` (`id_usuario`);
+  ADD KEY `idUsuario` (`idUsuario`);
 
 --
 -- Índices de tabela `usuario`
 --
 ALTER TABLE `usuario`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `nome_usuario` (`nomeUsuario`),
+  ADD UNIQUE KEY `nomeUsuario` (`nomeUsuario`),
   ADD UNIQUE KEY `email` (`email`);
 
 --
@@ -173,13 +173,13 @@ ALTER TABLE `denuncia`
 -- AUTO_INCREMENT de tabela `postagem`
 --
 ALTER TABLE `postagem`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT de tabela `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- Restrições para tabelas despejadas
@@ -189,28 +189,28 @@ ALTER TABLE `usuario`
 -- Restrições para tabelas `comentarios`
 --
 ALTER TABLE `comentarios`
-  ADD CONSTRAINT `comentarios_ibfk_1` FOREIGN KEY (`id_postagem`) REFERENCES `postagem` (`id`),
-  ADD CONSTRAINT `comentarios_ibfk_2` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id`);
+  ADD CONSTRAINT `comentarios_ibfk_1` FOREIGN KEY (`idPostagem`) REFERENCES `postagem` (`id`),
+  ADD CONSTRAINT `comentarios_ibfk_2` FOREIGN KEY (`idUsuario`) REFERENCES `usuario` (`id`);
 
 --
 -- Restrições para tabelas `curtida`
 --
 ALTER TABLE `curtida`
-  ADD CONSTRAINT `curtida_ibfk_1` FOREIGN KEY (`id_postagem`) REFERENCES `postagem` (`id`),
-  ADD CONSTRAINT `curtida_ibfk_2` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id`);
+  ADD CONSTRAINT `curtida_ibfk_1` FOREIGN KEY (`idPostagem`) REFERENCES `postagem` (`id`),
+  ADD CONSTRAINT `curtida_ibfk_2` FOREIGN KEY (`idUsuario`) REFERENCES `usuario` (`id`);
 
 --
 -- Restrições para tabelas `denuncia`
 --
 ALTER TABLE `denuncia`
-  ADD CONSTRAINT `denuncia_ibfk_1` FOREIGN KEY (`id_postagem`) REFERENCES `postagem` (`id`),
-  ADD CONSTRAINT `denuncia_ibfk_2` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id`);
+  ADD CONSTRAINT `denuncia_ibfk_1` FOREIGN KEY (`idPostagem`) REFERENCES `postagem` (`id`),
+  ADD CONSTRAINT `denuncia_ibfk_2` FOREIGN KEY (`idUsuario`) REFERENCES `usuario` (`id`);
 
 --
 -- Restrições para tabelas `postagem`
 --
 ALTER TABLE `postagem`
-  ADD CONSTRAINT `postagem_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id`);
+  ADD CONSTRAINT `postagem_ibfk_1` FOREIGN KEY (`idUsuario`) REFERENCES `usuario` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
