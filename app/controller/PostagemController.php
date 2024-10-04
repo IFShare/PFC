@@ -40,6 +40,30 @@ class PostagemController extends Controller
         $this->loadView("home/home.php", $dados, []);
     }
 
+    protected function viewPost()
+    {
+        $postagem = $this->findPostById();
+        
+        if($postagem) {            
+            //Setar os dados
+            $dados["id"] = $postagem->getId();
+            $dados["postagem"] = $postagem;
+
+            $this->loadView("postagem/postView.php", $dados, []);
+        } else 
+            echo "Postagem não encontrada.";
+    }
+
+    private function findPostById()
+    {
+        $id = 0;
+        if (isset($_GET['id']))
+            $id = $_GET['id'];
+
+        $postagem = $this->postDao->findById($id);
+        return $postagem;
+    }
+
 
     protected function save()
     {

@@ -2,7 +2,7 @@ const file =
 document.querySelector('#fileImg');
 
 const img = 
-document.querySelector('#img');
+document.querySelector('#imgPreview');
 
 img.addEventListener("click", function() {
     file.click();

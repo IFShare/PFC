@@ -82,7 +82,7 @@ class LoginController extends Controller {
         $usuario->setEmail($email);
         $usuario->setSenha($senha);
         $usuario->setBio(null);
-        $usuario->setTipoUsuario(TipoUsuario::ESTUDANTE);
+        $usuario->setTipoUsuario(TipoUsuario::USUARIO);
         $usuario->setCompMatricula(null);
 
         

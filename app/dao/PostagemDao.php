@@ -24,7 +24,9 @@ class PostagemDAO
 
         $conn = Connection::getConnection();
 
-        $sql = "SELECT * FROM postagem";
+        $sql = "SELECT p.*, u.nomeUsuario as nome_usuario FROM postagem p 
+              JOIN usuario u ON p.idUsuario = u.id 
+              ORDER BY p.id DESC";
         $stm = $conn->prepare($sql);
 
         $stm->execute();
@@ -41,13 +43,13 @@ class PostagemDAO
     {
         $conn = Connection::getConnection();
 
-        $sql = "INSERT INTO postagem (imagem, legenda, dataPostagem, id_usuario)" .
-            " VALUES (:imagem, :legenda, now(), :id_usuario)";
+        $sql = "INSERT INTO postagem (imagem, legenda, dataPostagem, idUsuario)" .
+            " VALUES (:imagem, :legenda, now(), :idUsuario)";
 
         $stm = $conn->prepare($sql);
         $stm->bindValue("imagem", $post->getImagem());
         $stm->bindValue("legenda", $post->getLegenda());
-        $stm->bindValue("id_usuario", $this->loginService->getIdUsuarioLogado());
+        $stm->bindValue("idUsuario", $this->loginService->getIdUsuarioLogado());
 
         $stm->execute();
     }
@@ -122,7 +124,7 @@ class PostagemDAO
             $post->setDataPostagem($reg['dataPostagem']);
 
             $usuario = new Usuario();
-            $usuario->setId($reg['id_usuario']);
+            $usuario->setId($reg['idUsuario']);
             $post->setUsuario($usuario);
 
 

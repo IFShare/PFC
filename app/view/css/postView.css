@@ -1,0 +1,17 @@
+body {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.postagem {
+    height: 100%;
+    background-color: white;
+    display: flex;
+}
+
+.postagem img {
+    width: 40%;
+}
