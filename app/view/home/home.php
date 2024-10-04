@@ -1,4 +1,4 @@
-<?php
+<?php 
 #View para a home do sistema
 
 require_once(__DIR__ . "/../include/header.php");

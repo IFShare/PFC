@@ -2,7 +2,7 @@
 require_once(__DIR__ . "/../include/header.php");
 ?>
 
-<link rel="stylesheet" href="<?= BASEURL ?>/view/css/form.css">
+<link rel="stylesheet" href="<?= BASEURL ?>/view/css/cadastro.css">
 
 <div class="container-fluid form-container h-100">
     <div class="row h-100 d-flex justify-content-center align-items-center"> <!-- 100% da altura da tela -->

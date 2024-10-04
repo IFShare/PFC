@@ -2,71 +2,83 @@
 require_once(__DIR__ . "/../include/header.php");
 require_once(__DIR__ . "/../include/menu.php");
 
-
-
 if ($_SESSION[SESSAO_USUARIO_TIPO_USUARIO] == "ESTUDANTE" || $_SESSION[SESSAO_USUARIO_TIPO_USUARIO] == "ADM"): ?>
 
     <link rel="stylesheet" href="<?= BASEURL ?>/view/css/form.css">
 
-    <div class="container-fluid form-container h-100">
-        <div class="row h-100 d-flex justify-content-center align-items-center"> <!-- 100% da altura da tela -->
-
-            <div class="col-md-6 p-0 d-flex flex-column justify-content-center align-items-center info-container">
+    <div class="container-fluid form-container">
+        <div class="row d-flex justify-content-center align-items-center text-center">
+            <div class="form-content text-center">
                 <h1 class="display-4 font-abril title-ifshare">IFSHARE</h1>
-                <h2 class="h4">Realizar postagem</h2>
+                <h2 class="h4 subtitle-ifshare">Compartilhe suas ideias</h2>
 
-                <button type="submit" form="formPost" class="btn btn-custom">Publicar</button>
-                <div>
-                    <a class="btn btn-secondary mt-2"
-                        href="<?= BASEURL ?>/controller/HomeController.php?action=home">Voltar</a>
-                </div>
-            </div>
+                <form method="POST" id="formPost" enctype="multipart/form-data"
+                    action="<?= BASEURL ?>/controller/PostagemController.php?action=save">
 
+                    <form method="POST" id="formPost" enctype="multipart/form-data" action="<?= BASEURL ?>/controller/PostagemController.php?action=save">
 
-            <div class="col-md-6 p-0 d-flex justify-content-center align-items-center">
-                <div class="row w-75 mt-5">
-                    <!-- h2 class="mb-4 text-center">Cadastro</h2> -->
-
-                    <form class="" method="POST" id="formPost" enctype="multipart/form-data"
-                        action="<?= BASEURL ?>/controller/PostagemController.php?action=save">
                         <!-- IMAGEM -->
-                        <div class="mb-3">
-
+                        <div class="mb-3 img-container">
                             <div class="img">
-                                <img src="/PFC/app/assets/escolha.png" alt="" id="img">
+                                <img src="/PFC/app/assets/Clique.png" alt="" id="img">
                             </div>
 
-                            <?php
-                                if (isset($msgErro['imagem'])) {
-                                    echo "<p class='mb-0 fw-bold text-danger'>" . $msgErro['imagem'] . "</p>";
-                                }
-                                ?>
+                            <?php if (isset($msgErro['imagem'])) {
+                                echo "<p class='mb-0 fw-bold text-danger'>" . $msgErro['imagem'] . "</p>";
+                            } ?>
 
-                            <input type="file" class="form-control" id="fileImg" name="imagem" accept="image/*" hidden />
+                            <input type="file" class="form-control img-input" id="fileImg" name="imagem" accept="image/*" hidden />
                         </div>
 
                         <!-- LEGENDA -->
-                        <div class="mb-3 legenda">
-                            <textarea class="form-control" id="txtLegenda" name="legenda" rows="9" cols="50"></textarea>                        
+                        <div class="legend-container mb-3">
+                            <textarea class="form-control" id="txtLegenda" name="legenda" rows="1" placeholder="Escreva algo sobre esta imagem..."></textarea>
+
+                        </div>
+
+                        <!-- Formulário com os botões -->
+                        <div class="form-actions">
+                            <!-- Botão Publicar -->
+                            <button type="submit" form="formPost" class="btn btn-custom">Publicar</button>
+
+                            <!-- Botão Voltar -->
+                            <a class="btn btn-secondary btn-voltar" href="<?= BASEURL ?>/controller/HomeController.php?action=home">Voltar</a>
                         </div>
 
                     </form>
-                </div>
+
+
+                    <script>
+                        const txtLegenda = document.getElementById('txtLegenda');
+
+                        // Função para ajustar a altura do textarea dinamicamente
+                        function autoResize() {
+                            this.style.height = 'auto'; // Reseta a altura antes de ajustar
+                            this.style.height = (this.scrollHeight) + 'px'; // Ajusta a altura ao conteúdo
+                        }
+
+                        // Adiciona o evento de input para ajustar a altura conforme o usuário digita
+                        txtLegenda.addEventListener('input', autoResize);
+
+                        // Ajusta a altura ao carregar a página, caso já haja texto
+                        window.addEventListener('load', function() {
+                            if (txtLegenda.value) {
+                                txtLegenda.style.height = txtLegenda.scrollHeight + 'px';
+                            }
+                        });
+                    </script>
+
 
             </div>
-
         </div>
-
     </div>
 
     <script src="<?= BASEURL ?>/view/js/scriptImg.js"></script>
 
 <?php
-
 else:
     echo "Você não tem acesso a esta página.<br>";
-?>
-<?php endif; ?>
+endif; ?>
 
 <?php
 require_once(__DIR__ . "/../include/footer.php");

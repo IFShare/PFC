@@ -1,49 +1,94 @@
-body{
+body {
     height: 100%;
     width: 100%;
     margin: 0;
     padding: 0;
     background: linear-gradient(90deg, #81a880, #004f44);
+    font-family: Arial, sans-serif; /* Fonte mais limpa */
 }
 
-td{
-    border-radius: 20px;
-    border: 2px solid black;
-    font-weight: bold;
-    padding: 10px;
-    text-decoration: none;
-    background-color: transparent;
-}
-
-th{
+h3.text-center {
     color: white;
-    border: 2px solid black;
+    margin: 20px 0; /* Espaço em cima e embaixo do título */
+    text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.5); /* Sombra do título */
 }
 
-table{
-    width: 75%;
-    border: none;
-    margin-bottom: 15px;
-    padding: 10px 35px 35px 35px;
-    background: transparent;
-    text-align: center;
+/* Centraliza a tabela na página */
+.tableUser {
+    display: flex;
+    justify-content: center; /* Centraliza a tabela */
+    margin-top: 20px; /* Distância do título da tabela */
 }
 
+table {
+    width: 80%; /* Ajuste a largura da tabela */
+    border-collapse: collapse; /* Remove o espaço entre as células */
+    background-color: rgba(255, 255, 255, 0.9); /* Fundo branco com leve transparência */
+    border-radius: 10px; /* Cantos arredondados na tabela */
+    overflow: hidden; /* Garante que os cantos arredondados sejam visíveis */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); /* Sombra para destaque */
+}
+
+th {
+    background-color: #004f44; /* Fundo escuro para cabeçalho */
+    color: white;
+    padding: 15px; /* Espaçamento em cima e embaixo */
+    font-weight: bold;
+    text-align: left; /* Alinha texto à esquerda */
+    border: 2px solid #004f44; /* Borda com a mesma cor do fundo */
+}
+
+td {
+    border: 2px solid #004f44; /* Borda dos dados da tabela */
+    padding: 10px; /* Espaçamento interno das células */
+    text-align: left; /* Alinha texto à esquerda */
+    background-color: transparent; /* Mantém o fundo transparente para dados */
+    transition: background-color 0.3s; /* Suave transição de cor */
+}
+
+tr:hover td {
+    background-color: rgba(0, 79, 68, 0.2); /* Muda a cor de fundo ao passar o mouse */
+}
+
+/* Estilização dos botões */
+.btn-success, .btn-primary, .btn-danger {
+    padding: 10px 20px; /* Aumenta o padding dos botões */
+    border-radius: 30px; /* Cantos arredondados nos botões */
+    font-size: 16px; /* Tamanho da fonte dos botões */
+    font-weight: bold; /* Texto em negrito */
+    transition: background-color 0.3s, transform 0.3s; /* Transição para hover */
+    margin: 5px; /* Margem entre os botões */
+}
 
 .btn-success {
-    background-color: #004f44;
+    background-color: #004f44; /* Cor padrão para o botão Inserir */
     color: white;
     border: none;
-    border-radius: 30px;
-    padding: 5px 20px;
-    font-size: 18px;
-    font-weight: bold;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    transition: background-color 0.3s, transform 0.3s;
-
 }
 
 .btn-success:hover {
-    background-color: #81a880;
-    transform: scale(1.05);
+    background-color: #81a880; /* Cor ao passar o mouse */
+    transform: scale(1.05); /* Leve aumento no tamanho */
+}
+
+.btn-primary {
+    background-color: #0056b3; /* Cor padrão para botões de alteração */
+    color: white;
+    border: none;
+}
+
+.btn-primary:hover {
+    background-color: #004494; /* Cor ao passar o mouse */
+    transform: scale(1.05); /* Leve aumento no tamanho */
+}
+
+.btn-danger {
+    background-color: #dc3545; /* Cor padrão para botões de exclusão */
+    color: white;
+    border: none;
+}
+
+.btn-danger:hover {
+    background-color: #c82333; /* Cor ao passar o mouse */
+    transform: scale(1.05); /* Leve aumento no tamanho */
 }
