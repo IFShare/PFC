@@ -6,24 +6,25 @@
     padding: 0;
 }
 
-section{
+.postagens {
     margin: 0;
     width: 100%;
+    column-count: 4;
+    column-gap: 25px;
+}
+
+.post {
+    border-radius: 15px;
+    overflow: hidden;
+    margin-bottom: 15px;
 }
 
 .imgPost {
     width: 100%;
-    margin-bottom: 15px;
     border-radius: 15px;
     transition: all 0.3s;
 }
 
 .imgPost:hover{
-    transform: scale(103%);
-}
-
-.post {
-    width: 100%;
-    column-count: 4;
-    column-gap: 25px;
+    transform: scale(110%);
 }

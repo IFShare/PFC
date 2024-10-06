@@ -19,11 +19,6 @@ class PostagemController extends Controller
         if (!$this->usuarioLogado())
             exit;
 
-        if (! $this->usuarioIsAdminStudent()) {
-            echo "Acesso negado!";
-            exit;
-        }
-
         $this->postDao = new PostagemDAO();
         $this->postService = new PostagemService();
         $this->arqService = new ArquivoService();
@@ -43,14 +38,14 @@ class PostagemController extends Controller
     protected function viewPost()
     {
         $postagem = $this->findPostById();
-        
-        if($postagem) {            
+
+        if ($postagem) {
             //Setar os dados
             $dados["id"] = $postagem->getId();
             $dados["postagem"] = $postagem;
 
             $this->loadView("postagem/postView.php", $dados, []);
-        } else 
+        } else
             echo "Postagem não encontrada.";
     }
 
@@ -67,6 +62,11 @@ class PostagemController extends Controller
 
     protected function save()
     {
+
+        if (! $this->usuarioIsAdminStudent()) {
+            echo "Acesso negado!";
+            exit;
+        }
 
         //Captura os dados do formulário
         $legenda = trim($_POST['legenda']) ? trim($_POST['legenda']) : null;
@@ -85,12 +85,12 @@ class PostagemController extends Controller
         $erros = $this->postService->validarDados($post, $imagem);
         if (empty($erros)) {
             $nomeArquivo = $this->arqService->salvarArquivo($imagem);
-            if($nomeArquivo)
+            if ($nomeArquivo)
                 $post->setImagem($nomeArquivo);
             else
                 $erros = array("Erro ao salvar o arquivo da postagem.");
 
-            if(empty($erros)) {
+            if (empty($erros)) {
                 //Persiste o objeto
                 try {
                     $this->postDao->insertPost($post);
@@ -113,11 +113,38 @@ class PostagemController extends Controller
         $this->loadView("postagem/postForm.php", $dados, $erros);
     }
 
-    //Método create
-    protected function createPost()
+    protected function delPost()
     {
-        $dados["id"] = 0;
-        $this->loadView("postagem/postForm.php", $dados, []);
+        // Obtém a postagem pelo ID
+        $postagem = $this->findPostById();
+
+        if (!$postagem) {
+            print "<script>alert('Postagem não encontrada.');</script>";
+            return;
+        }
+
+        // Caminho do arquivo da imagem associado à postagem
+        $arquivoImg = $_SERVER['DOCUMENT_ROOT'] . "/PFC/arquivos/" . $postagem->getImagem();
+        // Ajuste conforme o local onde as imagens estão armazenadas
+
+
+        // Verifica se o arquivo existe
+        if ($arquivoImg) {
+
+            // Tenta excluir o arquivo
+            if (unlink($arquivoImg)) {
+                // Se a exclusão do arquivo for bem-sucedida, exclui o registro da postagem no banco de dados
+                $this->postDao->deletePostById($postagem->getId());
+                header("location: " . HOME_PAGE);
+                print "<script>alert('Postagem excluída com sucesso.');</script>";
+            } else {
+                // Caso o arquivo não possa ser excluído
+                echo "<script>alert('Erro ao excluir o arquivo: $arquivoImg');</script>";
+            }
+        } else {
+            // Arquivo não encontrado
+            print "<script>alert('Imagem da postagem não encontrada.');</script>";
+        }
     }
 }
 

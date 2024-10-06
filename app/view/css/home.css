@@ -50,6 +50,7 @@ body{
 }
 
 .modal-dialog {
+
 }
 
 #labelLegenda {
@@ -81,6 +82,11 @@ body{
 }
 
 #imgPreview {
+    width: 100%;
+    border-radius: 10px;
+}
+
+#imgPreview:hover {
     width: 100%;
     border-radius: 10px;
 }

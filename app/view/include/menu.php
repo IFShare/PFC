@@ -34,33 +34,27 @@ $TipoUsuario = $_SESSION[SESSAO_USUARIO_TIPO_USUARIO];
                     if ($_SESSION[SESSAO_USUARIO_TIPO_USUARIO] == "ADM"):
 
                     ?>
-                        <li class="nav-item">
-                            <a class="nav-link" href="<?= BASEURL . '/controller/UsuarioController.php?action=list' ?>">Listagem</a>
+
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                ADM
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-dark">
+                                <li><a class="dropdown-item" href="/PFC/app/controller/UsuarioController.php?action=create">Inserir novo usuário</a></li>
+                                <li><a class="dropdown-item" href="<?= BASEURL . '/controller/UsuarioController.php?action=list' ?>">Listagem</a></li>
+                                <li><a class="dropdown-item" href="<?= BASEURL . '/controller/UsuarioController.php?action=delPost' ?>">Excluir postagem</a></li>
+                            </ul>
                         </li>
 
-                        <li class="nav-item">
-                            <a class="nav-link" href="/PFC/app/controller/UsuarioController.php?action=create">Inserir novo usuário</a>
-                        </li>
 
-                    <?php endif; ?>
+                            <?php
+                        endif;
+                            ?>
 
-                    <?php
-
-                    if ($_SESSION[SESSAO_USUARIO_TIPO_USUARIO] == "ADM" || $_SESSION[SESSAO_USUARIO_TIPO_USUARIO] == "ESTUDANTE"):
-
-                    ?>
 
                         <li class="nav-item">
-                            <a class="nav-link" href="/PFC/app/controller/PostagemController.php?action=createPost">Adicionar postagem</a>
+                            <a class="nav-link" href="<?= LOGOUT_PAGE ?>">Sair</a>
                         </li>
-
-                    <?php endif; ?>
-
-
-                    <li class="nav-item">
-                        <a class="nav-link" href="<?= LOGOUT_PAGE ?>">Sair</a>
-                    </li>
-                </ul>
             </div>
         </div>
     </div>

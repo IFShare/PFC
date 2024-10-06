@@ -19,13 +19,22 @@ require_once(__DIR__ . "/../include/menu.php");
 </div>
 
 <div class="row justify-content-center align-items-center w-100">
-    <div class="col-3">
-        <button
-            data-bs-target="#postModal"
-            data-bs-toggle="modal"
-            class="btn btn-dark justify-content-center mt-3">
-            Inserir nova postagem
-        </button>
+    <div class="col-3 d-flex justify-content-center align-items-center">
+
+        <?php
+        if ($_SESSION[SESSAO_USUARIO_TIPO_USUARIO] == "ADM" || $_SESSION[SESSAO_USUARIO_TIPO_USUARIO] == "ESTUDANTE"):
+
+        ?>
+
+            <button
+                data-bs-target="#postModal"
+                data-bs-toggle="modal"
+                class="btn btn-custom justify-content-center mt-3">
+                Inserir nova postagem
+            </button>
+
+        <?php endif; ?>
+
     </div>
 </div>
 
@@ -36,10 +45,10 @@ require_once(__DIR__ . "/../include/menu.php");
             <div class="modal-header">
             </div>
             <div class="modal-body">
-                <form 
-                id="formPost" 
-                enctype="multipart/form-data" method="post"
-                action="<?= BASEURL ?>/controller/PostagemController.php?action=save">
+                <form
+                    id="formPost"
+                    enctype="multipart/form-data" method="post"
+                    action="<?= BASEURL ?>/controller/PostagemController.php?action=save">
                     <!-- Imagem -->
                     <div class="mb-2 preview">
                         <input hidden type="file" class="form-control" id="fileImg" name="imagem" accept="image/*" required>
@@ -47,7 +56,7 @@ require_once(__DIR__ . "/../include/menu.php");
                     </div>
 
                     <!-- Legenda -->
-                    <div class="mb-1">
+                    <div class=" mb-1">
                         <label id="labelLegenda" for="txtLegenda" class="mb-1">Legenda</label>
                         <textarea class="form-control" id="txtLegenda" name="legenda" rows="4"></textarea>
                     </div>
@@ -62,22 +71,24 @@ require_once(__DIR__ . "/../include/menu.php");
 
 <div class="container">
 
-    <section>
+    <section class="postagens">
 
-        <div class="post">
-            <?php foreach ($dados['listPosts'] as $posts): ?>
+        <?php foreach ($dados['listPosts'] as $posts): ?>
+            <div class="post">
                 <a
                     href="<?= BASEURL ?>/controller/PostagemController.php?action=viewPost&id=<?= $posts->getId() ?>">
                     <img
-                        class="imgPost imgModal"
+                        class="imgPost"
                         src="/PFC/arquivos/<?= $posts->getImagem(); ?>"
                         alt="Imagem da postagem">
-                <?php endforeach; ?></a>
+            </div>
 
-        </div>
+        <?php endforeach; ?></a>
 
-<script src="<?= BASEURL ?>/view/js/scriptImg.js"></script>
+    </section>
 
-<?php
+    <script src="<?= BASEURL ?>/view/js/scriptImg.js"></script>
+
+    <?php
     require_once(__DIR__ . "/../include/footer.php");
-?>
+    ?>

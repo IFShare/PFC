@@ -95,7 +95,7 @@ class LoginController extends Controller {
                 $this->usuarioDao->insert($usuario);
 
                 //TODO - Enviar mensagem de sucesso
-                $msg = "Usuário salvo com sucesso.";
+                "<script>alert('Usuário salvo com sucesso.')</script>";
                 header("location: " . LOGIN_PAGE);
                 exit;
             } catch (PDOException $e) {

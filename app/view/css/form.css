@@ -1,193 +1,167 @@
-/* Corpo e container principal */
-body {
+body{
     height: 100vh;
     margin: 0;
     padding: 0;
     background: linear-gradient(90deg, #81a880, #004f44);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-family: Arial, sans-serif; /* Fonte mais limpa */
 }
 
-.container-fluid.form-container {
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
-}
-
-/* Títulos e botões */
-.title-ifshare {
-    font-size: 4rem; /* Aumenta o tamanho da fonte */
-    margin-bottom: 5px; /* Mais espaço abaixo do título */
+p {
     color: white;
-    text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.5); /* Sombra mais intensa */
-    letter-spacing: 4px; /* Aumenta o espaçamento entre as letras para ficar mais largo */
-    padding-bottom: 3px; /* Empurra o título um pouco para baixo */
-    margin-top: 50px; /* Aumenta o espaçamento do topo */
-}
-
-.subtitle-ifshare {
-    font-size: 1rem; /* Diminui o tamanho da fonte */
-    color: white;
-    margin-top: 3px; /* Reduz a distância entre o título e o subtítulo */
-    width: auto;
-    margin-left: auto;
-    margin-right: auto;
-    text-align: center;
-    letter-spacing: 0.2px; /* Reduz o espaçamento entre letras */
-    line-height: 1;
-    white-space: normal; /* Permite o texto quebrar em linhas se necessário */
-    display: inline-block; /* Faz com que o subtítulo fique mais compacto */
 }
 
 .h4 {
-    font-size: 1.4rem;
     color: white;
-    margin-bottom: 20px;
 }
 
-.form-actions {
-    margin-top: 20px; /* Distância entre o campo de legenda e o botão */
-    width: 100%;
-    display: flex;
-    flex-direction: column; /* Altera para coluna para empilhar os botões */
-    align-items: center; /* Centraliza os botões */
+.form-container {
+    height: 100%;
 }
 
-/* Botão Publicar */
+.title-ifshare {
+    font-size: 5rem;
+    margin-bottom: 0;
+    color: white;
+}
+
 .btn-custom {
-    background-color: #005e52; /* Cor vibrante para destaque */
+    background-color: #004f44;
     color: white;
     border: none;
     border-radius: 30px;
-    padding: 12px 30px; /* Tamanho um pouco menor */
-    font-size: 18px; /* Texto ligeiramente menor */
+    padding: 5px 20px;
+    font-size: 18px;
     font-weight: bold;
-    margin-top: 0px; /* Espaço entre a legenda e o botão */
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* Sombra para destacar */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     transition: background-color 0.3s, transform 0.3s;
-    width: 200; /* Ajusta ao conteúdo */
-    max-width: 250px; /* Limita a largura máxima */
-    text-align: center;
-    margin-bottom: 5px;
 }
 
 .btn-custom:hover {
-    background-color: #81a880; /* Cor mais clara ao passar o mouse */
-    transform: scale(1.05); /* Efeito de crescimento */
-}
-
-/* Botão Voltar */
-.btn-voltar {
-    background-color: rgba(0, 79, 68, 0.5); /* Cor mais discreta */
-    color: white;
-    border-radius: 30px;
-    padding: 6px 15px; /* Botão mais discreto */
-    font-size: 14px; /* Texto menor */
-    font-weight: normal;
-    margin-top: 10px; /* Espaço entre os botões */
-    width: 150; /* Ajusta ao conteúdo */
-    text-align: center;
-    display: inline-block;
-    transition: background-color 0.3s, transform 0.3s;
-    box-shadow: none; /* Remove a sombra para deixá-lo mais discreto */
-}
-
-.btn-voltar:hover {
-    background-color: rgba(0, 79, 68, 0.7); /* Cor mais clara no hover */
+    background-color: #81a880;
     transform: scale(1.05);
 }
 
-/* Formulário */
-#formPost {
-    width: 100%;
-    max-width: 500px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+#formUsuario {
+    padding-left: 10px;
 }
 
 .form-control {
     border-radius: 8px;
     border: 2px solid #004f44;
-    padding: 10px;
-    font-size: 16px;
-    margin-bottom: 15px;
-    background-color: rgba(255, 255, 255, 0.2); /* Transparência sutil */
+    padding: 8px;
+    font-size: 17px;
+    line-height: 1.0;
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+    transition: border-color 0.3s, box-shadow 0.3s;
+    height: 33px;
+    background-color: transparent;
     color: white;
+    cursor: default;
+}
+
+.form-control:hover{
+    border: 2px solid white;
+}
+
+.form-control::placeholder{
+    color: rgb(220, 219, 219);
+    font-size: 16px;
+}
+
+.form-control:focus{
+    color: white;
+    cursor: text;
+}
+
+.form-select {
+    border-radius: 8px;
+    border: 2px solid #004f44;
+    padding: 8px;
+    font-size: 15px;
+    line-height: 1.0;
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+    transition: border-color 0.3s, box-shadow 0.3s;
+    height: 33px;
+    background-color: transparent;
+    color: rgb(220, 219, 219);
+    cursor: default;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.form-select:hover{
+    border: 2px solid white;
+}
+
+.form-select option {
+    font-size: 14px;
+    background-color: #004f44;
+    color: rgb(220, 219, 219);
+}
+
+
+.form-control:focus, .form-select:focus {
+    background-color: transparent;
+    border-color: #fff;
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+.form-control:focus + .form-control::placeholder{
+    content: "";
+}
+
+.form-label {
+    font-size: 18px;
+    color: black;
+    margin-bottom: 4px;
+}
+
+.label-invalid {
+    color: red;
+}
+
+.label-valid {
+    color: rgb(0, 197, 0);
+}
+
+#formPost {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 }
 
 #txtLegenda {
-    min-height: 30px; /* Altura mínima reduzida */
-    max-height: 100px; /* Mantém uma altura máxima menor */
-    width: 400px; /* Largura mantida */
-    border-radius: 10px;
-    padding: 8px; /* Menor padding */
-    background-color: rgba(255, 255, 255, 0);
-    border: 2px solid #004f44;
-    color: white;
-    resize: none; /* Remove a opção de redimensionamento manual */
-    transition: width 0.4s ease, background-color 0.4s ease; /* Mantém a transição da largura e do fundo */
-    font-size: 14px;
-    overflow-y: auto; /* Permite rolagem se necessário */
+    border-width: 3px;
+    resize: none;
+    height: 150px;
 }
 
-#txtLegenda:hover {
-    width: 420px; /* Aumenta a largura ao passar o mouse */
-    background-color: rgba(255, 255, 255, 0.3); /* Torna o fundo mais claro ao passar o mouse */
-}
-
-/* Remove scrollbar para navegadores WebKit */
-#txtLegenda::-webkit-scrollbar {
-    display: none;
-}
-
-#txtLegenda:focus {
-    width: 400px; /* Aumenta a largura ao focar */
-    background-color: rgba(255, 255, 255, 0.3);
-    outline: none; /* Remove o contorno padrão */
-}
-
-.legend-container {
-    margin-top: 1px; /* Aumenta a distância entre a imagem e a legenda */
-}
-
-/* Botão fixo na posição */
-.form-actions {
-    display: flex; /* Flexbox para alinhar os botões */
-    flex-direction: column; /* Coloca os botões em coluna */
-    align-items: center; /* Centraliza os botões horizontalmente */
-    margin-top: 5px; /* Reduz a margem acima dos botões */
-}
-
-/* Área de imagem */
 .img {
-    width: 400px; /* Aumenta a largura da imagem */
-    height: 200px; /* Mantém a mesma altura */
-    border-radius: 10px;
-    border: 2px solid #004f44;
+    width: auto;
+    height: auto;
+    min-width: 300px;
+    max-height: 450px;
+    margin: 20px 0;
+    border-radius: 10%;
+    border: 2px solid white;
     cursor: pointer;
     overflow: hidden;
-    margin-bottom: 20px;
-    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Transição suave */
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
+
 
 .img img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
-    transition: transform 0.3s ease; /* Transição suave da imagem */
 }
 
-/* Animação ao passar o mouse */
-.img:hover {
-    transform: scale(1.05); /* Leve aumento de escala */
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* Sombra suave */
-}
-
-.img:hover img {
-    transform: scale(1.1); /* Aumenta um pouco a imagem dentro do contêiner */
+.senhaTip{
+    text-decoration: none;
+    font-size: 17px;
+    margin-top: 10px;
+    color: white;
 }

@@ -13,7 +13,7 @@ require_once(__DIR__ . "/../include/header.php");
 
             <button type="submit" form="formUsuario" class="btn btn-custom">Cadastrar</button>
             <div>
-                <a class="btn btn-secondary mt-2"
+                <a class="btn btn-custom mt-2"
                     href="<?= BASEURL ?>/controller/LoginController.php?action=login">Voltar</a>
             </div>
         </div>
@@ -119,6 +119,11 @@ require_once(__DIR__ . "/../include/header.php");
                             id="txtSenha" 
                             name="senha" 
                             value="<?php echo (isset($dados["usuario"]) ? $dados["usuario"]->getSenha() : ''); ?>" />
+                            
+                        <ul class="senhaTip">
+                            <li class="">A senha deve conter mais de 5 caracteres.</li>
+                        </ul>
+                            
                     </div>
 
                 </form>
