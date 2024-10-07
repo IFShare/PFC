@@ -1,6 +1,7 @@
 <?php
 
-require_once(__DIR__ . "/../dao/PostagemDAO.php");
+require_once(__DIR__ . "/../dao/PostagemDao.php");
+require_once(__DIR__ . "/../dao/UsuarioDAO.php");
 require_once(__DIR__ . "/../service/PostagemService.php");
 require_once(__DIR__ . "/../service/ArquivoService.php");
 require_once(__DIR__ . "/Controller.php");
@@ -10,6 +11,7 @@ class PostagemController extends Controller
 {
 
     private PostagemDAO  $postDao;
+    private UsuarioDAO  $usuarioDao;
     private PostagemService  $postService;
     private ArquivoService  $arqService;
 
@@ -20,6 +22,7 @@ class PostagemController extends Controller
             exit;
 
         $this->postDao = new PostagemDAO();
+        $this->usuarioDao = new UsuarioDAO();
         $this->postService = new PostagemService();
         $this->arqService = new ArquivoService();
 
@@ -40,8 +43,12 @@ class PostagemController extends Controller
         $postagem = $this->findPostById();
 
         if ($postagem) {
+
+            $usuario = $this->usuarioDao->findById($postagem->getUsuario()->getId());
+
             //Setar os dados
             $dados["id"] = $postagem->getId();
+            $dados["usuario"] = $usuario->getNomeUsuario();
             $dados["postagem"] = $postagem;
 
             $this->loadView("postagem/postView.php", $dados, []);

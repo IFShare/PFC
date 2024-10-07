@@ -1,27 +1,44 @@
 .container {
+    min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
+    color: white;
 }
 
-
 .postagem {
+    padding: 35px;
     display: flex;
-    width: 75%;
-    background-color: white;
+    max-height: 50%;
+    max-width: 80%;
+    background-color: black;
     border-radius: 15px;
 }
 
 
 .postagem #legenda {
-    padding: 10px;
-    font-size: 25px;
+    font-size: 20px;
 }
 
-.postagem img {
+.imgPost{
     border-radius: 10px;
+    border-top-left-radius: 15px;
+    border-bottom-left-radius: 15px;
+    max-width: 100%;
     position: relative;
-    width: 100%;
+    overflow: hidden;
+}
+
+.img {
+    max-width: 100%;
+    border-radius: 10px;
+    border-top-left-radius: 15px;
+    border-bottom-left-radius: 15px;
+    transition: all 0.3s;
+}
+
+.img:hover {
+    transform: scale(1.1);
 }
 
 .postLeft {
@@ -29,12 +46,19 @@
 }
 
 .postRight {
+    padding-left: 20px;
+    display: flex;
+    flex-direction: column;
     width: 50%;
 }
 
-.imgPost{
-    width: 100%;
-    position: relative;
+.nomeUsuario {
+    padding-top: 10px;
+}
+
+.nomeUsuario h6{
+    font-size: 25px;
+    font-weight: bold;
 }
 
 .excluir {
@@ -61,6 +85,7 @@
     text-decoration: none;
     padding: 10px;
     border-radius: 10px;
+    border-top-left-radius: 15px;
     background-color: #004f44;
     opacity: 75%;
     position: absolute;

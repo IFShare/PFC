@@ -81,9 +81,11 @@ require_once(__DIR__ . "/../include/menu.php");
                         class="imgPost"
                         src="/PFC/arquivos/<?= $posts->getImagem(); ?>"
                         alt="Imagem da postagem">
+                </a>
+
             </div>
 
-        <?php endforeach; ?></a>
+        <?php endforeach; ?>
 
     </section>
 

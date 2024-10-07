@@ -12,14 +12,6 @@ require_once(__DIR__ . "/../include/menu.php");
 <h3 class="text-center">Usuários</h3>
 
 <div class="container">
-    <div class="row">
-        <div class="col-3">
-            <a class="btn btn-success" 
-                href="<?= BASEURL ?>/controller/UsuarioController.php?action=create">
-                Inserir</a>
-        </div>
-
-    </div>
 
     <div class="row" style="margin-top: 10px;">
         <div class="col-12 tableUser">

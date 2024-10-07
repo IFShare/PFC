@@ -9,7 +9,7 @@
 .postagens {
     margin: 0;
     width: 100%;
-    column-count: 4;
+    column-count: 5;
     column-gap: 25px;
 }
 
@@ -17,6 +17,7 @@
     border-radius: 15px;
     overflow: hidden;
     margin-bottom: 15px;
+    background-color: black;
 }
 
 .imgPost {
@@ -27,4 +28,5 @@
 
 .imgPost:hover{
     transform: scale(110%);
+    opacity: 80%;
 }
