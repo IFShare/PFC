@@ -10,9 +10,10 @@ require_once(__DIR__ . "/../include/menu.php");
 <link rel="stylesheet" href="<?= BASEURL ?>/view/css/post.css">
 
 
-<div class="row mt-4 justify-content-center w-100">
+<div class="row mt-2 justify-content-center w-100">
     <div class="col-4 textCentral">
-        <h1 class="text-center fw-bold">IFSHARE</h1>
+
+        <img class="logo" src="/PFC/app/assets/IFSHARE.png" alt="">
 
     </div>
 
@@ -29,9 +30,10 @@ require_once(__DIR__ . "/../include/menu.php");
             <button
                 data-bs-target="#postModal"
                 data-bs-toggle="modal"
-                class="btn btn-custom justify-content-center mt-3">
-                Inserir nova postagem
+                class="justify-content-center btnInsert">
+                <i class="bi bi-plus-circle"></i>
             </button>
+            <span class="msgInsert">Realizar postagem</span>
 
         <?php endif; ?>
 
@@ -42,8 +44,6 @@ require_once(__DIR__ . "/../include/menu.php");
 <div class="modal fade" id="postModal" tabindex="-1" aria-labelledby="postModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
-            <div class="modal-header">
-            </div>
             <div class="modal-body">
                 <form
                     id="formPost"
@@ -58,7 +58,7 @@ require_once(__DIR__ . "/../include/menu.php");
                     <!-- Legenda -->
                     <div class=" mb-1">
                         <label id="labelLegenda" for="txtLegenda" class="mb-1">Legenda</label>
-                        <textarea class="form-control" id="txtLegenda" name="legenda" rows="4"></textarea>
+                        <textarea maxlength="2" class="form-control" id="txtLegenda" name="legenda" rows="4"></textarea>
                     </div>
 
                     <button type="submit" class="btn btn-custom">Publicar</button>
@@ -89,8 +89,17 @@ require_once(__DIR__ . "/../include/menu.php");
 
     </section>
 
-    <script src="<?= BASEURL ?>/view/js/scriptImg.js"></script>
+</div>
 
-    <?php
-    require_once(__DIR__ . "/../include/footer.php");
-    ?>
+<script src="<?= BASEURL ?>/view/js/home.js"></script>
+
+<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/emojionearea/3.4.2/emojionearea.min.js"></script>
+<script type="text/javascript">
+    $('#txtLegenda').emojioneArea({
+        pickerPosition: 'top'
+    });
+</script>
+<?php
+require_once(__DIR__ . "/../include/footer.php");
+?>

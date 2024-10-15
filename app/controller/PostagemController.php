@@ -32,7 +32,6 @@ class PostagemController extends Controller
     protected function listPosts()
     {
         $postagens = $this->postDao->listPosts();
-        print_r($postagens);
         $dados["listPosts"] = $postagens;
 
         $this->loadView("home/home.php", $dados, []);
@@ -40,6 +39,7 @@ class PostagemController extends Controller
 
     protected function viewPost()
     {
+
         $postagem = $this->findPostById();
 
         if ($postagem) {
@@ -66,17 +66,16 @@ class PostagemController extends Controller
         return $postagem;
     }
 
-
     protected function save()
     {
 
         if (! $this->usuarioIsAdminStudent()) {
-            echo "Acesso negado!";
+            header("location: " . ACESSO_NEGADO);
             exit;
         }
 
         //Captura os dados do formulário
-        $legenda = trim($_POST['legenda']) ? trim($_POST['legenda']) : null;
+        $legenda = trim(nl2br($_POST['legenda'])) ? trim(nl2br($_POST['legenda'])) : null;
         $imagem = isset($_FILES['imagem']) ? $_FILES['imagem'] : null;
 
 
@@ -122,6 +121,11 @@ class PostagemController extends Controller
 
     protected function delPost()
     {
+        if (! $this->usuarioIsAdminStudent()) {
+            header("location: " . ACESSO_NEGADO);
+            exit;
+        }
+
         // Obtém a postagem pelo ID
         $postagem = $this->findPostById();
 

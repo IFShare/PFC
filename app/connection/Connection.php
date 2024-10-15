@@ -10,7 +10,7 @@ class Connection {
         if(self::$conn == null) {
             try {
                 $opcoes = array(//Define o charset da conexão
-                    PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8",
+                    PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8mb4',
                     //Define o tipo do erro como exceção 
                     PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
                     //Define o tipo de retorno como array associativo (campo => valor)

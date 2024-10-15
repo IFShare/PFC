@@ -11,10 +11,13 @@ require_once(__DIR__ . "/../include/header.php");
             <h1 class="display-4 font-abril title-ifshare">IFSHARE</h1>
             <h2 class="h4">Crie sua conta</h2>
 
-            <button type="submit" form="formUsuario" class="btn btn-custom">Cadastrar</button>
+            <button type="submit" form="formUsuario" class="btn btn-custom">CADASTRAR</button>
             <div>
                 <a class="btn btn-custom mt-2"
-                    href="<?= BASEURL ?>/controller/LoginController.php?action=login">Voltar</a>
+                    href="/PFC/app/controller/LoginController.php?action=login">ENTRAR</a>
+                <a class="btn btn-custom mt-2 voltar"
+                    href="<?= HOME_PAGE ?>">
+                    <i class="fs-4 bi bi-arrow-left-square"></i></a>
             </div>
         </div>
 
@@ -31,99 +34,91 @@ require_once(__DIR__ . "/../include/header.php");
                             <?php
                             if (isset($msgErro['nomeSobrenome'])) {
                                 echo "<p class='mb-0 fw-bold label-invalid'>" . $msgErro['nomeSobrenome'] . "</p>";
-                            }
-                            elseif((isset($dados["usuario"]) ? $dados["usuario"]->getNomeSobrenome() : '')){
+                            } elseif ((isset($dados["usuario"]) ? $dados["usuario"]->getNomeSobrenome() : '')) {
                                 echo "<p class='mb-0 fw-bold form-label label-valid'>" . (isset($dados["usuario"]) ? $dados["usuario"]->getNomeSobrenome() : '') . "</p>";
-                            }
-                             else {
+                            } else {
                                 echo "<p class='mb-0 form-label'>Nome e sobrenome</p>";
                             }
                             ?>
                         </label>
                         <input
-                            placeholder="Insira seu nome e sobrenome." onfocus="this.placeholder=''"; onblur="this.placeholder='Insira seu nome e sobrenome.'";
-                            type="text" 
-                            class="form-control" 
-                            id="txtNomeSobrenome" 
-                            name="nomeSobrenome" 
+                            placeholder="Insira seu nome e sobrenome." onfocus="this.placeholder=''" ; onblur="this.placeholder='Insira seu nome e sobrenome.'" ;
+                            type="text"
+                            class="form-control"
+                            id="txtNomeSobrenome"
+                            name="nomeSobrenome"
                             value="<?php echo (isset($dados["usuario"]) ? $dados["usuario"]->getNomeSobrenome() : ''); ?>" />
                     </div>
 
                     <!-- Nome de usuário -->
                     <div class="form-group mb-3">
                         <label for="txtNomeUsuario" class="form-label">
-                        <?php
+                            <?php
                             if (isset($msgErro['nomeUsuario'])) {
                                 echo "<p class='mb-0 fw-bold label-invalid'>" . $msgErro['nomeUsuario'] . "</p>";
-                            }
-                            elseif((isset($dados["usuario"]) ? $dados["usuario"]->getNomeUsuario() : '')){
+                            } elseif ((isset($dados["usuario"]) ? $dados["usuario"]->getNomeUsuario() : '')) {
                                 echo "<p class='mb-0 fw-bold form-label label-valid'>" . (isset($dados["usuario"]) ? $dados["usuario"]->getNomeUsuario() : '') . "</p>";
-                            }
-                             else {
+                            } else {
                                 echo "<p class='mb-0 form-label'>Nome de usuário</p>";
                             }
                             ?>
                         </label>
                         <input
-                            placeholder="Insira seu nome de usuário." onfocus="this.placeholder=''"; onblur="this.placeholder='Insira seu nome de usuário.'";
-                            type="text" 
-                            class="form-control" 
-                            id="txtNomeUsuario" 
-                            name="nomeUsuario" 
+                            placeholder="Insira seu nome de usuário." onfocus="this.placeholder=''" ; onblur="this.placeholder='Insira seu nome de usuário.'" ;
+                            type="text"
+                            class="form-control"
+                            id="txtNomeUsuario"
+                            name="nomeUsuario"
                             value="<?php echo (isset($dados["usuario"]) ? $dados["usuario"]->getNomeUsuario() : ''); ?>" />
                     </div>
 
                     <!-- E-mail -->
                     <div class="form-group mb-3">
                         <label for="txtEmail" class="form-label">
-                        <?php
+                            <?php
                             if (isset($msgErro['email'])) {
                                 echo "<p class='mb-0 fw-bold label-invalid'>" . $msgErro['email'] . "</p>";
-                            }
-                            elseif((isset($dados["usuario"]) ? $dados["usuario"]->getEmail() : '')){
+                            } elseif ((isset($dados["usuario"]) ? $dados["usuario"]->getEmail() : '')) {
                                 echo "<p class='mb-0 fw-bold form-label label-valid'>" . (isset($dados["usuario"]) ? $dados["usuario"]->getEmail() : '') . "</p>";
-                            }
-                             else {
+                            } else {
                                 echo "<p class='mb-0 form-label'>E-mail</p>";
                             }
                             ?>
                         </label>
                         <input
-                            placeholder="Insira seu e-mail." onfocus="this.placeholder=''"; onblur="this.placeholder='Insira seu e-mail.'";
-                            type="email" 
-                            class="form-control" 
-                            id="txtEmail" 
-                            name="email" 
+                            placeholder="Insira seu e-mail." onfocus="this.placeholder=''" ; onblur="this.placeholder='Insira seu e-mail.'" ;
+                            type="email"
+                            class="form-control"
+                            id="txtEmail"
+                            name="email"
                             value="<?php echo (isset($dados["usuario"]) ? $dados["usuario"]->getEmail() : ''); ?>" />
                     </div>
 
                     <!-- Senha -->
                     <div class="form-group mb-3">
                         <label for="txtSenha" class="form-label">
-                        <?php
+                            <?php
                             if (isset($msgErro['senha'])) {
                                 echo "<p class='mb-0 fw-bold label-invalid'>" . $msgErro['senha'] . "</p>";
-                            }
-                            elseif((isset($dados["usuario"]) ? $dados["usuario"]->getSenha() : '')){
+                            } elseif ((isset($dados["usuario"]) ? $dados["usuario"]->getSenha() : '')) {
                                 echo "<p class='mb-0 fw-bold form-label label-valid'>Senha válida</p>";
-                            }
-                             else {
+                            } else {
                                 echo "<p class='mb-0 form-label'>Senha</p>";
                             }
                             ?>
                         </label>
                         <input
-                            placeholder="Insira sua senha." onfocus="this.placeholder=''"; onblur="this.placeholder='Insira sua senha.'";
-                            type="password" 
-                            class="form-control" 
-                            id="txtSenha" 
-                            name="senha" 
+                            placeholder="Insira sua senha." onfocus="this.placeholder=''" ; onblur="this.placeholder='Insira sua senha.'" ;
+                            type="password"
+                            class="form-control"
+                            id="txtSenha"
+                            name="senha"
                             value="<?php echo (isset($dados["usuario"]) ? $dados["usuario"]->getSenha() : ''); ?>" />
-                            
+
                         <ul class="senhaTip">
                             <li class="">A senha deve conter mais de 5 caracteres.</li>
                         </ul>
-                            
+
                     </div>
 
                 </form>

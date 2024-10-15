@@ -24,9 +24,7 @@ class PostagemDAO
 
         $conn = Connection::getConnection();
 
-        $sql = "SELECT p.*, u.nomeUsuario as nome_usuario FROM postagem p 
-              JOIN usuario u ON p.idUsuario = u.id 
-              ORDER BY p.id DESC";
+        $sql = "SELECT *FROM postagem ORDER BY id DESC";
         $stm = $conn->prepare($sql);
 
         $stm->execute();

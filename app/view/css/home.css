@@ -3,23 +3,60 @@ body{
     width: 100%;
     margin: 0;
     padding: 0;
-    background: linear-gradient(90deg, #81a880, #004f44);
+    background: #004f44;
 }
 
-.btnInsertDiv{
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.btnInsert {
+    border: none;
+    outline: none;
+    padding: 5px 20px;
+    border-radius: 30%;
+    color: black;
+    background: #81a880;
+    font-size: 27px;
+    transition: all 0.4s;
+    position: fixed;
+    bottom: 2%;
+    z-index: 99;
+}
+
+.btnInsert:hover {
+    color: black;
+    font-size: 32px;
+}
+
+
+.btnInsert:hover ~ .msgInsert {
+    display: block;
+    bottom: 13%;
+    opacity: 100%;
+}
+
+.msgInsert {
+    color: black;
+    background-color: white;
+    border-radius: 10px;
+    padding: 10px;
+    position: fixed;
+    bottom: 5%;
+    z-index: 98;
+    transition: all 0.3s;
+    opacity: 0%;
+    transition: all 0.3s;
+}
+
+.logo {
+    width: 60%;
 }
 
 
 .btn-custom {
-    background-color: #004f44;
-    color: white;
-    border: none;
+    background: none;
+    color: #fff;
+    border: 2px solid #81a880; 
     border-radius: 30px;
-    padding: 5px 20px;
-    font-size: 18px;
+    padding: 10px 20px;
+    font-size: 16px; 
     font-weight: bold;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     transition: background-color 0.3s, transform 0.3s;
@@ -32,7 +69,7 @@ body{
 }
 
 .textCentral{
-    color: black;
+    text-align: center;
 }
 
 .modal-header {
@@ -41,27 +78,48 @@ body{
 }
 
 .modal-body {
-    padding-top: 0;
+    background-color: #004f44;
+    border-radius: 16px;
 }
 
 .modal-content {
-    border: 5px solid #81a880;
     transition: all 0.4s;
+    border-radius: 20px;
 }
 
 #labelLegenda {
-    color: black;
+    color: white;
 }
 
-#txtLegenda {
-    color: black;
+/* Estilo específico do campo de edição onde o texto é inserido */
+.emojionearea .emojionearea-editor {
+    color: white;
     border: 3px solid #81a880;
+    border-radius: 10px;
     resize: none;
+    outline: none;
+    transition: all 0.2s;
+    padding: 10px 20px;
+    font-size: 18px;
+
 }
 
-#txtLegenda:focus {
-    border: 3px solid #004f44;
+.emojionearea .emojionearea-editor:focus {
+    border: 3px solid #81a880;
+}
+
+.emojionearea, .emojionearea.form-control {
     box-shadow: none;
+    border: none;
+    background: none;
+    outline: none;
+}
+
+.emojionearea, .emojionearea.form-control.focused {
+    box-shadow: none;
+    border: none;
+    background: none;
+    outline: none;
 }
 
 .preview {
@@ -87,3 +145,19 @@ body{
     border-radius: 10px;
 }
 
+
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: #81a880;
+    border-radius: 10px; 
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #004f44;
+    border-radius: 10px;
+    border: 2px solid #e0e0e0;
+    transition: all 0.5s;
+}

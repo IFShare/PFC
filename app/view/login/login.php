@@ -28,7 +28,7 @@ require_once(__DIR__ . "/../include/header.php");
                     ?>
                 </label>
                 <input type="text" class="form-control <?php echo isset($msgErro['emailLogin']) ? 'error' : ''; ?>" name="email" id="txtEmail"
-                    placeholder="Informe o email"
+                    placeholder="Informe seu email" onfocus="this.placeholder=''" ; onblur="this.placeholder='Insira seu email.'"
                     value="<?php echo isset($dados['email']) ? $dados['email'] : '' ?>" />
             </div>
 
@@ -43,7 +43,7 @@ require_once(__DIR__ . "/../include/header.php");
                     ?>
                 </label>
                 <input type="password" class="form-control <?php echo isset($msgErro['senhaLogin']) ? 'error' : ''; ?>" name="senha" id="txtSenha"
-                    placeholder="Informe a senha"
+                    placeholder="Informe sua senha" onfocus="this.placeholder=''" ; onblur="this.placeholder='Insira sua senha.'"
                     value="" />
             </div>
 
@@ -57,6 +57,10 @@ require_once(__DIR__ . "/../include/header.php");
         </form>
 
         <a href="<?= BASEURL ?>/controller/LoginController.php?action=createCadastro">Cadastrar-se</a>
+
+        <a class="btn mt-2 voltar"
+            href="<?= HOME_PAGE ?>">
+            <i class="fs-4 bi bi-arrow-left-square"></i></a>
     </div>
 </div>
 

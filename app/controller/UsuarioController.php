@@ -20,9 +20,9 @@ class UsuarioController extends Controller
           exit;
           
         if(! $this->usuarioIsAdmin()) {
-            echo "Acesso negado!";
+            header("location: " . ACESSO_NEGADO);
             exit;
-        }  
+        } 
 
         $this->usuarioDao = new UsuarioDAO();
         $this->usuarioService = new UsuarioService();
@@ -114,6 +114,12 @@ class UsuarioController extends Controller
 
     //Método edit
     protected function edit() {
+
+        if (! $this->usuarioIsAdminStudent()) {
+            header("location: " . ACESSO_NEGADO);
+            exit;
+        }
+
         $usuario = $this->findUsuarioById();
         
         if($usuario) {
@@ -133,6 +139,11 @@ class UsuarioController extends Controller
     //Método para excluir
     protected function delete()
     {
+        if (! $this->usuarioIsAdminStudent()) {
+            header("location: " . ACESSO_NEGADO);
+            exit;
+        }
+
         $usuario = $this->findUsuarioById();
         if ($usuario) {
             //Excluir

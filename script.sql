@@ -44,8 +44,7 @@ CREATE TABLE `comentarios` (
 CREATE TABLE `curtida` (
   `id` int(11) NOT NULL,
   `idPostagem` int(11) DEFAULT NULL,
-  `idUsuario` int(11) DEFAULT NULL,
-  `dataCurtida` datetime DEFAULT current_timestamp()
+  `idUsuario` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------

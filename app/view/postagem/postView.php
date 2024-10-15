@@ -8,6 +8,14 @@ require_once(__DIR__ . "/../include/header.php");
 
 <div class="container">
 
+    <a class="voltar"
+        href="<?= HOME_PAGE ?>">
+        <i class="fs-4 bi bi-arrow-left-square"
+            data-bs-toggle="tooltip" data-bs-title="Default tooltip data-bs-title=" Voltar">
+        </i>
+
+    </a>
+
     <div class="postagem">
 
         <div class="postLeft">
@@ -20,13 +28,6 @@ require_once(__DIR__ . "/../include/header.php");
                     alt="Imagem da postagem">
 
 
-                <a class="voltar"
-                    href="<?= HOME_PAGE ?>">
-                    <i class="fs-4 bi bi-arrow-left-square"
-                        data-bs-toggle="tooltip" data-bs-title="Default tooltip data-bs-title="Voltar">
-                    </i>
-                    
-                </a>
 
                 <?php
 
@@ -34,18 +35,17 @@ require_once(__DIR__ . "/../include/header.php");
 
                 ?>
 
-
-
-                    <a class="excluir"
-                        onclick="return confirm('Confirma a exclusão da postagem?');"
-                        href="<?= BASEURL ?>/controller/PostagemController.php?action=delPost&id=<?= $dados["postagem"]->getId() ?>">
-                        Excluir
-                    </a>
-
                 <?php
                 endif
                 ?>
 
+            </div>
+
+            <div class="heart">
+                <a href="/PFC/app/controller/CurtidaController.php?action=likeDislike&idPostagem=<?= $dados["postagem"]->getId() ?>">
+                    <i class="fa-solid fa-heart"></i>
+                </a>
+                <span id="likes">0 likes</span>
             </div>
 
         </div>
@@ -62,11 +62,11 @@ require_once(__DIR__ . "/../include/header.php");
                 ?>
             </p>
 
-            <div class="comentarios">
-
-                <h3>Comentários</h3>
-
-            </div>
+            <a class="excluir"
+                onclick="return confirm('Confirma a exclusão da postagem?');"
+                href="<?= BASEURL ?>/controller/PostagemController.php?action=delPost&id=<?= $dados["postagem"]->getId() ?>">
+                Excluir
+            </a>
 
         </div>
 
@@ -78,3 +78,22 @@ require_once(__DIR__ . "/../include/header.php");
 
 
 </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var legenda = document.getElementById('legenda');
+
+        // Verifica se o conteúdo da legenda é maior que a altura da div
+        if (legenda.scrollHeight > legenda.clientHeight) {
+            // Habilita o scroll e aplica os estilos
+            legenda.style.overflowY = 'scroll';
+
+            // Adiciona os estilos de barra de rolagem
+            legenda.classList.add('scroll-styles');
+        }
+    });
+</script>
+
+<?php
+require_once(__DIR__ . "/../include/footer.php");
+?>

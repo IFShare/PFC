@@ -9,10 +9,16 @@ define("DB_PASSWORD", "");
 //Constante com a URL do sistema
 define("BASEURL", "/PFC/app");
 
+define("ACESSO_NEGADO", BASEURL . '/view/include/msgNegado.php');
+
+define("HOME_LOGIN", BASEURL . '/view/include/msgNegado.php');
+
 //Nome do sistema
 define('APP_NAME', 'IfShare');
 
 define('HOME_PAGE', BASEURL . '/controller/HomeController.php?action=home');
+
+define('INDEX', '/PFC');
 
 //Página de logout do sistema
 define('LOGIN_PAGE', BASEURL . '/controller/LoginController.php?action=login');

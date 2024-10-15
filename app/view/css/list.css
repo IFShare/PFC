@@ -3,7 +3,7 @@ body {
     width: 100%;
     margin: 0;
     padding: 0;
-    background: linear-gradient(90deg, #81a880, #004f44);
+    background: #004f44;
     font-family: Arial, sans-serif; /* Fonte mais limpa */
 }
 
@@ -30,7 +30,7 @@ table {
 }
 
 th {
-    background-color: #004f44; /* Fundo escuro para cabeçalho */
+    background-color: #81a880; /* Fundo escuro para cabeçalho */
     color: white;
     padding: 15px; /* Espaçamento em cima e embaixo */
     font-weight: bold;
@@ -91,4 +91,23 @@ tr:hover td {
 .btn-danger:hover {
     background-color: #c82333; /* Cor ao passar o mouse */
     transform: scale(1.05); /* Leve aumento no tamanho */
+}
+
+.voltar {
+    position: absolute;
+    top: 2%;
+    left: 2%;
+    background-color: none;
+    color: #fff;
+    border: 2px solid #81a880; 
+    border-radius: 30px;
+    padding: 10px 20px;
+    font-size: 16px; 
+    font-weight: bold;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.voltar:hover {
+    background-color: #81a880;
 }

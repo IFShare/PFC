@@ -7,17 +7,26 @@
 }
 
 .postagem {
-    padding: 35px;
+    padding: 40px;
     display: flex;
-    max-height: 50%;
-    max-width: 80%;
-    background-color: black;
+    max-width: 90%;
+    max-height: 200vh;
+    background-color: rgba(0, 0, 0, 0.500);
     border-radius: 15px;
+    overflow: hidden;
+    position: relative;
 }
 
-
-.postagem #legenda {
+/* Estilo básico da legenda */
+#legenda {
     font-size: 20px;
+    overflow: hidden;
+    overflow-x: hidden;
+    border-bottom: 2px solid #004f44;
+    border-radius: 10px;
+    padding-bottom: 10px;
+    padding-left: 5px;
+    max-height: 50%;
 }
 
 .imgPost{
@@ -27,10 +36,12 @@
     max-width: 100%;
     position: relative;
     overflow: hidden;
+    max-height: 95%;
 }
 
 .img {
     max-width: 100%;
+    height: 100%;
     border-radius: 10px;
     border-top-left-radius: 15px;
     border-bottom-left-radius: 15px;
@@ -43,6 +54,17 @@
 
 .postLeft {
     width: 50%;
+}
+
+.heart i {
+    font-size: 35px;
+    cursor: pointer;
+    color: white;
+    text-decoration: none;
+}
+
+.heart a {
+    text-decoration: none;
 }
 
 .postRight {
@@ -65,12 +87,13 @@
     font-weight: bold;
     color: black;
     text-decoration: none;
-    padding: 10px;
+    padding: 7px;
+    font-size: 18px;
     border-radius: 10px;
     background-color: red;
     opacity: 75%;
     position: absolute;
-    bottom: 0px;
+    top: 0px;
     right: 0px;
     transition: all 0.3s;
 }
@@ -80,25 +103,38 @@
 }
 
 .voltar {
+    background: none;
+    color: #fff;
+    border: 2px solid #81a880; 
+    border-radius: 30px;
+    padding: 10px 20px;
+    font-size: 16px; 
     font-weight: bold;
-    color: white;
-    text-decoration: none;
-    padding: 10px;
-    border-radius: 10px;
-    border-top-left-radius: 15px;
-    background-color: #004f44;
-    opacity: 75%;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s, transform 0.3s;
     position: absolute;
-    top: 0px;
-    left: 0px;
-    transition: all 0.3s;
+    left: 2%;
+    top: 2%;
 }
 
 .voltar:hover {
-    opacity: 55%;
+    background-color: #81a880;
 }
 
 
-#voltar {
-    display: block;
+/* Estilo da barra de rolagem ativado apenas quando o scroll for necessário */
+.scroll-styles::-webkit-scrollbar {
+    width: 10px;
+}
+
+.scroll-styles::-webkit-scrollbar-track {
+    background: #e0e0e0;
+    border-radius: 10px; 
+}
+
+.scroll-styles::-webkit-scrollbar-thumb {
+    background-color: #004f44;
+    border-radius: 10px;
+    border: 2px solid #e0e0e0;
+    transition: all 0.5s;
 }

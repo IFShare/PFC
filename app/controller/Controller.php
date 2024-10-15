@@ -53,7 +53,7 @@ class Controller {
         session_start();
 
         if(! isset($_SESSION[SESSAO_USUARIO_ID])) {
-            header("location: " . LOGIN_PAGE);
+            header("location: " . "/PFC");
             return false;
         }
 

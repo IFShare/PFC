@@ -1,7 +1,5 @@
 <?php
 require_once(__DIR__ . "/../include/header.php");
-require_once(__DIR__ . "/../include/menu.php");
-
 
 
 if ($_SESSION[SESSAO_USUARIO_TIPO_USUARIO] == "ADM"): ?>
@@ -9,6 +7,13 @@ if ($_SESSION[SESSAO_USUARIO_TIPO_USUARIO] == "ADM"): ?>
     <link rel="stylesheet" href="<?= BASEURL ?>/view/css/form.css">
 
     <div class="container-fluid form-container h-100">
+        <a class="voltar"
+            href="<?= HOME_PAGE ?>">
+            <i class="fs-4 bi bi-arrow-left-square"
+                data-bs-toggle="tooltip" data-bs-title="Default tooltip data-bs-title=" Voltar">
+            </i>
+
+        </a>
         <div class="row h-100 d-flex justify-content-center align-items-center"> <!-- 100% da altura da tela -->
 
             <div class="col-md-6 p-0 d-flex flex-column justify-content-center align-items-center info-container">
@@ -24,10 +29,6 @@ if ($_SESSION[SESSAO_USUARIO_TIPO_USUARIO] == "ADM"): ?>
                 </h2>
 
                 <button type="submit" form="formUsuario" class="btn btn-custom">Criar</button>
-                <div>
-                    <a class="btn btn-secondary mt-2"
-                        href="<?= BASEURL ?>/controller/HomeController.php?action=home">Voltar</a>
-                </div>
             </div>
 
 
@@ -127,7 +128,7 @@ if ($_SESSION[SESSAO_USUARIO_TIPO_USUARIO] == "ADM"): ?>
 
                         <!-- Tipo de usuário -->
                         <div class="mb-3">
-                            <label for="txtSenha" class="form-label">
+                            <label for="selTipoUsuario" class="form-label">
                                 <?php
                                 if (isset($msgErro['tipoUsuario'])) {
                                     echo "<p class='mb-0 fw-bold label-invalid'>" . $msgErro['tipoUsuario'] . "</p>";

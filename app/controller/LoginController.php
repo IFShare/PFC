@@ -23,6 +23,11 @@ class LoginController extends Controller {
         $this->handleAction();
     }
 
+    protected function acessoNegado() {
+
+        $this->loadView("include/msgNegado.php", [], []);
+    }
+
     protected function login() {
         $this->loadView("login/login.php", [], []);
     }
@@ -44,7 +49,7 @@ class LoginController extends Controller {
                 header("location: " . HOME_PAGE);     
                 exit;
             } else {
-                $erros['ambos'] = "<p class='mb-0 fw-bold text-danger'>Login ou senha informados são inválidos!</p>";
+                $erros['ambos'] = "<p class='mb-1 fw-bold text-danger text-center'>Login ou senha informados são inválidos!</p>";
             }
         }
 
@@ -60,7 +65,7 @@ class LoginController extends Controller {
     protected function logout() {
         $this->loginService->removerUsuarioSessao();
 
-        $this->loadView("login/login.php", [], []);
+        header("location: " . "/PFC");
     }
 
 

@@ -2,7 +2,7 @@ body{
     height: 100vh;
     margin: 0;
     padding: 0;
-    background: linear-gradient(90deg, #81a880, #004f44);
+    background: #004f44;
 }
 
 p {
@@ -24,15 +24,34 @@ p {
 }
 
 .btn-custom {
-    background-color: #004f44;
-    color: white;
-    border: none;
+    background: none;
+    color: #fff;
+    border: 2px solid #81a880; 
     border-radius: 30px;
-    padding: 5px 20px;
-    font-size: 18px;
+    padding: 10px 20px;
+    font-size: 16px; 
     font-weight: bold;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     transition: background-color 0.3s, transform 0.3s;
+}
+
+.voltar {
+    background: none;
+    color: #fff;
+    border: 2px solid #81a880; 
+    border-radius: 30px;
+    padding: 10px 20px;
+    font-size: 16px; 
+    font-weight: bold;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s, transform 0.3s;
+    position: absolute;
+    left: 2%;
+    top: 2%;
+}
+
+.voltar:hover {
+    background-color: #81a880;
 }
 
 .btn-custom:hover {
@@ -46,20 +65,16 @@ p {
 
 .form-control {
     border-radius: 8px;
-    border: 2px solid #004f44;
+    border: none;
+    border: 2px solid white;
     padding: 8px;
     font-size: 17px;
     line-height: 1.0;
     box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
-    transition: border-color 0.3s, box-shadow 0.3s;
     height: 33px;
     background-color: transparent;
     color: white;
     cursor: default;
-}
-
-.form-control:hover{
-    border: 2px solid white;
 }
 
 .form-control::placeholder{
@@ -74,7 +89,7 @@ p {
 
 .form-select {
     border-radius: 8px;
-    border: 2px solid #004f44;
+    border: 2px solid white;
     padding: 8px;
     font-size: 15px;
     line-height: 1.0;
@@ -100,7 +115,7 @@ p {
 
 .form-control:focus, .form-select:focus {
     background-color: transparent;
-    border-color: #fff;
+    border-color: #81a880;
     outline: none;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
 }
