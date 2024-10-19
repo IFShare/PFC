@@ -14,7 +14,7 @@ define("ACESSO_NEGADO", BASEURL . '/view/include/msgNegado.php');
 define("HOME_LOGIN", BASEURL . '/view/include/msgNegado.php');
 
 //Nome do sistema
-define('APP_NAME', 'IfShare');
+define('APP_NAME', 'IFShare');
 
 define('HOME_PAGE', BASEURL . '/controller/HomeController.php?action=home');
 

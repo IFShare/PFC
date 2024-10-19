@@ -8,14 +8,11 @@ require_once(__DIR__ . "/../include/header.php");
     <div class="row h-100 d-flex justify-content-center align-items-center"> <!-- 100% da altura da tela -->
 
         <div class="col-md-6 p-0 d-flex flex-column justify-content-center align-items-center info-container">
-            <h1 class="display-4 font-abril title-ifshare">IFSHARE</h1>
-            <h2 class="h4">Crie sua conta</h2>
+            <img class="mb-2" src="/PFC/app/assets/IFSHARE.png" alt="">
 
-            <button type="submit" form="formUsuario" class="btn btn-custom">CADASTRAR</button>
+            <button type="submit" form="formUsuario" class="btn btn-custom">CRIAR CONTA</button>
             <div>
-                <a class="btn btn-custom mt-2"
-                    href="/PFC/app/controller/LoginController.php?action=login">ENTRAR</a>
-                <a class="btn btn-custom mt-2 voltar"
+                <a class="btn mt-2 voltar"
                     href="<?= HOME_PAGE ?>">
                     <i class="fs-4 bi bi-arrow-left-square"></i></a>
             </div>

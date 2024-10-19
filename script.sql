@@ -27,7 +27,7 @@ SET time_zone = "+00:00";
 -- Estrutura para tabela `comentarios`
 --
 
-CREATE TABLE `comentarios` (
+CREATE TABLE `comentario` (
   `id` int(11) NOT NULL,
   `conteudo` text NOT NULL,
   `dataComentario` datetime DEFAULT current_timestamp(),

@@ -17,7 +17,7 @@ if ($_SESSION[SESSAO_USUARIO_TIPO_USUARIO] == "ADM"): ?>
         <div class="row h-100 d-flex justify-content-center align-items-center"> <!-- 100% da altura da tela -->
 
             <div class="col-md-6 p-0 d-flex flex-column justify-content-center align-items-center info-container">
-                <h1 class="display-4 font-abril title-ifshare">IFSHARE</h1>
+                <img src="/PFC/app/assets/IFSHARE.png" alt="">
                 <h2 class="h4">
                     <?php
                     if (isset($msgErro["banco"])) {
@@ -28,7 +28,15 @@ if ($_SESSION[SESSAO_USUARIO_TIPO_USUARIO] == "ADM"): ?>
                     ?>
                 </h2>
 
-                <button type="submit" form="formUsuario" class="btn btn-custom">Criar</button>
+                <button type="submit" form="formUsuario" class="btn btn-custom">
+                    <?php
+                    if ($dados["usuario"]->getId() == 0) {
+                        echo "CRIAR USUÁRIO";
+                    } else {
+                        echo "EDITAR USUÁRIO";
+                    }
+                    ?>
+                </button>
             </div>
 
 
@@ -104,6 +112,9 @@ if ($_SESSION[SESSAO_USUARIO_TIPO_USUARIO] == "ADM"): ?>
                                 value="<?php echo (isset($dados["usuario"]) ? $dados["usuario"]->getEmail() : ''); ?>" />
                         </div>
 
+                        <?php
+                        if ($dados["usuario"]->getId() == 0):
+                        ?>
                         <!-- Senha -->
                         <div class="form-group mb-3">
                             <label for="txtSenha" class="form-label">
@@ -125,6 +136,10 @@ if ($_SESSION[SESSAO_USUARIO_TIPO_USUARIO] == "ADM"): ?>
                                 name="senha"
                                 value="<?php echo (isset($dados["usuario"]) ? $dados["usuario"]->getSenha() : ''); ?>" />
                         </div>
+
+                        <?php
+                            endif;
+                        ?>
 
                         <!-- Tipo de usuário -->
                         <div class="mb-3">

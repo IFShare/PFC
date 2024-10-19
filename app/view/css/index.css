@@ -3,7 +3,7 @@ body {
     width: 100%;
     margin: 0;
     padding: 0;
-    background: #004f44;
+    background: white;
 }
 
 .container {
@@ -34,12 +34,6 @@ body {
     width: 80%;
 }
 
-h1 {
-    font-size: 90px;
-    margin-bottom: 25px;
-    color:#81a880;
-}
-
 .logo {
     width: 75%;
     margin-bottom: 20px;
@@ -53,14 +47,28 @@ h1 {
     text-align: center;
     text-decoration: none;
     color: white;
-    background: none;
-    border: 2px solid #81a880;
+    background: linear-gradient(90deg, #81a880, #004f44);
     border-radius: 30px;
     padding: 15px;
     transition: all 0.4s;
 }
 
 .btn-log:hover {
-    background: #81a880;
+    background: linear-gradient(90deg, #004f44, #81a880);
     color: black;
+}
+
+
+@media screen and (max-width:768px){
+    .rightCont{
+        display: none;
+    }
+
+    .rightCont img {
+        display: none;
+    }
+
+    .logo {
+        width: 155%;
+    }
 }

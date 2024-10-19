@@ -39,7 +39,6 @@ class UsuarioController extends Controller
 
         $this->loadView("usuario/list.php", $dados, []);
 
-        
     }
 
 
@@ -79,10 +78,6 @@ class UsuarioController extends Controller
                     $this->usuarioDao->update($usuario);
                 }
 
-                //TODO - Enviar mensagem de sucesso
-                $msg = "Usuário salvo com sucesso.";
-                $this->list("", $msg);
-                exit;
             } catch (PDOException $e) {
                 //echo $e->getMessage();
                 $erros["banco"] = "Erro ao salvar o usuário na base de dados.<br>Tente novamente mais tarde.";

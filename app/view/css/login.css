@@ -5,7 +5,7 @@
 
 .title-ifshare {
     font-size: 4rem; /* Ajuste o tamanho da fonte conforme necessário */
-    color: white; /* Cor desejada */
+    color: black; /* Cor desejada */
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); /* Sombra do texto */
     margin-bottom: 2px;
 }
@@ -13,7 +13,7 @@
 .texto-login {
     font-family: 'Arial', sans-serif; /* Fonte mais simples e elegante */
     font-size: 1rem; /* Tamanho do texto ajustado */
-    color: white; /* Cor escura para contraste com o fundo claro */
+    color: black; /* Cor escura para contraste com o fundo claro */
     text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2); /* Sombra sutil */
     letter-spacing: 0.5px; /* Espaçamento entre letras */
     line-height: 1.4; /* Espaçamento entre linhas */
@@ -24,7 +24,7 @@ body, html {
     height: 100%;
     margin: 0;
     padding: 0;
-    background: #004f44;
+    background: linear-gradient(90deg, #81a880, #004f44);
 }
 
 .form-container {
@@ -35,14 +35,14 @@ body, html {
 }
 
 .form-content {
-    background-color: rgba(0, 0, 0, 0.500); /* Cor de fundo do formulário */
+    background-color: white; /* Cor de fundo do formulário */
     border-radius: 8px; /* Bordas arredondadas */
     padding: 20px; /* Espaçamento interno */
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra */
     max-width: 400px; /* Largura máxima do formulário */
     width: 100%; /* Largura total dentro do máximo */
     transition: transform 0.3s ease, box-shadow 0.3s ease; /* Transição suave */
-    color: white;
+    color: black;
 } 
 
 .btn-custom {
@@ -61,19 +61,19 @@ body, html {
     position: absolute;
     top: 2%;
     left: 2%;
-    background-color: none;
-    color: #fff;
-    border: 2px solid #81a880; 
+    background-color: #004f44;
+    color: white;
     border-radius: 30px;
     padding: 10px 20px;
     font-size: 16px; 
     font-weight: bold;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    transition: background-color 0.3s, transform 0.3s;
+    transition: all 0.3s;
 }
 
 .voltar:hover {
-    background-color: #81a880;
+    background: #004f44;
+    color: white;
 }
 
 .btn-custom:hover {
@@ -83,9 +83,9 @@ body, html {
 }
 
 .form-control {
-    color: white; /* Cor do texto */
+    color: black; /* Cor do texto */
     border-radius: 8px; /* Bordas arredondadas */
-    border: 2px solid #81a880; /* Cor da borda */
+    border: 2px solid #004f44; /* Cor da borda */
     padding: 8px; /* Reduzir o padding interno para diminuir a altura */
     font-size: 14px; /* Diminuir o tamanho da fonte */
     line-height: 1.2; /* Reduzir o espaçamento entre linhas */
@@ -97,7 +97,7 @@ body, html {
 }
 
 .form-control::placeholder {
-    color: white;
+    color: black;
 }
 
 
@@ -106,9 +106,9 @@ body, html {
 }
 
 .form-control:focus, .form-select:focus {
-    color: white;
+    color: black;
     background-color: transparent; /* Manter o fundo transparente ao foco */
-    border-color: #fff; /* Borda branca ao foco */
+    border-color: #81a880; /* Borda branca ao foco */
     outline: none; /* Remove o contorno padrão */
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.2); /* Sombra externa ao foco */
 }

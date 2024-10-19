@@ -3,7 +3,7 @@ body{
     width: 100%;
     margin: 0;
     padding: 0;
-    background: #004f44;
+    background: linear-gradient(90deg, #81a880, #004f44);
 }
 
 .btnInsert {
@@ -11,8 +11,8 @@ body{
     outline: none;
     padding: 5px 20px;
     border-radius: 30%;
-    color: black;
-    background: #81a880;
+    color: white;
+    background: #004f44;
     font-size: 27px;
     transition: all 0.4s;
     position: fixed;
@@ -21,10 +21,9 @@ body{
 }
 
 .btnInsert:hover {
-    color: black;
+    color: white;
     font-size: 32px;
 }
-
 
 .btnInsert:hover ~ .msgInsert {
     display: block;
@@ -46,14 +45,14 @@ body{
 }
 
 .logo {
-    width: 60%;
+    width: 50%;
 }
 
 
 .btn-custom {
     background: none;
-    color: #fff;
-    border: 2px solid #81a880; 
+    color: black;
+    border: 3px solid #004f44; 
     border-radius: 30px;
     padding: 10px 20px;
     font-size: 16px; 
@@ -64,7 +63,8 @@ body{
 }
 
 .btn-custom:hover {
-    background-color: #81a880;
+    color: white;
+    background-color: #004f44;
     transform: scale(1.05);
 }
 
@@ -78,7 +78,6 @@ body{
 }
 
 .modal-body {
-    background-color: #004f44;
     border-radius: 16px;
 }
 
@@ -88,20 +87,20 @@ body{
 }
 
 #labelLegenda {
-    color: white;
+    color: black;
 }
 
 /* Estilo específico do campo de edição onde o texto é inserido */
 .emojionearea .emojionearea-editor {
-    color: white;
-    border: 3px solid #81a880;
+    color: black;
+    border: 3px solid #004f44;
     border-radius: 10px;
     resize: none;
     outline: none;
     transition: all 0.2s;
     padding: 10px 20px;
     font-size: 18px;
-
+    font-weight: bold;
 }
 
 .emojionearea .emojionearea-editor:focus {
@@ -125,14 +124,12 @@ body{
 .preview {
     cursor: pointer;
     border-radius: 15px;
-    border: 4px solid #81a880;
+    border: 4px solid #004f44;
     transition: all 0.3s;
 }
 
 .preview:hover {
-    transform: scale(103%);
-    box-shadow: 1px 3px 10px black;
-    border: 4px solid #004f44;
+    border: 4px solid #81a880;
 }
 
 #imgPreview {
@@ -160,4 +157,10 @@ body{
     border-radius: 10px;
     border: 2px solid #e0e0e0;
     transition: all 0.5s;
+}
+
+@media screen and (max-width:768px){
+    .logo {
+        display: none;
+    }
 }

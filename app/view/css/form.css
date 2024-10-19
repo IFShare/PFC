@@ -2,7 +2,7 @@ body{
     height: 100vh;
     margin: 0;
     padding: 0;
-    background: #004f44;
+    background: linear-gradient(90deg, #81a880, #004f44);
 }
 
 p {
@@ -24,9 +24,8 @@ p {
 }
 
 .btn-custom {
-    background: none;
+    background: #004f44;
     color: #fff;
-    border: 2px solid #81a880; 
     border-radius: 30px;
     padding: 10px 20px;
     font-size: 16px; 
@@ -36,25 +35,26 @@ p {
 }
 
 .voltar {
-    background: none;
-    color: #fff;
-    border: 2px solid #81a880; 
+    position: absolute;
+    top: 2%;
+    left: 2%;
+    background-color: #004f44;
+    color: white;
     border-radius: 30px;
     padding: 10px 20px;
     font-size: 16px; 
     font-weight: bold;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    transition: background-color 0.3s, transform 0.3s;
-    position: absolute;
-    left: 2%;
-    top: 2%;
+    transition: all 0.3s;
 }
 
 .voltar:hover {
-    background-color: #81a880;
+    background: #004f44 !important;
+    color: white !important;
 }
 
 .btn-custom:hover {
+    color: black;
     background-color: #81a880;
     transform: scale(1.05);
 }
@@ -78,7 +78,8 @@ p {
 }
 
 .form-control::placeholder{
-    color: rgb(220, 219, 219);
+    font-weight: bold;
+    color: #b5b5b5;
     font-size: 16px;
 }
 
@@ -126,7 +127,7 @@ p {
 
 .form-label {
     font-size: 18px;
-    color: black;
+    color: white;
     margin-bottom: 4px;
 }
 
@@ -153,19 +154,8 @@ p {
     height: 150px;
 }
 
-.img {
-    width: auto;
-    height: auto;
-    min-width: 300px;
-    max-height: 450px;
-    margin: 20px 0;
-    border-radius: 10%;
-    border: 2px solid white;
-    cursor: pointer;
-    overflow: hidden;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+img {
+    width: 45%;
 }
 
 

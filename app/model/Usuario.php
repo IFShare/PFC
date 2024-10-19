@@ -16,6 +16,7 @@ class Usuario
         private ?string $compMatricula;
 
         public function __construct() {
+                $this->id = null;
                 $this->dataCriacao = null;
                 $this->nomeUsuario = null;
                 $this->compMatricula = null;

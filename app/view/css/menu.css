@@ -3,73 +3,21 @@ nav li {
     font-weight: bold;
 }
 
-/* Navbar Styling */
-.navbar.navbar-expand-lg {
-    margin-left: 10px;
-    background: #81a880 !important;
-    border-radius: 20px;
-    position: fixed;
-    z-index: 99;
-}
+@media screen and (max-width: 768px) {
+    .offcanvas {
+        width: 75%; /* Define a largura do offcanvas */
+    }
 
-.navbar-brand {
-    color: #004f44; /* Cor amarela para a marca */
-    font-weight: bold;
-    font-size: 1.5rem;
-}
+    .offcanvas-body {
+        padding: 10px; /* Reduz o padding para telas menores */
+    }
 
-.navbar-brand:hover {
-    color: #004f44;
-}
+    .offcanvas-header h5 {
+        font-size: 1.2rem; /* Ajusta o tamanho do título no header */
+    }
 
-.navbar-brand:visited {
-    color: #004f44;
+    .nav-link {
+        font-size: 1rem; /* Ajusta o tamanho das opções do menu */
+    }
 }
-
-.nav-link {
-    color: #fff; /* Links brancos */
-    font-size: 1.1rem;
-}
-
-.nav-link:hover {
-    color: #004f44; /* Efeito de hover amarelo nos links */
-}
-
-.nav-item a.nav-link{
-    color: white !important;
-}
-
-.nav-item a.nav-link:hover{
-    color: #004f44 !important;
-}
-
-.nav-item.dropdown .dropdown-menu {
-    background-color: #004f44; /* Fundo do dropdown mais escuro */
-    border: none; /* Sem borda */
-}
-
-.dropdown-item {
-    color: #fff; /* Links brancos dentro do dropdown */
-}
-
-.dropdown-item:hover {
-    background-color: #004f44; /* Fundo cinza no hover */
-    color: #81a880; /* Texto amarelo no hover */
-}
-
-.navbar-toggler {
-    border-color: #81a880; /* Cor amarela no ícone do toggle */
-}
-
-.bi-person-circle {
-    font-size: 35px;
-    color: white;
-    cursor: pointer;
-    transition: all 0.3s;
-}
-
-.bi-person-circle:hover {
-    color: #004f44;
-}
-
 

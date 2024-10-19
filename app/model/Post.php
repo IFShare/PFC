@@ -1,20 +1,21 @@
 <?php
 
 require_once(__DIR__ . '/Usuario.php');
-    
-    class Post {
+
+class Post
+{
         private ?int $id;
         private ?string $imagem;
         private ?string $legenda;
         private $dataPostagem;
         private ?Usuario $usuario;
 
-        
-        
-
+        public function __construct() {
+                $this->id = null;
+            }
         /**
          * Get the value of id
-         */ 
+         */
         public function getId()
         {
                 return $this->id;
@@ -24,7 +25,7 @@ require_once(__DIR__ . '/Usuario.php');
          * Set the value of id
          *
          * @return  self
-         */ 
+         */
         public function setId($id)
         {
                 $this->id = $id;
@@ -34,7 +35,7 @@ require_once(__DIR__ . '/Usuario.php');
 
         /**
          * Get the value of imagem
-         */ 
+         */
         public function getImagem()
         {
                 return $this->imagem;
@@ -44,7 +45,7 @@ require_once(__DIR__ . '/Usuario.php');
          * Set the value of imagem
          *
          * @return  self
-         */ 
+         */
         public function setImagem($imagem)
         {
                 $this->imagem = $imagem;
@@ -54,7 +55,7 @@ require_once(__DIR__ . '/Usuario.php');
 
         /**
          * Get the value of legenda
-         */ 
+         */
         public function getLegenda()
         {
                 return $this->legenda;
@@ -64,7 +65,7 @@ require_once(__DIR__ . '/Usuario.php');
          * Set the value of legenda
          *
          * @return  self
-         */ 
+         */
         public function setLegenda($legenda)
         {
                 $this->legenda = $legenda;
@@ -74,7 +75,7 @@ require_once(__DIR__ . '/Usuario.php');
 
         /**
          * Get the value of dataPostagem
-         */ 
+         */
         public function getDataPostagem()
         {
                 return $this->dataPostagem;
@@ -84,7 +85,7 @@ require_once(__DIR__ . '/Usuario.php');
          * Set the value of dataPostagem
          *
          * @return  self
-         */ 
+         */
         public function setDataPostagem($dataPostagem)
         {
                 $this->dataPostagem = $dataPostagem;
@@ -94,7 +95,7 @@ require_once(__DIR__ . '/Usuario.php');
 
         /**
          * Get the value of usuario
-         */ 
+         */
         public function getUsuario()
         {
                 return $this->usuario;
@@ -104,11 +105,11 @@ require_once(__DIR__ . '/Usuario.php');
          * Set the value of usuario
          *
          * @return  self
-         */ 
+         */
         public function setUsuario($usuario)
         {
                 $this->usuario = $usuario;
 
                 return $this;
         }
-    }
+}

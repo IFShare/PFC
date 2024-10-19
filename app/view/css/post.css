@@ -30,3 +30,11 @@
     transform: scale(110%);
     opacity: 80%;
 }
+
+
+@media screen and (max-width:768px){
+    .postagens {
+        column-count: 2;
+        column-gap: 25px;
+    }
+}
