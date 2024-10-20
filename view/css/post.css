@@ -1,0 +1,40 @@
+.container{
+    margin-top: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+}
+
+.postagens {
+    margin: 10px;
+    width: 100%;
+    column-count: 5;
+    column-gap: 25px;
+}
+
+.post {
+    border-radius: 15px;
+    overflow: hidden;
+    margin-bottom: 15px;
+    background-color: black;
+}
+
+.imgPost {
+    width: 100%;
+    border-radius: 15px;
+    transition: all 0.3s;
+}
+
+.imgPost:hover{
+    transform: scale(110%);
+    opacity: 80%;
+}
+
+
+@media screen and (max-width:768px){
+    .postagens {
+        column-count: 2;
+        column-gap: 25px;
+    }
+}
