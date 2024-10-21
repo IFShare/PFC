@@ -11,50 +11,36 @@ $TipoUsuario = $_SESSION[SESSAO_USUARIO_TIPO_USUARIO];
 
 <link rel="stylesheet" href="<?= BASEURL ?>/view/css/menu.css">
 
-
-
-<nav class="navbar navbar-dark fixed-top">
+<nav class="navbar navbar-expand-lg navbar-light bg-body-tertiary fixed-top">
     <div class="container-fluid">
-        <button class="navbar-toggler bg-dark" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar" aria-label="Toggle navigation">
+        <!-- Marca do site -->
+        <a class="navbar-brand" href="#">IFSHARE</a>
+
+        <!-- Botão "hambúrguer" para telas pequenas -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="offcanvas offcanvas-start text-bg-dark" tabindex="-1" id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
-            <div class="offcanvas-header">
-                <h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel"><?= $nome . " - " . $TipoUsuario ?></h5>
-                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-            </div>
-            <div class="offcanvas-body">
-                <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="<?= HOME_PAGE ?>">Home</a>
-                    </li>
 
-                    <?php
+        <!-- Menu principal -->
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <!-- Menu dropdown de ADM -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        ADM
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="/PFC/app/controller/UsuarioController.php?action=create">Inserir novo usuário</a></li>
+                        <li><a class="dropdown-item" href="<?= BASEURL . '/controller/UsuarioController.php?action=list' ?>">Listagem</a></li>
+                        <li><a class="dropdown-item" href="<?= BASEURL . '/controller/PostagemController.php?action=delPost' ?>">Excluir postagem</a></li>
+                    </ul>
+                </li>
+            </ul>
 
-                    if ($_SESSION[SESSAO_USUARIO_TIPO_USUARIO] == "ADM"):
-
-                    ?>
-
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                ADM
-                            </a>
-                            <ul class="dropdown-menu dropdown-menu-dark">
-                                <li><a class="dropdown-item" href="/PFC/app/controller/UsuarioController.php?action=create">Inserir novo usuário</a></li>
-                                <li><a class="dropdown-item" href="<?= BASEURL . '/controller/UsuarioController.php?action=list' ?>">Listagem</a></li>
-                                <li><a class="dropdown-item" href="<?= BASEURL . '/controller/UsuarioController.php?action=delPost' ?>">Excluir postagem</a></li>
-                            </ul>
-                        </li>
-
-
-                            <?php
-                        endif;
-                            ?>
-
-
-                        <li class="nav-item">
-                            <a class="nav-link" href="<?= LOGOUT_PAGE ?>">Sair</a>
-                        </li>
+            <div class="log">
+                <!-- Botão de sair -->
+                <i class="user bi bi-person-circle"></i>
+                <a class="nav-link" id="sair" href="<?= LOGOUT_PAGE ?>">Sair</a>
             </div>
         </div>
     </div>

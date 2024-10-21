@@ -13,7 +13,6 @@ require_once(__DIR__ . "/../include/menu.php");
 <div class="row mt-2 justify-content-center w-100">
     <div class="col-4 textCentral">
 
-        <img class="logo" src="/PFC/app/assets/IFSHARE.png" alt="">
 
     </div>
 

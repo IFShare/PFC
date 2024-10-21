@@ -47,13 +47,16 @@ class PostagemController extends Controller
 
         if ($postagem) {
 
+
             $usuario = $this->usuarioDao->findById($postagem->getUsuario()->getId());
             $comentarios = $this->comentarioDao->listComentarios($postagem->getId());
+
             //Setar os dados
             $dados["id"] = $postagem->getId();
             $dados["usuario"] = $usuario->getNomeUsuario();
             $dados["postagem"] = $postagem;
-            $dados["listComentarios"] = $comentarios ?: [];
+            $dados["listComentarios"] = $comentarios;
+            //$dados["usuarioComentario"] = $usuarioComentario;
 
             $this->loadView("postagem/postView.php", $dados, []);
         } else

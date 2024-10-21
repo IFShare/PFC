@@ -8,7 +8,7 @@ require_once(__DIR__ . "/../include/header.php");
 
 <div class="container">
 
-    <a class="voltar"
+    <a class="voltar" 
         href="<?= HOME_PAGE ?>">
         <i class="fs-4 bi bi-arrow-left-square"
             data-bs-toggle="tooltip" data-bs-title="Default tooltip data-bs-title=">

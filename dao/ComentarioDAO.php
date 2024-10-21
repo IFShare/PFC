@@ -34,8 +34,6 @@ class ComentarioDAO
         return $this->mapComentario($result);
     }
 
-    ####################################################################################
-
     #INSERÇÃO DE USUÁRIO
 
     public function insert(Comentario $comentario)

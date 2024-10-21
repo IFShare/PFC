@@ -153,11 +153,8 @@
     outline: none;
     border: none;
     border-bottom: 2px solid #004f44;
-    border-radius: 10px;
+    border-radius: 7px;
     color: white;
-}
-
-#inpComent::placeholder {
     padding-left: 7px;
 }
 

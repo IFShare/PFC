@@ -13,9 +13,10 @@ class Comentario
 
         public function __construct()
         {
-                // Inicializar a propriedade 'postagem' com uma instância ou valor nulo
-                $this->postagem = new Post(); // Ou outra lógica adequada
+                $this->postagem = new Post();
+                $this->usuario = null;
         }
+
 
         /**
          * Get the value of id
