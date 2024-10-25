@@ -71,7 +71,19 @@ class ComentarioController extends Controller
         $this->loadView("postagem/postView.php", $dados, []);
     }
 
-    protected function delComentario() {}
+    protected function delComentario() {
+        if (! $this->usuarioIsAdminStudent()) {
+            header("location: " . ACESSO_NEGADO);
+            exit;
+        }
+
+        $comentario = $this->findComentarioById();
+        if ($comentario) {
+            //Excluir
+            $this->comentarioDao->deleteById($comentario->getId());
+            header("location: /PFC/app/controller/PostagemController.php?action=viewPost&id=" . $comentario->getPostagem()->getId());
+        }
+    }
 }
 
 #Criar objeto da classe para assim executar o construtor

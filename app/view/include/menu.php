@@ -2,7 +2,6 @@
 #Nome do arquivo: view/include/menu.php
 #Objetivo: menu da aplicação para ser incluído em outras páginas
 
-$nome = "(Sessão expirada)";
 if (isset($_SESSION[SESSAO_USUARIO_NOME_USUARIO]))
     $nome = $_SESSION[SESSAO_USUARIO_NOME_USUARIO];
 
@@ -10,6 +9,7 @@ $TipoUsuario = $_SESSION[SESSAO_USUARIO_TIPO_USUARIO];
 ?>
 
 <link rel="stylesheet" href="<?= BASEURL ?>/view/css/menu.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=logout" />
 
 <nav class="navbar navbar-expand-lg navbar-light bg-body-tertiary fixed-top">
     <div class="container-fluid">
@@ -32,15 +32,18 @@ $TipoUsuario = $_SESSION[SESSAO_USUARIO_TIPO_USUARIO];
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <li><a class="dropdown-item" href="/PFC/app/controller/UsuarioController.php?action=create">Inserir novo usuário</a></li>
                         <li><a class="dropdown-item" href="<?= BASEURL . '/controller/UsuarioController.php?action=list' ?>">Listagem</a></li>
-                        <li><a class="dropdown-item" href="<?= BASEURL . '/controller/PostagemController.php?action=delPost' ?>">Excluir postagem</a></li>
+                        <li><a class="dropdown-item" href="<?= BASEURL . '/controller/PostagemController.php?action=listPostsToDelete' ?>">Excluir postagem</a></li>
                     </ul>
                 </li>
             </ul>
 
             <div class="log">
                 <!-- Botão de sair -->
+                <span id="nomeUsuario"><?= $nome ?></span>
                 <i class="user bi bi-person-circle"></i>
-                <a class="nav-link" id="sair" href="<?= LOGOUT_PAGE ?>">Sair</a>
+                <a class="nav-link" id="sair" href="<?= LOGOUT_PAGE ?>"><span class="material-symbols-outlined">
+                        logout
+                    </span></a>
             </div>
         </div>
     </div>

@@ -19,53 +19,56 @@ class CurtidaDAO
 
     #REALIZAR CURTIDA
 
+    // Inserir curtida
     public function insertLike(Curtida $curtida)
     {
         $conn = Connection::getConnection();
 
-        // Se não existe, inserir curtida
         $sql = "INSERT INTO curtida (idPostagem, idUsuario) VALUES (:idPostagem, :idUsuario)";
         $stm = $conn->prepare($sql);
-        $stm->bindValue("idPostagem", $curtida->getPost()->getId());
-        $stm->bindValue("idUsuario", $this->loginService->getIdUsuarioLogado());
+        $stm->bindValue(":idPostagem", $curtida->getPost()->getId());
+        $stm->bindValue(":idUsuario", $this->loginService->getIdUsuarioLogado());
         $stm->execute();
         return "Curtida registrada (like)";
     }
 
-
-    ####################################################################################
-
-    public function isLiked(Curtida $curtida)
+    // Verificar se já existe uma curtida
+    public function isLiked($idPostagem, $idUsuario)
     {
         $conn = Connection::getConnection();
 
-        // Verificar se já existe uma curtida para este usuário e postagem
-        $sql = "SELECT * FROM curtida WHERE idPostagem = :idPostagem AND idUsuario = :idUsuario";
+        $sql = "SELECT id FROM curtida WHERE idPostagem = :idPostagem AND idUsuario = :idUsuario";
         $stm = $conn->prepare($sql);
-        $stm->bindValue("idPostagem", $curtida->getPost()->getId());
-        $stm->bindValue("idUsuario", $this->loginService->getIdUsuarioLogado());
+        $stm->bindValue(":idPostagem", $idPostagem);
+        $stm->bindValue(":idUsuario", $idUsuario);
         $stm->execute();
 
-        $likeExistente =  $stm->fetch();
-
-        return $likeExistente;
+        return $stm->fetch();
     }
 
-    #DELETA UMA CURTIDA
-
+    // Deletar curtida
     public function delLike(int $id)
-    {        
+    {
         $conn = Connection::getConnection();
-        // Se já existe curtida, remover
+
         $sql = "DELETE FROM curtida WHERE id = :id";
         $stm = $conn->prepare($sql);
-        $stm->bindValue("id", $id);
+        $stm->bindValue(":id", $id);
         $stm->execute();
     }
 
-    ####################################################################################
+    public function countLikes(int $idPostagem)
+    {
+        $conn = Connection::getConnection();
 
-    #CONVERTE REGISTRO DA BASE EM OBJETO
+        $sql = "SELECT COUNT(*) total FROM curtida WHERE curtida.idPostagem = :idPostagem";
+        $stm = $conn->prepare($sql);
+        $stm->bindValue(':idPostagem', $idPostagem);
+        $stm->execute();
+        $result = $stm->fetchAll();
+
+        return $result[0]["total"];
+    }
 
     private function mapCurtida($result)
     {

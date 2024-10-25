@@ -10,14 +10,6 @@ require_once(__DIR__ . "/../include/menu.php");
 <link rel="stylesheet" href="<?= BASEURL ?>/view/css/post.css">
 
 
-<div class="row mt-2 justify-content-center w-100">
-    <div class="col-4 textCentral">
-
-
-    </div>
-
-</div>
-
 <div class="row justify-content-center align-items-center w-100">
     <div class="col-3 d-flex justify-content-center align-items-center">
 

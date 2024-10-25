@@ -3,6 +3,7 @@
 require_once(__DIR__ . "/../dao/PostagemDao.php");
 require_once(__DIR__ . "/../dao/UsuarioDAO.php");
 require_once(__DIR__ . "/../dao/ComentarioDAO.php");
+require_once(__DIR__ . "/../dao/CurtidaDAO.php");
 require_once(__DIR__ . "/../service/PostagemService.php");
 require_once(__DIR__ . "/../service/ArquivoService.php");
 require_once(__DIR__ . "/Controller.php");
@@ -12,6 +13,7 @@ class PostagemController extends Controller
 {
 
     private PostagemDAO  $postDao;
+    private CurtidaDAO  $curtidaDao;
     private ComentarioDAO  $comentarioDao;
     private UsuarioDAO  $usuarioDao;
     private PostagemService  $postService;
@@ -24,6 +26,7 @@ class PostagemController extends Controller
             exit;
 
         $this->postDao = new PostagemDAO();
+        $this->curtidaDao = new CurtidaDAO();
         $this->comentarioDao = new ComentarioDAO();
         $this->usuarioDao = new UsuarioDAO();
         $this->postService = new PostagemService();
@@ -40,6 +43,15 @@ class PostagemController extends Controller
         $this->loadView("home/home.php", $dados, []);
     }
 
+    protected function listPostsToDelete()
+    {
+        $postagens = $this->postDao->listPosts();
+
+        $dados["listPosts"] = $postagens;
+
+        $this->loadView("postagem/delPost.php", $dados, []);
+    }
+
     protected function viewPost()
     {
 
@@ -49,15 +61,18 @@ class PostagemController extends Controller
 
 
             $usuario = $this->usuarioDao->findById($postagem->getUsuario()->getId());
-            $comentarios = $this->comentarioDao->listComentarios($postagem->getId());
+            $comentarios = $this->comentarioDao->listComentariosByPost($postagem->getId());
+            $curtidas = $this->curtidaDao->countLikes($postagem->getId());
+            $curtidaExistente = $this->curtidaDao->isLiked($postagem->getId(), $postagem->getUsuario()->getId());
 
             //Setar os dados
             $dados["id"] = $postagem->getId();
-            $dados["usuario"] = $usuario->getNomeUsuario();
+            $dados["tipoUsuario"] = $usuario->getTipoUsuario();
+            $dados["nomeUsuario"] = $usuario->getNomeUsuario();
             $dados["postagem"] = $postagem;
             $dados["listComentarios"] = $comentarios;
-            //$dados["usuarioComentario"] = $usuarioComentario;
-
+            $dados["countLikes"] = $curtidas;
+            $dados["curtidaExistente"] = $curtidaExistente;
             $this->loadView("postagem/postView.php", $dados, []);
         } else
             echo "Postagem não encontrada.";
@@ -153,7 +168,7 @@ class PostagemController extends Controller
             if (unlink($arquivoImg)) {
                 // Se a exclusão do arquivo for bem-sucedida, exclui o registro da postagem no banco de dados
                 $this->postDao->deletePostById($postagem->getId());
-                header("location: " . HOME_PAGE);
+                header("location: /PFC/app/controller/PostagemController.php?action=listPostsToDelete");
                 print "<script>alert('Postagem excluída com sucesso.');</script>";
             } else {
                 // Caso o arquivo não possa ser excluído

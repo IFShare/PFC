@@ -1,34 +1,43 @@
 <?php
 require_once(__DIR__ . '/../include/header.php');
-
-// Verifica se o ID foi passado como parâmetro GET
-$idPost = isset($_GET['id']) ? $_GET['id'] : null;
 ?>
 
-<div class="container justify-content-center">
+<link rel="stylesheet" href="<?= BASEURL ?>/view/css/delPost.css">
 
-    <h3>Digite o ID da postagem que deseja deletar.</h3>
+<div class="container">
 
-    <form action="/PFC/app/controller/PostagemController?action=findPostById" method="get">
-        <!-- Campo de entrada para o ID da postagem -->
-        <input type="number" name="id" required>
-        <button type="submit" class="btn btn-danger">Procurar Postagem.</button>
-    </form>
+    <a class="voltar"
+        href="<?= HOME_PAGE ?>">
+        <i class="fs-4 bi bi-arrow-left-square"
+            data-bs-toggle="tooltip" data-bs-title="Default tooltip data-bs-title=">
+        </i>
 
-    <!-- Botão de exclusão -->
+    </a>
 
-    <p><?php
-        if (isset($_GET["id"])) {
-            $idPost = $_GET["id"];
-        }
-        if (isset($dados["post"])) {
-            $dados["post"];
-        }
-        if (isset($erros["erroPost"])) {
-            echo $erros["erroPost"];
-        }
-        ?></p>
+    <h2>Selecione a postagem que deseja excluir</h2>
+
+    <section class="postagens">
+
+        <?php foreach ($dados['listPosts'] as $posts): ?>
+            <div class="post">
+                <a
+                    onclick="return confirm('Confirma a exclusão desta postagem?');"
+                    href="/PFC/app/controller/PostagemController.php?action=delPost&id=<?= $posts->getId() ?>">
+                    <img
+                        class="imgPost"
+                        src="/PFC/arquivos/<?= $posts->getImagem(); ?>"
+                        alt="Imagem da postagem">
+                    <i class="lixeira fa-solid fa-trash"></i>
+                </a>
+
+            </div>
+
+        <?php endforeach; ?>
+
+    </section>
+
 </div>
+
 
 <?php
 require_once(__DIR__ . '/../include/footer.php');

@@ -18,13 +18,18 @@ class ComentarioDAO
 
     #LISTAGEM DE USUÁRIOS
 
-    public function listComentarios(int $idPostagem)
+    public function listComentariosByPost(int $idPostagem)
     {
 
         $conn = Connection::getConnection();
 
         //WHERE idPostagem = :idPostagem
-        $sql = "SELECT * FROM comentario WHERE idPostagem = :idPostagem ORDER BY id DESC";
+        $sql = "SELECT comentario.*, usuario.nomeUsuario 
+        FROM comentario 
+        JOIN usuario ON comentario.idUsuario = usuario.id
+        WHERE comentario.idPostagem = :idPostagem
+        ORDER BY comentario.id DESC";
+        
         $stm = $conn->prepare($sql);
         $stm->bindValue(':idPostagem', $idPostagem);
 
@@ -102,6 +107,7 @@ class ComentarioDAO
 
             $usuario = new Usuario();
             $usuario->setId($reg['idUsuario']);
+            $usuario->setNomeUsuario($reg['nomeUsuario']); // Adicionando o nome do usuário
             $comentario->setUsuario($usuario);
 
             $postagem = new Post();

@@ -1,10 +1,18 @@
-body{
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap');
+
+body, html{
     height: 100%;
     width: 100%;
     margin: 0;
     padding: 0;
+    font-family: "Noto Sans", sans-serif;
     background: linear-gradient(90deg, #81a880, #004f44);
 }
+
+html {
+    background-color: #004f44;
+}
+
 
 .btnInsert {
     border: none;
@@ -78,12 +86,16 @@ body{
 }
 
 .modal-body {
-    border-radius: 16px;
+    box-shadow: 0px 0px 30px #004f44;
 }
 
 .modal-content {
     transition: all 0.4s;
     border-radius: 20px;
+}
+
+#postModal {
+    backdrop-filter: blur(5px);
 }
 
 #labelLegenda {
@@ -148,7 +160,7 @@ body{
 }
 
 ::-webkit-scrollbar-track {
-    background: #004f44;
+    background: none;
 }
 
 ::-webkit-scrollbar-thumb {

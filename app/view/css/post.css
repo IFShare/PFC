@@ -29,7 +29,6 @@
     border-radius: 15px;
     overflow: hidden;
     margin-bottom: 15px;
-    background-color: black;
     animation: appear linear;
     animation-timeline: view();
     animation-range: entry 0% cover 25%;
@@ -43,7 +42,7 @@
 
 .imgPost:hover{
     transform: scale(110%);
-    opacity: 80%;
+    filter: brightness(80%);
 }
 
 

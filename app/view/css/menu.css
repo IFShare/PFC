@@ -9,15 +9,6 @@ nav.navbar {
     background: linear-gradient(90deg, #81a880, #004f44);
 }
 
-img.logo {
-    width: 10%;
-}
-
-.user {
-    font-size: 3rem;
-    color: white;
-}
-
 .navbar-brand {
     font-size: 2.5rem;
     font-weight: bold;
@@ -33,11 +24,28 @@ img.logo {
 
 #sair {
     margin-left: 10px;
+    display: flex;
+    justify-content: center;
+}
+
+#sair span {
+    font-size: 2rem;
 }
 
 .log {
     display: flex;
-    align-items: center;
+    align-items: baseline;
+}
+
+.user {
+    font-size: 3rem;
+    color: white;
+    margin-left: 10px;
+}
+
+#nomeUsuario {
+    font-size: 2rem;
+    color: white;
 }
 
 .nav-link:hover {
