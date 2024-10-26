@@ -10,17 +10,3 @@ function changeData() {
         dataResumida.style.display = 'block'; 
     }
 }
-
-
-document.addEventListener('DOMContentLoaded', function() {
-    var legenda = document.getElementById('legenda');
-
-    // Verifica se o conteúdo da legenda é maior que a altura da div
-    if (legenda.scrollHeight > legenda.clientHeight) {
-        // Habilita o scroll e aplica os estilos
-        legenda.style.overflowY = 'scroll';
-
-        // Adiciona os estilos de barra de rolagem
-        legenda.classList.add('scroll-styles');
-    }
-});

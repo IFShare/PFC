@@ -26,6 +26,15 @@ nav.navbar {
     margin-left: 10px;
     display: flex;
     justify-content: center;
+    transition: all 0.3s;
+}
+
+#sair:hover {
+    color: red;
+}
+
+#sair abbr {
+    cursor: pointer;
 }
 
 #sair span {

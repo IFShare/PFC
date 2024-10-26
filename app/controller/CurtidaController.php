@@ -56,7 +56,6 @@ class CurtidaController extends Controller
         if ($likeExistente) {
             // Se já existe, remover a curtida
             $this->curtidaDao->delLike($likeExistente['id']);
-            echo "Curtida removida (deslike)";
         } else {
             // Se não existe, inserir a curtida
             $curtida = new Curtida();
@@ -68,7 +67,6 @@ class CurtidaController extends Controller
             $curtida->setUsuario($usuario);
 
             $this->curtidaDao->insertLike($curtida);
-            echo "Curtida registrada (like)";
         }
 
         header("location: " . "/PFC/app/controller/PostagemController.php?action=viewPost&id=" . $idPostagem);

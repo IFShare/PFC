@@ -40,7 +40,7 @@ class CurtidaDAO
         $sql = "SELECT id FROM curtida WHERE idPostagem = :idPostagem AND idUsuario = :idUsuario";
         $stm = $conn->prepare($sql);
         $stm->bindValue(":idPostagem", $idPostagem);
-        $stm->bindValue(":idUsuario", $idUsuario);
+        $stm->bindValue(":idUsuario", $this->loginService->getIdUsuarioLogado());
         $stm->execute();
 
         return $stm->fetch();

@@ -41,9 +41,9 @@ $TipoUsuario = $_SESSION[SESSAO_USUARIO_TIPO_USUARIO];
                 <!-- Botão de sair -->
                 <span id="nomeUsuario"><?= $nome ?></span>
                 <i class="user bi bi-person-circle"></i>
-                <a class="nav-link" id="sair" href="<?= LOGOUT_PAGE ?>"><span class="material-symbols-outlined">
+                <a class="nav-link" id="sair" href="<?= LOGOUT_PAGE ?>"><abbr title="Sair"><span class="material-symbols-outlined">
                         logout
-                    </span></a>
+                    </span></abbr></a>
             </div>
         </div>
     </div>

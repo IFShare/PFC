@@ -7,7 +7,7 @@ require_once(__DIR__ . "/../include/header.php");
 <link rel="stylesheet" href="<?= BASEURL ?>/view/css/home.css">
 
 <div class="container">
-
+<!--BOTÃO DE VOLTAR -->
     <a class="voltar"
         href="<?= HOME_PAGE ?>">
         <i class="fs-4 bi bi-arrow-left-square"
@@ -20,6 +20,7 @@ require_once(__DIR__ . "/../include/header.php");
 
         <div class="postLeft">
 
+        <!--IMAGEM DA POSTAGEM -->
             <div class="imgPost">
 
                 <img
@@ -32,6 +33,7 @@ require_once(__DIR__ . "/../include/header.php");
 
         <div class="postRight">
 
+        <!--LEGENDA E COMENTÁRIOS -->
             <div class="infos">
                 <div class="usuario">
                     <i class='user bi bi-person-circle'></i>
@@ -50,6 +52,7 @@ require_once(__DIR__ . "/../include/header.php");
                     echo $dados["postagem"]->getLegenda();
                     ?>
                 </p>
+                <!--COMENTÁRIOS -->
                 <div class="listComentarios">
                     <?php
                     if (isset($dados['listComentarios']) && !empty($dados['listComentarios'])) {
@@ -81,8 +84,11 @@ require_once(__DIR__ . "/../include/header.php");
 
             </div>
 
+            <!--CURTIDA -->
             <div class="heart mt-2">
-                <a href="/PFC/app/controller/CurtidaController.php?action=likeDislike&id=<?= $dados["postagem"]->getId() ?>">
+                <a 
+                id="likeButton" 
+                href="/PFC/app/controller/CurtidaController.php?action=likeDislike&id=<?= $dados["postagem"]->getId() ?>">
                     <?php
                         if($dados["curtidaExistente"] == true) {
                             echo "<i class='bi bi-heart-fill' style='color: red;'></i>";
@@ -98,6 +104,7 @@ require_once(__DIR__ . "/../include/header.php");
                 </button>
             </div>
 
+            <!--DATA -->
             <div class="data">
                 <?php
                 // Obter a data da postagem
@@ -149,6 +156,7 @@ require_once(__DIR__ . "/../include/header.php");
 
 </div>
 
+<script src="/PFC/app/view/js/curtida.js"></script>
 <script src="/PFC/app/view/js/postView.js"></script>
 
 <?php
