@@ -41,14 +41,16 @@ class CurtidaController extends Controller
 
     public function likeDislike()
     {
+
+        header('Content-Type: application/json');
         // Captura o id da postagem via GET ou POST
-        $idPostagem = $_POST['id'] ?? $_GET['id'] ?? null;
+        $idPostagem = $_POST['post'];
+        $idUsuario = $_POST['user'];
 
         if (!$idPostagem) {
             echo "ID da postagem não fornecido!";
             exit;
         }
-        $idUsuario = $_SESSION['usuarioLogadoId']; // Ou use o método que obtém o usuário logado
 
         // Verificar se já existe uma curtida para esta postagem e usuário
         $likeExistente = $this->curtidaDao->isLiked($idPostagem, $idUsuario);
@@ -56,7 +58,13 @@ class CurtidaController extends Controller
         if ($likeExistente) {
             // Se já existe, remover a curtida
             $this->curtidaDao->delLike($likeExistente['id']);
-            echo "Curtida removida (deslike)";
+            $status = 'dislike';
+            $totalLikes = $this->curtidaDao->countLikes($idPostagem);
+            echo json_encode([
+                'status' => $status,
+                'totalLikes' => $totalLikes
+            ]);
+            exit;
         } else {
             // Se não existe, inserir a curtida
             $curtida = new Curtida();
@@ -68,10 +76,18 @@ class CurtidaController extends Controller
             $curtida->setUsuario($usuario);
 
             $this->curtidaDao->insertLike($curtida);
-            echo "Curtida registrada (like)";
-        }
+            $status = 'like';
+            $totalLikes = $this->curtidaDao->countLikes($idPostagem);
+            echo json_encode([
+                'status' => $status,
+                'totalLikes' => $totalLikes
+            ]);
+            exit;
+            // Atualizar o número total de curtidas
 
-        header("location: " . "/PFC/app/controller/PostagemController.php?action=viewPost&id=" . $idPostagem);
+            // Retorna o estado atualizado da curtida e o número total de curtidas em JSON
+            
+        }
     }
 }
 

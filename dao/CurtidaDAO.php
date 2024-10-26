@@ -29,7 +29,6 @@ class CurtidaDAO
         $stm->bindValue(":idPostagem", $curtida->getPost()->getId());
         $stm->bindValue(":idUsuario", $this->loginService->getIdUsuarioLogado());
         $stm->execute();
-        return "Curtida registrada (like)";
     }
 
     // Verificar se já existe uma curtida

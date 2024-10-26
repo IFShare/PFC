@@ -1,0 +1,323 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap');
+
+.container {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    padding: 2.5vh 0;
+    font-family: "Noto Sans", sans-serif;
+}
+
+.postagem {
+    padding: 0;
+    display: flex;
+    max-width: 90%;
+    max-height: 200vh;
+    border-radius: 15px;
+    overflow: hidden;
+    position: relative;
+}
+
+/* Estilo básico da legenda */
+#legenda {
+    font-size: 1rem;
+    overflow: hidden;
+    overflow-x: hidden;
+    padding-left: 0;
+    max-height: 50%;
+    margin-bottom: 5px;
+    border-bottom: 1px solid #004f44;
+}
+
+.imgPost {
+    border-radius: 10px;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    max-width: 100%;
+    position: relative;
+    overflow: hidden;
+    max-height: 100%;
+}
+
+.img {
+    max-width: 100%;
+    height: 100%;
+    border-radius: 10px;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    transition: all 0.4s;
+}
+
+/*.img:hover {
+    transform: scale(1.15);
+}*/
+
+.postLeft {
+    width: 50%;
+    height: min-content;
+}
+
+.heart i {
+    font-size: 1.7rem;
+    cursor: pointer;
+    color: white;
+    text-decoration: none;
+}
+
+.heart button {
+    text-decoration: none;
+    border: none;
+    outline: none;
+    background: none;
+    padding: 0;
+}
+
+#comentario {
+    margin-left: 10px;
+}
+
+#dropdownMenuButton {
+    opacity: 0;
+}
+
+.coment:hover #dropdownMenuButton {
+    opacity: 100;
+}
+
+.dropdown-toggle {
+    padding: 0;
+    color: gray;
+    background: none;
+    border: none;
+}
+
+
+.postRight {
+    height: 95vh;
+    padding-left: 20px;
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    background-color: rgba(0, 0, 0, 0.600);
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+.infos {
+    padding: 20px;
+    padding-left: 0;
+    height: 90%;
+    overflow-y: scroll;
+    border-bottom: 1px solid #004f44;
+}
+
+.usuario {
+    padding-top: 10px;
+}
+
+.usuario:first-child{
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.nomeUsuario {
+    position: relative;
+}
+
+.verificado {
+    font-size: 1.2rem;
+    color: white;
+    position: absolute;
+    top: -25%;
+    right: -25%;
+    cursor: default;
+    filter: brightness(200%);
+}
+
+#criador {
+    font-size: 0.7rem;
+    color: gray;
+}
+
+.excluir {
+    font-weight: bold;
+    color: black;
+    text-decoration: none;
+    padding: 7px;
+    font-size: 20px;
+    border-radius: 10px;
+    background-color: red;
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+    transition: all 0.3s;
+}
+
+.excluir:hover {
+    opacity: 70%;
+}
+
+.voltar {
+    z-index: 99;
+    position: fixed;
+    top: 2%;
+    left: 2%;
+    background-color: #004f44;
+    color: white;
+    border-radius: 30px;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s;
+}
+
+.voltar:hover {
+    background: #004f44;
+    color: white;
+}
+
+.data {
+    cursor: default;
+    font-size: 1rem;
+    color: rgba(255, 255, 255, 0.450);
+    margin-top: 5px;
+    padding-bottom: 5px;
+}
+
+#dataCompleta {
+    display: none;
+}
+
+.listComentarios {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+}
+
+.coment {
+    margin: 5px 0;
+    display: flex;
+    flex-direction: column;
+    border-radius: 20px;
+    padding: 0;
+}
+
+.user {
+    font-size: 2rem;
+}
+
+.userComent {
+    font-size: 1.3rem;
+    color: white;
+    font-weight: bold;
+}
+
+.conteudo {
+    font-size: 1.3rem;
+}
+
+#inpComent {
+    background: none;
+    outline: none;
+    border: none;
+    border-bottom: 2px solid #004f44;
+    border-radius: 5px;
+    color: white;
+    padding-left: 7px;
+    margin-left: 10px;
+    width: 65%;
+}
+
+#insertComent{
+    border: none;
+    background: #004f44;
+    outline: none;
+    border-radius: 20px;
+    color: white;
+    padding: 5px 10px;
+    transition: all 0.3s;
+}
+
+#insertComent:hover {
+    background-color: #81a880;
+    color: black;
+}
+
+.noComent {
+    text-align: center;
+    font-size: 3rem;
+    font-weight: bold;
+    margin: 0;
+}
+
+@media screen and (max-width:768px) {
+    .postagem {
+        margin: 10px 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        max-width: 100vh;
+        max-height: 250vh;
+    }
+
+    .img {
+        width: 100%;
+        height: 100%;
+        border-radius: 10px;
+        border-top-left-radius: 15px;
+        border-bottom-left-radius: 15px;
+        transition: all 0.3s;
+    }
+
+    .postLeft {
+        width: 100%;
+    }
+
+    .heart {
+        padding: 0 15px;
+    }
+
+    .heart i {
+        font-size: 35px;
+        cursor: pointer;
+        color: white;
+        text-decoration: none;
+    }
+
+    .heart a {
+        text-decoration: none;
+    }
+
+    .postRight {
+        padding: 0 15px;
+        width: 100%;
+    }
+
+    #legenda {
+        font-size: 18px;
+        overflow: hidden;
+        overflow-x: hidden;
+        border-radius: 10px;
+        padding-bottom: 10px;
+        padding-left: 0;
+        max-height: 25%;
+    }
+
+    .voltar {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: 3px solid #004f44;
+        background: none;
+        color: #004f44;
+        padding: 5px 15px;
+    }
+
+    #insertComent{
+        margin-top: 5px;
+    }
+
+}

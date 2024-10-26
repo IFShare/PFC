@@ -1,0 +1,172 @@
+body{
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(90deg, #81a880, #004f44);
+}
+
+p {
+    color: white;
+}
+
+.h4 {
+    color: white;
+}
+
+.form-container {
+    height: 100%;
+}
+
+.title-ifshare {
+    font-size: 5rem;
+    margin-bottom: 0;
+    color: white;
+}
+
+.btn-custom {
+    background: #004f44;
+    color: #fff;
+    border-radius: 30px;
+    padding: 10px 20px;
+    font-size: 16px; 
+    font-weight: bold;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.voltar {
+    position: absolute;
+    top: 2%;
+    left: 2%;
+    background-color: #004f44;
+    color: white;
+    border-radius: 30px;
+    padding: 10px 20px;
+    font-size: 16px; 
+    font-weight: bold;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s;
+}
+
+.voltar:hover {
+    background: #004f44 !important;
+    color: white !important;
+}
+
+.btn-custom:hover {
+    color: black;
+    background-color: #81a880;
+    transform: scale(1.05);
+}
+
+#formUsuario {
+    padding-left: 10px;
+}
+
+.form-control {
+    border-radius: 8px;
+    border: none;
+    border: 2px solid white;
+    padding: 8px;
+    font-size: 17px;
+    line-height: 1.0;
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+    height: 33px;
+    background-color: transparent;
+    color: white;
+    cursor: default;
+}
+
+.form-control::placeholder{
+    font-weight: bold;
+    color: #b5b5b5;
+    font-size: 16px;
+}
+
+.form-control:focus{
+    color: white;
+    cursor: text;
+}
+
+.form-select {
+    border-radius: 8px;
+    border: 2px solid white;
+    padding: 8px;
+    font-size: 15px;
+    line-height: 1.0;
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+    transition: border-color 0.3s, box-shadow 0.3s;
+    height: 33px;
+    background-color: transparent;
+    color: rgb(220, 219, 219);
+    cursor: default;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.form-select:hover{
+    border: 2px solid white;
+}
+
+.form-select option {
+    font-size: 14px;
+    background-color: #004f44;
+    color: rgb(220, 219, 219);
+}
+
+
+.form-control:focus, .form-select:focus {
+    background-color: transparent;
+    border-color: #81a880;
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+.form-control:focus + .form-control::placeholder{
+    content: "";
+}
+
+.form-label {
+    font-size: 18px;
+    color: white;
+    margin-bottom: 4px;
+}
+
+.label-invalid {
+    color: red;
+}
+
+.label-valid {
+    color: rgb(0, 197, 0);
+}
+
+#formPost {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+#txtLegenda {
+    border-width: 3px;
+    resize: none;
+    height: 150px;
+}
+
+img {
+    width: 45%;
+}
+
+
+.img img {
+    width: 100%;
+    height: 100%;
+}
+
+.senhaTip{
+    text-decoration: none;
+    font-size: 17px;
+    margin-top: 10px;
+    color: white;
+}

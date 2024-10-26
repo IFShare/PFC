@@ -17,12 +17,12 @@ class UsuarioController extends Controller
     public function __construct()
     {
         if (!$this->usuarioLogado())
-          exit;
-          
-        if(! $this->usuarioIsAdmin()) {
+            exit;
+
+        if (! $this->usuarioIsAdmin()) {
             header("location: " . ACESSO_NEGADO);
             exit;
-        } 
+        }
 
         $this->usuarioDao = new UsuarioDAO();
         $this->usuarioService = new UsuarioService();
@@ -38,7 +38,6 @@ class UsuarioController extends Controller
         $dados["lista"] = $usuarios;
 
         $this->loadView("usuario/list.php", $dados, []);
-
     }
 
 
@@ -77,7 +76,6 @@ class UsuarioController extends Controller
                     $usuario->setId($dados["id"]);
                     $this->usuarioDao->update($usuario);
                 }
-
             } catch (PDOException $e) {
                 //echo $e->getMessage();
                 $erros["banco"] = "Erro ao salvar o usuário na base de dados.<br>Tente novamente mais tarde.";
@@ -105,10 +103,11 @@ class UsuarioController extends Controller
         $this->loadView("usuario/form.php", $dados, []);
     }
 
-   
+
 
     //Método edit
-    protected function edit() {
+    protected function edit()
+    {
 
         if (! $this->usuarioIsAdminStudent()) {
             header("location: " . ACESSO_NEGADO);
@@ -116,17 +115,17 @@ class UsuarioController extends Controller
         }
 
         $usuario = $this->findUsuarioById();
-        
-        if($usuario) {
+
+        if ($usuario) {
             $usuario->setSenha("");
-            
+
             //Setar os dados
             $dados["id"] = $usuario->getId();
             $dados["usuario"] = $usuario;
-            $dados["tipoUsuario"] = TipoUsuario::getAllAsArray(); 
+            $dados["tipoUsuario"] = TipoUsuario::getAllAsArray();
 
             $this->loadView("usuario/form.php", $dados, []);
-        } else 
+        } else
             $this->list("Usuário não encontrado");
     }
 
@@ -159,6 +158,11 @@ class UsuarioController extends Controller
 
         $usuario = $this->usuarioDao->findById($id);
         return $usuario;
+    }
+
+    protected function perfil()
+    {
+        $this->loadView("usuario/perfil.php", [], []);
     }
 }
 
