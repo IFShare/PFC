@@ -1,0 +1,28 @@
+body {
+    height: 100vh;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(90deg, #81a880, #004f44);
+}
+
+.container {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.mensagem {
+    padding: 20px;
+    border: 3px solid white;
+    border-radius: 15px;
+}
+
+.mensagem h1 {
+    font-size: 50px;
+}
+
+.mensagem p {
+    font-size: 25px;
+}
