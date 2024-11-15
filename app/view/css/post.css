@@ -9,7 +9,7 @@
 .postagens {
     margin: 60px 10px;
     width: 100%;
-    column-width: 200px;
+    column-count: 5;
     column-gap: 25px;
 }
 
@@ -47,5 +47,7 @@
 
 
 @media screen and (max-width:768px){
-
+    .postagens {
+        column-count: 2;
+    }
 }

@@ -14,7 +14,7 @@ class UsuarioService
     }
 
     /* Método para validar os dados do usuário que vem do formulário */
-    public function validarDados(Usuario $usuario)
+    public function validarDados(Usuario $usuario, $compMatricula)
     {
         $erros = array();
 
@@ -28,25 +28,34 @@ class UsuarioService
             $erros['nomeUsuario'] = "Preecnha seu nome de usuário";
         elseif (strpos($usuario->getNomeUsuario(), ' ') !== false)
             $erros['nomeUsuario'] = "O nome de usuário não pode conter espaços.";
-        elseif ($this->usuarioDAO->nomeUsuarioCadastrado($usuario->getNomeUsuario(), 
-                                                         $usuario->getId())) // Verificação se o email já está cadastrado
+        elseif ($this->usuarioDAO->nomeUsuarioCadastrado($usuario->getNomeUsuario(), $usuario->getId())) // Verificação se o email já está cadastrado
             $erros['nomeUsuario'] = "Nome de usuário já em uso.";
 
         if (! $usuario->getEmail())
             $erros['email'] = "Preecnha seu email";
         elseif (filter_var($usuario->getEmail(), FILTER_VALIDATE_EMAIL) === false)
             $erros['email'] = "Formato de email inválido!";
-        elseif ($this->usuarioDAO->emailJaCadastrado($usuario->getEmail())) // Verificação se o email já está cadastrado
+        elseif ($this->usuarioDAO->emailJaCadastrado($usuario->getEmail(), $usuario->getId())) // Verificação se o email já está cadastrado
             $erros['email'] = "Este e-mail já foi cadastrado.";
 
-
-        if (! $usuario->getSenha())
+        if ($usuario->getId() == 0 && !$usuario->getSenha())
             $erros['senha'] = "Preecnha sua senha";
-        elseif (strlen($usuario->getSenha()) <= 5)
-            $erros['senhaCarac'] = "A senha precisa ter mais de 5 caracteres";
+        elseif ($usuario->getId() == 0 && strlen($usuario->getSenha()) < 5)
+            $erros['senha'] = "A senha precisa ter pelo menos 5 caracteres";
 
         if (! $usuario->getTipoUsuario())
             $erros['tipoUsuario'] = "Escolha o tipo de usuário";
+
+        if (! $usuario && $usuario->getIsEstudante() == "SIM" && (!$compMatricula || !isset($compMatricula["size"]) || $compMatricula["size"] <= 0)) {
+            $erros['compMatricula'] = "Escolha seu comprovante de matrícula";
+        }
+
+        if (! $usuario->getStatus()) {
+            $erros['status'] = "Escolha um status para o usuário";
+        }
+
+        if (! $usuario->getIsEstudante())
+            $erros['isEstudante'] = "Escolha uma das opções abaixo:";
 
         return $erros;
     }

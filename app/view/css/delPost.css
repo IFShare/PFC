@@ -65,6 +65,7 @@ h2 {
     width: 100%;
     border-radius: 15px;
     transition: all 0.3s;
+    font-weight: bold;
 }
 
 .post:hover .imgPost {

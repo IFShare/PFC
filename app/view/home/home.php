@@ -59,21 +59,18 @@ require_once(__DIR__ . "/../include/menu.php");
     </div>
 </div>
 
-
 <div class="container">
 
     <section class="postagens">
 
         <?php foreach ($dados['listPosts'] as $posts): ?>
-            <div class="post">
-                <a
-                    href="<?= BASEURL ?>/controller/PostagemController.php?action=viewPost&id=<?= $posts->getId() ?>">
+            <div class="post" id="post">
+                <a href="<?= BASEURL ?>/controller/PostagemController.php?action=viewPost&id=<?= $posts->getId() ?>">
                     <img
-                        class="imgPost"
-                        src="/PFC/arquivos/<?= $posts->getImagem(); ?>"
+                        class="imgPost" id="imgPost"
+                        src="/PFC/arquivos/imgs/<?= $posts->getImagem(); ?>"
                         alt="Imagem da postagem">
                 </a>
-
             </div>
 
         <?php endforeach; ?>
@@ -82,9 +79,8 @@ require_once(__DIR__ . "/../include/menu.php");
 
 </div>
 
-<script src="<?= BASEURL ?>/view/js/home.js"></script>
-
 <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+<script src="<?= BASEURL ?>/view/js/home.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/emojionearea/3.4.2/emojionearea.min.js"></script>
 <script type="text/javascript">
     $('#txtLegenda').emojioneArea({

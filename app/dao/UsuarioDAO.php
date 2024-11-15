@@ -15,7 +15,38 @@ class UsuarioDAO
 
         $conn = Connection::getConnection();
 
-        $sql = "SELECT * FROM usuario u ORDER BY u.nomeUsuario";
+        $sql = "SELECT * FROM usuario u ORDER BY u.id";
+        $stm = $conn->prepare($sql);
+
+        $stm->execute();
+        $result = $stm->fetchAll();
+
+        return $this->mapUsuarios($result);
+    }
+
+    public function countNaoVerificados()
+    {
+
+        $conn = Connection::getConnection();
+
+        $sql = "SELECT COUNT(*) total FROM usuario u WHERE u.status = 'NAOVERIFICADO'";
+        $stm = $conn->prepare($sql);
+        $stm->execute();
+        $result = $stm->fetchAll();
+
+        return $result[0]["total"];
+    }
+
+    public function listCompMatricula()
+    {
+
+        $conn = Connection::getConnection();
+
+        $sql = "SELECT * 
+                FROM usuario u 
+                WHERE u.compMatricula IS NOT NULL 
+                AND u.status = 'NAO VERIFICADO'
+                ORDER BY u.id DESC;";
         $stm = $conn->prepare($sql);
 
         $stm->execute();
@@ -33,10 +64,10 @@ class UsuarioDAO
         $conn = Connection::getConnection();
 
         $sql = "INSERT INTO usuario (nomeCompleto, nomeUsuario, email, senha, " .
-            " fotoPerfil, bio, tipoUsuario, dataCriacao, compMatricula)" .
+            " fotoPerfil, bio, tipoUsuario, dataCriacao, compMatricula, status, isEstudante)" .
 
-            " VALUES (:nomeCompleto, :nomeUsuario, :email, :senha, :bio, " .
-            " :tipoUsuario, CURRENT_DATE, :compMatricula)";
+            " VALUES (:nomeCompleto, :nomeUsuario, :email, :senha, :fotoPerfil, :bio, " .
+            " :tipoUsuario, CURRENT_DATE, :compMatricula, :status, :isEstudante)";
 
         $stm = $conn->prepare($sql);
         $stm->bindValue("nomeCompleto", $usuario->getNomeSobrenome());
@@ -48,6 +79,9 @@ class UsuarioDAO
         $stm->bindValue("bio", $usuario->getBio());
         $stm->bindValue("tipoUsuario", $usuario->getTipoUsuario());
         $stm->bindValue("compMatricula", $usuario->getCompMatricula());
+        $stm->bindValue("status", $usuario->getStatus());
+        $stm->bindValue("isEstudante", $usuario->getIsEstudante());
+
 
 
         $stm->execute();
@@ -62,21 +96,19 @@ class UsuarioDAO
         $conn = Connection::getConnection();
 
         $sql = "UPDATE usuario SET nomeCompleto = :nomeCompleto, nomeUsuario = :nomeUsuario," .
-            " email = :email, senha = :senha, fotoPerfil = :fotoPerfil, bio = :bio = tipoUsuario = :tipoUsuario," .
-            " dataCriacao = :dataCriacao, compMatricula = :compMatricula " .
+            " email = :email, fotoPerfil = :fotoPerfil, bio = :bio, tipoUsuario = :tipoUsuario," .
+            " status = :status, isEstudante = :isEstudante".
             " WHERE id = :id";
 
         $stm = $conn->prepare($sql);
         $stm->bindValue("nomeCompleto", $usuario->getNomeSobrenome());
         $stm->bindValue("nomeUsuario", $usuario->getNomeUsuario());
         $stm->bindValue("email", $usuario->getEmail());
-        $senhaCript = password_hash($usuario->getSenha(), PASSWORD_DEFAULT);
-        $stm->bindValue("senha", $senhaCript);
         $stm->bindValue("fotoPerfil", $usuario->getFotoPerfil());
         $stm->bindValue("bio", $usuario->getBio());
         $stm->bindValue("tipoUsuario", $usuario->getTipoUsuario());
-        $stm->bindValue("dataCriacao", $usuario->getDataCriacao());
-        $stm->bindValue("compMatricula", $usuario->getCompMatricula());
+        $stm->bindValue("status", $usuario->getStatus());
+        $stm->bindValue("isEstudante", $usuario->getIsEstudante());
         $stm->bindValue("id", $usuario->getId());
 
         $stm->execute();
@@ -97,11 +129,48 @@ class UsuarioDAO
         $stm->execute();
     }
 
+
+    public function abrirPdf(int $id)
+{
+    $conn = Connection::getConnection();
+
+    // Preparar a consulta
+    $sql = "SELECT nomeUsuario, compMatricula FROM usuario WHERE id = :id";
+    $stm = $conn->prepare($sql);
+    $stm->bindValue(":id", $id);
+    $stm->execute();
+
+    // Verifica se há resultados
+    $usuario = $stm->fetch();
+    var_dump($usuario);
+
+    if ($usuario) {
+        $fileContent = $usuario['compMatricula']; // Conteúdo do arquivo (provavelmente o caminho)
+
+        // Verificar se o arquivo existe
+        if (file_exists(PATH_ARQUIVOS_COMPMATRICULA . '/' . $fileContent)) {
+            // Forçar o download do arquivo
+            header('Content-Type: application/pdf');
+            header('Content-Disposition: inline; filename="' . $fileContent);
+            header('Content-Length: ' . filesize(PATH_ARQUIVOS_COMPMATRICULA . '/' . $fileContent));
+            readfile(PATH_ARQUIVOS_COMPMATRICULA . '/' . $fileContent);
+            exit;
+        } else {
+            echo "Arquivo não encontrado!";
+        }
+    } else {
+        echo "Usuário não encontrado.";
+    }
+
+}
+
+    
     ####################################################################################
 
     #CONTA O NÚMERO DE USUÁRIOS DO SISTEMA
 
-    public function count() {
+    public function count()
+    {
         $conn = Connection::getConnection();
 
         $sql = "SELECT COUNT(*) total FROM usuario";
@@ -116,11 +185,13 @@ class UsuarioDAO
 
     #VERIFICA SE UM EMAIL JÁ FOI CADASTRADO.
 
-    public function emailJaCadastrado(string $email): bool {
+    public function emailJaCadastrado(string $email, ?int $idUsuario): bool
+    {
         $conn = Connection::getConnection();
-        $sql = "SELECT COUNT(*) as total FROM usuario WHERE email = :email";
+        $sql = "SELECT COUNT(*) as total FROM usuario WHERE email = :email and id != :id";
         $stm = $conn->prepare($sql);
         $stm->bindValue(':email', $email);
+        $stm->bindValue(':id', ($idUsuario ? $idUsuario : 0));
         $stm->execute();
         $result = $stm->fetch();
 
@@ -131,12 +202,13 @@ class UsuarioDAO
 
     #VERIFICA SE UM EMAIL JÁ FOI CADASTRADO.
 
-    public function nomeUsuarioCadastrado(string $nomeUsuario, int $idUsuario): bool {
+    public function nomeUsuarioCadastrado(string $nomeUsuario, ?int $idUsuario): bool
+    {
         $conn = Connection::getConnection();
-        $sql = "SELECT COUNT(*) as total FROM usuario WHERE nomeUsuario = :nomeUsuario and id != id";
+        $sql = "SELECT COUNT(*) as total FROM usuario WHERE nomeUsuario = :nomeUsuario and id != :id";
         $stm = $conn->prepare($sql);
         $stm->bindValue(':nomeUsuario', $nomeUsuario);
-        $stm->bindValue(':id', $idUsuario);
+        $stm->bindValue(':id', ($idUsuario ? $idUsuario : 0));
         $stm->execute();
         $result = $stm->fetch();
 
@@ -167,28 +239,29 @@ class UsuarioDAO
     }
 
     //Método para buscar um usuário por seu login e senha
-    public function findByEmailSenha(string $email, string $senha) {
+    public function findByEmailSenha(string $email, string $senha)
+    {
         $conn = Connection::getConnection();
 
         $sql = "SELECT * FROM usuario u" .
-               " WHERE BINARY u.email = ?";
-        $stm = $conn->prepare($sql);    
+            " WHERE BINARY u.email = ?";
+        $stm = $conn->prepare($sql);
         $stm->execute([$email]);
         $result = $stm->fetchAll();
 
         $usuarios = $this->mapUsuarios($result);
 
-        if(count($usuarios) == 1) {
+        if (count($usuarios) == 1) {
             //Tratamento para senha criptografada
             if (password_verify($senha, $usuarios[0]->getSenha()))
-            //if ($usuarios[0]->getSenha())
+                //if ($usuarios[0]->getSenha())
                 return $usuarios[0];
             else
                 return null;
-        } elseif(count($usuarios) == 0)
+        } elseif (count($usuarios) == 0)
             return null;
 
-        die("UsuarioDAO.findByEmailnSenha()" . 
+        die("UsuarioDAO.findByEmailnSenha()" .
             " - Erro: mais de um usuário encontrado.");
     }
 
@@ -211,6 +284,8 @@ class UsuarioDAO
             $usuario->setTipoUsuario($reg['tipoUsuario']);
             $usuario->setDataCriacao($reg['dataCriacao']);
             $usuario->setCompMatricula($reg['compMatricula']);
+            $usuario->setStatus($reg['status']);
+            $usuario->setIsEstudante($reg['isEstudante']);
             array_push($usuarios, $usuario);
         }
 

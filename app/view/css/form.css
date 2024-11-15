@@ -5,43 +5,6 @@ body{
     background: linear-gradient(90deg, #81a880, #004f44);
 }
 
-.fotoPerfil {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    object-fit: cover;
-}
-
-.preview {
-    width: 200px;
-    height: 200px;
-    cursor: pointer;
-    border-radius: 50%;
-    border: 4px solid #004f44;
-    transition: all 0.3s;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    overflow: hidden;
-    background-color: #004f44;
-    color: white;
-}
-
-.preview:hover {
-    border: 4px solid #81a880;
-}
-
-#imgPreview {
-    width: 100%;
-    border-radius: 10px;
-}
-
-#imgPreview:hover {
-    width: 100%;
-    border-radius: 10px;
-}
-
 p {
     color: white;
 }
@@ -112,6 +75,17 @@ p {
     background-color: transparent;
     color: white;
     cursor: default;
+}
+
+.form-control.error {
+    border: 2px solid #d9534f;
+    box-shadow: 0 0 0 2px rgba(217, 83, 79, 0.2);
+    background-color: transparent; 
+}
+
+.form-control.error:focus {
+    border-color: #d9534f;
+    box-shadow: 0 0 0 2px rgba(217, 83, 79, 0.3);
 }
 
 .form-control::placeholder{
@@ -201,9 +175,83 @@ img {
     height: 100%;
 }
 
-.senhaTip{
-    text-decoration: none;
-    font-size: 17px;
-    margin-top: 10px;
+.btn-check {
+    display: none;
+}
+
+.isStudent, .notStudent {
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s, transform 0.2s;
+}
+
+.isStudent {
     color: white;
+    border: 2px solid #28a745;
+    transition: all 0.3s;
+}
+
+.notStudent {
+    color: white;
+    border: 2px solid #dc3545;
+    transition: all 0.3s;
+}
+
+.isStudent:hover {
+    background-color: #28a745;
+    color: #fff;
+    transform: scale(1.05);
+    box-shadow: 5px 7px #155725;
+}
+
+.notStudent:hover {
+    background-color: #dc3545;
+    color: #fff;
+    transform: scale(1.05);
+    box-shadow: 5px 7px #4d1117;
+}
+
+.btn-check:checked + .isStudent {
+    background-color: #28a745;
+    color: #fff;
+    border-color: #28a745;
+    box-shadow: 5px 7px #155725;
+}
+
+.btn-check:checked + .notStudent {
+    background-color: #dc3545;
+    color: #fff;
+    border-color: #dc3545;
+    box-shadow: 5px 7px #4d1117;
+}
+
+.studentRadio {
+    display: flex;
+    gap: 20px;
+}
+
+.custom-file-upload {
+    text-align: center;
+    width: 75%;
+    padding: 10px 20px;
+    cursor: pointer;
+    background: none; /* Cor de fundo */
+    color: white;
+    border-radius: 20px;
+    border: 2px solid #004f44;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+
+.custom-file-upload:hover {
+    background-color: #004f44; /* Cor de fundo ao passar o mouse */
+}
+
+.file-name {
+    display: inline-block;
+    margin-left: 10px;
+    font-style: italic;
+    color: white; /* Cor do nome do arquivo */
 }

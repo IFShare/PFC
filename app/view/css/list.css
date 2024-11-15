@@ -1,5 +1,5 @@
 body {
-    height: 100%;
+    height: 100vh;
     width: 100%;
     margin: 0;
     padding: 0;
@@ -14,17 +14,18 @@ h3.text-center {
 }
 
 /* Centraliza a tabela na página */
-.tableUser {
+.container {
     display: flex;
-    justify-content: center; /* Centraliza a tabela */
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
     margin-top: 20px; /* Distância do título da tabela */
 }
 
 table {
-    width: 80%; /* Ajuste a largura da tabela */
+    width: 100%; /* Ajuste a largura da tabela */
     border-collapse: collapse; /* Remove o espaço entre as células */
     background-color: rgba(255, 255, 255, 0.9); /* Fundo branco com leve transparência */
-    border-radius: 10px; /* Cantos arredondados na tabela */
     overflow: hidden; /* Garante que os cantos arredondados sejam visíveis */
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); /* Sombra para destaque */
 }
@@ -34,7 +35,7 @@ th {
     color: white;
     padding: 15px; /* Espaçamento em cima e embaixo */
     font-weight: bold;
-    text-align: left; /* Alinha texto à esquerda */
+    text-align: center;
     border: 2px solid #004f44; /* Borda com a mesma cor do fundo */
 }
 
@@ -57,16 +58,18 @@ tr:hover td {
     font-size: 16px; /* Tamanho da fonte dos botões */
     font-weight: bold; /* Texto em negrito */
     transition: background-color 0.3s, transform 0.3s; /* Transição para hover */
-    margin: 5px; /* Margem entre os botões */
 }
 
 .btn-success {
-    background-color: #004f44; /* Cor padrão para o botão Inserir */
-    color: white;
     border: none;
+    border: 2px solid #81a880; /* Cor padrão para o botão Inserir */
+    background: none;
+    color: white;
 }
 
 .btn-success:hover {
+    border: 2px solid #81a880;
+    color: black;
     background-color: #81a880; /* Cor ao passar o mouse */
     transform: scale(1.05); /* Leve aumento no tamanho */
 }
@@ -94,7 +97,7 @@ tr:hover td {
 }
 
 .voltar {
-    position: absolute;
+    position: fixed;
     top: 2%;
     left: 2%;
     background-color: none;
@@ -110,4 +113,14 @@ tr:hover td {
 
 .voltar:hover {
     background-color: #81a880;
+}
+
+.card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px); /* Eleva o card levemente */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); /* Adiciona uma sombra mais intensa */
+    background-color: #f9f9f9; /* Cor de fundo levemente mais clara */
 }

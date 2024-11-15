@@ -39,7 +39,7 @@ class ComentarioDAO
         return $this->mapComentario($result);
     }
 
-    #INSERÇÃO DE USUÁRIO
+    #INSERÇÃO DE COMENTÁRIO
 
     public function insert(Comentario $comentario)
     {

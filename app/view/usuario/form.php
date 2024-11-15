@@ -8,7 +8,7 @@ if ($_SESSION[SESSAO_USUARIO_TIPO_USUARIO] == "ADM"): ?>
 
     <div class="container-fluid form-container h-100">
         <a class="voltar"
-            href="<?= HOME_PAGE ?>">
+            href="http://localhost/PFC/app/controller/UsuarioController.php?action=list">
             <i class="fs-4 bi bi-arrow-left-square"
                 data-bs-toggle="tooltip" data-bs-title="Default tooltip data-bs-title=" Voltar">
             </i>
@@ -17,7 +17,7 @@ if ($_SESSION[SESSAO_USUARIO_TIPO_USUARIO] == "ADM"): ?>
         <div class="row h-100 d-flex justify-content-center align-items-center"> <!-- 100% da altura da tela -->
 
             <div class="col-md-6 p-0 d-flex flex-column justify-content-center align-items-center info-container">
-                <img src="/PFC/app/assets/IFSHARE.png" alt="">
+                <img src="/PFC/app/assets/logo.png" alt="">
                 <h2 class="h4">
                     <?php
                     if (isset($msgErro["banco"])) {
@@ -53,7 +53,7 @@ if ($_SESSION[SESSAO_USUARIO_TIPO_USUARIO] == "ADM"): ?>
                                 if (isset($msgErro['nomeSobrenome'])) {
                                     echo "<p class='mb-0 fw-bold label-invalid'>" . $msgErro['nomeSobrenome'] . "</p>";
                                 } elseif ((isset($dados["usuario"]) ? $dados["usuario"]->getNomeSobrenome() : '')) {
-                                    echo "<p class='mb-0 fw-bold form-label label-valid'><i class='fa-solid fa-check'></i></p>";
+                                    echo "<p class='mb-0 fw-bold form-label label-valid'>" . (isset($dados["usuario"]) ? "<i class='fa-solid fa-check'></i> Nome válido" : '') . "</p>";
                                 } else {
                                     echo "<p class='mb-0 form-label'>Nome e sobrenome</p>";
                                 }
@@ -75,7 +75,7 @@ if ($_SESSION[SESSAO_USUARIO_TIPO_USUARIO] == "ADM"): ?>
                                 if (isset($msgErro['nomeUsuario'])) {
                                     echo "<p class='mb-0 fw-bold label-invalid'>" . $msgErro['nomeUsuario'] . "</p>";
                                 } elseif ((isset($dados["usuario"]) ? $dados["usuario"]->getNomeUsuario() : '')) {
-                                    echo "<p class='mb-0 fw-bold form-label label-valid'><i class='fa-solid fa-check'></i></p>";
+                                    echo "<p class='mb-0 fw-bold form-label label-valid'>" . (isset($dados["usuario"]) ? "<i class='fa-solid fa-check'></i> Nome de usuário válido" : '') . "</p>";
                                 } else {
                                     echo "<p class='mb-0 form-label'>Nome de usuário</p>";
                                 }
@@ -97,7 +97,7 @@ if ($_SESSION[SESSAO_USUARIO_TIPO_USUARIO] == "ADM"): ?>
                                 if (isset($msgErro['email'])) {
                                     echo "<p class='mb-0 fw-bold label-invalid'>" . $msgErro['email'] . "</p>";
                                 } elseif ((isset($dados["usuario"]) ? $dados["usuario"]->getEmail() : '')) {
-                                    echo "<p class='mb-0 fw-bold form-label label-valid'><i class='fa-solid fa-check'></i></p>";
+                                    echo "<p class='mb-0 fw-bold form-label label-valid'>" . (isset($dados["usuario"]) ? "<i class='fa-solid fa-check'></i> E-mail válido" : '') . "</p>";
                                 } else {
                                     echo "<p class='mb-0 form-label'>E-mail</p>";
                                 }
@@ -122,7 +122,7 @@ if ($_SESSION[SESSAO_USUARIO_TIPO_USUARIO] == "ADM"): ?>
                                     if (isset($msgErro['senha'])) {
                                         echo "<p class='mb-0 fw-bold label-invalid'>" . $msgErro['senha'] . "</p>";
                                     } elseif ((isset($dados["usuario"]) ? $dados["usuario"]->getSenha() : '')) {
-                                        echo "<p class='mb-0 fw-bold form-label label-valid'><i class='fa-solid fa-check'></i></p>";
+                                        echo "<p class='mb-0 fw-bold form-label label-valid'><i class='fa-solid fa-check'></i> Senha válida</p>";
                                     } else {
                                         echo "<p class='mb-0 form-label'>Senha</p>";
                                     }
@@ -135,9 +135,6 @@ if ($_SESSION[SESSAO_USUARIO_TIPO_USUARIO] == "ADM"): ?>
                                     id="txtSenha"
                                     name="senha"
                                     value="<?php echo (isset($dados["usuario"]) ? $dados["usuario"]->getSenha() : ''); ?>" />
-                                <ul class="senhaTip">
-                                    <li class="">A senha deve conter mais de 5 caracteres.</li>
-                                </ul>
                             </div>
 
                         <?php
@@ -165,6 +162,57 @@ if ($_SESSION[SESSAO_USUARIO_TIPO_USUARIO] == "ADM"): ?>
                                                                             echo "selected";
                                                                         ?>>
                                         <?= $tipoUsuario ?>
+                                    </option>
+                                <?php endforeach; ?>
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="selStatus" class="form-label">
+                                <?php
+                                if (isset($msgErro['status'])) {
+                                    echo "<p class='mb-0 fw-bold label-invalid'>" . $msgErro['status'] . "</p>";
+                                } elseif ((isset($dados["usuario"]) ? $dados["usuario"]->getStatus() : '')) {
+                                    echo "<p class='mb-0 fw-bold form-label label-valid'>" . (isset($dados["usuario"]) ? $dados["usuario"]->getStatus() : '') . "</p>";
+                                } else {
+                                    echo "<p class='mb-0 form-label'>Status do usuário</p>";
+                                }
+                                ?>
+                            </label>
+                            <select class="form-select" name="status" id="selStatus">
+                                <option value="">Selecione o status do usuáro</option>
+                                <?php foreach ($dados["status"] as $status) : ?>
+                                    <option value="<?= $status ?>" <?php
+                                                                        if (isset($dados["usuario"]) && $dados["usuario"]->getStatus() == $status)
+                                                                            echo "selected";
+                                                                        ?>>
+                                        <?= $status ?>
+                                    </option>
+                                <?php endforeach; ?>
+                            </select>
+                        </div>
+
+
+                        <div class="mb-3">
+                            <label for="selIsEstudante" class="form-label">
+                                <?php
+                                if (isset($msgErro['isEstudante'])) {
+                                    echo "<p class='mb-0 fw-bold label-invalid'>" . $msgErro['isEstudante'] . "</p>";
+                                } elseif ((isset($dados["usuario"]) ? $dados["usuario"]->getIsEstudante() : '')) {
+                                    echo "<p class='mb-0 fw-bold form-label label-valid'>" . (isset($dados["usuario"]) ? $dados["usuario"]->getIsEstudante() : '') . "</p>";
+                                } else {
+                                    echo "<p class='mb-0 form-label'>Status do usuário</p>";
+                                }
+                                ?>
+                            </label>
+                            <select class="form-select" name="isEstudante" id="selIsEstudante">
+                                <option value="">Selecione se o usuário é estudante do IFPR</option>
+                                <?php foreach ($dados["isEstudante"] as $isEstudante) : ?>
+                                    <option value="<?= $isEstudante ?>" <?php
+                                                                        if (isset($dados["usuario"]) && $dados["usuario"]->getIsEstudante() == $isEstudante)
+                                                                            echo "selected";
+                                                                        ?>>
+                                        <?= $isEstudante ?>
                                     </option>
                                 <?php endforeach; ?>
                             </select>

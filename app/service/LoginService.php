@@ -18,8 +18,8 @@ class LoginService {
         //Valida o campo senha
         if(! $senha)
             $arrayMsg['senhaLogin'] = "Preencha sua senha";
-        elseif (strlen($senha) <= 5)
-            $arrayMsg['senhaLogin'] = "A senha precisa ter mais de 5 caracteres";
+        elseif (strlen($senha) < 5)
+            $arrayMsg['senhaLogin'] = "A senha precisa ter pelo menos 5 caracteres";
 
         return $arrayMsg;
     }

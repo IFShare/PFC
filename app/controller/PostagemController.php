@@ -5,7 +5,7 @@ require_once(__DIR__ . "/../dao/UsuarioDAO.php");
 require_once(__DIR__ . "/../dao/ComentarioDAO.php");
 require_once(__DIR__ . "/../dao/CurtidaDAO.php");
 require_once(__DIR__ . "/../service/PostagemService.php");
-require_once(__DIR__ . "/../service/ArquivoService.php");
+require_once(__DIR__ . "/../service/ImgService.php");
 require_once(__DIR__ . "/Controller.php");
 require_once(__DIR__ . "/../model/Post.php");
 
@@ -17,7 +17,7 @@ class PostagemController extends Controller
     private ComentarioDAO  $comentarioDao;
     private UsuarioDAO  $usuarioDao;
     private PostagemService  $postService;
-    private ArquivoService  $arqService;
+    private ImgService  $imgService;
 
     //Método construtor do controller - será executado a cada requisição a está classe
     public function __construct()
@@ -30,7 +30,7 @@ class PostagemController extends Controller
         $this->comentarioDao = new ComentarioDAO();
         $this->usuarioDao = new UsuarioDAO();
         $this->postService = new PostagemService();
-        $this->arqService = new ArquivoService();
+        $this->imgService = new ImgService();
 
         $this->handleAction();
     }
@@ -81,8 +81,11 @@ class PostagemController extends Controller
     private function findPostById()
     {
         $id = 0;
-        if (isset($_GET['id']))
+        if (isset($_GET['id'])){
             $id = $_GET['id'];
+        } elseif(isset($_POST['id'])){
+            $id = $_POST['id'];
+        }
 
         $postagem = $this->postDao->findById($id);
         return $postagem;
@@ -112,7 +115,7 @@ class PostagemController extends Controller
         //Validar os dados
         $erros = $this->postService->validarDados($post, $imagem);
         if (empty($erros)) {
-            $nomeArquivo = $this->arqService->salvarArquivo($imagem);
+            $nomeArquivo = $this->imgService->salvarArquivo($imagem);
             if ($nomeArquivo)
                 $post->setImagem($nomeArquivo);
             else
@@ -157,7 +160,7 @@ class PostagemController extends Controller
         }
 
         // Caminho do arquivo da imagem associado à postagem
-        $arquivoImg = $_SERVER['DOCUMENT_ROOT'] . "/PFC/arquivos/" . $postagem->getImagem();
+        $arquivoImg = $_SERVER['DOCUMENT_ROOT'] . "/PFC/arquivos/imgs/" . $postagem->getImagem();
         // Ajuste conforme o local onde as imagens estão armazenadas
 
 

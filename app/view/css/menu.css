@@ -58,7 +58,7 @@ nav.navbar {
 }
 
 .nav-link:hover {
-    color: black;
+    color: #004f44;
 }
 
 .navbar-brand:hover {
@@ -80,6 +80,19 @@ nav.navbar {
 
 #offcanvasDarkNavbar {
     width: 30%;
+}
+
+.notif {
+    position: absolute;
+    top: 0;
+    font-size: 17px;
+    background-color: #004f44;
+}
+
+#notifList {
+    top: 5%;
+    background-color: white;
+    color: #004f44;
 }
 
 @media screen and (max-width: 768px) {

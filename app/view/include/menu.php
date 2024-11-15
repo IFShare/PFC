@@ -25,16 +25,59 @@ $TipoUsuario = $_SESSION[SESSAO_USUARIO_TIPO_USUARIO];
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <!-- Menu dropdown de ADM -->
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        ADM
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="/PFC/app/controller/UsuarioController.php?action=create">Inserir novo usuário</a></li>
-                        <li><a class="dropdown-item" href="<?= BASEURL . '/controller/UsuarioController.php?action=list' ?>">Listagem</a></li>
-                        <li><a class="dropdown-item" href="<?= BASEURL . '/controller/PostagemController.php?action=listPostsToDelete' ?>">Excluir postagem</a></li>
-                    </ul>
-                </li>
+
+                <?php
+                if ($TipoUsuario == "ADM"):
+                ?>
+
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle position-relative" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            ADM
+                            <?php
+                                if(isset($dados["countNaoVerificados"])  && $dados["countNaoVerificados"] >= 1):
+                            ?>
+                            <span class="notif translate-middle badge rounded-pill">
+                                <?php
+                                if (isset($dados["countNaoVerificados"]))
+                                    echo $dados["countNaoVerificados"];
+                                ?>
+                            </span>
+
+                            <?php
+                                endif;
+                            ?>
+                            
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="/PFC/app/controller/UsuarioController.php?action=create">Inserir novo usuário</a></li>
+
+                            <li>
+                                <a class="dropdown-item position-relative" href="<?= BASEURL . '/controller/UsuarioController.php?action=list' ?>">
+                                    Listagem
+                                    <?php
+                                        if(isset($dados["countNaoVerificados"])  && $dados["countNaoVerificados"] >= 1):
+                                    ?>
+                                    <span class="notif translate-middle badge rounded-pill" id="notifList">
+                                        <?php
+                                        if (isset($dados["countNaoVerificados"]))
+                                            echo $dados["countNaoVerificados"];
+                                        ?>
+                                    </span>
+                                    
+                                    <?php
+                                        endif;
+                                    ?>
+
+                                </a>
+                            </li>
+
+                            <li><a class="dropdown-item" href="<?= BASEURL . '/controller/PostagemController.php?action=listPostsToDelete' ?>">Excluir postagem</a></li>
+                        </ul>
+                    </li>
+
+                <?php
+                endif;
+                ?>
             </ul>
 
             <div class="log">

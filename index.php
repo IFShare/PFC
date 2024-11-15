@@ -16,7 +16,7 @@ require_once(__DIR__ . "/app/view/include/header.php");
 
 <div class="container">
     <div class="leftCont">
-        <img class="logo" src="/PFC/app/assets/IFSHARE.png" alt="">
+        <img class="logo" src="/PFC/app/assets/logo.png" alt="">
 
         <a href="/PFC/app/controller/LoginController.php?action=createCadastro" class="btn-log mb-3">CADASTRAR</a>
 

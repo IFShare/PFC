@@ -14,6 +14,9 @@ class Usuario
         private ?string $dataCriacao;
         private ?string $fotoPerfil;
         private ?string $compMatricula;
+        private ?string $status;
+        private ?string $isEstudante;
+
 
         public function __construct() {
                 $this->id = null;
@@ -21,9 +24,10 @@ class Usuario
                 $this->nomeUsuario = null;
                 $this->compMatricula = null;
                 $this->fotoPerfil = null;
+                $this->status = null;
+                $this->isEstudante = null;
             }
         
-
         /**
          * Get the value of id
          */
@@ -220,6 +224,46 @@ class Usuario
         public function setCompMatricula(?string $compMatricula): self
         {
                 $this->compMatricula = $compMatricula;
+
+                return $this;
+        }
+
+        /**
+         * Get the value of status
+         */ 
+        public function getStatus()
+        {
+                return $this->status;
+        }
+
+        /**
+         * Set the value of status
+         *
+         * @return  self
+         */ 
+        public function setStatus($status)
+        {
+                $this->status = $status;
+
+                return $this;
+        }
+
+        /**
+         * Get the value of isEstudante
+         */ 
+        public function getIsEstudante()
+        {
+                return $this->isEstudante;
+        }
+
+        /**
+         * Set the value of isEstudante
+         *
+         * @return  self
+         */ 
+        public function setIsEstudante($isEstudante)
+        {
+                $this->isEstudante = $isEstudante;
 
                 return $this;
         }

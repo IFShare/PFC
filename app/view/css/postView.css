@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap');
 
-.container {
+.container{
     min-height: 100vh;
     display: flex;
     justify-content: center;
@@ -98,6 +98,10 @@
     border: none;
 }
 
+.dropdown {
+    display: flex;
+}
+
 
 .postRight {
     height: 95vh;
@@ -170,12 +174,32 @@
     cursor: default;
     font-size: 1rem;
     color: rgba(255, 255, 255, 0.450);
-    margin-top: 5px;
+    margin: 0;
     padding-bottom: 5px;
+    user-select: none;
 }
 
-#dataCompleta {
+.data-del {
+    cursor: default;
+    font-size: 1rem;
+    color: rgba(255, 255, 255, 0.450);
+    margin: 0;
+    padding-bottom: 5px;
+    user-select: none;
+    display: flex;
+    gap: 7px;
+}
+
+.listComentarios .dataResumida {
+    font-size: 12px;
+}
+
+#dataCompleta, #dataCompletaComent{
     display: none;
+}
+
+#dataResumidaComent, #dataCompletaComent {
+    font-size: 13px;
 }
 
 .listComentarios {

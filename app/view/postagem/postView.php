@@ -25,7 +25,7 @@ require_once(__DIR__ . "/../include/header.php");
 
                 <img
                     class="img"
-                    src="/PFC/arquivos/<?= $dados["postagem"]->getImagem(); ?>"
+                    src="/PFC/arquivos/imgs/<?= $dados["postagem"]->getImagem(); ?>"
                     alt="Imagem da postagem">
 
             </div>
@@ -63,7 +63,37 @@ require_once(__DIR__ . "/../include/header.php");
                             echo "<span class='userComent'>" . $comentario->getUsuario()->getNomeUsuario() . "</span>";
                             echo "</div>";
                             echo "<span class='conteudo'>" . $comentario->getConteudo() . "</span>";
-                            // Dropdown de opções
+                    ?>
+                            <div class="data-del">
+
+                                <?php
+                                $dataComentario = new DateTime($comentario->getDataComentario());
+
+                                $dataAtual = new DateTime();
+
+                                $diferenca = $dataComentario->diff($dataAtual);
+
+                                if ($diferenca->y > 0) {
+                                    // Mais de um ano
+                                    echo "<span id='dataResumidaComent' onclick='changeDataComent()'>Há " . $diferenca->y . ($diferenca->y == 1 ? " ano" : " anos") . ".</span>";
+                                } elseif ($diferenca->m > 0) {
+                                    // Mais de um mês
+                                    echo "<span id='dataResumidaComent' onclick='changeDataComent()'>Há " . $diferenca->m . ($diferenca->m == 1 ? " mês" : " meses") . ".</span>";
+                                } elseif ($diferenca->d > 0) {
+                                    // Mais de um dia
+                                    echo "<span id='dataResumidaComent' onclick='changeDataComent()'>Há " . $diferenca->d . ($diferenca->d == 1 ? " dia" : " dias") . ".</span>";
+                                } elseif ($diferenca->h > 0) {
+                                    // Mais de uma hora
+                                    echo "<span id='dataResumidaComent' onclick='changeDataComent()'>Há " . $diferenca->h . ($diferenca->h == 1 ? " hora" : " horas") . ".</span>";
+                                } elseif ($diferenca->i > 0) {
+                                    // Mais de um minuto
+                                    echo "<span id='dataResumidaComent' onclick='changeDataComent()'>Há " . $diferenca->i . ($diferenca->i == 1 ? " minuto" : " minutos") . ".</span>";
+                                } else {
+                                    // Menos de um minuto (segundos)
+                                    echo "<span id='dataResumidaComent' onclick='changeDataComent()'>Agora mesmo." . "</span>";
+                                }
+
+                                                            // Dropdown de opções
                             echo "<div class='dropdown'>";
                             echo "<button class='btn btn-link dropdown-toggle' type='button' id='dropdownMenuButton' data-bs-toggle='dropdown' aria-expanded='false'>";
                             echo "<i class='bi bi-three-dots'></i>"; // Ícone de três pontinhos
@@ -73,6 +103,10 @@ require_once(__DIR__ . "/../include/header.php");
 
                             echo "</ul>";
                             echo "</div>";
+                                ?>
+                            </div>
+                    <?php
+
 
                             echo "</div>";
                         }
@@ -114,12 +148,12 @@ require_once(__DIR__ . "/../include/header.php");
                 <?php endif; ?>
 
                 <?php
-                    if ($_SESSION[SESSAO_USUARIO_TIPO_USUARIO] == "ADM" || $_SESSION[SESSAO_USUARIO_TIPO_USUARIO] == "ESTUDANTE"):
-                    ?>
-                <input form="formComent" id="inpComent" type="text" name="comentario" required placeholder="Adicione um comentário...">
-                <button form="formComent" type="submit" id="insertComent" class="material-symbols-outlined">
-                    send
-                </button>
+                if ($_SESSION[SESSAO_USUARIO_TIPO_USUARIO] == "ADM" || $_SESSION[SESSAO_USUARIO_TIPO_USUARIO] == "ESTUDANTE"):
+                ?>
+                    <input form="formComent" id="inpComent" type="text" name="comentario" required placeholder="Adicione um comentário...">
+                    <button form="formComent" type="submit" id="insertComent" class="material-symbols-outlined">
+                        send
+                    </button>
                 <?php endif; ?>
             </div>
 

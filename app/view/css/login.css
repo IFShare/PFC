@@ -124,7 +124,7 @@ body, html {
 
     /* Campos de entrada com contorno vermelho */
 .form-control.error {
-    border: 1px solid #d9534f; /* Contorno vermelho */
+    border: 2px solid #d9534f; /* Contorno vermelho */
     box-shadow: 0 0 0 2px rgba(217, 83, 79, 0.2); /* Sombra ao redor do campo */
     background-color: transparent; /* Fundo transparente para combinação com o site */
 }

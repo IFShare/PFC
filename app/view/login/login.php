@@ -1,7 +1,4 @@
 <?php
-# Nome do arquivo: login.php
-# Objetivo: interface para logar no sistema
-
 require_once(__DIR__ . "/../include/header.php");
 ?>
 
@@ -9,6 +6,13 @@ require_once(__DIR__ . "/../include/header.php");
 
 <div class="container form-container d-flex justify-content-center align-items-center" style="min-height: 100vh;">
     <div class="form-content text-center">
+        <?php
+        // Exibe a mensagem de sucesso, se existir
+        if (isset($_SESSION['mensagem_sucesso']) && isset($_SESSION['nomeUsuario'])) {
+            echo "<div class='alert alert-success'>" . $_SESSION['mensagem_sucesso'] . "</div>";
+            unset($_SESSION['mensagem_sucesso']); // Remove a mensagem da sessão para exibir apenas uma vez
+        }
+        ?>
         <!-- Título "IFSHARE" centralizado -->
         <h1 class="font-abril title-ifshare mb-2">IFSHARE</h1>
 

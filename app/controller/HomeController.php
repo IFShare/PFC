@@ -25,11 +25,13 @@ class HomeController extends Controller {
     protected function home() {
         $totalUsuarios = $this->usuarioDao->count();
         $listaUsuario = $this->usuarioDao->list();
-        $listaPostagens = $this->postagemDao->listPosts();    
+        $listaPostagens = $this->postagemDao->listPosts();
+        $countNaoVerificados = $this->usuarioDao->countNaoVerificados();    
 
         $dados["totalUsuarios"] = $totalUsuarios;
         $dados["listaUsuarios"] = $listaUsuario;
         $dados["listPosts"] = $listaPostagens;
+        $dados["countNaoVerificados"] = $countNaoVerificados;
 
         //echo "<pre>" . print_r($dados, true) . "</pre>";
         $this->loadView("home/home.php", $dados, []);
