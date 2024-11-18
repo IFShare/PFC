@@ -24,7 +24,7 @@ class PostagemDAO
 
         $conn = Connection::getConnection();
 
-        $sql = "SELECT *FROM postagem ORDER BY id DESC";
+        $sql = "SELECT * FROM postagem ORDER BY id DESC";
         $stm = $conn->prepare($sql);
 
         $stm->execute();

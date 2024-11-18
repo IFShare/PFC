@@ -22,35 +22,6 @@ h3.text-center {
     margin-top: 20px; /* Distância do título da tabela */
 }
 
-table {
-    width: 100%; /* Ajuste a largura da tabela */
-    border-collapse: collapse; /* Remove o espaço entre as células */
-    background-color: rgba(255, 255, 255, 0.9); /* Fundo branco com leve transparência */
-    overflow: hidden; /* Garante que os cantos arredondados sejam visíveis */
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); /* Sombra para destaque */
-}
-
-th {
-    background-color: #81a880; /* Fundo escuro para cabeçalho */
-    color: white;
-    padding: 15px; /* Espaçamento em cima e embaixo */
-    font-weight: bold;
-    text-align: center;
-    border: 2px solid #004f44; /* Borda com a mesma cor do fundo */
-}
-
-td {
-    border: 2px solid #004f44; /* Borda dos dados da tabela */
-    padding: 10px; /* Espaçamento interno das células */
-    text-align: left; /* Alinha texto à esquerda */
-    background-color: transparent; /* Mantém o fundo transparente para dados */
-    transition: background-color 0.3s; /* Suave transição de cor */
-}
-
-tr:hover td {
-    background-color: rgba(0, 79, 68, 0.2); /* Muda a cor de fundo ao passar o mouse */
-}
-
 /* Estilização dos botões */
 .btn-success, .btn-primary, .btn-danger {
     padding: 10px 20px; /* Aumenta o padding dos botões */
@@ -116,11 +87,66 @@ tr:hover td {
 }
 
 .card {
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: all 0.3s ease;
 }
 
 .card:hover {
     transform: translateY(-5px); /* Eleva o card levemente */
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); /* Adiciona uma sombra mais intensa */
-    background-color: #f9f9f9; /* Cor de fundo levemente mais clara */
+    filter: brightness(80%);
+}
+
+
+
+.box-search {
+    max-width: 400px;
+    margin: 0 auto; /* Centraliza o campo na página */
+    position: relative;
+}
+
+#pesquisar {
+    border-radius: 20px 0 0 20px; /* Bordas arredondadas na esquerda */
+    border: none; /* Cor da borda ao focar */
+    padding: 10px 15px;
+    outline: none;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+#pesquisar:focus {
+    border-color: #0056b3; /* Cor da borda ao focar */
+    box-shadow: 0 0 8px rgba(0, 91, 187, 0.5); /* Sombra ao focar */
+}
+
+.btn-search {
+    border-radius: 0 20px 20px 0; /* Bordas arredondadas na direita */
+    border: none;
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.btn-search svg {
+    fill: white; /* Ícone na cor branca */
+}
+
+.btn-search:hover {
+    background-color: #0056b3; /* Tom mais escuro ao passar o mouse */
+    transform: scale(1.05); /* Efeito de leve aumento */
+}
+
+
+.insertBtn {
+    position: absolute;
+    top: 1%;
+    right: 2%;
+    width: 10%;
+}
+
+.naoVerificados {
+    position: absolute;
+    top: 1%;
+    left: 2%;
+    width: 20%;
 }

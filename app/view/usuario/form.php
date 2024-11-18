@@ -1,17 +1,13 @@
 <?php
 require_once(__DIR__ . "/../include/header.php");
 
-
-if ($_SESSION[SESSAO_USUARIO_TIPO_USUARIO] == "ADM"): ?>
-
+?>
     <link rel="stylesheet" href="<?= BASEURL ?>/view/css/form.css">
 
     <div class="container-fluid form-container h-100">
         <a class="voltar"
             href="http://localhost/PFC/app/controller/UsuarioController.php?action=list">
-            <i class="fs-4 bi bi-arrow-left-square"
-                data-bs-toggle="tooltip" data-bs-title="Default tooltip data-bs-title=" Voltar">
-            </i>
+            <i class="fs-4 bi bi-arrow-left-square"></i>
 
         </a>
         <div class="row h-100 d-flex justify-content-center align-items-center"> <!-- 100% da altura da tela -->
@@ -45,7 +41,7 @@ if ($_SESSION[SESSAO_USUARIO_TIPO_USUARIO] == "ADM"): ?>
                     <!-- h2 class="mb-4 text-center">Cadastro</h2> -->
 
                     <form method="POST" id="formUsuario"
-                        action="<?= BASEURL ?>/controller/UsuarioController.php?action=save">
+                        action="<?= BASEURL ?>/controller/UsuarioController.php?action=save&search=<?php echo $dados['data']; ?>">
                         <!-- Nome e sobrenome -->
                         <div class="form-group mb-3">
                             <label for="txtNomeSobrenome" class="form-label">
@@ -228,12 +224,6 @@ if ($_SESSION[SESSAO_USUARIO_TIPO_USUARIO] == "ADM"): ?>
         </div>
 
     </div>
-
-<?php
-else:
-    echo "Você não tem acesso a esta página.<br>";
-?>
-<?php endif; ?>
 
 <script src="<?= BASEURL ?>/view/js/form.js"></script>
 

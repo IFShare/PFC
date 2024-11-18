@@ -4,6 +4,11 @@ nav li {
     font-size: 25px;
 }
 
+#navbarSupportedContent {
+    display: flex;
+    justify-content: space-between;
+}
+
 nav.navbar {
     padding: 0 15px;
     background: linear-gradient(90deg, #81a880, #004f44);
@@ -94,6 +99,45 @@ nav.navbar {
     background-color: white;
     color: #004f44;
 }
+
+.box-search {
+    width: 50%;
+    margin: 0 auto; /* Centraliza o campo na página */
+    position: relative;
+}
+
+#pesquisar {
+    border-radius: 20px 0 0 20px; /* Bordas arredondadas na esquerda */
+    border: none; /* Cor da borda ao focar */
+    padding: 10px 15px;
+    outline: none;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+#pesquisar:focus {
+    border-color: #0056b3; /* Cor da borda ao focar */
+    box-shadow: 0 0 8px rgba(0, 91, 187, 0.5); /* Sombra ao focar */
+}
+
+.btn-search {
+    border-radius: 0 20px 20px 0; /* Bordas arredondadas na direita */
+    border: none;
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.btn-search svg {
+    fill: white; /* Ícone na cor branca */
+}
+
+.btn-search:hover {
+    background-color: #0056b3; /* Tom mais escuro ao passar o mouse */
+    transform: scale(1.05); /* Efeito de leve aumento */
+}
+
 
 @media screen and (max-width: 768px) {
     #offcanvasDarkNavbar {

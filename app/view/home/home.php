@@ -64,7 +64,7 @@ require_once(__DIR__ . "/../include/menu.php");
     <section class="postagens">
 
         <?php foreach ($dados['listPosts'] as $posts): ?>
-            <div class="post" id="post">
+            <div class="post" id="post-<?php echo $posts->getId()?>">
                 <a href="<?= BASEURL ?>/controller/PostagemController.php?action=viewPost&id=<?= $posts->getId() ?>">
                     <img
                         class="imgPost" id="imgPost"
@@ -78,6 +78,8 @@ require_once(__DIR__ . "/../include/menu.php");
     </section>
 
 </div>
+
+
 
 <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
 <script src="<?= BASEURL ?>/view/js/home.js"></script>

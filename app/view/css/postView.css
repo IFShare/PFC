@@ -59,6 +59,49 @@
     height: min-content;
 }
 
+.expand {
+    width: max-content;
+    position: absolute;
+    right: 2%;
+    bottom: 5%;
+    background: none;
+    border: none;
+    color: white;
+}
+
+#postModal .modal-dialog {
+    max-width: 90vw;
+    max-height: 90vh;
+    background: none;
+}
+
+.modal-content {
+    background: none;
+}
+
+#postModal .modal-body {
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: none;
+}
+
+#postModal img {
+    width: 90vw;
+    height: auto;
+    display: block;
+    margin: auto;
+    border-radius: 30px;
+}
+
+.expand .ampliar{
+    font-size: 20px;
+    padding: 10px;
+    border-radius: 25px;
+    background-color: rgba(0, 0, 0, 0.466);
+}
+
 .heart i {
     font-size: 1.7rem;
     cursor: pointer;
@@ -268,6 +311,13 @@
     font-size: 3rem;
     font-weight: bold;
     margin: 0;
+}
+
+#wpp {
+    position: absolute;
+    top: 2%;
+    right: 3%;
+    color: white;
 }
 
 @media screen and (max-width:768px) {

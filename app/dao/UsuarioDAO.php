@@ -15,8 +15,30 @@ class UsuarioDAO
 
         $conn = Connection::getConnection();
 
-        $sql = "SELECT * FROM usuario u ORDER BY u.id";
+        $sql = "SELECT * FROM usuario u ORDER BY u.id DESC";
         $stm = $conn->prepare($sql);
+
+        $stm->execute();
+        $result = $stm->fetchAll();
+
+        return $this->mapUsuarios($result);
+    }
+
+    public function search($data)
+    {
+
+        $conn = Connection::getConnection();
+
+        $sql = "SELECT * FROM usuario u
+                WHERE u.id LIKE :search
+                or u.nomeCompleto LIKE :search
+                or u.nomeUsuario LIKE :search
+                or u.email LIKE :search
+                or u.tipoUsuario LIKE :search 
+                or u.status LIKE :search 
+                ORDER BY u.id DESC";
+        $stm = $conn->prepare($sql);
+        $stm->bindValue(':search', "%$data%");
 
         $stm->execute();
         $result = $stm->fetchAll();
@@ -35,24 +57,6 @@ class UsuarioDAO
         $result = $stm->fetchAll();
 
         return $result[0]["total"];
-    }
-
-    public function listCompMatricula()
-    {
-
-        $conn = Connection::getConnection();
-
-        $sql = "SELECT * 
-                FROM usuario u 
-                WHERE u.compMatricula IS NOT NULL 
-                AND u.status = 'NAO VERIFICADO'
-                ORDER BY u.id DESC;";
-        $stm = $conn->prepare($sql);
-
-        $stm->execute();
-        $result = $stm->fetchAll();
-
-        return $this->mapUsuarios($result);
     }
 
     ####################################################################################
@@ -97,7 +101,7 @@ class UsuarioDAO
 
         $sql = "UPDATE usuario SET nomeCompleto = :nomeCompleto, nomeUsuario = :nomeUsuario," .
             " email = :email, fotoPerfil = :fotoPerfil, bio = :bio, tipoUsuario = :tipoUsuario," .
-            " status = :status, isEstudante = :isEstudante".
+            " status = :status, isEstudante = :isEstudante" .
             " WHERE id = :id";
 
         $stm = $conn->prepare($sql);
@@ -131,40 +135,39 @@ class UsuarioDAO
 
 
     public function abrirPdf(int $id)
-{
-    $conn = Connection::getConnection();
+    {
+        $conn = Connection::getConnection();
 
-    // Preparar a consulta
-    $sql = "SELECT nomeUsuario, compMatricula FROM usuario WHERE id = :id";
-    $stm = $conn->prepare($sql);
-    $stm->bindValue(":id", $id);
-    $stm->execute();
+        // Preparar a consulta
+        $sql = "SELECT nomeUsuario, compMatricula FROM usuario WHERE id = :id";
+        $stm = $conn->prepare($sql);
+        $stm->bindValue(":id", $id);
+        $stm->execute();
 
-    // Verifica se há resultados
-    $usuario = $stm->fetch();
-    var_dump($usuario);
+        // Verifica se há resultados
+        $usuario = $stm->fetch();
+        var_dump($usuario);
 
-    if ($usuario) {
-        $fileContent = $usuario['compMatricula']; // Conteúdo do arquivo (provavelmente o caminho)
+        if ($usuario) {
+            $fileContent = $usuario['compMatricula']; // Conteúdo do arquivo (provavelmente o caminho)
 
-        // Verificar se o arquivo existe
-        if (file_exists(PATH_ARQUIVOS_COMPMATRICULA . '/' . $fileContent)) {
-            // Forçar o download do arquivo
-            header('Content-Type: application/pdf');
-            header('Content-Disposition: inline; filename="' . $fileContent);
-            header('Content-Length: ' . filesize(PATH_ARQUIVOS_COMPMATRICULA . '/' . $fileContent));
-            readfile(PATH_ARQUIVOS_COMPMATRICULA . '/' . $fileContent);
-            exit;
+            // Verificar se o arquivo existe
+            if (file_exists(PATH_ARQUIVOS_COMPMATRICULA . '/' . $fileContent)) {
+                // Forçar o download do arquivo
+                header('Content-Type: application/pdf');
+                header('Content-Disposition: inline; filename="' . $fileContent);
+                header('Content-Length: ' . filesize(PATH_ARQUIVOS_COMPMATRICULA . '/' . $fileContent));
+                readfile(PATH_ARQUIVOS_COMPMATRICULA . '/' . $fileContent);
+                exit;
+            } else {
+                echo "Arquivo não encontrado!";
+            }
         } else {
-            echo "Arquivo não encontrado!";
+            echo "Usuário não encontrado.";
         }
-    } else {
-        echo "Usuário não encontrado.";
     }
 
-}
 
-    
     ####################################################################################
 
     #CONTA O NÚMERO DE USUÁRIOS DO SISTEMA

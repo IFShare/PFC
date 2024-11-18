@@ -25,7 +25,7 @@ require_once(__DIR__ . '/../include/header.php');
                     href="/PFC/app/controller/PostagemController.php?action=delPost&id=<?= $posts->getId() ?>">
                     <img
                         class="imgPost"
-                        src="/PFC/arquivos/<?= $posts->getImagem(); ?>"
+                        src="/PFC/arquivos/imgs/<?= $posts->getImagem(); ?>"
                         alt="Imagem da postagem">
                     <i class="lixeira fa-solid fa-trash"></i>
                 </a>

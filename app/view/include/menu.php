@@ -23,7 +23,7 @@ $TipoUsuario = $_SESSION[SESSAO_USUARIO_TIPO_USUARIO];
 
         <!-- Menu principal -->
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <ul class="navbar-nav mb-2 mb-lg-0">
                 <!-- Menu dropdown de ADM -->
 
                 <?php
@@ -34,38 +34,36 @@ $TipoUsuario = $_SESSION[SESSAO_USUARIO_TIPO_USUARIO];
                         <a class="nav-link dropdown-toggle position-relative" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             ADM
                             <?php
-                                if(isset($dados["countNaoVerificados"])  && $dados["countNaoVerificados"] >= 1):
+                            if (isset($dados["countNaoVerificados"])  && $dados["countNaoVerificados"] >= 1):
                             ?>
-                            <span class="notif translate-middle badge rounded-pill">
-                                <?php
-                                if (isset($dados["countNaoVerificados"]))
-                                    echo $dados["countNaoVerificados"];
-                                ?>
-                            </span>
+                                <span class="notif translate-middle badge rounded-pill">
+                                    <?php
+                                    if (isset($dados["countNaoVerificados"]))
+                                        echo $dados["countNaoVerificados"];
+                                    ?>
+                                </span>
 
                             <?php
-                                endif;
+                            endif;
                             ?>
-                            
+
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="/PFC/app/controller/UsuarioController.php?action=create">Inserir novo usuário</a></li>
-
                             <li>
                                 <a class="dropdown-item position-relative" href="<?= BASEURL . '/controller/UsuarioController.php?action=list' ?>">
                                     Listagem
                                     <?php
-                                        if(isset($dados["countNaoVerificados"])  && $dados["countNaoVerificados"] >= 1):
+                                    if (isset($dados["countNaoVerificados"])  && $dados["countNaoVerificados"] >= 1):
                                     ?>
-                                    <span class="notif translate-middle badge rounded-pill" id="notifList">
-                                        <?php
-                                        if (isset($dados["countNaoVerificados"]))
-                                            echo $dados["countNaoVerificados"];
-                                        ?>
-                                    </span>
-                                    
+                                        <span class="notif translate-middle badge rounded-pill" id="notifList">
+                                            <?php
+                                            if (isset($dados["countNaoVerificados"]))
+                                                echo $dados["countNaoVerificados"];
+                                            ?>
+                                        </span>
+
                                     <?php
-                                        endif;
+                                    endif;
                                     ?>
 
                                 </a>
@@ -79,6 +77,23 @@ $TipoUsuario = $_SESSION[SESSAO_USUARIO_TIPO_USUARIO];
                 endif;
                 ?>
             </ul>
+
+            <div class="box-search d-flex">
+
+                <input
+                    value=""
+                    id="pesquisar"
+                    placeholder="Pesquisar..."
+                    type="search"
+                    class="form-control">
+                <button onclick="searchData();" class="btn btn-primary btn-search">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                        <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
+                    </svg>
+                </button>
+
+            </div>
+
 
             <div class="log">
                 <!-- Botão de sair -->

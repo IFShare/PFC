@@ -33,10 +33,20 @@ class UsuarioController extends Controller
 
     protected function list()
     {
+        $data = isset($_GET['search']) ? $_GET['search'] : NULL;
 
-        $usuarios = $this->usuarioDao->list();
+        if (!empty($data)) {
+            $usuarios = $this->usuarioDao->search($data);
+        } else {
+            $usuarios = $this->usuarioDao->list();
+        }
+
+        $naoVerifiacdos = $this->usuarioDao->countNaoVerificados();
+
         //print_r($usuarios);
+        $dados["data"] = $data;
         $dados["lista"] = $usuarios;
+        $dados["naoVerificados"] = $naoVerifiacdos;
 
         $this->loadView("usuario/list.php", $dados, []);
     }
@@ -53,6 +63,7 @@ class UsuarioController extends Controller
         $dataCriacao = ($dados["id"] == 0) ? date('Y-m-d') : NULL;  // Captura a data de criação apenas para novos registros
         $isEstudante = isset($_POST['isEstudante']) ? trim($_POST['isEstudante']) : NULL;
         $status = isset($_POST['status']) ? trim($_POST['status']) : NULL;
+        $data = isset($_GET['search']) ? $_GET['search'] : NULL;
         //Cria objeto Usuario
         $usuario = new Usuario();
 
@@ -78,7 +89,10 @@ class UsuarioController extends Controller
                     $this->usuarioDao->update($usuario);
                 }
 
-                $this->list();
+                header("location: UsuarioController.php?action=list&search=$data");
+
+
+
                 exit;
             } catch (PDOException $e) {
                 //echo $e->getMessage();
@@ -111,11 +125,12 @@ class UsuarioController extends Controller
         $this->loadView("usuario/form.php", $dados, []);
     }
 
-    protected function baixar() {
+    protected function baixar()
+    {
         $id = 0;
         if (isset($_GET['id']))
             $id = $_GET['id'];
-        
+
         $this->usuarioDao->abrirPdf($id);
     }
 
@@ -133,12 +148,14 @@ class UsuarioController extends Controller
         $usuario = $this->findUsuarioById();
 
         if ($usuario) {
+            $data = isset($_GET['search']) ? $_GET['search'] : NULL;
             //Setar os dados
             $dados["id"] = $usuario->getId();
             $dados["usuario"] = $usuario;
             $dados["tipoUsuario"] = TipoUsuario::getAllAsArray();
             $dados["status"] = Status::getAllAsArray();
             $dados["isEstudante"] = IsEstudante::getAllAsArray();
+            $dados["data"] = $data;
 
             $this->loadView("usuario/form.php", $dados, []);
         } else

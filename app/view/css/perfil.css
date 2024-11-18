@@ -1,0 +1,85 @@
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.voltar {
+    position: absolute;
+    top: 2%;
+    left: 1%;
+    background-color: #004f44;
+    color: white;
+    border-radius: 30px;
+    padding: 10px 20px;
+    font-size: 16px; 
+    font-weight: bold;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s;
+}
+
+.voltar:hover {
+    background: #004f44 !important;
+    color: white !important;
+}
+
+.container {
+    border-radius: 20px;
+    width: 100%;
+    height: 90%;
+    display: flex;
+    background-color: rgba(0, 0, 0, 0.712);
+    padding: 10px;
+}
+
+.contLeft {
+    width: 45%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-right: 3px solid gray;
+}
+
+.contRight {
+    width: 55%;
+}
+
+.contLeft img {
+    width: 40%;
+    border: 2px solid white;
+    border-radius: 50px;
+}
+
+.nomeUsuario h5 {
+    color: white;
+}
+
+.bio {
+    margin: 20px 0;
+    display: flex;
+    justify-content: flex-start;
+    width: 100%;
+    color: white;
+    text-align: left;
+}
+
+.bio p {
+    width: 50%;
+}
+
+.infos {
+    width: 100%;
+    font-weight: bold;
+    color: white;
+    display: flex;
+    justify-content: flex-start;
+}
+
+.infos p {
+    margin: 0;
+}
+
+.contRight h2 {
+    color: white;
+}
