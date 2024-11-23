@@ -33,7 +33,7 @@ CREATE TABLE `comentario` (
   `dataComentario` datetime DEFAULT current_timestamp(),
   `idPostagem` int(11) NOT NULL,
   `idUsuario` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+);
 
 -- --------------------------------------------------------
 
@@ -45,7 +45,7 @@ CREATE TABLE `curtida` (
   `id` int(11) NOT NULL,
   `idPostagem` int(11) DEFAULT NULL,
   `idUsuario` int(11) DEFAULT NULL
-)
+);
 
 --
 -- Despejando dados para a tabela `curtida`
@@ -62,7 +62,7 @@ CREATE TABLE `denuncia` (
   `status` enum('NAOVERIFICADO','VERIFICADO') NOT NULL,
   `idUsuario` int(11) NOT NULL,
   `idPostagem` int(11) NOT NULL
-)
+);
 
 
 -- --------------------------------------------------------
@@ -77,7 +77,7 @@ CREATE TABLE `postagem` (
   `legenda` text DEFAULT NULL,
   `dataPostagem` datetime DEFAULT current_timestamp(),
   `idUsuario` int(11) NOT NULL
-) 
+);
 
 
 -- --------------------------------------------------------
@@ -99,7 +99,7 @@ CREATE TABLE `usuario` (
   `compMatricula` varchar(100) DEFAULT NULL,
   `isEstudante` enum('SIM','NAO') NOT NULL,
   `status` enum('ATIVO','INATIVO','NAOVERIFICADO','ATIVOVERIFICADO') NOT NULL
-)
+);
 
 --
 -- Despejando dados para a tabela `usuario`
@@ -107,7 +107,7 @@ CREATE TABLE `usuario` (
 
 INSERT INTO `usuario` (`id`, `nomeCompleto`, `nomeUsuario`, `email`, `senha`, `fotoPerfil`, `bio`, `tipoUsuario`, `dataCriacao`, `compMatricula`, `isEstudante`, `status`) VALUES
 (72, 'Matheus Cardoso', 'MathU', 'mathcardoso792@gmail.com', '$2y$10$ds0r6xmBcA9fqhKxZItnvuK44XWFL4ipR8YgB4jITHdscL8flqwbq', NULL, NULL, 'ADM', '2024-11-06 00:00:00', NULL, 'SIM', 'ATIVOVERIFICADO'),
-(86, 'Julia Vitória', 'taegvils', 'julia.vitoria07@gmail.com', '$2y$10$vw5.GgwLa7U0pQGaeF1PSuU/wNySEceC9c/GY22e99tQoRe2dIGNC', NULL, NULL, 'ADM', '2024-11-12 00:00:00', 'compMatricula_tagevils.pdf', 'SIM', 'ATIVOVERIFICADO'),
+(86, 'Julia Vitória', 'taegvils', 'julia.vitoria07@gmail.com', '$2y$10$vw5.GgwLa7U0pQGaeF1PSuU/wNySEceC9c/GY22e99tQoRe2dIGNC', NULL, NULL, 'ADM', '2024-11-12 00:00:00', 'compMatricula_tagevils.pdf', 'SIM', 'ATIVOVERIFICADO');
 -- Índices para tabelas despejadas
 --
 
