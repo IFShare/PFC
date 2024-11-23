@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 18/11/2024 às 17:26
+-- Tempo de geração: 23/11/2024 às 14:03
 -- Versão do servidor: 10.4.32-MariaDB
 -- Versão do PHP: 8.2.12
 
@@ -35,17 +35,6 @@ CREATE TABLE `comentario` (
   `idUsuario` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Despejando dados para a tabela `comentario`
---
-
-INSERT INTO `comentario` (`id`, `conteudo`, `dataComentario`, `idPostagem`, `idUsuario`) VALUES
-(126, 'o', '2024-11-16 19:12:38', 100, 72),
-(127, 'weqewqe', '2024-11-16 19:12:44', 100, 72),
-(128, 'qeweqw', '2024-11-16 19:12:45', 100, 72),
-(129, 'eqwew', '2024-11-16 19:12:47', 100, 72),
-(130, 'eqwe', '2024-11-16 19:12:50', 100, 72);
-
 -- --------------------------------------------------------
 
 --
@@ -56,16 +45,11 @@ CREATE TABLE `curtida` (
   `id` int(11) NOT NULL,
   `idPostagem` int(11) DEFAULT NULL,
   `idUsuario` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+)
 
 --
 -- Despejando dados para a tabela `curtida`
 --
-
-INSERT INTO `curtida` (`id`, `idPostagem`, `idUsuario`) VALUES
-(240, 98, 72),
-(242, 120, 72);
-
 -- --------------------------------------------------------
 
 --
@@ -75,9 +59,11 @@ INSERT INTO `curtida` (`id`, `idPostagem`, `idUsuario`) VALUES
 CREATE TABLE `denuncia` (
   `id` int(11) NOT NULL,
   `motivo` text NOT NULL,
+  `status` enum('NAOVERIFICADO','VERIFICADO') NOT NULL,
   `idUsuario` int(11) NOT NULL,
   `idPostagem` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+)
+
 
 -- --------------------------------------------------------
 
@@ -91,7 +77,7 @@ CREATE TABLE `postagem` (
   `legenda` text DEFAULT NULL,
   `dataPostagem` datetime DEFAULT current_timestamp(),
   `idUsuario` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) 
 
 
 -- --------------------------------------------------------
@@ -113,15 +99,15 @@ CREATE TABLE `usuario` (
   `compMatricula` varchar(100) DEFAULT NULL,
   `isEstudante` enum('SIM','NAO') NOT NULL,
   `status` enum('ATIVO','INATIVO','NAOVERIFICADO','ATIVOVERIFICADO') NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+)
 
 --
 -- Despejando dados para a tabela `usuario`
 --
 
 INSERT INTO `usuario` (`id`, `nomeCompleto`, `nomeUsuario`, `email`, `senha`, `fotoPerfil`, `bio`, `tipoUsuario`, `dataCriacao`, `compMatricula`, `isEstudante`, `status`) VALUES
-(90, 'Nicolly Fidelis Tavares Rosso', 'NicollyRosso', 'nicollyRosso@gmail.com', '$2y$10$IBZnLOCZCING.Suvon.ea.10CoPah.vwzrfkfMilhWuIMpXrAyHWW', NULL, NULL, 'ADM', '2024-11-14 00:00:00', NULL, 'SIM', 'ATIVOVERIFICADO'),
---
+(72, 'Matheus Cardoso', 'MathU', 'mathcardoso792@gmail.com', '$2y$10$ds0r6xmBcA9fqhKxZItnvuK44XWFL4ipR8YgB4jITHdscL8flqwbq', NULL, NULL, 'ADM', '2024-11-06 00:00:00', NULL, 'SIM', 'ATIVOVERIFICADO'),
+(86, 'Julia Vitória', 'taegvils', 'julia.vitoria07@gmail.com', '$2y$10$vw5.GgwLa7U0pQGaeF1PSuU/wNySEceC9c/GY22e99tQoRe2dIGNC', NULL, NULL, 'ADM', '2024-11-12 00:00:00', 'compMatricula_tagevils.pdf', 'SIM', 'ATIVOVERIFICADO'),
 -- Índices para tabelas despejadas
 --
 
@@ -172,19 +158,19 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT de tabela `comentario`
 --
 ALTER TABLE `comentario`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=131;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=134;
 
 --
 -- AUTO_INCREMENT de tabela `curtida`
 --
 ALTER TABLE `curtida`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=244;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=253;
 
 --
 -- AUTO_INCREMENT de tabela `denuncia`
 --
 ALTER TABLE `denuncia`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de tabela `postagem`
@@ -196,7 +182,7 @@ ALTER TABLE `postagem`
 -- AUTO_INCREMENT de tabela `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=94;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=95;
 
 --
 -- Restrições para tabelas despejadas

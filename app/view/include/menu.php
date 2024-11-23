@@ -13,8 +13,7 @@ $TipoUsuario = $_SESSION[SESSAO_USUARIO_TIPO_USUARIO];
 
 <nav class="navbar navbar-expand-lg navbar-light bg-body-tertiary fixed-top">
     <div class="container-fluid">
-        <!-- Marca do site -->
-        <a class="navbar-brand" href="#">IFSHARE</a>
+       
 
         <!-- Botão "hambúrguer" para telas pequenas -->
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -34,12 +33,12 @@ $TipoUsuario = $_SESSION[SESSAO_USUARIO_TIPO_USUARIO];
                         <a class="nav-link dropdown-toggle position-relative" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             ADM
                             <?php
-                            if (isset($dados["countNaoVerificados"])  && $dados["countNaoVerificados"] >= 1):
+                            if (isset($dados["countUsersNaoVerificados"])  && $dados["countUsersNaoVerificados"] >= 1 && (isset($dados["countDenunciasNaoVerificados"])  && $dados["countDenunciasNaoVerificados"] >= 1)):
                             ?>
                                 <span class="notif translate-middle badge rounded-pill">
                                     <?php
-                                    if (isset($dados["countNaoVerificados"]))
-                                        echo $dados["countNaoVerificados"];
+                                    if (isset($dados["countUsersNaoVerificados"]) && isset($dados["countDenunciasNaoVerificados"]))
+                                        echo $dados["countUsersNaoVerificados"] + $dados["countDenunciasNaoVerificados"];
                                     ?>
                                 </span>
 
@@ -53,12 +52,12 @@ $TipoUsuario = $_SESSION[SESSAO_USUARIO_TIPO_USUARIO];
                                 <a class="dropdown-item position-relative" href="<?= BASEURL . '/controller/UsuarioController.php?action=list' ?>">
                                     Listagem
                                     <?php
-                                    if (isset($dados["countNaoVerificados"])  && $dados["countNaoVerificados"] >= 1):
+                                    if (isset($dados["countUsersNaoVerificados"])  && $dados["countUsersNaoVerificados"] >= 1):
                                     ?>
                                         <span class="notif translate-middle badge rounded-pill" id="notifList">
                                             <?php
-                                            if (isset($dados["countNaoVerificados"]))
-                                                echo $dados["countNaoVerificados"];
+                                            if (isset($dados["countUsersNaoVerificados"]))
+                                                echo $dados["countUsersNaoVerificados"];
                                             ?>
                                         </span>
 
@@ -69,6 +68,28 @@ $TipoUsuario = $_SESSION[SESSAO_USUARIO_TIPO_USUARIO];
                                 </a>
                             </li>
 
+                            <li>
+                                <a class="dropdown-item position-relative" href="<?= BASEURL . '/controller/DenunciaController.php?action=listDenuncias' ?>">
+                                    Denuncias
+                                    <?php
+                                    if (isset($dados["countDenunciasNaoVerificados"])  && $dados["countDenunciasNaoVerificados"] >= 1):
+                                    ?>
+                                        <span class="notif translate-middle badge rounded-pill" id="notifList">
+                                            <?php
+                                            if (isset($dados["countDenunciasNaoVerificados"]))
+                                                echo $dados["countDenunciasNaoVerificados"];
+                                            ?>
+                                        </span>
+
+                                    <?php
+                                    endif;
+                                    ?>
+
+                                </a>
+                            </li>
+
+
+
                             <li><a class="dropdown-item" href="<?= BASEURL . '/controller/PostagemController.php?action=listPostsToDelete' ?>">Excluir postagem</a></li>
                         </ul>
                     </li>
@@ -78,7 +99,8 @@ $TipoUsuario = $_SESSION[SESSAO_USUARIO_TIPO_USUARIO];
                 ?>
             </ul>
 
-            <div class="box-search d-flex">
+            <!-- Botão de PESQUISA 
+   <div class="box-search d-flex">
 
                 <input
                     value=""
@@ -93,6 +115,11 @@ $TipoUsuario = $_SESSION[SESSAO_USUARIO_TIPO_USUARIO];
                 </button>
 
             </div>
+
+            -->
+
+             <!-- Marca do site -->
+        <a class="navbar-brand" href="#">IFSHARE</a>
 
 
             <div class="log">

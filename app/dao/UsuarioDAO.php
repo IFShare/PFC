@@ -46,7 +46,7 @@ class UsuarioDAO
         return $this->mapUsuarios($result);
     }
 
-    public function countNaoVerificados()
+    public function countUsersNaoVerificados()
     {
 
         $conn = Connection::getConnection();

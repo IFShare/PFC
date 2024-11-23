@@ -69,30 +69,53 @@
     color: white;
 }
 
-#postModal .modal-dialog {
-    max-width: 90vw;
-    max-height: 90vh;
+/* Ajuste para o diálogo */
+#modal {
+    width: 100vw;
+    height: 100vh;
     background: none;
-}
-
-.modal-content {
-    background: none;
-}
-
-#postModal .modal-body {
+    border: none;
+    z-index: 99;
     padding: 0;
+    position: fixed; /* Fixa o modal na tela */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(10px);
+}
+
+/* Estilo para a imagem dentro do modal */
+#modal img {
+    max-width: 95%;
+    max-height: 95%;
+    border-radius: 20px !important;
+    box-shadow: 20px 20px 30px rgba(0, 0, 0, 0.507); /* Sombra suave */
+}
+
+/* Estilo para o botão de fechar */
+.close-button {
+    position: absolute;
+    top: 5%;
+    right: 5%;
+    background-color: rgba(255, 255, 255, 0.8); /* Fundo claro com transparência */
+    border: none;
+    border-radius: 50%;
+    width: 35px;
+    height: 35px;
+    font-size: 18px;
+    color: #333;
+    cursor: pointer;
     display: flex;
     justify-content: center;
     align-items: center;
-    background: none;
+    transition: all 0.3s ease;
 }
 
-#postModal img {
-    width: 90vw;
-    height: auto;
-    display: block;
-    margin: auto;
-    border-radius: 30px;
+.close-button:hover {
+    background-color: rgba(255, 0, 0, 0.8); /* Fundo vermelho ao passar o mouse */
+    color: #fff;
 }
 
 .expand .ampliar{
@@ -313,11 +336,44 @@
     margin: 0;
 }
 
-#wpp {
+.topOpt {
     position: absolute;
     top: 2%;
     right: 3%;
+    display: flex;
+    align-items: flex-end;
+    gap: 20px;
+    transition: all 0.3s;
+}
+
+.topOpt button {
+    background: none;
+    border: none;
     color: white;
+    padding: none;
+}
+
+.topOpt #wpp{
+    color: white;
+}
+
+#wpp:hover {
+    color: green;
+}
+
+#denunciaSVG:hover {
+    color: red;
+}
+
+.motivo .form-control{
+    border: 2px solid #004f44;
+    border-radius: 20px;
+    height: 50px;
+}
+
+#labelMotivo {
+    color: black;
+    font-weight: bold;
 }
 
 @media screen and (max-width:768px) {

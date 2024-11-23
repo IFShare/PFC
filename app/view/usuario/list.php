@@ -72,10 +72,10 @@ require_once(__DIR__ . "/../include/header.php");
 
                             </span><br>
                             <strong>Estudante:</strong> <?= $usu->getIsEstudante(); ?><br>
-                            <strong>Comprovante:</strong>
+                            <strong>Declaração:</strong>
                             <?= $usu->getCompMatricula()
-                                ? "<a href='/PFC/arquivos/compMatricula/" . $usu->getCompMatricula() . "' target='_blank'>Ver comprovante</a>"
-                                : "Sem comprovante.";
+                                ? "<a href='/PFC/arquivos/compMatricula/" . $usu->getCompMatricula() . "' target='_blank'>Ver declaração</a>"
+                                : "Sem declaração.";
                             ?><br>
                             <strong>Status:</strong>
                             <span <?= $usu->getStatus() === "ATIVOVERIFICADO" ? "style = 'color: blue; font-weight: bold;" : ($usu->getStatus() === "ATIVO" ? "style = 'color: green; font-weight: bold;" : ($usu->getStatus() === "INATIVO" ? "color: gray; font-weight: bold;" : ($usu->getStatus() === "NAOVERIFICADO" ? "style = 'color: red; font-weight: bold;" : ""))); ?>'>

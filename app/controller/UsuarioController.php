@@ -41,7 +41,7 @@ class UsuarioController extends Controller
             $usuarios = $this->usuarioDao->list();
         }
 
-        $naoVerifiacdos = $this->usuarioDao->countNaoVerificados();
+        $naoVerifiacdos = $this->usuarioDao->countUsersNaoVerificados();
 
         //print_r($usuarios);
         $dados["data"] = $data;

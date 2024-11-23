@@ -28,39 +28,77 @@ require_once(__DIR__ . "/../include/header.php");
                     src="/PFC/arquivos/imgs/<?= $dados["postagem"]->getImagem(); ?>"
                     alt="Imagem da postagem">
 
-                <button 
-                class="expand"
-                data-bs-target="#postModal"
-                data-bs-toggle="modal"
-                class="justify-content-center btnInsert">
+                <button
+                    onclick="document.querySelector('#modal').show(); document.querySelector('#modal').style.display = 'flex';" ;
+                    class="expand justify-content-center btnInsert">
                     <i class="ampliar bi bi-arrows-angle-expand"></i>
                 </button>
 
             </div>
 
-            <div class="modal fade" id="postModal" tabindex="-1" aria-labelledby="imgModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered" style="max-width: 90vw;">
-                    <div class="modal-content">
-                        <div class="modal-body">
-                            <img
-                                id="imgModal"
-                                class="img"
-                                src="/PFC/arquivos/imgs/<?= $dados["postagem"]->getImagem(); ?>"
-                                alt="Imagem da postagem">
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <dialog id="modal">
+
+                <img
+                    id="imgModal"
+                    class="img"
+                    src="/PFC/arquivos/imgs/<?= $dados["postagem"]->getImagem(); ?>"
+                    alt="Imagem da postagem">
+
+                <button
+                    onclick="document.querySelector('#modal').close(); document.querySelector('#modal').style.display = 'none';"
+                    class="close-button">
+                    X
+                </button>
+
+            </dialog>
+
+
+
 
         </div>
 
         <div class="postRight position-relative">
 
-            <a target="_blank" id="wpp" href="https://api.whatsapp.com/send?text=http://localhost/PFC/app/controller/PostagemController.php?action=viewPost&id=<?php echo $dados['postagem']->getId(); ?>">
-                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-whatsapp" viewBox="0 0 16 16">
-                    <path d="M13.601 2.326A7.85 7.85 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.9 7.9 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.9 7.9 0 0 0 13.6 2.326zM7.994 14.521a6.6 6.6 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.56 6.56 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592m3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.73.73 0 0 0-.529.247c-.182.198-.691.677-.691 1.654s.71 1.916.81 2.049c.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232" />
-                </svg>
-            </a>
+            <div class="topOpt">
+                <button
+                    data-bs-target="#postModal"
+                    data-bs-toggle="modal">
+                    <svg id="denunciaSVG" xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-exclamation-triangle" viewBox="0 0 16 16">
+                        <path d="M7.938 2.016A.13.13 0 0 1 8.002 2a.13.13 0 0 1 .063.016.15.15 0 0 1 .054.057l6.857 11.667c.036.06.035.124.002.183a.2.2 0 0 1-.054.06.1.1 0 0 1-.066.017H1.146a.1.1 0 0 1-.066-.017.2.2 0 0 1-.054-.06.18.18 0 0 1 .002-.183L7.884 2.073a.15.15 0 0 1 .054-.057m1.044-.45a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767z" />
+                        <path d="M7.002 12a1 1 0 1 1 2 0 1 1 0 0 1-2 0M7.1 5.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0z" />
+                    </svg>
+                </button>
+
+                <a target="_blank" id="wpp" href="https://api.whatsapp.com/send?text=http://PFC/app/controller/PostagemController.php?action=viewPost&id=<?php echo $dados['postagem']->getId(); ?>">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-whatsapp" viewBox="0 0 16 16">
+                        <path d="M13.601 2.326A7.85 7.85 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.9 7.9 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.9 7.9 0 0 0 13.6 2.326zM7.994 14.521a6.6 6.6 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.56 6.56 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592m3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.73.73 0 0 0-.529.247c-.182.198-.691.677-.691 1.654s.71 1.916.81 2.049c.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232" />
+                    </svg>
+                </a>
+            </div>
+
+
+
+            <div class="modal fade" id="postModal" tabindex="-1" aria-labelledby="postModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-body">
+                            <form
+                                id="formDenuncia"
+                                method="post"
+                                action="<?= BASEURL ?>/controller/DenunciaController.php?action=insertDenuncia&id=<?php echo $dados['postagem']->getId(); ?>">
+                                <!-- Motivo -->
+                                <div class="mb-2 motivo">
+                                    <label id="labelMotivo" for="motivo">Qual seria o motivo da denuncia?</label>
+                                    <input type="text" class="form-control" id="motivo" name="motivo" required>
+                                </div>
+
+                                <button type="submit" class="btn btn-custom">Enviar</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
 
             <!--LEGENDA E COMENTÁRIOS -->
             <div class="infos">

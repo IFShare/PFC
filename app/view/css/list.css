@@ -99,7 +99,7 @@ h3.text-center {
 
 
 .box-search {
-    max-width: 400px;
+    width: 400px;
     margin: 0 auto; /* Centraliza o campo na página */
     position: relative;
 }
