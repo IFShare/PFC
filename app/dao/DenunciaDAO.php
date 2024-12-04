@@ -15,7 +15,7 @@ class DenunciaDAO
 
     public function __construct()
     {
-        $this->loginService = new LoginService();        
+        $this->loginService = new LoginService();
     }
 
     #LISTAGEM DE USUÁRIOS
@@ -25,7 +25,10 @@ class DenunciaDAO
 
         $conn = Connection::getConnection();
 
-        $sql = "SELECT * FROM denuncia u ORDER BY u.id DESC";
+        $sql = "SELECT denuncia.*, usuario.nomeUsuario 
+        FROM denuncia
+        JOIN usuario ON denuncia.idUsuario = usuario.id
+        ORDER BY denuncia.id DESC";
         $stm = $conn->prepare($sql);
 
         $stm->execute();
@@ -88,7 +91,7 @@ class DenunciaDAO
         $stm->execute();
     }
 
-    
+
     ####################################################################################
 
     #DELETA UM USUÁRIO PELO ID
@@ -142,6 +145,7 @@ class DenunciaDAO
 
             $usuario = new Usuario();
             $usuario->setId($reg['idUsuario']);
+            $usuario->setNomeUsuario($reg['nomeUsuario']);
             $denuncia->setUsuario($usuario);
 
             $post = new Post();

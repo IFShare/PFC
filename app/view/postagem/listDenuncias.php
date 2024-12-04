@@ -56,28 +56,35 @@ require_once(__DIR__ . "/../include/header.php");
             <div class="col-md-4">
                 <div class="card mb-4" style="border: 1px solid #ddd; border-radius: 8px;">
                     <div class="card-body">
-                        <h5 class="card-title text-center fw-bold"><?= $den->getUsuario()->getId(); ?></h5>
+                        <a href="/PFC/app/controller/UsuarioController.php?action=perfil&id=<?php echo $den->getUsuario()->getId(); ?>">
+                            <h5 class="card-title text-center fw-bold"><?= $den->getUsuario()->getNomeUsuario(); ?></h5>
+                        </a>
                         <p class="card-text">
                             <strong>ID:</strong> <?= $den->getId(); ?><br>
                             <strong>ID da postagem:</strong> <?= $den->getPost()->getId(); ?><br>
                             <strong>ID do usuário:</strong> <?= $den->getUsuario()->getId(); ?><br>
 
+                            <strong>Motivo:</strong>
+                            <span>
+                                <?= $den->getMotivo() ?>
+                            </span>
+                            <br>
+                            <strong>Post:</strong>
+                            <a href="/PFC/app/controller/PostagemController.php?action=viewPost&id=<?= $den->getPost()->getId() ?>">
+                                Verificar postagem
+                            </a>
+                            <br>
                             <strong>Status:</strong>
                             <span <?= $den->getStatus() === "VERIFICADO" ? "style = 'color: blue; font-weight: bold;" : ($den->getStatus() === "NAOVERIFICADO" ? "style = 'color: red; font-weight: bold;" : ""); ?>'>
                                 <?= $den->getStatus(); ?>
 
                             </span>
-                                <br>
-                            <strong>Motivo:</strong>
-                            <span>
-                            <?= $den->getMotivo()?>
-                            </span>
                         </p>
                         <div class="text-center">
-                            <a class="btn btn-primary" href="<?= BASEURL ?>/controller/UsuarioController.php?action=edit&id=<?= $den->getId() ?>&search=<?php echo $dados['data']; ?>">
-                                <i class="bi bi-pencil-square"></i> Editar
+                            <a class="btn btn-primary" href="<?= BASEURL ?>/controller/DenunciaController.php?action=verificar&id=<?= $den->getId() ?>">
+                                <i class="bi bi-pencil-square"></i> Verificar
                             </a>
-                            <a class="btn btn-danger" onclick="return confirm('Confirma a exclusão do usuário?');" href="<?= BASEURL ?>/controller/UsuarioController.php?action=delete&id=<?= $den->getId() ?>">
+                            <a class="btn btn-danger" onclick="return confirm('Confirma a exclusão do usuário?');" href="<?= BASEURL ?>/controller/DenunciaController.php?action=delDenuncia&id=<?= $den->getId() ?>">
                                 <i class="fa-solid fa-trash"></i> Excluir
                             </a>
                         </div>

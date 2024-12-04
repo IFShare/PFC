@@ -7,6 +7,16 @@ body {
     background: linear-gradient(90deg, #81a880, #004f44);
 }
 
+.container {
+    border-radius: 20px;
+    width: 80%;
+    margin-left: 18%;
+    max-height: 90%;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+}
+
 .voltar {
     position: absolute;
     top: 2%;
@@ -26,42 +36,35 @@ body {
     color: white !important;
 }
 
-.container {
-    border-radius: 20px;
+.infoUser {
     width: 100%;
-    height: 90%;
-    display: flex;
-    background-color: rgba(0, 0, 0, 0.712);
-    padding: 10px;
-}
-
-.contLeft {
-    width: 45%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    border-right: 3px solid gray;
 }
 
-.contRight {
-    width: 55%;
+.postsUser {
+    width: 100%;
 }
 
-.contLeft img {
-    width: 40%;
+.infoUser img {
+    width: 15%;
     border: 2px solid white;
     border-radius: 50px;
+    margin-top: 10px;
 }
 
 .nomeUsuario h5 {
+    font-size: 2rem;
+    margin-top: 7px;
     color: white;
 }
 
 .bio {
-    margin: 20px 0;
+    margin: 10px 0;
     display: flex;
-    justify-content: flex-start;
+    justify-content: center;
     width: 100%;
     color: white;
     text-align: left;
@@ -69,6 +72,7 @@ body {
 
 .bio p {
     width: 50%;
+    text-align: center;
 }
 
 .infos {
@@ -83,6 +87,68 @@ body {
     margin: 0;
 }
 
-.contRight h2 {
-    color: white;
+.postsUser{
+    margin-top: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+}
+
+.postagens{
+    margin: 30px 10px;
+    width: 100%;
+    column-count: 4;
+    column-gap: 25px;
+}
+
+@keyframes appear {
+    from {
+        opacity: 0.2;
+        transform: translatex(-50px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translatex(0px);
+    }
+}
+
+.post {
+    border-radius: 15px;
+    overflow: hidden;
+    margin-bottom: 15px;
+    animation: appear linear;
+    animation-timeline: view();
+    animation-range: entry 0% cover 25%;
+}
+
+.imgPost {
+    width: 100%;
+    border-radius: 15px;
+    transition: all 0.3s;
+}
+
+.imgPost:hover{
+    transform: scale(110%);
+    filter: brightness(80%);
+}
+
+.edit {
+    position: absolute;
+    top: 5%;
+    right: 5%;
+}
+
+.addPost {
+    border-radius: 15px;
+    font-size: 75px;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 250px;
+    height: 300px;
+    background-color: white;
+    color: #004f44;
 }

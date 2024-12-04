@@ -1,90 +1,126 @@
-nav li {
-    color: black;
-    font-weight: bold;
-    font-size: 25px;
-}
-
-#navbarSupportedContent {
-    display: flex;
-    justify-content: space-between;
-}
-
-nav.navbar {
-    padding: 0 15px;
-    background: linear-gradient(90deg, #81a880, #004f44);
-}
-
-.navbar-brand {
-    font-size: 2.5rem;
-    font-weight: bold;
-    color: #004f44;
-}
-
-.nav-link{
-    font-size: 2rem;
-    padding: 0;
-    color: white;
-    transition: all 0.3s;
-}
-
-#sair {
-    margin-left: 10px;
-    display: flex;
-    justify-content: center;
-    transition: all 0.3s;
-}
-
-#sair:hover {
-    color: red;
-}
-
-#sair abbr {
+#toggleSidebar {
     cursor: pointer;
 }
 
-#sair span {
-    font-size: 2rem;
-}
-
-.log {
+.sidebar {
+    font-family: Arial, sans-serif;
+    z-index: 99;
+    width: 17%;
+    background: #81a880;
+    box-shadow: 5px 0 30px #004f44;
+    border-top-right-radius: 25px;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
     display: flex;
-    align-items: baseline;
+    flex-direction: column;
+    align-items: start;
+    padding: 20px 10px;
 }
 
-.user {
-    font-size: 3rem;
+.sidebar {
+    transition: width 0.3s ease-in-out;
+    overflow: hidden;
+}
+
+.sidebar.closed {
+    width: 60px;
+}
+
+.sidebar.closed .menu-item .item-sidebar {
+    display: none; /* Oculta o texto */
+}
+
+.sidebar.closed .brand #logo {
+    width: 100%;
+}
+
+.menu-toggle {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    margin: 10px;
+}
+
+.menu-toggle i {
+    color: #333;
+}
+
+/* Para ajustar visualmente a posição do botão */
+.menu-toggle {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    z-index: 10;
+}
+
+
+.brand {
+    font-size: 30px;
+    font-weight: bold;
     color: white;
-    margin-left: 10px;
+    margin-bottom: 15px;
 }
 
-#nomeUsuario {
-    font-size: 2rem;
-    color: white;
+.brand-link {
+    text-decoration: none;
+    color: inherit;
 }
 
-.nav-link:hover {
-    color: #004f44;
-}
-
-.navbar-brand:hover {
-    color: #004f44;
-}
-
-.navbar-brand:visited {
-    color: #004f44;
-}
-
-.dropdown-item {
-    background-color: #004f44;
-    color: white;
-}
-
-.dropdown-menu {
+.menu-list {
+    display: flex;
+    flex-direction: column; /* Organiza os itens do menu na vertical */
+    gap: 10px; 
+    list-style: none;
     padding: 0;
+    margin: 0;
+    width: 95%;
+    cursor: pointer;
 }
 
-#offcanvasDarkNavbar {
-    width: 30%;
+.menu-item {
+    font-size: 14px;
+    text-decoration: none;
+    color: white;
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border-radius: 8px;
+    transition: all 0.3s;
+}
+
+.menu-item:hover {
+    background-color: #e7e7e7;
+    color: #000;
+    transform: scale(1.05);
+}
+
+.menu-item i {
+    font-size: 18px;
+    margin-right: 7px;
+    color: white;
+    transition: color 0.3s;
+}
+
+.menu-item:hover i {
+    color: #004f44;
+}
+
+.menu-item.active {
+    background-color: #e7e7e7;
+    color: #000;
+    transform: scale(1.05);
+}
+
+.menu-item.active i {
+    color: #004f44;
+}
+
+button {
+    border: none;
+    background: none;
 }
 
 .notif {
@@ -92,50 +128,6 @@ nav.navbar {
     top: 0;
     font-size: 17px;
     background-color: #004f44;
-}
-
-#notifList {
-    top: 5%;
-    background-color: white;
-    color: #004f44;
-}
-
-.box-search {
-    width: 50%;
-    margin: 0 auto; /* Centraliza o campo na página */
-    position: relative;
-}
-
-#pesquisar {
-    border-radius: 20px 0 0 20px; /* Bordas arredondadas na esquerda */
-    border: none; /* Cor da borda ao focar */
-    padding: 10px 15px;
-    outline: none;
-    transition: border-color 0.3s, box-shadow 0.3s;
-}
-
-#pesquisar:focus {
-    border-color: #0056b3; /* Cor da borda ao focar */
-    box-shadow: 0 0 8px rgba(0, 91, 187, 0.5); /* Sombra ao focar */
-}
-
-.btn-search {
-    border-radius: 0 20px 20px 0; /* Bordas arredondadas na direita */
-    border: none;
-    padding: 10px 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: background-color 0.3s, transform 0.3s;
-}
-
-.btn-search svg {
-    fill: white; /* Ícone na cor branca */
-}
-
-.btn-search:hover {
-    background-color: #0056b3; /* Tom mais escuro ao passar o mouse */
-    transform: scale(1.05); /* Efeito de leve aumento */
 }
 
 

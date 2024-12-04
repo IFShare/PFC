@@ -101,7 +101,7 @@ class DenunciaController extends Controller
         if ($denuncia) {
             //Excluir
             $this->denunciaDao->deleteById($denuncia->getId());
-            header("location: /PFC/app/controller/DenunciaController.php?action=viewPost&id=" . $denuncia->getPostagem()->getId());
+            header("location: /PFC/app/controller/DenunciaController.php?action=listDenuncias");
         }
     }
 }

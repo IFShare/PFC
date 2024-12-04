@@ -2,45 +2,60 @@
 require_once(__DIR__ . "/../include/header.php");
 
 ?>
-<link rel="stylesheet" href="<?= BASEURL ?>/view/css/baseCSS.css">
 <link rel="stylesheet" href="<?= BASEURL ?>/view/css/perfil.css">
 
 <div class="container">
 
-    <a class="voltar"
-        href="http://localhost/PFC/app/controller/HomeController.php?action=home">
-        <i class="fs-4 bi bi-arrow-left-square"
-            data-bs-toggle="tooltip" data-bs-title="Default tooltip data-bs-title=" Voltar">
-        </i>
+    <?php
+    require_once(__DIR__ . "/../include/menu.php");
+    ?>
 
-    </a>
-
-
-    <div class="contLeft">
+    <div class="infoUser">
 
         <img src="/PFC/app/assets/ifsharePerfil.png" alt="">
 
         <div class="nomeUsuario">
-            <h5>MEU NOME</h5>
+            <h5 class="mb-1"><?php echo $dados['usuario']->getNomeSobrenome(); ?></h5>
+            <p class="text-center text-body-secondary mb-0 fw-medium"><?php echo $dados['usuario']->getNomeUsuario(); ?></p>
         </div>
 
-        <div class="bio">
-            <p>Ai que eu não sei o que que eu não sei o que lá</p>
+        <!--
+         <div class="bio">
+            <p><?php //echo $dados['usuario']->getBio(); 
+                ?></p>
         </div>
+        -->
 
-        <div class="infos">
-            <p>Postagens: 14</p>
-        </div>
 
     </div>
 
 
 
-    <div class="contRight">
-        <h2 class="text-center">POSTAGENS DO USUÁRIO</h2>
+    <div class="postsUser">
+        <section class="postagens">
+
+            <div class="post">
+                <button class="p-0">
+                    <div class="addPost">
+                        <span>+</span>
+                    </div>
+                </button>
+            </div>
+
+            <?php foreach ($dados['postagens'] as $posts): ?>
+                <div class="post" id="post-<?php echo $posts->getId() ?>">
+                    <a href="<?= BASEURL ?>/controller/PostagemController.php?action=viewPost&id=<?= $posts->getId() ?>">
+                        <img
+                            class="imgPost" id="imgPost"
+                            src="/PFC/arquivos/imgs/<?= $posts->getImagem(); ?>"
+                            alt="Imagem da postagem">
+                    </a>
+                </div>
+
+            <?php endforeach; ?>
+
+        </section>
     </div>
-
-
 
 </div>
 

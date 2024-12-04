@@ -24,7 +24,10 @@ class PostagemDAO
 
         $conn = Connection::getConnection();
 
-        $sql = "SELECT * FROM postagem ORDER BY id DESC";
+        $sql = "SELECT postagem.*, usuario.nomeUsuario 
+        FROM postagem
+        JOIN usuario ON postagem.idUsuario = usuario.id
+        ORDER BY postagem.id DESC";
         $stm = $conn->prepare($sql);
 
         $stm->execute();
@@ -105,6 +108,22 @@ class PostagemDAO
 
         die("UsuarioDAO.findById()" .
             " - Erro: mais de uma postagem encontrada.");
+    }
+
+
+
+    public function listPostByUserId(int $id)
+    {
+        $conn = Connection::getConnection();
+
+        $sql = "SELECT * FROM postagem p WHERE p.idUsuario = ?";
+        $stm = $conn->prepare($sql);
+
+        $stm->execute([$id]);
+        $result = $stm->fetchAll();
+
+        $postagens = $this->mapPostagens($result);
+        return $postagens;
     }
 
     ####################################################################################

@@ -24,9 +24,3 @@ file.addEventListener("change", function(e) {
     reader.readAsDataURL(file.files[0]);
 
 })
-
-window.addEventListener ("scroll", () => {
-    if(window.scrollY + window.innerHeight + 5 > document.body.scrollHeight) {
-        //função para printar mais postagens na tela.
-    }
-})

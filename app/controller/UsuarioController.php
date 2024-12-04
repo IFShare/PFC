@@ -1,6 +1,7 @@
 <?php
 
 require_once(__DIR__ . "/../dao/UsuarioDAO.php");
+require_once(__DIR__ . "/../dao/PostagemDAO.php");
 require_once(__DIR__ . "/../service/UsuarioService.php");
 require_once(__DIR__ . "/Controller.php");
 require_once(__DIR__ . "/../model/Usuario.php");
@@ -12,6 +13,7 @@ class UsuarioController extends Controller
 {
 
     private UsuarioDAO  $usuarioDao;
+    private PostagemDAO  $postDao;
     private UsuarioService  $usuarioService;
 
     //Método construtor do controller - será executado a cada requisição a está classe
@@ -26,6 +28,7 @@ class UsuarioController extends Controller
         }
 
         $this->usuarioDao = new UsuarioDAO();
+        $this->postDao = new PostagemDAO();
         $this->usuarioService = new UsuarioService();
 
         $this->handleAction();
@@ -125,6 +128,60 @@ class UsuarioController extends Controller
         $this->loadView("usuario/form.php", $dados, []);
     }
 
+    //Método create
+    protected function editPerfil()
+    {
+        $usuario = $this->findUsuarioById();
+        if ($usuario) {
+            //Setar os dados
+            $dados["id"] = $usuario->getId();
+            $dados["usuario"] = $usuario;
+
+            $this->loadView("usuario/editPerfil.php", $dados, []);
+        } else
+            $this->list("Usuário não encontrado");
+    }
+
+    protected function savePerfil()
+    {
+         //Captura os dados do formulário
+         $dados["id"] = isset($_POST['id']) ? $_POST['id'] : 0;
+         $nomeSobrenome = isset($_POST['nomeSobrenome']) ? trim($_POST['nomeSobrenome']) : NULL;
+         $nomeUsuario = isset($_POST['nomeUsuario']) ? trim($_POST['nomeUsuario']) : NULL;
+         $bio = isset($_POST['bio']) ? trim($_POST['bio']) : NULL;
+         $usuario = new Usuario();
+ 
+         $usuario->setId($dados["id"]);
+         $usuario->setNomeSobrenome($nomeSobrenome);
+         $usuario->setNomeUsuario($nomeUsuario);
+         $usuario->setFotoPerfil(null);
+         $usuario->setBio($bio); 
+         //Validar os dados
+         $erros = $this->usuarioService->validarDados($usuario, '');
+         if (empty($erros)) {
+             try {
+                 if ($dados["id"] == 0) //Inserindo
+                     $this->usuarioDao->insert($usuario);
+                 else { //Alterando
+                     $this->usuarioDao->update($usuario);
+                 } 
+ 
+ 
+                 exit;
+             } catch (PDOException $e) {
+                 //echo $e->getMessage();
+                 $erros['banco'] = "Erro ao salvar o usuário na base de dados." . $e;
+             }
+         }
+ 
+         //Se há erros, volta para o formulário
+ 
+         //Carregar os valores recebidos por POST de volta para o formulário
+         $dados["usuario"] = $usuario; 
+
+        $this->loadView("usuario/editPerfil.php", $dados, $erros);
+    }
+
     protected function baixar()
     {
         $id = 0;
@@ -195,7 +252,19 @@ class UsuarioController extends Controller
 
     protected function perfil()
     {
-        $this->loadView("usuario/perfil.php", [], []);
+        $id = 0;
+        if (isset($_GET['id'])){
+            $id = $_GET['id'];
+        }
+
+        $postagens = $this->postDao->listPostByUserId($id);
+        $usuario = $this->usuarioDao->findById($id);
+
+        $dados['postagens'] = $postagens;
+        $dados['usuario'] = $usuario;
+
+
+        $this->loadView("usuario/perfil.php", $dados, []);
     }
 }
 

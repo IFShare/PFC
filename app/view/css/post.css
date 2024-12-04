@@ -1,13 +1,74 @@
-.container{
-    margin-top: 15px;
+.box-search {
+    width: 50%;
+    margin: 0 auto; /* Centraliza o campo na página */
+    position: relative;
+}
+
+#pesquisar {
+    background-color: #004f4552;
+    color: white;
+    border-radius: 20px 0 0 20px; /* Bordas arredondadas na esquerda */
+    border: none; /* Cor da borda ao focar */
+    padding: 10px 15px;
+    outline: none;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+#pesquisar::placeholder {
+    color: white;
+}
+
+#pesquisar:focus {
+    border-color: #0056b3; /* Cor da borda ao focar */
+    box-shadow: 0 0 8px #81a880; /* Sombra ao focar */
+}
+
+.btn-search {
+    background-color: #004f44;
+    color: white;
+    border-radius: 0 20px 20px 0; /* Bordas arredondadas na direita */
+    border: none;
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.btn-search svg {
+    fill: white; /* Ícone na cor branca */
+}
+
+.btn-search:hover {
+    background-color: #81a880; /* Tom mais escuro ao passar o mouse */
+    transform: scale(1.05); /* Efeito de leve aumento */
+}
+
+
+
+.container-posts{
+    margin: 10px 0 50px 18%;
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
     padding: 0;
+    transition: all .3s ease;
 }
 
-.postagens {
-    margin: 60px 10px;
+.container-posts.sidebar-open {
+    margin-left: 18%;
+    width: 80%;
+}
+
+.container-posts.sidebar-closed {
+    margin-left: 6%;
+    width: 93%;
+}
+
+
+.postagens{
+    margin-top: 15px;
     width: 100%;
     column-count: 5;
     column-gap: 25px;
@@ -26,9 +87,9 @@
 }
 
 .post {
+    margin-bottom: 15px;
     border-radius: 15px;
     overflow: hidden;
-    margin-bottom: 15px;
     animation: appear linear;
     animation-timeline: view();
     animation-range: entry 0% cover 25%;
@@ -43,6 +104,10 @@
 .imgPost:hover{
     transform: scale(110%);
     filter: brightness(80%);
+}
+
+span.usuarioPost {
+    margin-bottom: 15px;
 }
 
 

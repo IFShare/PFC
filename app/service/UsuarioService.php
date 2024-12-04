@@ -38,10 +38,17 @@ class UsuarioService
         elseif ($this->usuarioDAO->emailJaCadastrado($usuario->getEmail(), $usuario->getId())) // Verificação se o email já está cadastrado
             $erros['email'] = "Este e-mail já foi cadastrado.";
 
+
+
         if ($usuario->getId() == 0 && !$usuario->getSenha())
             $erros['senha'] = "Preecnha sua senha";
         elseif ($usuario->getId() == 0 && strlen($usuario->getSenha()) < 5)
             $erros['senha'] = "A senha precisa ter pelo menos 5 caracteres";
+
+
+        if (strlen($usuario->getBio()) > 45)
+            $erros['bio'] = "Biografia muito grande";
+
 
         if (! $usuario->getTipoUsuario())
             $erros['tipoUsuario'] = "Escolha o tipo de usuário";

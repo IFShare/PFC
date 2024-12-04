@@ -1,5 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap');
 
+html {
+    scroll-behavior: auto;
+}
+
 .container{
     min-height: 100vh;
     display: flex;
@@ -60,10 +64,11 @@
 }
 
 .expand {
+    padding: 0;
     width: max-content;
     position: absolute;
-    right: 2%;
-    bottom: 5%;
+    right: 10px;
+    bottom: 10px;
     background: none;
     border: none;
     color: white;
@@ -85,6 +90,7 @@
     align-items: center;
     backdrop-filter: blur(10px);
 }
+
 
 /* Estilo para a imagem dentro do modal */
 #modal img {
@@ -192,6 +198,16 @@
     padding-top: 10px;
 }
 
+.usuario a {
+    color: white;
+    text-decoration: none;
+}
+
+.usuario a:hover {
+    text-decoration: underline;
+    color: rgb(189, 189, 189);
+}
+
 .usuario:first-child{
     font-size: 25px;
     font-weight: bold;
@@ -220,7 +236,7 @@
     z-index: 99;
     position: fixed;
     top: 2%;
-    left: 2%;
+    left: 1%;
     background-color: #004f44;
     color: white;
     border-radius: 30px;
@@ -371,9 +387,19 @@
     height: 50px;
 }
 
+.modal-body {
+    background: none;
+    border-radius: 20px;
+}
+
 #labelMotivo {
     color: black;
     font-weight: bold;
+}
+
+.dots-excluir {
+    
+    color: white;
 }
 
 @media screen and (max-width:768px) {

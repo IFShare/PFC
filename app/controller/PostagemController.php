@@ -171,8 +171,7 @@ class PostagemController extends Controller
             if (unlink($arquivoImg)) {
                 // Se a exclusão do arquivo for bem-sucedida, exclui o registro da postagem no banco de dados
                 $this->postDao->deletePostById($postagem->getId());
-                header("location: /PFC/app/controller/PostagemController.php?action=listPostsToDelete");
-                print "<script>alert('Postagem excluída com sucesso.');</script>";
+                header("location: ", HOME_PAGE);
             } else {
                 // Caso o arquivo não possa ser excluído
                 echo "<script>alert('Erro ao excluir o arquivo: $arquivoImg');</script>";

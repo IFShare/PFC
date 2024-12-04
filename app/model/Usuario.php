@@ -20,12 +20,14 @@ class Usuario
 
         public function __construct() {
                 $this->id = null;
+                $this->email = null;
                 $this->dataCriacao = null;
                 $this->nomeUsuario = null;
                 $this->compMatricula = null;
                 $this->fotoPerfil = null;
                 $this->status = null;
                 $this->isEstudante = null;
+                $this->tipoUsuario = null;
             }
         
         /**
