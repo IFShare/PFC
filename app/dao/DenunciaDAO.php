@@ -42,12 +42,15 @@ class DenunciaDAO
 
         $conn = Connection::getConnection();
 
-        $sql = "SELECT * FROM denuncia d
+        $sql = "SELECT d.*, u.nomeUsuario 
+                FROM denuncia d
+                JOIN usuario u ON d.idUsuario = u.id
                 WHERE d.id LIKE :search
-                or d.motivo LIKE :search
-                or d.status LIKE :search
-                or d.idPostagem LIKE :search
-                or d.idUsuario LIKE :search 
+                OR d.motivo LIKE :search
+                OR d.status LIKE :search
+                OR d.idPostagem LIKE :search
+                OR d.idUsuario LIKE :search
+                OR u.nomeUsuario LIKE :search
                 ORDER BY d.id DESC";
         $stm = $conn->prepare($sql);
         $stm->bindValue(':search', "%$data%");

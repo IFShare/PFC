@@ -31,11 +31,13 @@ $isHome = (isset($_GET['action']) && $_GET['action'] === 'home') ? 'active' : ''
                 <span class="item-sidebar" id="">Início</span>
             </a>
         </li>
+        <?php if ($TipoUsuario == "ADM" || $TipoUsuario == "ESTUDANTE") : ?>
         <li data-bs-target="#postModal"
             data-bs-toggle="modal" class="menu-item">
             <i class="fas fa-plus-circle"></i>
             <span class="item-sidebar" id="createPost">Criar Postagem</span>
         </li>
+        <?php endif; ?>
         <?php if ($TipoUsuario == "ADM") : ?>
             <li class="position-relative">
                 <a href="<?= BASEURL ?>/controller/UsuarioController.php?action=list" class="menu-item">
@@ -89,18 +91,18 @@ $isHome = (isset($_GET['action']) && $_GET['action'] === 'home') ? 'active' : ''
     document.addEventListener("DOMContentLoaded", () => {
         const sidebar = document.getElementById("sidebar");
         const toggleButton = document.getElementById("toggleSidebar");
-        const postsContainer = document.getElementById("postsContainer");
+        const container = document.getElementById("container");
 
         toggleButton.addEventListener("click", () => {
             sidebar.classList.toggle("closed");
             const isClosed = sidebar.classList.contains("closed");
 
             if (isClosed) {
-                postsContainer.classList.remove("sidebar-open");
-                postsContainer.classList.add("sidebar-closed");
+                container.classList.remove("sidebar-open");
+                container.classList.add("sidebar-closed");
             } else {
-                postsContainer.classList.remove("sidebar-closed");
-                postsContainer.classList.add("sidebar-open");
+                container.classList.remove("sidebar-closed");
+                container.classList.add("sidebar-open");
             }
         });
     });

@@ -7,63 +7,59 @@ require_once(__DIR__ . "/../include/header.php");
 
 <link rel="stylesheet" href="<?= BASEURL ?>/view/css/home.css">
 <link rel="stylesheet" href="<?= BASEURL ?>/view/css/post.css">
+<link rel="stylesheet" href="<?= BASEURL ?>/view/css/pesquisaStyle.css">
 
-<!--
-<div class="row justify-content-center align-items-center w-100">
-    <div class="col-3 d-flex justify-content-center align-items-center">
-
-        <?php
-        if ($_SESSION[SESSAO_USUARIO_TIPO_USUARIO] == "ADM" || $_SESSION[SESSAO_USUARIO_TIPO_USUARIO] == "ESTUDANTE"):
-
-        ?>
-
-
-            <button
-                data-bs-target="#postModal"
-                data-bs-toggle="modal"
-                class="justify-content-center btnInsert">
-                <i class="bi bi-plus-circle"></i>
-            </button>
-            <span class="msgInsert">Realizar postagem</span>
-
-        <?php endif; ?>
-
-    </div>
-</div>
-        -->
-
-<!-- Modal de Inserção de Postagem -->
-<div class="modal fade" id="postModal" tabindex="-1" aria-labelledby="postModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-body">
-                <form
-                    id="formPost"
-                    enctype="multipart/form-data" method="post"
-                    action="<?= BASEURL ?>/controller/PostagemController.php?action=save">
-                    <!-- Imagem -->
-                    <div class="mb-2 preview">
-                        <input hidden type="file" class="form-control" id="fileImg" name="imagem" accept="image/*" required>
-                        <img id="imgPreview" src="/PFC/app/assets/Clique.png" alt="Preview"">
-                    </div>
-
-                    <!-- Legenda -->
-                    <div class=" mb-1">
-                        <label id="labelLegenda" for="txtLegenda" class="mb-1">Legenda</label>
-                        <textarea class="form-control" id="txtLegenda" name="legenda" rows="4"></textarea>
-                    </div>
-
-                    <button type="submit" class="btn btn-custom">Publicar</button>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
 
 <?php
 require_once(__DIR__ . "/../include/menu.php");
+$usuarioLogado = $dados['usuarioLogado'];
 ?>
-<div class="container-posts sidebar-closed" id="postsContainer">
+<div class="container-posts sidebar-closed" id="container">
+
+    <?php
+    require_once(__DIR__ . "/../include/createPost.php");
+
+    ?>
+
+    <?php
+    if (
+        $usuarioLogado->getTipoUsuario() == "USUARIO" &&
+        $usuarioLogado->getStatus() == "NAOVERIFICADO" &&
+        !empty($usuarioLogado->getCompMatricula()) &&
+        $_SESSION['login_naoverificado'] == true
+    ):
+    ?>
+        <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+            <div id="myToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="toast-header">
+                    <strong class="me-auto">IFShare</strong>
+                    <button type="button" class="btn-close btn-success" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+                <div class="toast-body">
+                    Olá, <?= $usuarioLogado->getNomeUsuario() ?>! 😊Sua declaração de matrícula está em análise!
+                </div>
+                <div class="mb-2 me-2 text-end">
+                    <button type="button" class="btn btn-success btn-sm msgToast" data-bs-dismiss="toast">Entendi!</button>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            // Exibir o toast ao carregar a página
+            document.addEventListener('DOMContentLoaded', () => {
+                const myToastElement = document.getElementById('myToast');
+                const myToast = new bootstrap.Toast(myToastElement, {
+                    autohide: false // Desativa o fechamento automático
+                });
+                myToast.show();
+            });
+        </script>
+
+    <?php
+        $_SESSION['login_naoverificado'] = false;
+    endif;
+    ?>
+
     <div class="box-search d-flex">
 
         <input
@@ -83,12 +79,12 @@ require_once(__DIR__ . "/../include/menu.php");
 
         <?php foreach ($dados['listPosts'] as $posts): ?>
             <div class="post" id="post-<?php echo $posts->getId() ?>">
-                    <a href="<?= BASEURL ?>/controller/PostagemController.php?action=viewPost&id=<?= $posts->getId() ?>">
-                        <img
-                            class="imgPost" id="imgPost"
-                            src="/PFC/arquivos/imgs/<?= $posts->getImagem(); ?>"
-                            alt="Imagem da postagem">
-                    </a>
+                <a href="<?= BASEURL ?>/controller/PostagemController.php?action=viewPost&id=<?= $posts->getId() ?>">
+                    <img
+                        class="imgPost" id="imgPost"
+                        src="/PFC/arquivos/imgs/<?= $posts->getImagem(); ?>"
+                        alt="Imagem da postagem">
+                </a>
             </div>
 
         <?php endforeach; ?>
@@ -96,6 +92,7 @@ require_once(__DIR__ . "/../include/menu.php");
     </section>
 
 </div>
+
 
 
 <script src="https://code.jquery.com/jquery-3.7.1.js"></script>

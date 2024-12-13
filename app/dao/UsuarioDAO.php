@@ -31,7 +31,7 @@ class UsuarioDAO
 
         $sql = "SELECT * FROM usuario u
                 WHERE u.id LIKE :search
-                or u.nomeCompleto LIKE :search
+                or u.nomeSobrenome LIKE :search
                 or u.nomeUsuario LIKE :search
                 or u.email LIKE :search
                 or u.tipoUsuario LIKE :search 
@@ -67,14 +67,14 @@ class UsuarioDAO
     {
         $conn = Connection::getConnection();
 
-        $sql = "INSERT INTO usuario (nomeCompleto, nomeUsuario, email, senha, " .
+        $sql = "INSERT INTO usuario (nomeSobrenome, nomeUsuario, email, senha, " .
             " fotoPerfil, bio, tipoUsuario, dataCriacao, compMatricula, status, isEstudante)" .
 
-            " VALUES (:nomeCompleto, :nomeUsuario, :email, :senha, :fotoPerfil, :bio, " .
+            " VALUES (:nomeSobrenome, :nomeUsuario, :email, :senha, :fotoPerfil, :bio, " .
             " :tipoUsuario, CURRENT_DATE, :compMatricula, :status, :isEstudante)";
 
         $stm = $conn->prepare($sql);
-        $stm->bindValue("nomeCompleto", $usuario->getNomeSobrenome());
+        $stm->bindValue("nomeSobrenome", $usuario->getNomeSobrenome());
         $stm->bindValue("nomeUsuario", $usuario->getNomeUsuario());
         $stm->bindValue("email", $usuario->getEmail());
         $senhaCript = password_hash($usuario->getSenha(), PASSWORD_DEFAULT);
@@ -99,13 +99,13 @@ class UsuarioDAO
     {
         $conn = Connection::getConnection();
 
-        $sql = "UPDATE usuario SET nomeCompleto = :nomeCompleto, nomeUsuario = :nomeUsuario," .
+        $sql = "UPDATE usuario SET nomeSobrenome = :nomeSobrenome, nomeUsuario = :nomeUsuario," .
             " email = :email, fotoPerfil = :fotoPerfil, bio = :bio, tipoUsuario = :tipoUsuario," .
             " status = :status, isEstudante = :isEstudante" .
             " WHERE id = :id";
 
         $stm = $conn->prepare($sql);
-        $stm->bindValue("nomeCompleto", $usuario->getNomeSobrenome());
+        $stm->bindValue("nomeSobrenome", $usuario->getNomeSobrenome());
         $stm->bindValue("nomeUsuario", $usuario->getNomeUsuario());
         $stm->bindValue("email", $usuario->getEmail());
         $stm->bindValue("fotoPerfil", $usuario->getFotoPerfil());
@@ -113,6 +113,24 @@ class UsuarioDAO
         $stm->bindValue("tipoUsuario", $usuario->getTipoUsuario());
         $stm->bindValue("status", $usuario->getStatus());
         $stm->bindValue("isEstudante", $usuario->getIsEstudante());
+        $stm->bindValue("id", $usuario->getId());
+
+        $stm->execute();
+    }
+
+    public function updatePerfil(Usuario $usuario)
+    {
+        $conn = Connection::getConnection();
+
+        $sql = "UPDATE usuario SET nomeSobrenome = :nomeSobrenome, nomeUsuario = :nomeUsuario," .
+            " fotoPerfil = :fotoPerfil, bio = :bio" .
+            " WHERE id = :id";
+
+        $stm = $conn->prepare($sql);
+        $stm->bindValue("nomeSobrenome", $usuario->getNomeSobrenome());
+        $stm->bindValue("nomeUsuario", $usuario->getNomeUsuario());
+        $stm->bindValue("fotoPerfil", null);
+        $stm->bindValue("bio", $usuario->getBio());
         $stm->bindValue("id", $usuario->getId());
 
         $stm->execute();
@@ -278,7 +296,7 @@ class UsuarioDAO
         foreach ($result as $reg) {
             $usuario = new Usuario();
             $usuario->setId($reg['id']);
-            $usuario->setNomeSobrenome($reg['nomeCompleto']);
+            $usuario->setNomeSobrenome($reg['nomeSobrenome']);
             $usuario->setNomeUsuario($reg['nomeUsuario']);
             $usuario->setEmail($reg['email']);
             $usuario->setSenha($reg['senha']);

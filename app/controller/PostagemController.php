@@ -141,7 +141,7 @@ class PostagemController extends Controller
         $dados["post"] = $post;
         exit;
 
-        $this->loadView("postagem/postForm.php", $dados, $erros);
+        $this->loadView("include/createPost.php", $dados, $erros);
     }
 
     protected function delPost()

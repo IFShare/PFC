@@ -7,7 +7,7 @@ body {
     background: linear-gradient(90deg, #81a880, #004f44);
 }
 
-.container {
+#container {
     border-radius: 20px;
     width: 80%;
     margin-left: 18%;
@@ -15,6 +15,17 @@ body {
     display: flex;
     flex-direction: column;
     padding: 10px;
+    transition: all .3s ease;
+}
+
+#container.sidebar-open {
+    margin-left: 17%;
+    width: 97%;
+}
+
+#container.sidebar-closed {
+    margin-left: 5%;
+    width: 95%;
 }
 
 .voltar {
@@ -51,8 +62,13 @@ body {
 .infoUser img {
     width: 15%;
     border: 2px solid white;
-    border-radius: 50px;
+    border-radius: 50%;
     margin-top: 10px;
+}
+
+.infoUser img:hover {
+    cursor: pointer;
+    border: 2px solid #004f44;
 }
 
 .nomeUsuario h5 {
@@ -132,23 +148,4 @@ body {
 .imgPost:hover{
     transform: scale(110%);
     filter: brightness(80%);
-}
-
-.edit {
-    position: absolute;
-    top: 5%;
-    right: 5%;
-}
-
-.addPost {
-    border-radius: 15px;
-    font-size: 75px;
-    font-weight: bold;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 250px;
-    height: 300px;
-    background-color: white;
-    color: #004f44;
 }

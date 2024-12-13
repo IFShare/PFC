@@ -3,6 +3,7 @@
 require_once(__DIR__ . "/../dao/UsuarioDAO.php");
 require_once(__DIR__ . "/../dao/PostagemDAO.php");
 require_once(__DIR__ . "/../service/UsuarioService.php");
+require_once(__DIR__ . "/../service/EditPerfilService.php");
 require_once(__DIR__ . "/Controller.php");
 require_once(__DIR__ . "/../model/Usuario.php");
 require_once(__DIR__ . "/../model/enum/TipoUsuario.php");
@@ -15,6 +16,7 @@ class UsuarioController extends Controller
     private UsuarioDAO  $usuarioDao;
     private PostagemDAO  $postDao;
     private UsuarioService  $usuarioService;
+    private EditPerfilService  $editperfilservice;
 
     //Método construtor do controller - será executado a cada requisição a está classe
     public function __construct()
@@ -22,20 +24,21 @@ class UsuarioController extends Controller
         if (!$this->usuarioLogado())
             exit;
 
-        if (! $this->usuarioIsAdmin()) {
-            header("location: " . ACESSO_NEGADO);
-            exit;
-        }
-
         $this->usuarioDao = new UsuarioDAO();
         $this->postDao = new PostagemDAO();
         $this->usuarioService = new UsuarioService();
+        $this->editperfilservice = new EditPerfilService();
 
         $this->handleAction();
     }
 
     protected function list()
     {
+        if (! $this->usuarioIsAdmin()) {
+            header("location: " . ACESSO_NEGADO);
+            exit;
+        }
+
         $data = isset($_GET['search']) ? $_GET['search'] : NULL;
 
         if (!empty($data)) {
@@ -56,6 +59,11 @@ class UsuarioController extends Controller
 
     protected function save()
     {
+
+        if (! $this->usuarioIsAdmin()) {
+            header("location: " . ACESSO_NEGADO);
+            exit;
+        }
         //Captura os dados do formulário
         $dados["id"] = isset($_POST['id']) ? $_POST['id'] : 0;
         $nomeSobrenome = isset($_POST['nomeSobrenome']) ? trim($_POST['nomeSobrenome']) : NULL;
@@ -119,6 +127,11 @@ class UsuarioController extends Controller
     //Método create
     protected function create()
     {
+
+        if (! $this->usuarioIsAdmin()) {
+            header("location: " . ACESSO_NEGADO);
+            exit;
+        }
         //echo "Chamou o método create!";
 
         $dados["id"] = 0;
@@ -138,8 +151,7 @@ class UsuarioController extends Controller
             $dados["usuario"] = $usuario;
 
             $this->loadView("usuario/editPerfil.php", $dados, []);
-        } else
-            $this->list("Usuário não encontrado");
+        }
     }
 
     protected function savePerfil()
@@ -156,18 +168,15 @@ class UsuarioController extends Controller
          $usuario->setNomeUsuario($nomeUsuario);
          $usuario->setFotoPerfil(null);
          $usuario->setBio($bio); 
+
          //Validar os dados
-         $erros = $this->usuarioService->validarDados($usuario, '');
+         $erros = $this->editperfilservice->validarDados($usuario);
+
          if (empty($erros)) {
              try {
-                 if ($dados["id"] == 0) //Inserindo
-                     $this->usuarioDao->insert($usuario);
-                 else { //Alterando
-                     $this->usuarioDao->update($usuario);
-                 } 
+                 $this->usuarioDao->updatePerfil($usuario);
+                 header("location: /PFC/app/controller/UsuarioController.php?action=perfil&id=" . $usuario->getId());
  
- 
-                 exit;
              } catch (PDOException $e) {
                  //echo $e->getMessage();
                  $erros['banco'] = "Erro ao salvar o usuário na base de dados." . $e;
@@ -182,8 +191,14 @@ class UsuarioController extends Controller
         $this->loadView("usuario/editPerfil.php", $dados, $erros);
     }
 
-    protected function baixar()
+    protected function abrirPdf()
     {
+
+        if (! $this->usuarioIsAdmin()) {
+            header("location: " . ACESSO_NEGADO);
+            exit;
+        }
+
         $id = 0;
         if (isset($_GET['id']))
             $id = $_GET['id'];
@@ -196,6 +211,11 @@ class UsuarioController extends Controller
     //Método edit
     protected function edit()
     {
+
+        if (! $this->usuarioIsAdmin()) {
+            header("location: " . ACESSO_NEGADO);
+            exit;
+        }
 
         if (! $this->usuarioIsAdminStudent()) {
             header("location: " . ACESSO_NEGADO);
@@ -223,6 +243,11 @@ class UsuarioController extends Controller
     //Método para excluir
     protected function delete()
     {
+        if (! $this->usuarioIsAdmin()) {
+            header("location: " . ACESSO_NEGADO);
+            exit;
+        }
+
         if (! $this->usuarioIsAdminStudent()) {
             header("location: " . ACESSO_NEGADO);
             exit;
@@ -242,6 +267,11 @@ class UsuarioController extends Controller
     //Método para buscar o usuário com base no ID recebido por parâmetro GET
     private function findUsuarioById()
     {
+        if (! $this->usuarioIsAdmin()) {
+            header("location: " . ACESSO_NEGADO);
+            exit;
+        }
+        
         $id = 0;
         if (isset($_GET['id']))
             $id = $_GET['id'];

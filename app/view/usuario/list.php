@@ -6,6 +6,8 @@ require_once(__DIR__ . "/../include/header.php");
 ?>
 
 <link rel="stylesheet" href="<?= BASEURL ?>/view/css/list.css">
+<link rel="stylesheet" href="<?= BASEURL ?>/view/css/pesquisaStyle.css">
+
 
 <a class="btn btn-custom mt-2 voltar" href="<?= HOME_PAGE ?>">
     <i class="fs-4 bi bi-arrow-left-square"></i></a>

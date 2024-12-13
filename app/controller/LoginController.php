@@ -54,6 +54,8 @@ class LoginController extends Controller
             if ($usuario) {
                 //Se encontrou o usuário, salva a sessão e redireciona para a HOME do sistema
                 $this->loginService->salvarUsuarioSessao($usuario);
+                if($usuario->getStatus() == "NAOVERIFICADO" && $usuario->getTipoUsuario() == "USUARIO")
+                $_SESSION['login_naoverificado'] = true;
 
                 header("location: " . HOME_PAGE);
                 exit;
@@ -116,6 +118,7 @@ class LoginController extends Controller
                 $usuario->setStatus(Status::NAOVERIFICADO);
                 $_SESSION['nomeUsuario'] = $usuario->getNomeUsuario();
                 $_SESSION['mensagem_sucesso'] = "Seja bem-vindo(a) ao IFShare, " . $_SESSION['nomeUsuario'] . ".<br> Realize o login para continuar.";
+
                 try {
                     $this->usuarioDao->insert($usuario);
 
@@ -132,10 +135,11 @@ class LoginController extends Controller
 
         if (empty($erros)) {
             //Persiste o objeto
-            $_SESSION['nomeUsuario'] = $usuario->getNomeUsuario();
-            $_SESSION['mensagem_sucesso'] = "Seja bem-vindo ao IFShare, " . $_SESSION['nomeUsuario'] . ".<br> Realize o login para continuar.";
+
             try {
                 $this->usuarioDao->insert($usuario);
+                $_SESSION['nomeUsuario'] = $usuario->getNomeUsuario();
+                $_SESSION['mensagem_sucesso'] = "Seja bem-vindo ao IFShare, " . $_SESSION['nomeUsuario'] . ".<br> Realize o login para continuar.";
 
                 //TODO - Enviar mensagem de sucesso
                 header("location: " . LOGIN_PAGE);

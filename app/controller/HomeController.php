@@ -1,9 +1,9 @@
 <?php
-
 require_once(__DIR__ . "/Controller.php");
 require_once(__DIR__ . "/../dao/UsuarioDAO.php");
 require_once(__DIR__ . "/../dao/PostagemDao.php");
 require_once(__DIR__ . "/../dao/DenunciaDao.php");
+
 
 class HomeController extends Controller {
 
@@ -28,10 +28,12 @@ class HomeController extends Controller {
     protected function home() {
         $totalUsuarios = $this->usuarioDao->count();
         $listaUsuario = $this->usuarioDao->list();
+        $usuarioLogado = $this->usuarioDao->findById($_SESSION[SESSAO_USUARIO_ID]);
         $listaPostagens = $this->postagemDao->listPosts();
         $countUsersNaoVerificados = $this->usuarioDao->countUsersNaoVerificados();    
         $countDenunciasNaoVerificados = $this->denunciaDao->countDenunciasNaoVerificados();    
 
+        $dados["usuarioLogado"] = $usuarioLogado;
         $dados["totalUsuarios"] = $totalUsuarios;
         $dados["listaUsuarios"] = $listaUsuario;
         $dados["listPosts"] = $listaPostagens;

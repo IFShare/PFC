@@ -20,7 +20,7 @@ $usuario = $dados['usuario'];
                 if (isset($msgErro["banco"])) {
                     echo "<p class='mb-0 fw-bold label-invalid'>" . $msgErro["banco"] . "</p>";
                 } else {
-                    echo "Crie um novo usuário";
+                    echo "Editar perfil";
                 }
                 ?>
             </h2>

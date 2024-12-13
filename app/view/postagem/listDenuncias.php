@@ -6,6 +6,8 @@ require_once(__DIR__ . "/../include/header.php");
 ?>
 
 <link rel="stylesheet" href="<?= BASEURL ?>/view/css/list.css">
+<link rel="stylesheet" href="<?= BASEURL ?>/view/css/pesquisaStyle.css">
+
 
 <a class="btn btn-custom mt-2 voltar" href="<?= HOME_PAGE ?>">
     <i class="fs-4 bi bi-arrow-left-square"></i></a>
@@ -62,17 +64,11 @@ require_once(__DIR__ . "/../include/header.php");
                         <p class="card-text">
                             <strong>ID:</strong> <?= $den->getId(); ?><br>
                             <strong>ID da postagem:</strong> <?= $den->getPost()->getId(); ?><br>
-                            <strong>ID do usuário:</strong> <?= $den->getUsuario()->getId(); ?><br>
 
                             <strong>Motivo:</strong>
                             <span>
                                 <?= $den->getMotivo() ?>
                             </span>
-                            <br>
-                            <strong>Post:</strong>
-                            <a href="/PFC/app/controller/PostagemController.php?action=viewPost&id=<?= $den->getPost()->getId() ?>">
-                                Verificar postagem
-                            </a>
                             <br>
                             <strong>Status:</strong>
                             <span <?= $den->getStatus() === "VERIFICADO" ? "style = 'color: blue; font-weight: bold;" : ($den->getStatus() === "NAOVERIFICADO" ? "style = 'color: red; font-weight: bold;" : ""); ?>'>
@@ -81,12 +77,10 @@ require_once(__DIR__ . "/../include/header.php");
                             </span>
                         </p>
                         <div class="text-center">
-                            <a class="btn btn-primary" href="<?= BASEURL ?>/controller/DenunciaController.php?action=verificar&id=<?= $den->getId() ?>">
-                                <i class="bi bi-pencil-square"></i> Verificar
+                            <a class="btn btn-primary" href="/PFC/app/controller/PostagemController.php?action=viewPost&id=<?= $den->getPost()->getId() ?>&isDenuncia=sim">
+                                Verificar Postagem
                             </a>
-                            <a class="btn btn-danger" onclick="return confirm('Confirma a exclusão do usuário?');" href="<?= BASEURL ?>/controller/DenunciaController.php?action=delDenuncia&id=<?= $den->getId() ?>">
-                                <i class="fa-solid fa-trash"></i> Excluir
-                            </a>
+                            
                         </div>
                     </div>
                 </div>

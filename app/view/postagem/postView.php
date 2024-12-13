@@ -7,14 +7,43 @@ require_once(__DIR__ . "/../include/header.php");
 <link rel="stylesheet" href="<?= BASEURL ?>/view/css/postView.css">
 
 <div class="container">
-    <!--BOTÃO DE VOLTAR -->
-    <a class="voltar"
-        href="<?= HOME_PAGE ?>#post-<?php echo $dados["postagem"]->getId() ?>">
-        <i class="fs-4 bi bi-arrow-left-square"
-            data-bs-toggle="tooltip" data-bs-title="Default tooltip data-bs-title=">
-        </i>
 
-    </a>
+    <?php
+    if (isset($_GET['isDenuncia']) && $_GET['isDenuncia'] == "sim"):
+    ?>
+
+        <a class="voltar"
+            href="/PFC/app/controller/DenunciaController.php?action=listDenuncias">
+            <i class="fs-4 bi bi-arrow-left-square"
+                data-bs-toggle="tooltip" data-bs-title="Default tooltip data-bs-title=">
+            </i>
+        </a>
+
+    <?php
+    elseif (isset($_GET['idPerfil'])):
+    ?>
+
+        <a class="voltar"
+            href="/PFC/app/controller/UsuarioController.php?action=perfil&id=<?= $_GET['idPerfil'] ?>">
+            <i class="fs-4 bi bi-arrow-left-square"
+                data-bs-toggle="tooltip" data-bs-title="Default tooltip data-bs-title=">
+            </i>
+        </a>
+
+        <?php
+            else:
+        ?>
+
+        <a class="voltar"
+            href="<?= HOME_PAGE ?>#post-<?php echo $dados["postagem"]->getId() ?>">
+            <i class="fs-4 bi bi-arrow-left-square"
+                data-bs-toggle="tooltip" data-bs-title="Default tooltip data-bs-title=">
+            </i>
+        </a>
+
+    <?php
+    endif;
+    ?>
 
     <div class="postagem">
 
