@@ -24,12 +24,13 @@
     }
 
     .modal-body {
+        border-radius: 20px;
         box-shadow: 0px 0px 30px #004f44;
     }
 
     .modal-content {
         transition: all 0.4s;
-        border-radius: 20px;
+        border-radius: 25px;
     }
 
     #postModal {
@@ -54,6 +55,7 @@
     }
 
     #txtLegenda:focus {
+        box-shadow: none;
         border: 3px solid #81a880;
     }
 
@@ -76,6 +78,36 @@
     #imgPreview:hover {
         width: 100%;
         border-radius: 10px;
+    }
+
+    .dark .modal-body {
+        background-color: #002923;
+    }
+
+    .dark #txtLegenda {
+        color: white;
+        background: none;
+    }
+
+    .dark #labelLegenda {
+        color: white;
+    }
+
+    .dark .btn-custom {
+        background: #81a880;
+        color: white;
+        border: none;
+        border-radius: 30px;
+        padding: 10px 20px;
+        font-size: 16px;
+        font-weight: bold;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        transition: background-color 0.3s, transform 0.3s;
+
+    }
+
+    .dark .btn-custom:hover {
+        transform: scale(1.05);
     }
 </style>
 

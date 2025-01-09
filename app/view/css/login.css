@@ -17,7 +17,8 @@
     text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2); /* Sombra sutil */
     letter-spacing: 0.5px; /* Espaçamento entre letras */
     line-height: 1.4; /* Espaçamento entre linhas */
-    margin-bottom: 10px; /* Espaço abaixo do texto */
+    margin-bottom: 5px; /* Espaço abaixo do texto */
+    margin-top: 7px;
 }
 
 body, html {

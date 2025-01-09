@@ -46,6 +46,27 @@ class UsuarioDAO
         return $this->mapUsuarios($result);
     }
 
+    public function searchPerfis($data)
+    {
+
+        $conn = Connection::getConnection();
+
+        $sql = "SELECT * FROM usuario
+        WHERE usuario.nomeUsuario LIKE :search
+        OR usuario.id LIKE :search
+        ORDER BY usuario.id DESC
+        LIMIT 4";
+
+
+        $stm = $conn->prepare($sql);
+        $stm->bindValue(':search', "%$data%");
+
+        $stm->execute();
+        $result = $stm->fetchAll();
+
+        return $this->mapUsuarios($result);
+    }
+
     public function countUsersNaoVerificados()
     {
 
@@ -122,15 +143,30 @@ class UsuarioDAO
     {
         $conn = Connection::getConnection();
 
-        $sql = "UPDATE usuario SET nomeSobrenome = :nomeSobrenome, nomeUsuario = :nomeUsuario," .
-            " fotoPerfil = :fotoPerfil, bio = :bio" .
+        $sql = "UPDATE usuario SET nomeSobrenome = :nomeSobrenome, 
+            nomeUsuario = :nomeUsuario, 
+            bio = :bio 
+            WHERE id = :id";
+
+        $stm = $conn->prepare($sql);
+        $stm->bindValue(":nomeSobrenome", $usuario->getNomeSobrenome());
+        $stm->bindValue(":nomeUsuario", $usuario->getNomeUsuario());
+        $stm->bindValue(":bio", $usuario->getBio());
+        $stm->bindValue(":id", $usuario->getId());
+
+        $stm->execute();
+    }
+
+
+    public function updateFotoPerfil(Usuario $usuario)
+    {
+        $conn = Connection::getConnection();
+
+        $sql = "UPDATE usuario SET fotoPerfil = :fotoPerfil" .
             " WHERE id = :id";
 
         $stm = $conn->prepare($sql);
-        $stm->bindValue("nomeSobrenome", $usuario->getNomeSobrenome());
-        $stm->bindValue("nomeUsuario", $usuario->getNomeUsuario());
-        $stm->bindValue("fotoPerfil", null);
-        $stm->bindValue("bio", $usuario->getBio());
+        $stm->bindValue("fotoPerfil", $usuario->getFotoPerfil());
         $stm->bindValue("id", $usuario->getId());
 
         $stm->execute();
@@ -149,40 +185,6 @@ class UsuarioDAO
         $stm = $conn->prepare($sql);
         $stm->bindValue("id", $id);
         $stm->execute();
-    }
-
-
-    public function abrirPdf(int $id)
-    {
-        $conn = Connection::getConnection();
-
-        // Preparar a consulta
-        $sql = "SELECT nomeUsuario, compMatricula FROM usuario WHERE id = :id";
-        $stm = $conn->prepare($sql);
-        $stm->bindValue(":id", $id);
-        $stm->execute();
-
-        // Verifica se há resultados
-        $usuario = $stm->fetch();
-        var_dump($usuario);
-
-        if ($usuario) {
-            $fileContent = $usuario['compMatricula']; // Conteúdo do arquivo (provavelmente o caminho)
-
-            // Verificar se o arquivo existe
-            if (file_exists(PATH_ARQUIVOS_COMPMATRICULA . '/' . $fileContent)) {
-                // Forçar o download do arquivo
-                header('Content-Type: application/pdf');
-                header('Content-Disposition: inline; filename="' . $fileContent);
-                header('Content-Length: ' . filesize(PATH_ARQUIVOS_COMPMATRICULA . '/' . $fileContent));
-                readfile(PATH_ARQUIVOS_COMPMATRICULA . '/' . $fileContent);
-                exit;
-            } else {
-                echo "Arquivo não encontrado!";
-            }
-        } else {
-            echo "Usuário não encontrado.";
-        }
     }
 
 
@@ -286,6 +288,47 @@ class UsuarioDAO
             " - Erro: mais de um usuário encontrado.");
     }
 
+    public function buscarSenhaPorId($id)
+    {
+        $conn = Connection::getConnection();
+
+        $sql = "SELECT senha FROM usuario WHERE id = :id";
+        $stmt = $conn->prepare($sql);
+        $stmt->bindParam(':id', $id);
+        $stmt->execute();
+        $result = $stmt->fetch(PDO::FETCH_ASSOC); 
+        return $result['senha'] ?? null;
+    }
+
+     //Método para atualizar um Usuario
+     public function updateSenha(Usuario $usuario) {
+        $conn = Connection::getConnection();
+
+        $sql = "UPDATE usuario SET senha = :senha" .   
+               " WHERE id = :id";
+        
+        $stm = $conn->prepare($sql);
+        $senhaCript = password_hash($usuario->getSenha(), PASSWORD_DEFAULT);
+        $stm->bindValue("senha", $senhaCript);
+        $stm->bindValue("id", $usuario->getId());
+        $stm->execute();
+    }
+
+    public function likedPosts($idUsuario) {
+        $conn = Connection::getConnection();
+
+        $sql = "SELECT curtida.*, postagem.imagem
+        FROM curtida 
+        JOIN postagem ON curtida.idPostagem = postagem.id
+        WHERE curtida.idUsuario = :idUsuario";
+        $stm = $conn->prepare($sql);
+        $stm->bindValue(':idUsuario', $idUsuario);
+        $stm->execute();
+        $result = $stm->fetchAll();
+
+        return $result;
+    }
+
     ####################################################################################
 
     #CONVERTE REGISTRO DA BASE EM OBJETO
@@ -300,7 +343,7 @@ class UsuarioDAO
             $usuario->setNomeUsuario($reg['nomeUsuario']);
             $usuario->setEmail($reg['email']);
             $usuario->setSenha($reg['senha']);
-            $usuario->setBio($reg['fotoPerfil']);
+            $usuario->setFotoPerfil($reg['fotoPerfil']);
             $usuario->setBio($reg['bio']);
             $usuario->setTipoUsuario($reg['tipoUsuario']);
             $usuario->setDataCriacao($reg['dataCriacao']);

@@ -1,6 +1,7 @@
 <?php
-session_start();
-#Classe controller para a Logar do sistema
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}#Classe controller para a Logar do sistema
 require_once(__DIR__ . "/Controller.php");
 require_once(__DIR__ . "/../dao/UsuarioDAO.php");
 require_once(__DIR__ . "/../service/LoginService.php");
@@ -95,6 +96,7 @@ class LoginController extends Controller
         $senha = isset($_POST['senha']) ? trim($_POST['senha']) : NULL;
         $compMatricula = isset($_FILES['compMatricula']) ? $_FILES['compMatricula'] : NULL;
         $isEstudante = isset($_POST['isEstudante']) ? trim($_POST['isEstudante']) : NULL;
+        $fotoPerfil = "/defaultPfp.png";
 
         //Cria objeto Usuario
         $usuario = new Usuario();
@@ -102,7 +104,7 @@ class LoginController extends Controller
         $usuario->setNomeUsuario($nomeUsuario);
         $usuario->setEmail($email);
         $usuario->setSenha($senha);
-        $usuario->setFotoPerfil(null);
+        $usuario->setFotoPerfil($fotoPerfil);
         $usuario->setBio(null);
         $usuario->setTipoUsuario(TipoUsuario::USUARIO);
         $usuario->setIsEstudante($isEstudante);
@@ -156,6 +158,7 @@ class LoginController extends Controller
         $dados["usuario"] = $usuario;
         $this->loadView("login/cadastro.php", $dados, $erros);
     }
+
 }
 
 

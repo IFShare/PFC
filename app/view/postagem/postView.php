@@ -1,6 +1,8 @@
 <?php
 require_once(__DIR__ . "/../include/header.php");
 
+
+$usuario = $dados['usuario'];
 ?>
 
 <link rel="stylesheet" href="<?= BASEURL ?>/view/css/home.css">
@@ -30,9 +32,9 @@ require_once(__DIR__ . "/../include/header.php");
             </i>
         </a>
 
-        <?php
-            else:
-        ?>
+    <?php
+    else:
+    ?>
 
         <a class="voltar"
             href="<?= HOME_PAGE ?>#post-<?php echo $dados["postagem"]->getId() ?>">
@@ -142,14 +144,20 @@ require_once(__DIR__ . "/../include/header.php");
             <!--LEGENDA E COMENTÁRIOS -->
             <div class="infos">
                 <div class="usuario">
-                    <i class='user bi bi-person-circle'></i>
+                    <img
+                        class="fotoPerfil"
+                        src="<?php echo $usuario->getFotoPerfil() != null
+                                    ? "/PFC/arquivos/fotosPerfil/" . $usuario->getFotoPerfil()
+                                    : "https://s3.amazonaws.com/37assets/svn/765-default-avatar.png"; ?>"
+                        alt="Foto de Perfil">
+
                     <a href="/PFC/app/controller/UsuarioController.php?action=perfil&id=<?php echo $dados["postagem"]->getUsuario()->getId() ?>">
-                        <span class="nomeUsuario">
+                        <span class="nomeUsuario" title="Este usuário é um ADM do sistema">
                             <?php echo $dados["nomeUsuario"]; ?>
                             <?php
                             if ($dados["tipoUsuario"] == "ADM"):
                             ?>
-                                <abbr title="Este usuário é um ADM do sistema"><i class="bi bi-patch-check verificado"></i></abbr>
+                                <i class="bi bi-patch-check verificado"></i>
                             <?php endif ?>
                         </span>
                     </a>
@@ -167,11 +175,22 @@ require_once(__DIR__ . "/../include/header.php");
                         foreach ($dados['listComentarios'] as $comentario) {
                             echo "<div class='coment'>";
                             echo "<div class='user-coment'>";
-                            echo "<i class='user bi bi-person-circle'></i>";
-                            echo "<span class='userComent'>" . $comentario->getUsuario()->getNomeUsuario() . "</span>";
-                            echo "</div>";
-                            echo "<span class='conteudo'>" . $comentario->getConteudo() . "</span>";
                     ?>
+                            <div class="fotoPerfilComent">
+                                <img class="fotoPerfil mb-0"
+                                    src="<?php echo $comentario->getUsuario()->getFotoPerfil() != null
+                                                ? "/PFC/arquivos/fotosPerfil/" . $comentario->getUsuario()->getFotoPerfil()
+                                                : "https://s3.amazonaws.com/37assets/svn/765-default-avatar.png"; ?>"
+                                    alt="Foto de Perfil">
+                            </div>
+                            <?php
+
+
+                            echo "<span class='userComent'>" . $comentario->getUsuario()->getNomeUsuario() . "</span>";
+                            echo "
+                </div>";
+                            echo "<span class='conteudo'>" . $comentario->getConteudo() . "</span>";
+                            ?>
                             <div class="data-del">
 
                                 <?php

@@ -10,8 +10,8 @@ body {
 #container {
     border-radius: 20px;
     width: 80%;
+    height: 100%;
     margin-left: 18%;
-    max-height: 90%;
     display: flex;
     flex-direction: column;
     padding: 10px;
@@ -48,6 +48,7 @@ body {
 }
 
 .infoUser {
+    margin-top: 20px;
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -59,19 +60,8 @@ body {
     width: 100%;
 }
 
-.infoUser img {
-    width: 15%;
-    border: 2px solid white;
-    border-radius: 50%;
-    margin-top: 10px;
-}
 
-.infoUser img:hover {
-    cursor: pointer;
-    border: 2px solid #004f44;
-}
-
-.nomeUsuario h5 {
+.nomePf h5 {
     font-size: 2rem;
     margin-top: 7px;
     color: white;
@@ -148,4 +138,187 @@ body {
 .imgPost:hover{
     transform: scale(110%);
     filter: brightness(80%);
+}
+
+
+/* Estilo personalizado para o modal */
+.modal-content {
+    background: none; /* Fundo claro */
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-body {
+    box-shadow: none !important;
+    padding: 0;
+    border-radius: 15px;
+    background: rgb(48, 48, 48);
+    border: none;
+    width: 300px;
+}
+
+.btnOpt {
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.btnOpt a {
+    font-size: 1.5rem;
+    text-align: center;
+    width: 100%;
+    background-color: #004f44;
+    padding: 10px;
+    text-decoration: none;
+    color: white;
+    transition: all 0.3s;
+}
+
+.btnOpt a:hover {
+    background-color: #81a880;
+    color: black;
+}
+
+.preview {
+    width: 350px;
+    height: 350px;
+    margin: 0;
+    border-radius: 50%;
+    background-color: black;
+    cursor: pointer;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    object-fit: cover;
+    transition: all 0.3s;
+}
+
+.preview:hover {
+    scale: 1.05;
+}
+
+#imgPreview {
+    margin: 0;
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+}
+
+#imgPreview:hover {
+    width: 100%;
+    border-radius: 10px;
+}
+
+
+.fotoPerfil {
+    width: 300px;
+    height: 300px;
+    margin: 0;
+    border-radius: 50%;
+    background: none;
+    cursor: pointer;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    object-fit: cover;
+    box-shadow: 0 0 30px 5px #004f44;
+    transition: all 0.3s;
+}
+
+div.fotoPerfil:hover {
+    transform: scale(1.05);
+}
+
+.fotoPerfil img {
+    text-align: center;
+    width: 100%;
+    border-radius: 50%;
+}
+
+.settings {
+    font-size: 2rem;
+    position: absolute;
+    top:2%;
+    right: 2%;
+    color: white;
+}
+
+.settings:hover {
+    color: #81a880;
+}
+
+.settings i {
+    cursor: pointer;
+}
+
+.settins-menu {
+    padding: 0;
+    background-color: #81a880;
+}
+
+.settins-menu li a {
+    color: white;
+}
+
+.selectTypeList {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    gap: 20px;
+    font-family: Arial, sans-serif;
+}
+
+.selectTypeList a {
+    text-decoration: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    transition: all 0.3s ease-in-out;
+    cursor: pointer;
+}
+
+.selectTypeList a span {
+    font-size: 1.4rem;
+    color: #ffffff;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.selectTypeList .posts,
+.selectTypeList .curtidas {
+    background-color: #333333; /* Fundo padrão */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.selectTypeList .posts.active,
+.selectTypeList .curtidas.active {
+    background-color: #004f44; /* Fundo do ativo */
+    color: #ffffff; /* Cor do texto ativo */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transform: scale(1.05);
+}
+
+.selectTypeList .posts.active span,
+.selectTypeList .curtidas.active span {
+    border-bottom: none;
+    font-weight: bold;
+}
+
+.selectTypeList a:hover {
+    background-color: #555555; /* Fundo ao passar o mouse */
+    transform: scale(1.05);
+}
+
+.selectTypeList a.active:hover {
+    transform: scale(1.1);
+}
+
+.selectTypeList a span:hover {
+    color: #eeeeee; /* Cor do texto ao passar o mouse */
 }

@@ -13,7 +13,7 @@ class PostagemDAO
 
     public function __construct()
     {
-        $this->loginService = new LoginService();        
+        $this->loginService = new LoginService();
     }
 
 
@@ -24,11 +24,35 @@ class PostagemDAO
 
         $conn = Connection::getConnection();
 
-        $sql = "SELECT postagem.*, usuario.nomeUsuario 
+        $sql = "SELECT postagem.*, usuario.nomeUsuario, usuario.fotoPerfil 
         FROM postagem
         JOIN usuario ON postagem.idUsuario = usuario.id
         ORDER BY postagem.id DESC";
         $stm = $conn->prepare($sql);
+
+        $stm->execute();
+        $result = $stm->fetchAll();
+
+        return $this->mapPostagens($result);
+    }
+
+
+    public function searchPost($data)
+    {
+
+        $conn = Connection::getConnection();
+
+        $sql = "SELECT postagem.*, usuario.nomeUsuario, usuario.fotoPerfil
+        FROM postagem
+        JOIN usuario ON postagem.idUsuario = usuario.id
+        WHERE postagem.id LIKE :search
+        OR postagem.idUsuario LIKE :search
+        OR usuario.nomeUsuario LIKE :search
+        ORDER BY postagem.id DESC";
+
+
+        $stm = $conn->prepare($sql);
+        $stm->bindValue(':search', "%$data%");
 
         $stm->execute();
         $result = $stm->fetchAll();
@@ -74,7 +98,8 @@ class PostagemDAO
 
     #CONTA O NÚMERO DE POSTAGENS DO SISTEMA
 
-    public function count() {
+    public function count()
+    {
         $conn = Connection::getConnection();
 
         $sql = "SELECT COUNT(*) total FROM postagem";
@@ -93,7 +118,10 @@ class PostagemDAO
     {
         $conn = Connection::getConnection();
 
-        $sql = "SELECT * FROM postagem p WHERE p.id = ?";
+        $sql = "SELECT p.*, u.nomeUsuario 
+                FROM postagem p
+                JOIN usuario u ON p.idUsuario = u.id
+                WHERE p.id = ?";
         $stm = $conn->prepare($sql);
 
         $stm->execute([$id]);
@@ -116,7 +144,10 @@ class PostagemDAO
     {
         $conn = Connection::getConnection();
 
-        $sql = "SELECT * FROM postagem p WHERE p.idUsuario = ?";
+        $sql = "SELECT postagem.*, usuario.nomeUsuario 
+        FROM postagem
+        JOIN usuario ON postagem.idUsuario = usuario.id
+        WHERE postagem.idUsuario = ?";
         $stm = $conn->prepare($sql);
 
         $stm->execute([$id]);
@@ -142,6 +173,7 @@ class PostagemDAO
 
             $usuario = new Usuario();
             $usuario->setId($reg['idUsuario']);
+            $usuario->setNomeUsuario($reg['nomeUsuario']);
             $post->setUsuario($usuario);
 
 

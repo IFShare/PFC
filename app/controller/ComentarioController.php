@@ -21,7 +21,7 @@ class ComentarioController extends Controller
         if (!$this->usuarioLogado())
             exit;
 
-        if (! $this->usuarioIsAdmin()) {
+        if (! $this->usuarioIsAdminStudent()) {
             header("location: " . ACESSO_NEGADO);
             exit;
         }

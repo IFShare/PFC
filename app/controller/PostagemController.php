@@ -6,8 +6,8 @@ require_once(__DIR__ . "/../dao/ComentarioDAO.php");
 require_once(__DIR__ . "/../dao/CurtidaDAO.php");
 require_once(__DIR__ . "/../service/PostagemService.php");
 require_once(__DIR__ . "/../service/ImgService.php");
-require_once(__DIR__ . "/Controller.php");
 require_once(__DIR__ . "/../model/Post.php");
+require_once(__DIR__ . "/Controller.php");
 
 class PostagemController extends Controller
 {
@@ -37,19 +37,21 @@ class PostagemController extends Controller
 
     protected function listPosts()
     {
-        $postagens = $this->postDao->listPosts();
+
+        $data = isset($_GET['search']) ? $_GET['search'] : NULL;
+
+        $perfis = [];   
+
+        if (!empty($data)) {
+            $postagens = $this->postDao->searchPost($data);
+        } else {
+            $postagens = $this->postDao->listPosts();
+        }
+
         $dados["listPosts"] = $postagens;
+        $dados["listPerfis"] = $perfis;
 
         $this->loadView("home/home.php", $dados, []);
-    }
-
-    protected function listPostsToDelete()
-    {
-        $postagens = $this->postDao->listPosts();
-
-        $dados["listPosts"] = $postagens;
-
-        $this->loadView("postagem/delPost.php", $dados, []);
     }
 
     protected function viewPost()
@@ -67,6 +69,7 @@ class PostagemController extends Controller
 
             //Setar os dados
             $dados["id"] = $postagem->getId();
+            $dados["usuario"] = $usuario;
             $dados["tipoUsuario"] = $usuario->getTipoUsuario();
             $dados["nomeUsuario"] = $usuario->getNomeUsuario();
             $dados["postagem"] = $postagem;
@@ -78,12 +81,12 @@ class PostagemController extends Controller
             echo "Postagem não encontrada.";
     }
 
-    private function findPostById()
+    public function findPostById()
     {
         $id = 0;
-        if (isset($_GET['id'])){
+        if (isset($_GET['id'])) {
             $id = $_GET['id'];
-        } elseif(isset($_POST['id'])){
+        } elseif (isset($_POST['id'])) {
             $id = $_POST['id'];
         }
 
@@ -144,12 +147,9 @@ class PostagemController extends Controller
         $this->loadView("include/createPost.php", $dados, $erros);
     }
 
+
     protected function delPost()
     {
-        if (! $this->usuarioIsAdminStudent()) {
-            header("location: " . ACESSO_NEGADO);
-            exit;
-        }
 
         // Obtém a postagem pelo ID
         $postagem = $this->findPostById();
@@ -165,21 +165,26 @@ class PostagemController extends Controller
 
 
         // Verifica se o arquivo existe
-        if ($arquivoImg) {
-
+        if (file_exists($arquivoImg)) {
             // Tenta excluir o arquivo
             if (unlink($arquivoImg)) {
                 // Se a exclusão do arquivo for bem-sucedida, exclui o registro da postagem no banco de dados
                 $this->postDao->deletePostById($postagem->getId());
-                header("location: ", HOME_PAGE);
+                header("Location: " . HOME_PAGE);
+                exit;
             } else {
                 // Caso o arquivo não possa ser excluído
                 echo "<script>alert('Erro ao excluir o arquivo: $arquivoImg');</script>";
             }
         } else {
             // Arquivo não encontrado
-            print "<script>alert('Imagem da postagem não encontrada.');</script>";
+            echo "<script>alert('Imagem da postagem não encontrada.');</script>";
         }
+
+        // Exclui o registro da postagem mesmo que o arquivo não exista
+        $this->postDao->deletePostById($postagem->getId());
+        header("Location: " . HOME_PAGE);
+        exit;
     }
 }
 

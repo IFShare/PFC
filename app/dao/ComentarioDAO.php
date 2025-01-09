@@ -24,7 +24,7 @@ class ComentarioDAO
         $conn = Connection::getConnection();
 
         //WHERE idPostagem = :idPostagem
-        $sql = "SELECT comentario.*, usuario.nomeUsuario 
+        $sql = "SELECT comentario.*, usuario.nomeUsuario, usuario.fotoPerfil
         FROM comentario 
         JOIN usuario ON comentario.idUsuario = usuario.id
         WHERE comentario.idPostagem = :idPostagem
@@ -107,7 +107,8 @@ class ComentarioDAO
 
             $usuario = new Usuario();
             $usuario->setId($reg['idUsuario']);
-            $usuario->setNomeUsuario($reg['nomeUsuario']); // Adicionando o nome do usuário
+            $usuario->setNomeUsuario($reg['nomeUsuario']);
+            $usuario->setFotoPerfil($reg['fotoPerfil']); // Adicionando o nome do usuário
             $comentario->setUsuario($usuario);
 
             $postagem = new Post();

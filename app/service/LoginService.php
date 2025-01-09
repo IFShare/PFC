@@ -48,8 +48,9 @@ class LoginService {
 
     public function removerUsuarioSessao() {
         //Habilitar o recurso de sessão no PHP nesta página
-        session_start();
-
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
         //Destroi a sessão 
         session_destroy();
     }

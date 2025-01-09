@@ -5,6 +5,11 @@ require_once(__DIR__ . "/../include/header.php");
 <link rel="stylesheet" href="<?= BASEURL ?>/view/css/login.css">
 
 <div class="container form-container d-flex justify-content-center align-items-center" style="min-height: 100vh;">
+
+    <a class="btn mt-2 voltar"
+        href="<?= HOME_PAGE ?>">
+        <i class="fs-4 bi bi-arrow-left-square"></i></a>
+
     <div class="form-content text-center">
         <?php
         // Exibe a mensagem de sucesso, se existir
@@ -14,7 +19,7 @@ require_once(__DIR__ . "/../include/header.php");
         }
         ?>
         <!-- Título "IFSHARE" centralizado -->
-        <h1 class="font-abril title-ifshare mb-2">IFSHARE</h1>
+        <img width="60%" src="/PFC/app/assets/logo.png" alt="">
 
         <!-- Texto do formulário centralizado -->
         <h4 class="texto-login">Informe os dados para logar:</h4>
@@ -61,10 +66,9 @@ require_once(__DIR__ . "/../include/header.php");
         </form>
 
         <a href="<?= BASEURL ?>/controller/LoginController.php?action=createCadastro">Cadastrar-se</a>
+        <br>
+        <a href="<?= BASEURL ?>/controller/LoginController.php?action=sendEmail">Esqueceu sua senha?</a>
 
-        <a class="btn mt-2 voltar"
-            href="<?= HOME_PAGE ?>">
-            <i class="fs-4 bi bi-arrow-left-square"></i></a>
     </div>
 </div>
 

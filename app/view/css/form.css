@@ -258,3 +258,19 @@ img {
     font-style: italic;
     color: white; /* Cor do nome do arquivo */
 }
+
+.btn-senha {
+    background: #004f44;
+    color: #fff;
+    border-radius: 30px;
+    padding: 10px 20px;
+    font-size: 1.2rem; 
+    font-weight: bold;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-decoration: none;
+}
+
+#txtBio {
+    resize: none;
+    height: 100px;
+}

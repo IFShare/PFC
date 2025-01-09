@@ -14,7 +14,7 @@ $usuario = $dados['usuario'];
     <div class="row h-100 d-flex justify-content-center align-items-center"> <!-- 100% da altura da tela -->
 
         <div class="col-md-6 p-0 d-flex flex-column justify-content-center align-items-center info-container">
-            <img src="/PFC/app/assets/logo.png" alt="">
+            <img class="logo" src="/PFC/app/assets/logo.png" alt="">
             <h2 class="h4">
                 <?php
                 if (isset($msgErro["banco"])) {
@@ -93,13 +93,17 @@ $usuario = $dados['usuario'];
                             }
                             ?>
                         </label>
-                        <input
+                        <textarea
                             placeholder="Insira uma biografia para o seu perfil." onfocus="this.placeholder=''" ; onblur="this.placeholder='Insira uma biografia para o seu perfil.'" ;
-                            type="text"
                             class="form-control"
                             id="txtBio"
                             name="bio"
                             value="<?php echo (isset($dados["usuario"]) ? $dados["usuario"]->getBio() : ''); ?>" />
+                        </textarea>
+                    </div>
+
+                    <div class="form-group mt-3">
+                        <a href="/PFC/app/controller/UsuarioController.php?action=editSenha&id=<?= $dados["usuario"]->getid() ?>" class="btn-senha">Alterar senha</a>
                     </div>
 
                     <input type="hidden" id="hddId" name="id" value="<?= $usuario->getId(); ?>" />
@@ -112,8 +116,6 @@ $usuario = $dados['usuario'];
     </div>
 
 </div>
-
-<script src="<?= BASEURL ?>/view/js/form.js"></script>
 
 <?php
 require_once(__DIR__ . "/../include/footer.php");

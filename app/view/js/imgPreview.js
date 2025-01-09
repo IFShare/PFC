@@ -15,9 +15,9 @@ file.addEventListener("change", function(e) {
 
     reader.onload = function() {
         img.src = reader.result;
-        img.removeAttribute('hidden'); // Remove o atributo "hidden" para mostrar a imagem
-        document.querySelector("#h2Text").setAttribute("hidden", true); // Oculta o texto
-        console.log(reader.result); // Mostra o link da imagem em Base64 no console
+        img.removeAttribute('hidden'); 
+        document.querySelector("#h2Text").setAttribute("hidden", true);
+        console.log(reader.result); 
     }
 
     reader.readAsDataURL(file.files[0]);

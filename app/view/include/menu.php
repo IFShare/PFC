@@ -16,11 +16,11 @@ $isHome = (isset($_GET['action']) && $_GET['action'] === 'home') ? 'active' : ''
 <link rel="stylesheet" href="<?= BASEURL ?>/view/css/menu.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=logout" />
 
-<div class="sidebar closed" id="sidebar">
+<div class="sidebar open" id="sidebar">
 
     <!-- Marca do site -->
     <div class="brand text-center" id="toggleSidebar">
-        <img id="logo" width="75%" src="/PFC/app/assets/logo.png" alt="">
+        <img class="logo" id="logo" width="75%" src="/PFC/app/assets/logo.png" alt="">
     </div>
 
     <!-- Itens do menu -->
@@ -41,9 +41,9 @@ $isHome = (isset($_GET['action']) && $_GET['action'] === 'home') ? 'active' : ''
         <?php if ($TipoUsuario == "ADM") : ?>
             <li class="position-relative">
                 <a href="<?= BASEURL ?>/controller/UsuarioController.php?action=list" class="menu-item">
-                    <?php if (isset($dados["countUsersNaoVerificados"]) && $dados["countUsersNaoVerificados"] >= 1) : ?>
+                    <?php if (isset($_SESSION["countUsersNaoVerificados"]) && $_SESSION["countUsersNaoVerificados"] >= 1) : ?>
                         <span class="notif translate-middle badge rounded-pill">
-                            <?= $dados["countUsersNaoVerificados"] ?>
+                            <?= $_SESSION["countUsersNaoVerificados"] ?>
                         </span>
                     <?php endif; ?>
                     <i class="fas fa-user-shield"></i>
@@ -52,9 +52,9 @@ $isHome = (isset($_GET['action']) && $_GET['action'] === 'home') ? 'active' : ''
             </li>
             <li class="position-relative">
                 <a href="<?= BASEURL ?>/controller/DenunciaController.php?action=listDenuncias" class="menu-item">
-                    <?php if (isset($dados["countDenunciasNaoVerificados"]) && $dados["countDenunciasNaoVerificados"] >= 1) : ?>
+                    <?php if (isset($_SESSION["countDenunciasNaoVerificados"]) && $_SESSION["countDenunciasNaoVerificados"] >= 1) : ?>
                         <span class="notif translate-middle badge rounded-pill">
-                            <?= $dados["countDenunciasNaoVerificados"] ?>
+                            <?= $_SESSION["countDenunciasNaoVerificados"] ?>
                         </span>
                     <?php endif; ?>
                     <i class="fas fa-flag"></i>
@@ -70,8 +70,8 @@ $isHome = (isset($_GET['action']) && $_GET['action'] === 'home') ? 'active' : ''
         </li>
         <li id="logout-item">
             <a href="<?= LOGOUT_PAGE ?>" class="menu-item">
-                <i class="fas fa-sign-out-alt"></i>
-                <span class="item-sidebar" id="">Sair</span>
+                <i class="fas fa-sign-out-alt" id="logout"></i>
+                <span class="item-sidebar">Sair</span>
             </a>
         </li>
     </ul>
@@ -106,4 +106,5 @@ $isHome = (isset($_GET['action']) && $_GET['action'] === 'home') ? 'active' : ''
             }
         });
     });
+    
 </script>

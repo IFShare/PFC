@@ -26,7 +26,7 @@ define('LOGIN_PAGE', BASEURL . '/controller/LoginController.php?action=login');
 //Página de login do sistema
 define('LOGOUT_PAGE', BASEURL . '/controller/LoginController.php?action=logout');
 
-
+define("PATH_ARQUIVOS_FOTO_PERFIL", __DIR__ . "/../../arquivos/fotosPerfil");
 define("PATH_ARQUIVOS_IMG", __DIR__ . "/../../arquivos/imgs");
 define("PATH_ARQUIVOS_COMPMATRICULA", __DIR__ . "/../../arquivos/compMatricula");
 define("URL_ARQUIVOS", BASEURL . "/../arquivos");

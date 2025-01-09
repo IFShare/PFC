@@ -4,6 +4,7 @@ require_once(__DIR__ . "/../include/header.php");
 $usuario = $dados['usuario'];
 ?>
 <link rel="stylesheet" href="<?= BASEURL ?>/view/css/form.css">
+<link rel="stylesheet" href="<?= BASEURL ?>/view/css/perfil.css">
 
 <div class="container-fluid form-container h-100">
     <a class="voltar"
@@ -25,7 +26,7 @@ $usuario = $dados['usuario'];
                 ?>
             </h2>
 
-            <button type="submit" form="formUsuario" class="btn btn-custom">
+            <button type="submit" form="formFotoPerfil" class="btn btn-custom">
                 SALVAR
             </button>
         </div>
@@ -36,22 +37,21 @@ $usuario = $dados['usuario'];
                 <!-- h2 class="mb-4 text-center">Cadastro</h2> -->
 
                 <form
-                    id="formPost"
+                    id="formFotoPerfil"
                     enctype="multipart/form-data" method="post"
-                    action="<?= BASEURL ?>/controller/PostagemController.php?action=save">
+                    action="<?= BASEURL ?>/controller/UsuarioController.php?action=saveFotoPerfil">
                     <!-- Imagem -->
-                    <div class="mb-2 preview">
+                    <div class="preview">
                         <input hidden type="file" class="form-control" id="fileImg" name="imagem" accept="image/*" required>
-                        <img id="imgPreview" src="" alt="Preview"">
+                        <img
+                            id="imgPreview"
+                            style="cursor: pointer;"
+                            class="fotoPerfil-form"
+                            src="<?php echo $usuario->getFotoPerfil() != null
+                                        ? "/PFC/arquivos/fotosPerfil/" . $usuario->getFotoPerfil()
+                                        : "https://s3.amazonaws.com/37assets/svn/765-default-avatar.png"; ?>"
+                            alt="Foto de Perfil">
                     </div>
-
-                    <?php
-                    if (isset($erros['imagem'])) {
-                        echo $erros['imagem'];
-                    }
-                    ?>
-
-                    <button type="submit" class="btn btn-custom">Publicar</button>
 
                     <input type="hidden" id="hddId" name="id" value="<?= $usuario->getId(); ?>" />
 
@@ -64,7 +64,7 @@ $usuario = $dados['usuario'];
 
 </div>
 
-<script src="<?= BASEURL ?>/view/js/form.js"></script>
+<script src="<?= BASEURL ?>/view/js/imgPreview.js"></script>
 
 <?php
 require_once(__DIR__ . "/../include/footer.php");

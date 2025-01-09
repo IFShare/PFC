@@ -36,6 +36,8 @@ html {
 }
 
 .imgPost {
+    display: flex;
+    justify-content: end;
     border-radius: 10px;
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
@@ -196,6 +198,9 @@ html {
 
 .usuario {
     padding-top: 10px;
+    display: flex;
+    align-items: self-end;
+    gap: 7px;
 }
 
 .usuario a {
@@ -298,13 +303,35 @@ html {
     padding: 0;
 }
 
+.fotoPerfilComent {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: black;
+    overflow: hidden;
+}
+
+.fotoPerfilComent img{
+    width: 100%;
+    border-radius: 50%;
+}
+
+.usuario .fotoPerfil {
+    margin-left: 7px;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    margin-bottom: 7px;
+    box-shadow: 0 0 15px #004f44;
+}
+
 .user {
     font-size: 2rem;
 }
 
 .user-coment {
     display: flex;
-    align-items: baseline;
+    align-items: self-end;
     gap: 7px;
 }
 

@@ -4,6 +4,8 @@ require_once(__DIR__ . "/../dao/UsuarioDAO.php");
 require_once(__DIR__ . "/../dao/PostagemDAO.php");
 require_once(__DIR__ . "/../service/UsuarioService.php");
 require_once(__DIR__ . "/../service/EditPerfilService.php");
+require_once(__DIR__ . "/../service/EditSenhaService.php");
+require_once(__DIR__ . "/../service/FotoPerfilService.php");
 require_once(__DIR__ . "/Controller.php");
 require_once(__DIR__ . "/../model/Usuario.php");
 require_once(__DIR__ . "/../model/enum/TipoUsuario.php");
@@ -17,6 +19,8 @@ class UsuarioController extends Controller
     private PostagemDAO  $postDao;
     private UsuarioService  $usuarioService;
     private EditPerfilService  $editperfilservice;
+    private FotoPerfilService  $fotoPerfilService;
+    private EditSenhaService  $editSenhaservice;
 
     //Método construtor do controller - será executado a cada requisição a está classe
     public function __construct()
@@ -28,6 +32,8 @@ class UsuarioController extends Controller
         $this->postDao = new PostagemDAO();
         $this->usuarioService = new UsuarioService();
         $this->editperfilservice = new EditPerfilService();
+        $this->fotoPerfilService = new FotoPerfilService();
+        $this->editSenhaservice = new EditSenhaService();
 
         $this->handleAction();
     }
@@ -57,6 +63,19 @@ class UsuarioController extends Controller
         $this->loadView("usuario/list.php", $dados, []);
     }
 
+    protected function listPerfis() {
+        $data = isset($_GET['search']) ? $_GET['search'] : NULL;
+        $perfis = []; // Inicializa como array vazio
+
+        if (!empty($data)) {
+            $perfis = $this->usuarioDao->searchPerfis($data);
+        }
+
+        $dados['listPerfis'] = $perfis;
+
+        $this->loadView("home/home.php", $dados, []);
+    }
+
     protected function save()
     {
 
@@ -75,6 +94,8 @@ class UsuarioController extends Controller
         $isEstudante = isset($_POST['isEstudante']) ? trim($_POST['isEstudante']) : NULL;
         $status = isset($_POST['status']) ? trim($_POST['status']) : NULL;
         $data = isset($_GET['search']) ? $_GET['search'] : NULL;
+        $fotoPerfil = "/defaultPfp.png";
+
         //Cria objeto Usuario
         $usuario = new Usuario();
 
@@ -83,7 +104,7 @@ class UsuarioController extends Controller
         $usuario->setNomeUsuario($nomeUsuario);
         $usuario->setEmail($email);
         $usuario->setSenha($senha);
-        $usuario->setFotoPerfil(null);
+        $usuario->setFotoPerfil($fotoPerfil);
         $usuario->setBio(null);
         $usuario->setTipoUsuario($tipoUsuario);
         $usuario->setDataCriacao($dataCriacao);
@@ -141,7 +162,6 @@ class UsuarioController extends Controller
         $this->loadView("usuario/form.php", $dados, []);
     }
 
-    //Método create
     protected function editPerfil()
     {
         $usuario = $this->findUsuarioById();
@@ -154,59 +174,134 @@ class UsuarioController extends Controller
         }
     }
 
+    protected function editFotoPerfil()
+    {
+        $usuario = $this->findUsuarioById();
+        if ($usuario) {
+            //Setar os dados
+            $dados["id"] = $usuario->getId();
+            $dados["usuario"] = $usuario;
+
+            $this->loadView("usuario/editFotoPerfil.php", $dados, []);
+        }
+    }
+
+    protected function editSenha()
+    {
+        $usuario = $this->findUsuarioById();
+        if ($usuario) {
+            //Setar os dados
+            $dados["id"] = $usuario->getId();
+            $dados["usuario"] = $usuario;
+
+            $this->loadView("usuario/editSenha.php", $dados, []);
+        }
+    }
+
+    protected function saveSenha()
+    {
+        //Captura os dados do formulário
+        $dados["id"] = isset($_POST['id']) ? $_POST['id'] : 0;
+        $senhaAtual = isset($_POST['senhaAtual']) ? trim($_POST['senhaAtual']) : NULL;
+        $senhaNova = isset($_POST['senhaNova']) ? trim($_POST['senhaNova']) : NULL;
+        $confirmSenha = isset($_POST['confirmSenha']) ? trim($_POST['confirmSenha']) : NULL;
+        $usuario = new Usuario();
+
+        $usuario->setId($dados["id"]);
+        $usuario->setSenha($senhaAtual);
+        //Validar os dados
+        $erros = $this->editSenhaservice->validarDados($usuario, $senhaNova, $confirmSenha);
+
+        if (empty($erros)) {
+            try {
+                // Criptografar a nova senha antes de salvar
+                $usuario->setSenha($senhaNova);
+
+                $this->usuarioDao->updateSenha($usuario);
+                header("location: /PFC/app/controller/UsuarioController.php?action=perfil&id=" . $usuario->getId());
+            } catch (PDOException $e) {
+                //echo $e->getMessage();
+                $erros['banco'] = "Erro ao salvar o usuário na base de dados." . $e;
+            }
+        }
+
+        //Se há erros, volta para o formulário
+
+        //Carregar os valores recebidos por POST de volta para o formulário
+        $dados["usuario"] = $usuario;
+
+        $this->loadView("usuario/editSenha.php", $dados, $erros);
+    }
+
+    protected function saveFotoPerfil()
+    {
+        $id = isset($_POST['id']) ? $_POST['id'] : 0;
+        $imagem = isset($_FILES['imagem']) ? $_FILES['imagem'] : null;
+
+        $usuario = new Usuario();
+        //Validar os dados
+        $nomeArquivo = $this->fotoPerfilService->salvarArquivo($imagem);
+        if ($nomeArquivo) {
+            $usuario->setId($id);
+            $usuario->setFotoPerfil($nomeArquivo);
+        } else
+            $erros = array("Erro ao salvar o arquivo da postagem.");
+
+        if (empty($erros)) {
+            //Persiste o objeto
+            try {
+                $this->usuarioDao->updateFotoPerfil($usuario);
+
+                header("location: /PFC/app/controller/UsuarioController.php?action=perfil&id=" . $_SESSION[SESSAO_USUARIO_ID]);
+                exit;
+            } catch (PDOException $e) {
+                echo $e->getMessage();
+                $erros = array("Erro ao salvar a postagem na base de dados." . $e);
+            }
+        }
+        //Se há erros, volta para o formulário
+
+        //Carregar os valores recebidos por POST de volta para o formulário
+        $dados["usuario"] = $usuario;
+
+        $this->loadView("usuario/editFotoPerfil.php", $dados, $erros);
+    }
+
     protected function savePerfil()
     {
-         //Captura os dados do formulário
-         $dados["id"] = isset($_POST['id']) ? $_POST['id'] : 0;
-         $nomeSobrenome = isset($_POST['nomeSobrenome']) ? trim($_POST['nomeSobrenome']) : NULL;
-         $nomeUsuario = isset($_POST['nomeUsuario']) ? trim($_POST['nomeUsuario']) : NULL;
-         $bio = isset($_POST['bio']) ? trim($_POST['bio']) : NULL;
-         $usuario = new Usuario();
- 
-         $usuario->setId($dados["id"]);
-         $usuario->setNomeSobrenome($nomeSobrenome);
-         $usuario->setNomeUsuario($nomeUsuario);
-         $usuario->setFotoPerfil(null);
-         $usuario->setBio($bio); 
+        //Captura os dados do formulário
+        $dados["id"] = isset($_POST['id']) ? $_POST['id'] : 0;
+        $nomeSobrenome = isset($_POST['nomeSobrenome']) ? trim($_POST['nomeSobrenome']) : NULL;
+        $nomeUsuario = isset($_POST['nomeUsuario']) ? trim($_POST['nomeUsuario']) : NULL;
+        $bio = trim(nl2br($_POST['bio'])) ? trim(nl2br($_POST['bio'])) : NULL;
+        $usuario = new Usuario();
 
-         //Validar os dados
-         $erros = $this->editperfilservice->validarDados($usuario);
+        $usuario->setId($dados["id"]);
+        $usuario->setNomeSobrenome($nomeSobrenome);
+        $usuario->setNomeUsuario($nomeUsuario);
+        $usuario->setFotoPerfil(null);
+        $usuario->setBio($bio);
 
-         if (empty($erros)) {
-             try {
-                 $this->usuarioDao->updatePerfil($usuario);
-                 header("location: /PFC/app/controller/UsuarioController.php?action=perfil&id=" . $usuario->getId());
- 
-             } catch (PDOException $e) {
-                 //echo $e->getMessage();
-                 $erros['banco'] = "Erro ao salvar o usuário na base de dados." . $e;
-             }
-         }
- 
-         //Se há erros, volta para o formulário
- 
-         //Carregar os valores recebidos por POST de volta para o formulário
-         $dados["usuario"] = $usuario; 
+        //Validar os dados
+        $erros = $this->editperfilservice->validarDados($usuario);
+
+        if (empty($erros)) {
+            try {
+                $this->usuarioDao->updatePerfil($usuario);
+                header("location: /PFC/app/controller/UsuarioController.php?action=perfil&id=" . $usuario->getId());
+            } catch (PDOException $e) {
+                //echo $e->getMessage();
+                $erros['banco'] = "Erro ao salvar o usuário na base de dados." . $e;
+            }
+        }
+
+        //Se há erros, volta para o formulário
+
+        //Carregar os valores recebidos por POST de volta para o formulário
+        $dados["usuario"] = $usuario;
 
         $this->loadView("usuario/editPerfil.php", $dados, $erros);
     }
-
-    protected function abrirPdf()
-    {
-
-        if (! $this->usuarioIsAdmin()) {
-            header("location: " . ACESSO_NEGADO);
-            exit;
-        }
-
-        $id = 0;
-        if (isset($_GET['id']))
-            $id = $_GET['id'];
-
-        $this->usuarioDao->abrirPdf($id);
-    }
-
-
 
     //Método edit
     protected function edit()
@@ -267,11 +362,7 @@ class UsuarioController extends Controller
     //Método para buscar o usuário com base no ID recebido por parâmetro GET
     private function findUsuarioById()
     {
-        if (! $this->usuarioIsAdmin()) {
-            header("location: " . ACESSO_NEGADO);
-            exit;
-        }
-        
+
         $id = 0;
         if (isset($_GET['id']))
             $id = $_GET['id'];
@@ -283,19 +374,22 @@ class UsuarioController extends Controller
     protected function perfil()
     {
         $id = 0;
-        if (isset($_GET['id'])){
+        if (isset($_GET['id'])) {
             $id = $_GET['id'];
         }
 
         $postagens = $this->postDao->listPostByUserId($id);
         $usuario = $this->usuarioDao->findById($id);
+        $likedPosts = $this->usuarioDao->likedPosts($id);
 
         $dados['postagens'] = $postagens;
         $dados['usuario'] = $usuario;
+        $dados['likedPosts'] = $likedPosts;
 
 
         $this->loadView("usuario/perfil.php", $dados, []);
     }
+
 }
 
 #Criar objeto da classe para assim executar o construtor

@@ -105,8 +105,9 @@ h3.text-center {
 }
 
 #pesquisar {
-    border-radius: 20px 0 0 20px; /* Bordas arredondadas na esquerda */
-    border: none; /* Cor da borda ao focar */
+    border-radius: 20px 0 0 20px; 
+    border: 3px solid #81a880 !important;
+    border-right: none !important;
     padding: 10px 15px;
     outline: none;
     transition: border-color 0.3s, box-shadow 0.3s;
@@ -119,7 +120,7 @@ h3.text-center {
 
 .btn-search {
     border-radius: 0 20px 20px 0; /* Bordas arredondadas na direita */
-    border: none;
+    border: 3px solid #81a880 !important;
     padding: 10px 20px;
     display: flex;
     align-items: center;
@@ -132,8 +133,8 @@ h3.text-center {
 }
 
 .btn-search:hover {
-    background-color: #0056b3; /* Tom mais escuro ao passar o mouse */
-    transform: scale(1.05); /* Efeito de leve aumento */
+    background-color: #0056b3; 
+    transform: none !important; 
 }
 
 
@@ -149,4 +150,16 @@ h3.text-center {
     top: 1%;
     left: 2%;
     width: 20%;
+}
+
+.fotoPerfil {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background-color: black;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    object-fit: cover;
 }

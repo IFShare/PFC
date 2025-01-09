@@ -33,6 +33,9 @@ class EditPerfilService
 
         if (strlen($usuario->getBio()) > 45)
             $erros['bio'] = "Biografia muito grande";
+        if (substr_count($usuario->getBio(), '<br>') > 4) {
+            $erros['bio'] = "A biografia não pode conter mais de 4 quebras de linha.";
+        }
 
         return $erros;
     }

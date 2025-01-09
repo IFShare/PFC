@@ -9,29 +9,10 @@ body, html{
     background: linear-gradient(90deg, #81a880, #004f44);
 }
 
-html {
-    background-color: #004f44;
-}
-
 h1 {
     color: #004f44;
     font-weight: bold;
     font-size: 50px;
-}
-
-::-webkit-scrollbar {
-    width: 10px;
-}
-
-::-webkit-scrollbar-track {
-    background: none;
-}
-
-::-webkit-scrollbar-thumb {
-    background-color: #004f44;
-    border-radius: 10px;
-    border: 2px solid #e0e0e0;
-    transition: all 0.5s;
 }
 
 #myToast {
@@ -80,6 +61,70 @@ h1 {
     color: #004f44; /* Texto branco */
 }
 
+.perfis {
+    width: 50%;
+    border-bottom: 5px solid #004f44;
+    padding-bottom: 5px;
+}
+
+.perfil {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin: 5px 0;
+}
+
+
+.fotoPerfil {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: 2px solid white;
+    background-color: rgb(172, 172, 172) !important;
+    cursor: pointer;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    object-fit: cover;
+    transition: all 0.2s ease-in-out;
+}
+
+.fotoPerfil:hover {
+    box-shadow: 0 0 10px 5px #81a880;
+}
+
+.fotoPerfil img {
+    text-align: center;
+    width: 100%;
+    border-radius: 50%;
+}
+
+.arrow-up {
+    z-index: 99;
+    position: fixed;
+    bottom: 3%;
+    right: 3%;
+    border-radius: 50%;
+    padding: 10px 20px;
+    font-size: 2rem;
+    background-color: #81a880;
+    color:white;
+    opacity: 0; /* Inicialmente invisível */
+    visibility: hidden; /* Elemento não é clicável nem exibido */
+    transition: all 0.3s ease; /* Animação suave */
+}
+
+.arrow-up.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+.arrow-up a {
+    color: white;
+}
 
 @media screen and (max-width:768px){
     .logo {

@@ -27,18 +27,29 @@ class HomeController extends Controller {
 
     protected function home() {
         $totalUsuarios = $this->usuarioDao->count();
-        $listaUsuario = $this->usuarioDao->list();
         $usuarioLogado = $this->usuarioDao->findById($_SESSION[SESSAO_USUARIO_ID]);
-        $listaPostagens = $this->postagemDao->listPosts();
+
+        $data = isset($_GET['search']) ? $_GET['search'] : NULL;
+        $perfis = [];
+
+
+        if (!empty($data)) {
+            $postagens = $this->postagemDao->searchPost($data);
+            $perfis = $this->usuarioDao->searchPerfis($data);
+        } else {
+            $postagens = $this->postagemDao->listPosts();
+        }
+
         $countUsersNaoVerificados = $this->usuarioDao->countUsersNaoVerificados();    
         $countDenunciasNaoVerificados = $this->denunciaDao->countDenunciasNaoVerificados();    
 
         $dados["usuarioLogado"] = $usuarioLogado;
         $dados["totalUsuarios"] = $totalUsuarios;
-        $dados["listaUsuarios"] = $listaUsuario;
-        $dados["listPosts"] = $listaPostagens;
-        $dados["countUsersNaoVerificados"] = $countUsersNaoVerificados;
-        $dados["countDenunciasNaoVerificados"] = $countDenunciasNaoVerificados;
+        $dados["listPosts"] = $postagens;
+        $dados["listPerfis"] = $perfis;
+        $dados['dadoPesquisa'] = $data;
+        $_SESSION['countUsersNaoVerificados'] = $countUsersNaoVerificados;
+        $_SESSION["countDenunciasNaoVerificados"] = $countDenunciasNaoVerificados;
 
         //echo "<pre>" . print_r($dados, true) . "</pre>";
         $this->loadView("home/home.php", $dados, []);
