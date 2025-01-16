@@ -30,28 +30,20 @@ require_once(__DIR__ . "/../include/header.php");
                 <div class="card mb-4" style="border: 1px solid #ddd; border-radius: 8px;">
                     <div class="card-body">
                         <p class="card-text">
-                            <strong>ID da postagem:</strong> <?= $den['id'] ?><br>
+                            <strong>ID do usuário:</strong> <?= $den['idUsuario'] ?><br>
 
-                            <strong>Total denuncias:</strong>
+                            <strong>Motivo:</strong>
                             <span>
-                                <?= $den['total_denuncias'] ?>
+                                <?= $den['motivo'] ?>
                             </span>
-                            <br>
+                            <!-- <br>
                             <strong>Status:</strong>
                             <span <?= $den['status'] === "NAOVERIFICADO" ? "style = 'color: red; font-weight: bold;" : ($den['status'] === "VERIFICADO" ? "style = 'color: green; font-weight: bold;" : "") ?>'>
-                                <?= $den['status']; ?></span>
-                            <br>
-                            <strong>Solução tomada:</strong>
-                            <span style="color: black; font-weight: bold; text-decoration: underline;"><?= $den['solucao']; ?></span>
-                            <br>
+                                <?= $den['status']; ?></span> -->
                         </p>
                         <div class="btn-verify text-center d-flex justify-content-center gap-4">
-                            <a class="btn" href="/PFC/app/controller/PostagemController.php?action=viewPost&id=<?= $den['id'] ?>&isDenuncia=sim">
+                            <a class="btn" href="/PFC/app/controller/PostagemController.php?action=viewPost&id=<?= $den['idPostagem'] ?>&isDenuncia=sim">
                                 Verificar Postagem
-                            </a>
-
-                            <a class="btn" href="/PFC/app/controller/DenunciaController.php?action=listDenunciaByPost&idPostagem=<?= $den['id'] ?>">
-                                Ver denúncis
                             </a>
 
                         </div>
@@ -59,13 +51,6 @@ require_once(__DIR__ . "/../include/header.php");
                         <?php
                             if ($den['status'] === "NAOVERIFICADO"):
                         ?>
-
-                        <div class="solution d-flex mt-3">
-                            <form action="/PFC/app/controller/DenunciaController.php?action=insertSolution" method="post">
-                                <input name="solucao" type="text" id="inp-solution" placeholder="Digite a solução tomada">
-                                <input type="hidden" name="idPostagem" value="<?= $den['id'] ?>">
-                            </form>
-                        </div>
 
                         <?php endif; ?>
                     </div>
@@ -85,7 +70,7 @@ require_once(__DIR__ . "/../include/header.php");
     })
 
     function searchData() {
-        window.location = 'DenunciaController.php?action=listDenuncias&search=' + search.value;
+        window.location = 'DenunciaController.php?action=listDenunciasByPost&search=' + search.value;
     }
 </script>
 

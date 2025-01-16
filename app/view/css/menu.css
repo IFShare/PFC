@@ -1,5 +1,6 @@
 #toggleSidebar {
     cursor: pointer;
+    user-select: none;
 }
 
 .sidebar {
@@ -17,11 +18,8 @@
     flex-direction: column;
     align-items: start;
     padding: 20px 10px;
-}
-
-.sidebar {
-    transition: width 0.3s ease-in-out;
     overflow: hidden;
+    transition: width .5s ease-out;
 }
 
 .sidebar.closed {
@@ -105,13 +103,13 @@
     color: #004f44;
 }
 
-.menu-item.active {
+.menu-item.active{
     background-color: #e7e7e7;
     color: #000;
     transform: scale(1.05);
 }
 
-.menu-item.active i {
+.menu-item.active i{
     color: #004f44;
 }
 
@@ -130,10 +128,6 @@ button {
 #logout-item:hover a i {
     color: red !important;
 }
-
-
-
-
 
 
 @media screen and (max-width: 768px) {

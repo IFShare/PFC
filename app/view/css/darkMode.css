@@ -1,0 +1,88 @@
+
+#theme-switch {
+    width: 60px;
+    height: 60px;
+    padding: 0;
+    background: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#theme-switch svg {
+    fill: white;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+}
+
+#theme-switch svg#light {
+    display: none;
+}
+
+#theme-switch svg#light:hover {
+    display: none;
+    box-shadow: 0 0 10px 10px #81a880;
+    background-color: #81a880;
+}
+
+
+#theme-switch svg#darkMode:hover {
+    box-shadow: 0 0 10px 10px #004f44;
+    background-color: #004f44;
+}
+
+.dark #theme-switch svg#darkMode {
+    display: none;
+}
+
+.dark #theme-switch svg#light {
+    display: block;
+}
+
+/* DARKMODE */
+
+:root {
+    --fundo: #002923;
+    --sidebar-fundo: #004f44;
+    --cor-texto: #ffffff;
+}
+
+body.dark, html.dark{
+    background: var(--fundo);
+}
+
+.dark .post {
+    transition: all 0.2s;
+}
+
+.dark .post:hover {
+    box-shadow: 0 0 10px 5px #81a880;
+}
+
+.dark .sidebar {
+    background-color: var(--sidebar-fundo);
+    box-shadow: none;
+}
+
+.dark #foundPfp, .dark #nomeUsuario {
+    color: var(--cor-texto);
+}
+
+.dark .nomeUsuarioPf {
+    color: rgb(172, 172, 172) !important;
+}
+
+.dark .sidebar .notif {
+    background-color: #81a880;
+}
+
+.dark .topBar {
+    background: #002923;
+    box-shadow: 5px 0 10px 5px #002923;
+}
+
+.dark.filter-box .selectFilter {
+    background-color: #004f44;
+}

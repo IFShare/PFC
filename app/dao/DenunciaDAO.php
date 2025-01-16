@@ -20,21 +20,39 @@ class DenunciaDAO
 
     #LISTAGEM DE USUÁRIOS
 
-    public function list()
+    public function listDenunciaByPost($idPostagem)
     {
 
         $conn = Connection::getConnection();
 
-        $sql = "SELECT denuncia.*, usuario.nomeUsuario 
-        FROM denuncia
-        JOIN usuario ON denuncia.idUsuario = usuario.id
+        $sql = "SELECT * FROM denuncia
+        WHERE denuncia.idPostagem = :idPostagem
         ORDER BY denuncia.id DESC";
+        $stm = $conn->prepare($sql);
+        $stm->bindValue(':idPostagem', $idPostagem);
+        $stm->execute();
+        $result = $stm->fetchAll();
+
+        return $result;
+    }
+
+    public function listTotalDenunciaForEachPost()
+    {
+
+        $conn = Connection::getConnection();
+
+        $sql = "SELECT p.id, d.status, d.solucao,
+		COUNT(d.id) AS total_denuncias
+        FROM postagem p
+        JOIN denuncia d ON p.id = d.idPostagem
+        GROUP BY p.id 
+        ORDER BY total_denuncias DESC";
         $stm = $conn->prepare($sql);
 
         $stm->execute();
         $result = $stm->fetchAll();
 
-        return $this->mapDenuncias($result);
+        return $result;
     }
 
     public function search($data)
@@ -42,8 +60,7 @@ class DenunciaDAO
 
         $conn = Connection::getConnection();
 
-        $sql = "SELECT d.*, u.nomeUsuario 
-                FROM denuncia d
+        $sql = "SELECT * FROM denuncia d
                 JOIN usuario u ON d.idUsuario = u.id
                 WHERE d.id LIKE :search
                 OR d.motivo LIKE :search
@@ -91,6 +108,21 @@ class DenunciaDAO
         $stm->bindValue("idUsuario", $this->loginService->getIdUsuarioLogado());
         $stm->bindValue("idPostagem", $denuncia->getPost()->getId());
 
+        $stm->execute();
+    }
+
+    public function insertSolution(Denuncia $denuncia)
+    {
+        $conn = Connection::getConnection();
+
+        $sql = "UPDATE denuncia
+                SET solucao = :solucao, status = :status
+                WHERE idPostagem = :idPostagem";
+
+        $stm = $conn->prepare($sql);
+        $stm->bindValue(":solucao", $denuncia->getSolucao());
+        $stm->bindValue(":idPostagem", $denuncia->getPost()->getId());
+        $stm->bindValue(":status", $denuncia->getStatus());
         $stm->execute();
     }
 
@@ -145,6 +177,7 @@ class DenunciaDAO
             $denuncia->setId($reg['id']);
             $denuncia->setMotivo($reg['motivo']);
             $denuncia->setstatus($reg['status']);
+            $denuncia->setSolucao($reg['solucao']);
 
             $usuario = new Usuario();
             $usuario->setId($reg['idUsuario']);

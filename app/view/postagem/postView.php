@@ -15,7 +15,7 @@ $usuario = $dados['usuario'];
     ?>
 
         <a class="voltar"
-            href="/PFC/app/controller/DenunciaController.php?action=listDenuncias">
+            href="/PFC/app/controller/DenunciaController.php?action=listTotalDenunciaForEachPost">
             <i class="fs-4 bi bi-arrow-left-square"
                 data-bs-toggle="tooltip" data-bs-title="Default tooltip data-bs-title=">
             </i>
@@ -130,7 +130,7 @@ $usuario = $dados['usuario'];
                                 <!-- Motivo -->
                                 <div class="mb-2 motivo">
                                     <label id="labelMotivo" for="motivo">Qual seria o motivo da denuncia?</label>
-                                    <input type="text" class="form-control" id="motivo" name="motivo" required>
+                                    <input type="text" class="form-control" id="motivo" name="motivo">
                                 </div>
 
                                 <button type="submit" class="btn btn-custom">Enviar</button>

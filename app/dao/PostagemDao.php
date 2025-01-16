@@ -24,7 +24,7 @@ class PostagemDAO
 
         $conn = Connection::getConnection();
 
-        $sql = "SELECT postagem.*, usuario.nomeUsuario, usuario.fotoPerfil 
+        $sql = "SELECT postagem.*, usuario.nomeUsuario, usuario.nomeSobrenome, usuario.fotoPerfil 
         FROM postagem
         JOIN usuario ON postagem.idUsuario = usuario.id
         ORDER BY postagem.id DESC";
@@ -42,17 +42,56 @@ class PostagemDAO
 
         $conn = Connection::getConnection();
 
-        $sql = "SELECT postagem.*, usuario.nomeUsuario, usuario.fotoPerfil
+        $sql = "SELECT postagem.*, usuario.nomeUsuario, usuario.nomeSobrenome, usuario.fotoPerfil
         FROM postagem
         JOIN usuario ON postagem.idUsuario = usuario.id
         WHERE postagem.id LIKE :search
         OR postagem.idUsuario LIKE :search
         OR usuario.nomeUsuario LIKE :search
+        OR usuario.nomeSobrenome LIKE :search
         ORDER BY postagem.id DESC";
 
 
         $stm = $conn->prepare($sql);
         $stm->bindValue(':search', "%$data%");
+
+        $stm->execute();
+        $result = $stm->fetchAll();
+
+        return $this->mapPostagens($result);
+    }
+
+    public function searchOldestPosts()
+    {
+
+        $conn = Connection::getConnection();
+
+        $sql = "SELECT postagem.*, usuario.nomeUsuario, usuario.nomeSobrenome, usuario.fotoPerfil
+        FROM postagem
+        JOIN usuario ON postagem.idUsuario = usuario.id
+        ORDER BY postagem.id ASC";
+
+        $stm = $conn->prepare($sql);
+
+        $stm->execute();
+        $result = $stm->fetchAll();
+
+        return $this->mapPostagens($result);
+    }
+
+    public function searchMostLikedPosts()
+    {
+
+        $conn = Connection::getConnection();
+
+        $sql = "SELECT postagem.*, usuario.nomeUsuario, usuario.nomeSobrenome, usuario.fotoPerfil, COUNT(curtida.idPostagem) as totalCurtidas
+        FROM postagem
+        JOIN usuario ON postagem.idUsuario = usuario.id
+        LEFT JOIN curtida ON postagem.id = curtida.idPostagem
+        GROUP BY postagem.id
+        ORDER BY totalCurtidas DESC";
+
+        $stm = $conn->prepare($sql);
 
         $stm->execute();
         $result = $stm->fetchAll();
@@ -118,7 +157,7 @@ class PostagemDAO
     {
         $conn = Connection::getConnection();
 
-        $sql = "SELECT p.*, u.nomeUsuario 
+        $sql = "SELECT p.*, u.nomeUsuario, u.nomeSobrenome
                 FROM postagem p
                 JOIN usuario u ON p.idUsuario = u.id
                 WHERE p.id = ?";
@@ -144,7 +183,7 @@ class PostagemDAO
     {
         $conn = Connection::getConnection();
 
-        $sql = "SELECT postagem.*, usuario.nomeUsuario 
+        $sql = "SELECT postagem.*, usuario.nomeUsuario, usuario.nomeSobrenome
         FROM postagem
         JOIN usuario ON postagem.idUsuario = usuario.id
         WHERE postagem.idUsuario = ?";
@@ -174,6 +213,7 @@ class PostagemDAO
             $usuario = new Usuario();
             $usuario->setId($reg['idUsuario']);
             $usuario->setNomeUsuario($reg['nomeUsuario']);
+            $usuario->setNomeSobrenome($reg['nomeSobrenome']);
             $post->setUsuario($usuario);
 
 

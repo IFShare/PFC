@@ -33,7 +33,12 @@ class HomeController extends Controller {
         $perfis = [];
 
 
-        if (!empty($data)) {
+        if (!empty($data) && $data === "OLDESTPOSTS") {
+            $postagens = $this->postagemDao->searchOldestPosts();
+        }elseif (!empty($data) && $data === "MOSTLIKEDPOSTS") {
+            $postagens = $this->postagemDao->searchMostLikedPosts();
+        } 
+        elseif (!empty($data)) {
             $postagens = $this->postagemDao->searchPost($data);
             $perfis = $this->usuarioDao->searchPerfis($data);
         } else {
@@ -43,7 +48,7 @@ class HomeController extends Controller {
         $countUsersNaoVerificados = $this->usuarioDao->countUsersNaoVerificados();    
         $countDenunciasNaoVerificados = $this->denunciaDao->countDenunciasNaoVerificados();    
 
-        $dados["usuarioLogado"] = $usuarioLogado;
+        $_SESSION["usuarioLogado"] = $usuarioLogado;
         $dados["totalUsuarios"] = $totalUsuarios;
         $dados["listPosts"] = $postagens;
         $dados["listPerfis"] = $perfis;

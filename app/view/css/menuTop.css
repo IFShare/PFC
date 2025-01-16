@@ -1,0 +1,216 @@
+.topBar {
+    padding: 10px 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    background: linear-gradient(90deg, #81a880, #004f44);
+    width: 100%;
+    user-select: none;
+}
+
+.boxTopBar {
+    margin-left: 17%;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    transition: all .5s ease-out;
+}
+
+.sidebar-closed .boxTopBar {
+    margin-left: 60px;
+}
+
+.sidebar-open .topBar {
+    width: 100%;
+}
+
+.fotoPerfil:hover {
+    box-shadow: 0 0 10px 5px #81a880;
+}
+
+.fotoPerfil img {
+    text-align: center;
+    width: 100%;
+    border-radius: 50%;
+}
+
+
+
+.box-search {
+    width: 40%;
+    margin: 0 auto; /* Centraliza o campo na página */
+}
+
+.rightElements {
+    display: flex;
+    align-items: center;
+    gap: 50px;
+    position: absolute;
+    right: 20px; /* Alinha os elementos no canto direito */
+}
+
+.leftElements {
+    position: absolute;
+    left: 75px; /* Alinha os elementos no canto direito */
+}
+
+.filter-box {
+    display: flex;
+    justify-content: left;
+    flex-direction: column;
+    color: white;
+}
+
+.filter-box .selectFilter {
+    text-align: center;
+    background-color: #004f44;
+    color: white;
+    border-radius: 20px; /* Bordas arredondadas na esquerda */
+    appearance: none; /* Remove a seta padrão do select */
+    border: none; /* Cor da borda ao focar */
+    padding: 10px 15px;
+    outline: none;
+    transition: border-color 0.3s, box-shadow 0.3s;
+    cursor: pointer;
+}
+
+.filter-box.selectFilter option{
+    text-align: left;
+    border: none;
+    background-color: #004f44;
+    color: white;
+}
+
+.selectFilter option.active {
+    background-color: #81a880;
+}
+
+.fotoPerfil {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: 2px solid white;
+    background-color: rgb(172, 172, 172) !important;
+    cursor: pointer;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    object-fit: cover;
+    transition: all 0.2s ease-in-out;
+}
+
+#pesquisar {
+    background-color: #004f4552;
+    color: white;
+    border-radius: 20px 0 0 20px; /* Bordas arredondadas na esquerda */
+    border: none; /* Cor da borda ao focar */
+    padding: 10px 15px;
+    outline: none;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+#pesquisar::placeholder {
+    color: white;
+}
+
+#pesquisar:focus {
+    border-color: #0056b3; /* Cor da borda ao focar */
+    box-shadow: 0 0 8px #81a880; /* Sombra ao focar */
+}
+
+.btn-search {
+    background-color: #004f44;
+    color: white;
+    border-radius: 0 20px 20px 0; /* Bordas arredondadas na direita */
+    border: none;
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s, transform 0.3s;
+}
+.btn-search svg {
+    fill: white; /* Ícone na cor branca */
+}
+
+.btn-search:hover {
+    background-color: #81a880; /* Tom mais escuro ao passar o mouse */
+    transform: scale(1.05); /* Efeito de leve aumento */
+}
+
+.voltar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #004f44;
+    color: white;
+    border-radius: 30px;
+    margin: auto;
+    padding: 5px 15px;
+    font-size: 14px;
+    font-weight: bold;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s;
+}
+
+.voltar:hover {
+    background: #004f44;
+    color: white;
+}
+
+
+@media screen and (max-width: 768px) {
+
+    .box-search {
+        width: 75%;
+        margin: 0; /* Centraliza o campo na página */
+        position: relative;
+    }
+    
+    #pesquisar {
+        background-color: #004f4552;
+        color: white;
+        border-radius: 20px 0 0 20px; /* Bordas arredondadas na esquerda */
+        border: none; /* Cor da borda ao focar */
+        padding: 10px 15px;
+        outline: none;
+        transition: border-color 0.3s, box-shadow 0.3s;
+    }
+    
+    #pesquisar::placeholder {
+        color: white;
+    }
+    
+    #pesquisar:focus {
+        border-color: #0056b3; /* Cor da borda ao focar */
+        box-shadow: 0 0 8px #81a880; /* Sombra ao focar */
+    }
+    
+    .btn-search {
+        background-color: #004f44;
+        color: white;
+        border-radius: 0 20px 20px 0; /* Bordas arredondadas na direita */
+        border: none;
+        padding: 10px 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: background-color 0.3s, transform 0.3s;
+    }
+    
+    .btn-search svg {
+        fill: white; /* Ícone na cor branca */
+    }
+    
+    .btn-search:hover {
+        background-color: #81a880; /* Tom mais escuro ao passar o mouse */
+        transform: scale(1.05); /* Efeito de leve aumento */
+    }
+    
+
+}

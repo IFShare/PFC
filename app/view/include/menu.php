@@ -10,6 +10,8 @@ $idUsuario = $_SESSION[SESSAO_USUARIO_ID];
 
 $isPerfil = (isset($_GET['action']) && $_GET['action'] === 'perfil') ? 'active' : '';
 $isHome = (isset($_GET['action']) && $_GET['action'] === 'home') ? 'active' : '';
+$isList = (isset($_GET['action']) && $_GET['action'] === 'list') ? 'active' : '';
+$isListDenuncia = (isset($_GET['action']) && $_GET['action'] === 'listTotalDenunciaForEachPost') ? 'active' : '';
 
 ?>
 
@@ -22,6 +24,13 @@ $isHome = (isset($_GET['action']) && $_GET['action'] === 'home') ? 'active' : ''
     <div class="brand text-center" id="toggleSidebar">
         <img class="logo" id="logo" width="75%" src="/PFC/app/assets/logo.png" alt="">
     </div>
+
+    <script>
+        const logos = document.querySelectorAll('.logo');
+        logos.forEach(logo => {
+                logo.src = "/PFC/app/assets/logo-dark.png";
+            });
+    </script>
 
     <!-- Itens do menu -->
     <ul class="menu-list">
@@ -40,7 +49,7 @@ $isHome = (isset($_GET['action']) && $_GET['action'] === 'home') ? 'active' : ''
         <?php endif; ?>
         <?php if ($TipoUsuario == "ADM") : ?>
             <li class="position-relative">
-                <a href="<?= BASEURL ?>/controller/UsuarioController.php?action=list" class="menu-item">
+                <a href="<?= BASEURL ?>/controller/UsuarioController.php?action=list" class="menu-item <?= $isList ?>">
                     <?php if (isset($_SESSION["countUsersNaoVerificados"]) && $_SESSION["countUsersNaoVerificados"] >= 1) : ?>
                         <span class="notif translate-middle badge rounded-pill">
                             <?= $_SESSION["countUsersNaoVerificados"] ?>
@@ -51,7 +60,7 @@ $isHome = (isset($_GET['action']) && $_GET['action'] === 'home') ? 'active' : ''
                 </a>
             </li>
             <li class="position-relative">
-                <a href="<?= BASEURL ?>/controller/DenunciaController.php?action=listDenuncias" class="menu-item">
+                <a href="<?= BASEURL ?>/controller/DenunciaController.php?action=listTotalDenunciaForEachPost" class="menu-item <?= $isListDenuncia ?>">
                     <?php if (isset($_SESSION["countDenunciasNaoVerificados"]) && $_SESSION["countDenunciasNaoVerificados"] >= 1) : ?>
                         <span class="notif translate-middle badge rounded-pill">
                             <?= $_SESSION["countDenunciasNaoVerificados"] ?>
@@ -75,18 +84,11 @@ $isHome = (isset($_GET['action']) && $_GET['action'] === 'home') ? 'active' : ''
             </a>
         </li>
     </ul>
+
 </div>
 
 
 <script>
-    document.addEventListener("DOMContentLoaded", () => {
-        const menuSidebar = document.getElementById("menuSidebar");
-        const menuToggle = document.getElementById("menuToggle");
-
-        menuToggle.addEventListener("click", () => {
-            menuSidebar.classList.toggle("closed");
-        });
-    });
 
     document.addEventListener("DOMContentLoaded", () => {
         const sidebar = document.getElementById("sidebar");

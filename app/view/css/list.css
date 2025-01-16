@@ -3,9 +3,11 @@ body {
     width: 100%;
     margin: 0;
     padding: 0;
-    background: #004f44;
+    background: linear-gradient(90deg, #81a880, #004f44);
     font-family: Arial, sans-serif; /* Fonte mais limpa */
 }
+
+
 
 h3.text-center {
     color: white;
@@ -14,76 +16,30 @@ h3.text-center {
 }
 
 /* Centraliza a tabela na página */
-.container {
+.container-list {
+    margin: 40px 0 25px 18%;
     display: flex;
-    align-items: center;
-    justify-content: center;
     flex-direction: column;
-    margin-top: 20px; /* Distância do título da tabela */
+    padding: 0;
+    transition: all .5s ease-out;
 }
 
-/* Estilização dos botões */
+.container-list.sidebar-open {
+    margin-left: 18%;
+    width: 80%;
+}
+
+.container-list.sidebar-closed {
+    margin-left: 6%;
+    width: 93%;
+}
+
 .btn-success, .btn-primary, .btn-danger {
-    padding: 10px 20px; /* Aumenta o padding dos botões */
-    border-radius: 30px; /* Cantos arredondados nos botões */
-    font-size: 16px; /* Tamanho da fonte dos botões */
-    font-weight: bold; /* Texto em negrito */
-    transition: background-color 0.3s, transform 0.3s; /* Transição para hover */
-}
-
-.btn-success {
-    border: none;
-    border: 2px solid #81a880; /* Cor padrão para o botão Inserir */
-    background: none;
-    color: white;
-}
-
-.btn-success:hover {
-    border: 2px solid #81a880;
-    color: black;
-    background-color: #81a880; /* Cor ao passar o mouse */
-    transform: scale(1.05); /* Leve aumento no tamanho */
-}
-
-.btn-primary {
-    background-color: #0056b3; /* Cor padrão para botões de alteração */
-    color: white;
-    border: none;
-}
-
-.btn-primary:hover {
-    background-color: #004494; /* Cor ao passar o mouse */
-    transform: scale(1.05); /* Leve aumento no tamanho */
-}
-
-.btn-danger {
-    background-color: #dc3545; /* Cor padrão para botões de exclusão */
-    color: white;
-    border: none;
-}
-
-.btn-danger:hover {
-    background-color: #c82333; /* Cor ao passar o mouse */
-    transform: scale(1.05); /* Leve aumento no tamanho */
-}
-
-.voltar {
-    position: fixed;
-    top: 2%;
-    left: 2%;
-    background-color: none;
-    color: #fff;
-    border: 2px solid #81a880; 
-    border-radius: 30px;
-    padding: 10px 20px;
+    padding: 10px 20px; 
+    border-radius: 30px; 
     font-size: 16px; 
-    font-weight: bold;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    transition: background-color 0.3s, transform 0.3s;
-}
-
-.voltar:hover {
-    background-color: #81a880;
+    font-weight: bold; 
+    transition: background-color 0.3s, transform 0.3s; 
 }
 
 .card {
@@ -93,73 +49,65 @@ h3.text-center {
 .card:hover {
     transform: translateY(-5px); /* Eleva o card levemente */
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); /* Adiciona uma sombra mais intensa */
-    filter: brightness(80%);
 }
-
-
-
-.box-search {
-    width: 400px;
-    margin: 0 auto; /* Centraliza o campo na página */
-    position: relative;
-}
-
-#pesquisar {
-    border-radius: 20px 0 0 20px; 
-    border: 3px solid #81a880 !important;
-    border-right: none !important;
-    padding: 10px 15px;
-    outline: none;
-    transition: border-color 0.3s, box-shadow 0.3s;
-}
-
-#pesquisar:focus {
-    border-color: #0056b3; /* Cor da borda ao focar */
-    box-shadow: 0 0 8px rgba(0, 91, 187, 0.5); /* Sombra ao focar */
-}
-
-.btn-search {
-    border-radius: 0 20px 20px 0; /* Bordas arredondadas na direita */
-    border: 3px solid #81a880 !important;
-    padding: 10px 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: background-color 0.3s, transform 0.3s;
-}
-
-.btn-search svg {
-    fill: white; /* Ícone na cor branca */
-}
-
-.btn-search:hover {
-    background-color: #0056b3; 
-    transform: none !important; 
-}
-
 
 .insertBtn {
-    position: absolute;
-    top: 1%;
-    right: 2%;
-    width: 10%;
+    display: block;
+    width: fit-content;
+    background-color: #004f44;
+    border: none;
 }
 
 .naoVerificados {
-    position: absolute;
-    top: 1%;
-    left: 2%;
-    width: 20%;
+    text-align: center;
+    margin: 0;
+    border: none;
+    background-color: #004f44;
+    color: white;
+    text-decoration: none;
+    border-radius: 20px;
+    padding: 12px 20px;
+    transition: all 0.3s;
+    font-weight: bold;
 }
 
-.fotoPerfil {
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    background-color: black;
-    overflow: hidden;
-    display: flex;
+.naoVerificados:hover {
+    color: white;
+    transform: scale(112%);
+}
+
+.btn-verify a:first-child {
+    color: white;
+    font-size: 1rem;
+    padding: 10px 10px;
+    background-color: blue;
+}
+
+.btn-verify a:last-child {
+    background-color: orangered;
+    color: white;
+    font-size: 1rem;
+    padding: 10px 10px;
+}
+
+.solution {
     justify-content: center;
-    align-items: center;
-    object-fit: cover;
+    width: 100%;
+}
+
+#inp-solution {
+    width: 100%;
+    border: none;
+    border-bottom: 3px solid #004f44;
+}
+
+#inp-solution::placeholder {
+    font-weight: bold;
+    text-align: center;
+}
+
+#inp-solution:focus {
+    outline: none;
+    border: none;
+    border-bottom: 2px solid #81a880;
 }

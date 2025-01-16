@@ -143,11 +143,15 @@ $isPostsList = (!isset($_GET['likedPosts'])) ? 'active' : '';
         ?>
         <div class="postsUser">
 
+            <?php if ($dados['postagens'] == NULL) {
+                echo "<h4 class='mt-2 mb-2 textoSimples'>Nenhuma postagem encontrada!</h4>";
+            } else ?>
             <section class="postagens">
                 <?php foreach ($dados['postagens'] as $posts): ?>
-                    <div class="post" id="post-<?php echo $posts->getId() ?>">
-                        <a href="<?= BASEURL ?>/controller/PostagemController.php?action=viewPost&id=<?= $posts->getId() ?>&idPerfil=<?= $dados['usuario']->getId() ?>">
+                    <div class="post placeholder" id="post-<?php echo $posts->getId() ?>">
+                        <a href="<?= BASEURL ?>/controller/PostagemController.php?action=viewPost&id=<?= $posts->getId() ?>">
                             <img
+                                loading="lazy"
                                 class="imgPost" id="imgPost"
                                 src="/PFC/arquivos/imgs/<?= $posts->getImagem(); ?>"
                                 alt="Imagem da postagem">
@@ -165,6 +169,7 @@ $isPostsList = (!isset($_GET['likedPosts'])) ? 'active' : '';
 
 </div>
 
+<script src="<?= BASEURL ?>/view/js/postagens.js"></script>
 
 <?php
 require_once(__DIR__ . "/../include/footer.php");

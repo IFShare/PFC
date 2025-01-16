@@ -3,53 +3,26 @@
 # Objetivo: interface para listagem dos usuários do sistema
 
 require_once(__DIR__ . "/../include/header.php");
+
 ?>
 
 <link rel="stylesheet" href="<?= BASEURL ?>/view/css/list.css">
-<link rel="stylesheet" href="<?= BASEURL ?>/view/css/pesquisaStyle.css">
 
-
-<a class="btn btn-custom mt-2 voltar" href="<?= HOME_PAGE ?>">
-    <i class="fs-4 bi bi-arrow-left-square"></i></a>
 
 <h3 class="text-center">Listagem de Usuários</h3>
 
-<div class="container position-relative">
+<div class="container-list position-relative" id="container">
 
-    <a class="insertBtn btn btn-success mb-4" href="<?= BASEURL ?>/controller/UsuarioController.php?action=create">
-        Inserir
+
+    <?php
+    require_once(__DIR__ . "/../include/menu.php");
+    require_once(__DIR__ . "/../include/menuTop.php");
+    ?>
+
+
+    <a class="insertBtn btn btn-success mb-3" href="<?= BASEURL ?>/controller/UsuarioController.php?action=create">
+        Inserir novo usuário
     </a>
-
-    <?php
-    if (isset($dados['naoVerificados']) && $dados['naoVerificados'] > 0):
-    ?>
-
-        <a class="naoVerificados btn btn-success mb-4" href="<?= BASEURL ?>/controller/UsuarioController.php?action=list&search=NAOVERIFICADO">
-            NÃO VERIFICADOS:
-            <?php
-            echo $dados['naoVerificados'];
-            ?>
-        </a>
-
-    <?php
-    endif
-    ?>
-
-    <div class="box-search mb-4 d-flex">
-
-        <input
-            list="usuarios"
-            id="pesquisar"
-            placeholder="Pesquisar..."
-            type="search"
-            class="form-control">
-        <button onclick="searchData();" class="btn btn-primary btn-search">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
-                <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
-            </svg>
-        </button>
-
-    </div>
 
 
     <div class="row col-12">
@@ -64,7 +37,7 @@ require_once(__DIR__ . "/../include/header.php");
                 <div class="card mb-4" style="border: 1px solid #ddd; border-radius: 8px;">
                     <div class="card-body">
                         <h5 class="card-title d-flex justify-content-center fw-bold">
-                            <img class="fotoPerfil" src="/PFC/arquivos/fotosPerfil/<?=$usu->getFotoPerfil();?>" alt="">
+                            <img class="fotoPerfil" src="/PFC/arquivos/fotosPerfil/<?= $usu->getFotoPerfil(); ?>" alt="">
                         </h5>
 
                         <h5 class="card-title text-center fw-bold"><?= $usu->getNomeUsuario(); ?></h5>
@@ -90,7 +63,7 @@ require_once(__DIR__ . "/../include/header.php");
                             </span>
                         </p>
                         <div class="text-center">
-                            <a class="btn btn-primary" href="<?= BASEURL ?>/controller/UsuarioController.php?action=edit&id=<?= $usu->getId() ?>&search=<?php echo $dados['data']; ?>">
+                            <a class="btn btn-primary" href="<?= BASEURL ?>/controller/UsuarioController.php?action=edit&id=<?= $usu->getId() ?>&search=<?php echo $dados['dadoPesquisa']; ?>">
                                 <i class="bi bi-pencil-square"></i> Editar
                             </a>
                             <a class="btn btn-danger" onclick="return confirm('Confirma a exclusão do usuário?');" href="<?= BASEURL ?>/controller/UsuarioController.php?action=delete&id=<?= $usu->getId() ?>">

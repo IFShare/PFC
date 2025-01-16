@@ -54,6 +54,7 @@ class UsuarioDAO
         $sql = "SELECT * FROM usuario
         WHERE usuario.nomeUsuario LIKE :search
         OR usuario.id LIKE :search
+        OR usuario.nomeSobrenome LIKE :search
         ORDER BY usuario.id DESC
         LIMIT 4";
 

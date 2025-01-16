@@ -8,11 +8,13 @@ require_once(__DIR__ . '/enum/DenunciaStatus.php');
         private ?int $id;
         private ?string $motivo;
         private ?string $status;
+        private ?string $solucao;
         private ?Usuario $usuario;
         private ?Post $post;
 
         public function __construct() {
                 $this->usuario = null;
+                $this->post = null;
             }
 
         /**
@@ -111,6 +113,26 @@ require_once(__DIR__ . '/enum/DenunciaStatus.php');
         public function setStatus($status)
         {
                 $this->status = $status;
+
+                return $this;
+        }
+
+        /**
+         * Get the value of solucao
+         */ 
+        public function getSolucao()
+        {
+                return $this->solucao;
+        }
+
+        /**
+         * Set the value of solucao
+         *
+         * @return  self
+         */ 
+        public function setSolucao($solucao)
+        {
+                $this->solucao = $solucao;
 
                 return $this;
         }
