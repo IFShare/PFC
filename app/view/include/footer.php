@@ -11,14 +11,24 @@
             document.body.classList.add('dark');
             document.documentElement.classList.add('dark');
 
+            const imgPreview = document.querySelector('#imgPreviewAddPost');
+            if (imgPreview) {
+                imgPreview.src = "/PFC/app/assets/addPostDark.png";
+            }
+
             const logos = document.querySelectorAll('.logo');
-        logos.forEach(logo => {
+            logos.forEach(logo => {
                 logo.src = "/PFC/app/assets/logo-dark.png";
             });
         } else {
             document.querySelectorAll('.logo').forEach(logo => {
                 logo.src = "/PFC/app/assets/logo.png";
-            })  
+
+                const imgPreview = document.querySelector('#imgPreviewAddPost');
+                if (imgPreview) {
+                    imgPreview.src = "/PFC/app/assets/addPost.png";
+                }
+            })
         }
     });
 
@@ -34,6 +44,16 @@
                 logo.src = "/PFC/app/assets/logo.png";
             }
         });
+
+        const imgPreview = document.querySelector('#imgPreviewAddPost');
+        if (imgPreview) {
+            if (isDarkMode) {
+                imgPreview.src = "/PFC/app/assets/addPostDark.png"
+            } else {
+                imgPreview.src = "/PFC/app/assets/addPost.png";
+
+            }
+        }
 
         document.cookie = `darkMode=${isDarkMode}; path=/; max-age=31536000`; // 1 ano
 

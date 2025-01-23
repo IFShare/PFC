@@ -1,7 +1,7 @@
 <?php
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
-}#Classe controller para a Logar do sistema
+} #Classe controller para a Logar do sistema
 require_once(__DIR__ . "/Controller.php");
 require_once(__DIR__ . "/../dao/UsuarioDAO.php");
 require_once(__DIR__ . "/../service/LoginService.php");
@@ -55,8 +55,8 @@ class LoginController extends Controller
             if ($usuario) {
                 //Se encontrou o usuário, salva a sessão e redireciona para a HOME do sistema
                 $this->loginService->salvarUsuarioSessao($usuario);
-                if($usuario->getStatus() == "NAOVERIFICADO" && $usuario->getTipoUsuario() == "USUARIO")
-                $_SESSION['login_naoverificado'] = true;
+                if ($usuario->getStatus() == "NAOVERIFICADO" && $usuario->getTipoUsuario() == "USUARIO")
+                    $_SESSION['login_naoverificado'] = true;
 
                 header("location: " . HOME_PAGE);
                 exit;
@@ -98,6 +98,9 @@ class LoginController extends Controller
         $isEstudante = isset($_POST['isEstudante']) ? trim($_POST['isEstudante']) : NULL;
         $fotoPerfil = "/defaultPfp.png";
 
+        //echo $isEstudante;
+        //exit;
+
         //Cria objeto Usuario
         $usuario = new Usuario();
         $usuario->setNomeSobrenome($nomeSobrenome);
@@ -118,21 +121,18 @@ class LoginController extends Controller
             if ($nomeArquivo && $usuario->getIsEstudante() == "SIM") {
                 $usuario->setCompMatricula($nomeArquivo);
                 $usuario->setStatus(Status::NAOVERIFICADO);
-                $_SESSION['nomeUsuario'] = $usuario->getNomeUsuario();
-                $_SESSION['mensagem_sucesso'] = "Seja bem-vindo(a) ao IFShare, " . $_SESSION['nomeUsuario'] . ".<br> Realize o login para continuar.";
+            }
+            try {
+                $this->usuarioDao->insert($usuario);
+                $_SESSION['mensagem_sucesso'] = "Cadastro feito com sucesso! <br> Realize o login para continuar.";
+                //TODO - Enviar mensagem de sucesso
+                header("location: " . LOGIN_PAGE);
+                exit;
+            } catch (PDOException $e) {
+                //echo $e->getMessage();
+                $erros['banco'] = "Erro ao salvar o usuário na base de dados." . $e;
+            }
 
-                try {
-                    $this->usuarioDao->insert($usuario);
-
-                    //TODO - Enviar mensagem de sucesso
-                    header("location: " . LOGIN_PAGE);
-                    exit;
-                } catch (PDOException $e) {
-                    //echo $e->getMessage();
-                    $erros['banco'] = "Erro ao salvar o usuário na base de dados." . $e;
-                }
-            } else
-                $erros['compMatriculaError'] = "Escolha o comprovante de matrícula.";
         }
 
         if (empty($erros)) {
@@ -158,7 +158,6 @@ class LoginController extends Controller
         $dados["usuario"] = $usuario;
         $this->loadView("login/cadastro.php", $dados, $erros);
     }
-
 }
 
 

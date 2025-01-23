@@ -86,3 +86,7 @@ body.dark, html.dark{
 .dark.filter-box .selectFilter {
     background-color: #004f44;
 }
+
+.dark h3 {
+    color: white;
+}

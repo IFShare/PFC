@@ -36,9 +36,11 @@ require_once(__DIR__ . "/../include/header.php");
             <div class="col-md-4">
                 <div class="card mb-4" style="border: 1px solid #ddd; border-radius: 8px;">
                     <div class="card-body">
-                        <h5 class="card-title d-flex justify-content-center fw-bold">
-                            <img class="fotoPerfil" src="/PFC/arquivos/fotosPerfil/<?= $usu->getFotoPerfil(); ?>" alt="">
-                        </h5>
+                        <a href="/PFC/app/controller/UsuarioController.php?action=perfil&id=<?= $usu->getId() ?>">
+                            <h5 class="card-title d-flex justify-content-center fw-bold">
+                                <img class="fotoPerfil" src="/PFC/arquivos/fotosPerfil/<?= $usu->getFotoPerfil(); ?>" alt="Fotos do perfil">
+                            </h5>
+                        </a>
 
                         <h5 class="card-title text-center fw-bold"><?= $usu->getNomeUsuario(); ?></h5>
                         <p class="card-text">

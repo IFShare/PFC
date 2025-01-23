@@ -19,6 +19,12 @@ $isPostsList = (!isset($_GET['likedPosts'])) ? 'active' : '';
     require_once(__DIR__ . "/../include/menu.php");
     ?>
 
+    <div class="lightStatus">
+        <svg id="svgLight" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-lightbulb" viewBox="0 0 16 16">
+            <path d="M2 6a6 6 0 1 1 10.174 4.31c-.203.196-.359.4-.453.619l-.762 1.769A.5.5 0 0 1 10.5 13a.5.5 0 0 1 0 1 .5.5 0 0 1 0 1l-.224.447a1 1 0 0 1-.894.553H6.618a1 1 0 0 1-.894-.553L5.5 15a.5.5 0 0 1 0-1 .5.5 0 0 1 0-1 .5.5 0 0 1-.46-.302l-.761-1.77a2 2 0 0 0-.453-.618A5.98 5.98 0 0 1 2 6m6-5a5 5 0 0 0-3.479 8.592c.263.254.514.564.676.941L5.83 12h4.342l.632-1.467c.162-.377.413-.687.676-.941A5 5 0 0 0 8 1" />
+        </svg>
+    </div>
+
     <div class="settings dropdown">
         <i class="bi bi-gear" data-bs-toggle="dropdown" aria-expanded="false"></i>
 
@@ -29,7 +35,32 @@ $isPostsList = (!isset($_GET['likedPosts'])) ? 'active' : '';
         </ul>
     </div>
 
-    <div class=" infoUser">
+    <div class="infoUser position-relative">
+
+
+                    <div class="stats hidden stats-numberPosts text-center">
+                        <span>28 Postagens</span>
+                    </div>
+
+                    <div class="stats hidden stats-numberComents">
+                        <span>45 comentarios</span>
+                    </div>
+
+                    <div class="stats hidden stats-numberLikes">
+                        <span>48 Curtidas</span>
+                    </div>
+                    <script>
+                        document.querySelector('#svgLight').addEventListener('click', function() {
+                            stats = document.querySelectorAll('.stats');
+                            document.querySelector('.lightStatus').classList.toggle('active');
+
+                            stats.forEach(stat => {
+                                stat.classList.toggle('hidden');
+                            })
+                        });
+                    </script>
+
+
 
                     <div class="fotoPerfil">
                         <img
@@ -86,7 +117,9 @@ $isPostsList = (!isset($_GET['likedPosts'])) ? 'active' : '';
 
         <a class="curtidas <?= $isPostsList ?>" href="/PFC/app/controller/UsuarioController.php?action=perfil&id=<?= $dados['usuario']->getId(); ?>">
             <span>
-                Posts
+                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-view-list" viewBox="0 0 16 16">
+                    <path d="M3 4.5h10a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2m0 1a1 1 0 0 0-1 1v3a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1v-3a1 1 0 0 0-1-1zM1 2a.5.5 0 0 1 .5-.5h13a.5.5 0 0 1 0 1h-13A.5.5 0 0 1 1 2m0 12a.5.5 0 0 1 .5-.5h13a.5.5 0 0 1 0 1h-13A.5.5 0 0 1 1 14" />
+                </svg>
             </span>
 
         </a>
@@ -94,7 +127,9 @@ $isPostsList = (!isset($_GET['likedPosts'])) ? 'active' : '';
 
         <a class="curtidas <?= $isLikedPosts ?>" href="/PFC/app/controller/UsuarioController.php?action=perfil&id=<?= $dados['usuario']->getId(); ?>&likedPosts">
             <span>
-                Curtidas
+                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
+                    <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143q.09.083.176.171a3 3 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15" />
+                </svg>
             </span>
 
         </a>
@@ -108,13 +143,13 @@ $isPostsList = (!isset($_GET['likedPosts'])) ? 'active' : '';
     ?>
 
         <?php
-        if (empty($dados['postagens'])) {
+        if (empty($dados['likedPosts'])) {
             echo "<h3 class='text-center w-100 mt-3'>Nenhuma postagem curtida.</h3>";
         }
         ?>
 
         <div class="postsUser">
-            <section class="postagens">
+            <section class="postagens" id="postagens">
 
                 <?php foreach ($dados['likedPosts'] as $curtidas): ?>
                     <div class="post" id="post-<?php echo $curtidas['idPostagem'] ?>">
@@ -139,13 +174,9 @@ $isPostsList = (!isset($_GET['likedPosts'])) ? 'active' : '';
         <?php
         if (empty($dados['postagens'])) {
             echo "<h3 class='text-center w-100 mt-3'>Nenhuma postagem realizada.</h3>";
-        }
-        ?>
+        } else ?>
         <div class="postsUser">
 
-            <?php if ($dados['postagens'] == NULL) {
-                echo "<h4 class='mt-2 mb-2 textoSimples'>Nenhuma postagem encontrada!</h4>";
-            } else ?>
             <section class="postagens">
                 <?php foreach ($dados['postagens'] as $posts): ?>
                     <div class="post placeholder" id="post-<?php echo $posts->getId() ?>">

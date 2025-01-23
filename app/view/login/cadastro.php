@@ -23,7 +23,7 @@
         <div class="row h-100 d-flex justify-content-center align-items-center"> <!-- 100% da altura da tela -->
 
             <div class="col-md-6 p-0 d-flex flex-column justify-content-center align-items-center info-container">
-                <img class="mb-2" src="/PFC/app/assets/logo.png" alt="">
+                <img class="mb-2" src="/PFC/app/assets/logo.png" alt="Foto logo IFSHARE" class="logo">
 
                 <button type="submit" form="formUsuario" class="btn btn-custom">CRIAR CONTA</button>
                 <div>
@@ -153,8 +153,8 @@
 
 
                         <?php
-                        if (isset($msgErro['compMatriculaError'])) {
-                            echo "<h5 class='mb-2 label-invalid'>" . $msgErro['compMatriculaError'] . "</h5>";
+                        if (isset($msgErro['compMatricula'])) {
+                            echo "<h5 class='mb-2 label-invalid'>" . $msgErro['compMatricula'] . "</h5>";
                         }
                         ?>
                         <div class="form-group mb-3">

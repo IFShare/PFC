@@ -242,7 +242,7 @@ html {
     position: fixed;
     top: 2%;
     left: 1%;
-    background-color: #004f44;
+    background-color: none !important;
     color: white;
     border-radius: 30px;
     padding: 10px 20px;

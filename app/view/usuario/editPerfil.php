@@ -14,7 +14,7 @@ $usuario = $dados['usuario'];
     <div class="row h-100 d-flex justify-content-center align-items-center"> <!-- 100% da altura da tela -->
 
         <div class="col-md-6 p-0 d-flex flex-column justify-content-center align-items-center info-container">
-            <img class="logo" src="/PFC/app/assets/logo.png" alt="">
+            <img class="logo" src="/PFC/app/assets/logo.png" class="logo">
             <h2 class="h4">
                 <?php
                 if (isset($msgErro["banco"])) {
@@ -98,8 +98,7 @@ $usuario = $dados['usuario'];
                             class="form-control"
                             id="txtBio"
                             name="bio"
-                            value="<?php echo (isset($dados["usuario"]) ? $dados["usuario"]->getBio() : ''); ?>" />
-                        </textarea>
+                            ><?php echo (isset($dados["usuario"]) ? htmlspecialchars($dados["usuario"]->getBio()) : ''); ?></textarea>
                     </div>
 
                     <div class="form-group mt-3">

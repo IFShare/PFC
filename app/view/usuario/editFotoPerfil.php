@@ -15,7 +15,7 @@ $usuario = $dados['usuario'];
     <div class="row h-100 d-flex justify-content-center align-items-center"> <!-- 100% da altura da tela -->
 
         <div class="col-md-6 p-0 d-flex flex-column justify-content-center align-items-center info-container">
-            <img src="/PFC/app/assets/logo.png" alt="">
+            <img src="/PFC/app/assets/logo.png" class="logo">
             <h2 class="h4">
                 <?php
                 if (isset($msgErro["banco"])) {

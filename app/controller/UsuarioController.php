@@ -63,7 +63,8 @@ class UsuarioController extends Controller
         $this->loadView("usuario/list.php", $dados, []);
     }
 
-    protected function listPerfis() {
+    protected function listPerfis()
+    {
         $data = isset($_GET['search']) ? $_GET['search'] : NULL;
         $perfis = []; // Inicializa como array vazio
 
@@ -229,43 +230,62 @@ class UsuarioController extends Controller
 
         //Carregar os valores recebidos por POST de volta para o formulário
         $dados["usuario"] = $usuario;
+        $dados["senhaNova"] = $senhaNova;
+        $dados["confirmSenha"] = $confirmSenha;
 
         $this->loadView("usuario/editSenha.php", $dados, $erros);
     }
 
     protected function saveFotoPerfil()
     {
-        $id = isset($_POST['id']) ? $_POST['id'] : 0;
+        $id = isset($_GET['id']) ? $_GET['id'] : 0;
         $imagem = isset($_FILES['imagem']) ? $_FILES['imagem'] : null;
 
         $usuario = new Usuario();
-        //Validar os dados
-        $nomeArquivo = $this->fotoPerfilService->salvarArquivo($imagem);
-        if ($nomeArquivo) {
-            $usuario->setId($id);
-            $usuario->setFotoPerfil($nomeArquivo);
-        } else
-            $erros = array("Erro ao salvar o arquivo da postagem.");
+        $erros = [];
+
+        // Obter informações do usuário atual
+        $usuarioAtual = $this->usuarioDao->findById($id);
+
+        if (!$usuarioAtual) {
+            $erros[] = "Usuário não encontrado.";
+        }
+
+        // Validar e salvar a nova imagem
+        if (empty($erros)) {
+            $nomeArquivo = $this->fotoPerfilService->salvarArquivo($imagem);
+            if ($nomeArquivo) {
+                // Excluir a foto de perfil atual se existir
+                $fotoAtual = $usuarioAtual->getFotoPerfil();
+                if ($fotoAtual && file_exists("/PFC/arquivos/fotosPerfil/" . $fotoAtual)) {
+                    unlink("/PFC/arquivos/fotosPerfil/" . $fotoAtual);
+                }
+
+                // Atualizar informações do usuário
+                $usuario->setId($id);
+                $usuario->setFotoPerfil($nomeArquivo);
+            } else {
+                $erros[] = "Erro ao salvar o arquivo da postagem.";
+            }
+        }
 
         if (empty($erros)) {
-            //Persiste o objeto
+            // Persistir o objeto atualizado no banco de dados
             try {
                 $this->usuarioDao->updateFotoPerfil($usuario);
 
                 header("location: /PFC/app/controller/UsuarioController.php?action=perfil&id=" . $_SESSION[SESSAO_USUARIO_ID]);
                 exit;
             } catch (PDOException $e) {
-                echo $e->getMessage();
-                $erros = array("Erro ao salvar a postagem na base de dados." . $e);
+                $erros[] = "Erro ao salvar a postagem na base de dados: " . $e->getMessage();
             }
         }
-        //Se há erros, volta para o formulário
 
-        //Carregar os valores recebidos por POST de volta para o formulário
+        // Retornar para o formulário em caso de erro
         $dados["usuario"] = $usuario;
-
         $this->loadView("usuario/editFotoPerfil.php", $dados, $erros);
     }
+
 
     protected function savePerfil()
     {
@@ -389,7 +409,6 @@ class UsuarioController extends Controller
 
         $this->loadView("usuario/perfil.php", $dados, []);
     }
-
 }
 
 #Criar objeto da classe para assim executar o construtor

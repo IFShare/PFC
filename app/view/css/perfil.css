@@ -118,6 +118,9 @@ body {
     margin-bottom: 15px;
     border-radius: 15px;
     overflow: hidden;
+    animation: appear linear;
+    animation-timeline: view();
+    animation-range: entry 0% cover 25%;
 }
 
 .post.placeholder {
@@ -307,13 +310,13 @@ div.fotoPerfil:hover {
 
 .selectTypeList .posts,
 .selectTypeList .curtidas {
-    background-color: #333333; /* Fundo padrão */
+    background-color: #004f44; /* Fundo padrão */
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .selectTypeList .posts.active,
 .selectTypeList .curtidas.active {
-    background-color: #004f44; /* Fundo do ativo */
+    background-color: #81a880; /* Fundo do ativo */
     color: #ffffff; /* Cor do texto ativo */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     transform: scale(1.05);
@@ -326,7 +329,6 @@ div.fotoPerfil:hover {
 }
 
 .selectTypeList a:hover {
-    background-color: #555555; /* Fundo ao passar o mouse */
     transform: scale(1.05);
 }
 
@@ -336,4 +338,51 @@ div.fotoPerfil:hover {
 
 .selectTypeList a span:hover {
     color: #eeeeee; /* Cor do texto ao passar o mouse */
+}
+
+.lightStatus {
+    transform: rotate(180deg);
+    text-align: center;
+    color: white;
+    transition: all 0.5s ease-out;
+}
+
+.lightStatus.active {
+    color: #81a880;
+}
+
+.lightStatus svg {
+    height: 20px;
+    width: 20px;
+    cursor: pointer;
+}
+
+.stats {
+    position: absolute;
+    color: white;
+    font-size: 2.5rem;
+    box-shadow: 0 20px 15px #004f44;
+    padding: 5px 10px;
+    border-radius: 5px;
+    transition: all 0.5s ease-out;
+    opacity: 1;
+}
+
+.stats.hidden {
+    opacity: 0;
+}
+
+.stats-numberPosts {
+    left: 50px;
+    top: 150px;
+}
+
+.stats-numberComents {
+    left: 50px;
+    top: 260px;
+}
+
+.stats-numberLikes {
+    right: 50px;
+    top: 200px;
 }

@@ -26,18 +26,19 @@
             <i class="fs-4 bi bi-arrow-left-square"></i></a>
 
         <div class="form-content text-center">
+
+            <!-- Título "IFSHARE" centralizado -->
+            <img width="60%" src="/PFC/app/assets/logo.png" alt="Foto logo IFSHARE" class="logo">
+
             <?php
             // Exibe a mensagem de sucesso, se existir
             if (isset($_SESSION['mensagem_sucesso']) && isset($_SESSION['nomeUsuario'])) {
                 echo "<div class='alert alert-success'>" . $_SESSION['mensagem_sucesso'] . "</div>";
                 unset($_SESSION['mensagem_sucesso']); // Remove a mensagem da sessão para exibir apenas uma vez
+            } else {
+                echo "<h4 class='texto-login'>Informe os dados para logar:</h4>";
             }
             ?>
-            <!-- Título "IFSHARE" centralizado -->
-            <img width="60%" src="/PFC/app/assets/logo.png" alt="">
-
-            <!-- Texto do formulário centralizado -->
-            <h4 class="texto-login">Informe os dados para logar:</h4>
 
             <!-- Formulário de Login -->
             <form id="frmLogin" action="./LoginController.php?action=logon" method="POST" class="text-start">
@@ -81,9 +82,6 @@
             </form>
 
             <a href="<?= BASEURL ?>/controller/LoginController.php?action=createCadastro">Cadastrar-se</a>
-            <br>
-            <a href="<?= BASEURL ?>/controller/LoginController.php?action=sendEmail">Esqueceu sua senha?</a>
-
         </div>
     </div>
 

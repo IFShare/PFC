@@ -6,14 +6,14 @@ require_once(__DIR__ . "/../include/header.php");
 
 <div class="container-fluid form-container h-100">
     <a class="voltar"
-        href="/PFC/app/controller/UsuarioController.php?action=perfil&id=<?php echo $dados['usuario']->getId(); ?>">
+        href="/PFC/app/controller/UsuarioController.php?action=perfil&id=<?= $_SESSION[SESSAO_USUARIO_ID]?>">
         <i class="fs-4 bi bi-arrow-left-square"></i>
 
     </a>
     <div class="row h-100 d-flex justify-content-center align-items-center"> <!-- 100% da altura da tela -->
 
         <div class="col-md-6 p-0 d-flex flex-column justify-content-center align-items-center info-container">
-            <img src="/PFC/app/assets/logo.png" alt="">
+            <img src="/PFC/app/assets/logo.png" class="logo">
             <h2 class="h4">
                 <?php
                 if (isset($msgErro["banco"])) {
@@ -52,7 +52,7 @@ require_once(__DIR__ . "/../include/header.php");
                             type="password"
                             class="form-control"
                             id="txtSenhaAtual"
-                            name="senhaAtual"/>
+                            name="senhaAtual" />
                     </div>
 
                     <!-- Campo de nova senha -->
@@ -67,11 +67,12 @@ require_once(__DIR__ . "/../include/header.php");
                             ?>
                         </label>
                         <input
+                            value="<?php echo (isset($dados["senhaNova"]) ? $dados["senhaNova"] : ''); ?>"
                             placeholder="Insira sua nova senha."
                             type="password"
                             class="form-control"
                             id="txtSenhaNova"
-                            name="senhaNova"/>
+                            name="senhaNova" />
                     </div>
 
                     <!-- Campo de confirmação da nova senha -->
@@ -86,11 +87,12 @@ require_once(__DIR__ . "/../include/header.php");
                             ?>
                         </label>
                         <input
+                            value="<?php echo (isset($dados["confirmSenha"]) ? $dados["confirmSenha"] : ''); ?>"
                             placeholder="Confirme sua nova senha."
                             type="password"
                             class="form-control"
                             id="txtConfirmSenha"
-                            name="confirmSenha"/>
+                            name="confirmSenha" />
                     </div>
 
 

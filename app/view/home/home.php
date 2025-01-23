@@ -81,11 +81,6 @@ require_once(__DIR__ . "/../include/menu.php");
     else:
     ?>
 
-        <div class="msgHome d-flex">
-            <i class="fas fa-home"></i>
-            <h1 class="mb-0">Início</h1>
-        </div>
-
 
         <?php if (isset($_GET['search']) && !empty($_GET['search'])): ?>
             <section class="perfis">
@@ -94,14 +89,16 @@ require_once(__DIR__ . "/../include/menu.php");
                 } else ?>
                 <h5 id="foundPfp" class="textoSimples">Perfis encontrados:</h5>
                 <?php foreach ($dados['listPerfis'] as $perfil): ?>
-                    <div class="perfil d-flex">
-                        <img
-                            class="fotoPerfil" id="fotoPerfil"
-                            src="/PFC/arquivos/fotosPerfil/<?= $perfil->getFotoPerfil(); ?>"
-                            alt="Imagem do perfil">
-                        <span id="nomeUsuario"><?= $perfil->getNomeUsuario();
-                                                if ($perfil->getId() == $_SESSION[SESSAO_USUARIO_ID]) echo " (você)" ?> </span>
-                    </div>
+                    <a style="color: white;" class="text-decoration-none" href="/PFC/app/controller/UsuarioController.php?action=perfil&id=<?= $perfil->getId() ?>">
+                        <div class="perfil d-flex">
+                            <img
+                                class="fotoPerfil" id="fotoPerfil"
+                                src="/PFC/arquivos/fotosPerfil/<?= $perfil->getFotoPerfil(); ?>"
+                                alt="Imagem do perfil">
+                            <span id="nomeUsuario"><?= $perfil->getNomeUsuario();
+                                                    if ($perfil->getId() == $_SESSION[SESSAO_USUARIO_ID]) echo " (você)" ?> </span>
+                        </div>
+                    </a>
                 <?php endforeach; ?>
             </section>
 
@@ -118,12 +115,12 @@ require_once(__DIR__ . "/../include/menu.php");
         <?php foreach ($dados['listPosts'] as $posts): ?>
             <div class="post placeholder" id="post-<?php echo $posts->getId() ?>">
                 <a href="<?= BASEURL ?>/controller/PostagemController.php?action=viewPost&id=<?= $posts->getId() ?>">
-                <img
-                    loading="lazy"
-                    class="imgPost" id="imgPost"
-                    src="/PFC/arquivos/imgs/<?= $posts->getImagem(); ?>"
-                    alt="Imagem da postagem">
-                </a> 
+                    <img
+                        loading="lazy"
+                        class="imgPost" id="imgPost"
+                        src="/PFC/arquivos/imgs/<?= $posts->getImagem(); ?>"
+                        alt="Imagem da postagem">
+                </a>
             </div>
 
         <?php endforeach; ?>

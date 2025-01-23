@@ -26,9 +26,10 @@
     width: 60px;
 }
 
-.sidebar.closed .menu-item {
-    text-align: center;
-    width: 40px;
+.sidebar.closed .menu-item svg {
+    width: 20px;
+    height: 20px;
+    margin: 0;
 }
 
 .sidebar.closed .menu-item .item-sidebar {
@@ -46,11 +47,6 @@
     cursor: pointer;
     margin: 10px;
 }
-
-.menu-toggle i {
-    color: #333;
-}
-
 
 .brand {
     font-size: 30px;
@@ -92,15 +88,15 @@
     transform: scale(1.05);
 }
 
-.menu-item i {
-    font-size: 18px;
+.menu-item svg {
+    height: 20px;
     margin-right: 7px;
-    color: white;
+    fill: white;
     transition: color 0.3s;
 }
 
-.menu-item:hover i {
-    color: #004f44;
+.menu-item:hover svg {
+    fill: #004f44;
 }
 
 .menu-item.active{
@@ -109,8 +105,8 @@
     transform: scale(1.05);
 }
 
-.menu-item.active i{
-    color: #004f44;
+.menu-item.active svg{
+    fill: #004f44;
 }
 
 button {
@@ -121,12 +117,24 @@ button {
 .notif {
     position: absolute;
     top: 0;
-    font-size: 17px;
-    background-color: #004f44;
+    font-size: 12px;
+    background-color: white !important;
+    color: black;
 }
 
-#logout-item:hover a i {
-    color: red !important;
+#logout-item:hover a svg {
+    fill: red;
+}
+
+#theme-switch {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+}
+
+#theme-switch svg {
+    width: 30px;
+    height: 30px;
 }
 
 

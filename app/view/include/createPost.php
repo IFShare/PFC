@@ -94,9 +94,9 @@
     }
 
     .dark .btn-custom {
-        background: #81a880;
+        margin-top: 10px;
         color: white;
-        border: none;
+        border: 2px solid #004f44;
         border-radius: 30px;
         padding: 10px 20px;
         font-size: 16px;
@@ -124,7 +124,7 @@
                     <!-- Imagem -->
                     <div class="mb-2 preview">
                         <input hidden type="file" class="form-control" id="fileImg" name="imagem" accept="image/*" required>
-                        <img id="imgPreview" src="/PFC/app/assets/Clique.png" alt="Preview"">
+                        <img id="imgPreviewAddPost" src="/PFC/app/assets/addPost.png" alt="Preview">
                     </div>
 
                     <?php
