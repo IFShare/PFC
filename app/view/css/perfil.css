@@ -15,7 +15,7 @@ body {
     display: flex;
     flex-direction: column;
     padding: 10px;
-    transition: all .3s ease;
+    transition: all .5s ease-out;
 }
 
 #container.sidebar-open {
@@ -48,7 +48,7 @@ body {
 }
 
 .infoUser {
-    margin-top: 20px;
+    margin-top: 10px;
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -232,10 +232,9 @@ body {
     border-radius: 10px;
 }
 
-
 .fotoPerfil {
-    width: 300px;
-    height: 300px;
+    width: 235px;
+    height: 235px;
     margin: 0;
     border-radius: 50%;
     background: none;
@@ -245,8 +244,12 @@ body {
     justify-content: center;
     align-items: center;
     object-fit: cover;
-    box-shadow: 0 0 30px 5px #004f44;
     transition: all 0.3s;
+    box-shadow: 0 0 50px 2px #81a880;
+}
+
+.fotoPerfil.active {
+    box-shadow: 0 0 70px 50px #81a880;
 }
 
 div.fotoPerfil:hover {
@@ -260,27 +263,45 @@ div.fotoPerfil:hover {
 }
 
 .settings {
-    font-size: 2rem;
+    z-index: 101;
     position: absolute;
-    top:2%;
+    top:4%;
     right: 2%;
     color: white;
+    user-select: none;
+}
+
+.settings.active svg {
+    animation: roda-roda .9s ease-in-out;
+    animation-fill-mode: forwards;
+}
+
+@keyframes roda-roda {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
 }
 
 .settings:hover {
     color: #81a880;
 }
 
-.settings i {
+.settings svg {
+    width: 35px;
+    height: 35px;
     cursor: pointer;
 }
 
-.settins-menu {
+.settings-menu {
     padding: 0;
     background-color: #81a880;
 }
 
-.settins-menu li a {
+.settings-menu li a {
     color: white;
 }
 
@@ -302,10 +323,14 @@ div.fotoPerfil:hover {
 }
 
 .selectTypeList a span {
-    font-size: 1.4rem;
     color: #ffffff;
     text-decoration: none;
     transition: color 0.3s ease;
+}
+
+.selectTypeList a span svg {
+    width: 20px;
+    height: 20px;
 }
 
 .selectTypeList .posts,
@@ -345,10 +370,12 @@ div.fotoPerfil:hover {
     text-align: center;
     color: white;
     transition: all 0.5s ease-out;
+    z-index: 100;
+    user-select: none;
 }
 
-.lightStatus.active {
-    color: #81a880;
+#svgLight.active {
+    color: #004f44;
 }
 
 .lightStatus svg {
@@ -385,4 +412,41 @@ div.fotoPerfil:hover {
 .stats-numberLikes {
     right: 50px;
     top: 200px;
+}
+
+.totalPosts {
+    color: white;
+}
+
+.verificado {
+    font-size: 1.5rem;
+    color: white;
+    position: absolute;
+    top: -10px;
+    right: -22px;
+    cursor: default;
+    filter: brightness(200%);
+}
+
+.noPostYet {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    color: white;
+}
+
+.noPostYet svg {
+    width: 80px;
+    height: 80px;
+    color: white;
+    border: 2px solid white;
+    padding: 7px 17px;
+    border-radius: 50%;
+    margin-bottom: 7px;
+}
+
+.noPostYet svg:hover {
+    background: none;
+    color: white;
 }

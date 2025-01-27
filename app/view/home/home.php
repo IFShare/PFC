@@ -92,7 +92,7 @@ require_once(__DIR__ . "/../include/menu.php");
                     <a style="color: white;" class="text-decoration-none" href="/PFC/app/controller/UsuarioController.php?action=perfil&id=<?= $perfil->getId() ?>">
                         <div class="perfil d-flex">
                             <img
-                                class="fotoPerfil" id="fotoPerfil"
+                                class="fotoPerfilTop" id="fotoPerfil"
                                 src="/PFC/arquivos/fotosPerfil/<?= $perfil->getFotoPerfil(); ?>"
                                 alt="Imagem do perfil">
                             <span id="nomeUsuario"><?= $perfil->getNomeUsuario();
@@ -129,7 +129,9 @@ require_once(__DIR__ . "/../include/menu.php");
 
     <a href="#">
         <div class="arrow-up" id="arrowUp">
-            <i class="fa-solid fa-arrow-up"></i>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.-->
+                <path d="M214.6 41.4c-12.5-12.5-32.8-12.5-45.3 0l-160 160c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L160 141.2 160 448c0 17.7 14.3 32 32 32s32-14.3 32-32l0-306.7L329.4 246.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3l-160-160z" />
+            </svg>
         </div>
     </a>
 

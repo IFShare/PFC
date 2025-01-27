@@ -94,15 +94,14 @@ $usuario = $dados['usuario'];
                             ?>
                         </label>
                         <textarea
-                            placeholder="Insira uma biografia para o seu perfil." onfocus="this.placeholder=''" ; onblur="this.placeholder='Insira uma biografia para o seu perfil.'" ;
+                            placeholder="Insira uma biografia para o seu perfil." 
+                            onfocus="this.placeholder=''"; 
+                            onblur="this.placeholder='Insira uma biografia para o seu perfil.'";
                             class="form-control"
                             id="txtBio"
-                            name="bio"
-                            ><?php echo (isset($dados["usuario"]) ? htmlspecialchars($dados["usuario"]->getBio()) : ''); ?></textarea>
-                    </div>
-
-                    <div class="form-group mt-3">
-                        <a href="/PFC/app/controller/UsuarioController.php?action=editSenha&id=<?= $dados["usuario"]->getid() ?>" class="btn-senha">Alterar senha</a>
+                            name="bio">
+                            <?php echo (isset($dados["usuario"]) ? htmlspecialchars($dados["usuario"]->getBio()) : ''); ?>
+                        </textarea>
                     </div>
 
                     <input type="hidden" id="hddId" name="id" value="<?= $usuario->getId(); ?>" />

@@ -63,7 +63,7 @@ $isOldestPostsSelected = (isset($_GET['search']) && $_GET['search'] === 'OLDESTP
 
             <input
                 value="<?php
-                        if ($dados['dadoPesquisa'] == "OLDESTPOSTS" || "MOSTLIKEDPOSTS")
+                        if ($dados['dadoPesquisa'] == "OLDESTPOSTS" || $dados['dadoPesquisa'] == "MOSTLIKEDPOSTS")
                             echo "";
                         else echo $dados['dadoPesquisa'] ?>"
                 id="pesquisar"
@@ -83,7 +83,7 @@ $isOldestPostsSelected = (isset($_GET['search']) && $_GET['search'] === 'OLDESTP
             <a href="/PFC/app/controller/UsuarioController.php?action=perfil&id=<?= $usuarioLogado->getId() ?>">
                 <img
                     style="cursor: pointer;"
-                    class="fotoPerfil"
+                    class="fotoPerfilTop"
                     id="fotoPerfil"
                     src="<?php echo $usuarioLogado->getFotoPerfil() != null
                                 ? "/PFC/arquivos/fotosPerfil/" . $usuarioLogado->getFotoPerfil()

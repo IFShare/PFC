@@ -11,7 +11,7 @@ require_once(__DIR__ . "/../include/header.php");
 
 <h3 class="text-center">Listagem de Usuários</h3>
 
-<div class="container-list position-relative" id="container">
+<div class="container-list position-relative sidebar-open" id="container">
 
 
     <?php
@@ -33,9 +33,9 @@ require_once(__DIR__ . "/../include/header.php");
         }
         ?>
         <?php foreach ($dados['lista'] as $usu): ?>
-            <div class="col-md-4">
-                <div class="card mb-4" style="border: 1px solid #ddd; border-radius: 8px;">
-                    <div class="card-body">
+            <div class="col-md-4 coluna mb-4">
+                <div class="card" style="border-radius: 8px;">
+                    <div class="card-body position-relative">
                         <a href="/PFC/app/controller/UsuarioController.php?action=perfil&id=<?= $usu->getId() ?>">
                             <h5 class="card-title d-flex justify-content-center fw-bold">
                                 <img class="fotoPerfil" src="/PFC/arquivos/fotosPerfil/<?= $usu->getFotoPerfil(); ?>" alt="Fotos do perfil">
@@ -47,7 +47,8 @@ require_once(__DIR__ . "/../include/header.php");
                             <strong>ID:</strong> <?= $usu->getId(); ?><br>
                             <strong>Nome completo:</strong> <?= $usu->getNomeSobrenome(); ?><br>
                             <strong>Email:</strong> <?= $usu->getEmail(); ?><br>
-                            <strong>Tipo de usuário:</strong>
+                            <strong>Data de cadastro:</strong> 
+                            <?= date('d/m/y', strtotime($usu->getDataCriacao())); ?><br>                            <strong>Tipo de usuário:</strong>
                             <span <?= $usu->getTipoUsuario() === "ADM" ? "style= 'color: purple; font-weight: bold;" : ($usu->getTipoUsuario() === "ESTUDANTE" ? "style = 'color: green; font-weight: bold;" : ""); ?>'>
                                 <?= $usu->getTipoUsuario(); ?>
 

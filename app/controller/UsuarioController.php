@@ -91,7 +91,6 @@ class UsuarioController extends Controller
         $email = isset($_POST['email']) ? trim($_POST['email']) : NULL;
         $senha = isset($_POST['senha']) ? trim($_POST['senha']) : NULL;
         $tipoUsuario = isset($_POST['tipoUsuario']) ? $_POST['tipoUsuario'] : NULL;
-        $dataCriacao = ($dados["id"] == 0) ? date('Y-m-d') : NULL;  // Captura a data de criação apenas para novos registros
         $isEstudante = isset($_POST['isEstudante']) ? trim($_POST['isEstudante']) : NULL;
         $status = isset($_POST['status']) ? trim($_POST['status']) : NULL;
         $data = isset($_GET['search']) ? $_GET['search'] : NULL;
@@ -108,7 +107,6 @@ class UsuarioController extends Controller
         $usuario->setFotoPerfil($fotoPerfil);
         $usuario->setBio(null);
         $usuario->setTipoUsuario($tipoUsuario);
-        $usuario->setDataCriacao($dataCriacao);
         $usuario->setIsEstudante($isEstudante);
         $usuario->setStatus($status);
 
@@ -175,18 +173,6 @@ class UsuarioController extends Controller
         }
     }
 
-    protected function editFotoPerfil()
-    {
-        $usuario = $this->findUsuarioById();
-        if ($usuario) {
-            //Setar os dados
-            $dados["id"] = $usuario->getId();
-            $dados["usuario"] = $usuario;
-
-            $this->loadView("usuario/editFotoPerfil.php", $dados, []);
-        }
-    }
-
     protected function editSenha()
     {
         $usuario = $this->findUsuarioById();
@@ -238,54 +224,51 @@ class UsuarioController extends Controller
 
     protected function saveFotoPerfil()
     {
-        $id = isset($_GET['id']) ? $_GET['id'] : 0;
+        $id = $_SESSION[SESSAO_USUARIO_ID];
         $imagem = isset($_FILES['imagem']) ? $_FILES['imagem'] : null;
 
         $usuario = new Usuario();
-        $erros = [];
 
-        // Obter informações do usuário atual
+        // Buscar o usuário atual e obter a foto de perfil existente
         $usuarioAtual = $this->usuarioDao->findById($id);
+        $fotoPerfilAtual = $usuarioAtual ? $usuarioAtual->getFotoPerfil() : null;
 
-        if (!$usuarioAtual) {
-            $erros[] = "Usuário não encontrado.";
-        }
 
-        // Validar e salvar a nova imagem
+        //Validar os dados
+        $nomeArquivo = $this->fotoPerfilService->salvarArquivo($imagem);
+        if ($nomeArquivo) {
+            $usuario->setId($id);
+            $usuario->setFotoPerfil($nomeArquivo);
+        } else
+            $erros = array("Erro ao salvar o arquivo da postagem.");
+
         if (empty($erros)) {
-            $nomeArquivo = $this->fotoPerfilService->salvarArquivo($imagem);
-            if ($nomeArquivo) {
-                // Excluir a foto de perfil atual se existir
-                $fotoAtual = $usuarioAtual->getFotoPerfil();
-                if ($fotoAtual && file_exists("/PFC/arquivos/fotosPerfil/" . $fotoAtual)) {
-                    unlink("/PFC/arquivos/fotosPerfil/" . $fotoAtual);
+            //Persiste o objeto
+            try {
+                if ($fotoPerfilAtual && $fotoPerfilAtual !== "/defaultPfp.png") {
+                    $caminhoCompleto =  $_SERVER['DOCUMENT_ROOT'] . "/PFC/arquivos/fotosPerfil/" . $fotoPerfilAtual;
+                    if (file_exists($caminhoCompleto)) {
+                        unlink($caminhoCompleto);
+                    }
                 }
 
-                // Atualizar informações do usuário
-                $usuario->setId($id);
-                $usuario->setFotoPerfil($nomeArquivo);
-            } else {
-                $erros[] = "Erro ao salvar o arquivo da postagem.";
-            }
-        }
-
-        if (empty($erros)) {
-            // Persistir o objeto atualizado no banco de dados
-            try {
+                // Atualizar o banco de dados com a nova foto
                 $this->usuarioDao->updateFotoPerfil($usuario);
 
+                // Redirecionar para o perfil
                 header("location: /PFC/app/controller/UsuarioController.php?action=perfil&id=" . $_SESSION[SESSAO_USUARIO_ID]);
                 exit;
             } catch (PDOException $e) {
-                $erros[] = "Erro ao salvar a postagem na base de dados: " . $e->getMessage();
+                $erros = array("Erro ao salvar a postagem na base de dados: " . $e->getMessage());
             }
         }
+        //Se há erros, volta para o formulário
 
-        // Retornar para o formulário em caso de erro
+        //Carregar os valores recebidos por POST de volta para o formulário
         $dados["usuario"] = $usuario;
+
         $this->loadView("usuario/editFotoPerfil.php", $dados, $erros);
     }
-
 
     protected function savePerfil()
     {
@@ -358,10 +341,6 @@ class UsuarioController extends Controller
     //Método para excluir
     protected function delete()
     {
-        if (! $this->usuarioIsAdmin()) {
-            header("location: " . ACESSO_NEGADO);
-            exit;
-        }
 
         if (! $this->usuarioIsAdminStudent()) {
             header("location: " . ACESSO_NEGADO);
@@ -372,7 +351,7 @@ class UsuarioController extends Controller
         if ($usuario) {
             //Excluir
             $this->usuarioDao->deleteById($usuario->getId());
-            $this->list("", "Usuário excluído com sucesso!");
+            header("location: UsuarioController.php?action=list");
         } else {
             //Mensagem q não encontrou o usuário
             $this->list("Usuário não encontrado!");
@@ -382,7 +361,6 @@ class UsuarioController extends Controller
     //Método para buscar o usuário com base no ID recebido por parâmetro GET
     private function findUsuarioById()
     {
-
         $id = 0;
         if (isset($_GET['id']))
             $id = $_GET['id'];
@@ -399,10 +377,14 @@ class UsuarioController extends Controller
         }
 
         $postagens = $this->postDao->listPostByUserId($id);
+        $totalPostagens = $this->usuarioDao->countPostsByUserId($id);
+        $totalCurtidas = $this->usuarioDao->countLikesByUserId($id);
         $usuario = $this->usuarioDao->findById($id);
         $likedPosts = $this->usuarioDao->likedPosts($id);
 
         $dados['postagens'] = $postagens;
+        $dados['totalPostagens'] = $totalPostagens;
+        $dados['totalCurtidas'] = $totalCurtidas;
         $dados['usuario'] = $usuario;
         $dados['likedPosts'] = $likedPosts;
 

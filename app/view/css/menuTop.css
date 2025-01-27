@@ -3,7 +3,7 @@
     position: fixed;
     top: 0;
     left: 0;
-    z-index: 1;
+    z-index: 2;
     background: linear-gradient(90deg, #81a880, #004f44);
     width: 100%;
     user-select: none;
@@ -27,17 +27,6 @@
 .sidebar-open .topBar {
     width: 100%;
 }
-
-.fotoPerfil:hover {
-    box-shadow: 0 0 10px 5px #81a880;
-}
-
-.fotoPerfil img {
-    text-align: center;
-    width: 100%;
-    border-radius: 50%;
-}
-
 
 
 .box-search {
@@ -89,7 +78,19 @@
     background-color: #81a880;
 }
 
-.fotoPerfil {
+
+.fotoPerfilTop:hover {
+    box-shadow: 0 0 10px 5px #81a880;
+}
+
+.fotoPerfilTop img {
+    text-align: center;
+    width: 100%;
+    border-radius: 50%;
+}
+
+
+.fotoPerfilTop {
     width: 50px;
     height: 50px;
     border-radius: 50%;

@@ -45,8 +45,15 @@ class UsuarioService
         elseif ($usuario->getId() == 0 && strlen($usuario->getSenha()) < 5)
             $erros['senha'] = "A senha precisa ter pelo menos 5 caracteres";
 
-        if (strlen($usuario->getBio()) > 45)
+        if (strlen($usuario->getBio()) > 300) {
             $erros['bio'] = "Biografia muito grande";
+        }
+        $linhas = substr_count($usuario->getBio(), "<br>");
+        echo "<h1>" . $linhas . "</h1>";
+        if ($linhas > 2) {
+            echo "<h1>" . $linhas . "</h1>";
+            $erros['bio'] = "Biografia com muita quebra de linha";
+        }
 
         if (! $usuario->getTipoUsuario())
             $erros['tipoUsuario'] = "Escolha o tipo de usuário";

@@ -40,7 +40,7 @@ class PostagemController extends Controller
 
         $data = isset($_GET['search']) ? $_GET['search'] : NULL;
 
-        $perfis = [];   
+        $perfis = [];
 
         if (!empty($data)) {
             $postagens = $this->postDao->searchPost($data);
@@ -142,9 +142,18 @@ class PostagemController extends Controller
 
         //Carregar os valores recebidos por POST de volta para o formulário
         $dados["post"] = $post;
-        exit;
 
-        $this->loadView("include/createPost.php", $dados, $erros);
+        // Verificar a action na URL
+        $action = isset($_GET['action']) ? $_GET['action'] : null;
+
+        // Determinar a view com base na action
+        $view = '';
+        if ($action == 'home') {
+            $view = "home/home.php";
+        }
+
+        // Carregar a view
+        $this->loadView($view, $dados, $erros);
     }
 
 

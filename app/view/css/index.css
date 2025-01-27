@@ -51,23 +51,14 @@ body {
     border-radius: 30px;
     padding: 15px;
     transition: all 0.4s;
-    background-size: 200% 200%;
+    background-size: 200%;
+    background-position: 1%;
+    transition: all 0.7s ease-out;
 }
 
-@keyframes bg-btn{
-    0% {
-        background-position: 0 50%;
-    }
-
-    100% {
-        background-position: 200% 50%;
-    }
-
-}
 
 .btn-log:hover {
-    animation: bg-btn 1s ease;
-    animation-fill-mode: forwards;
+    background-position: 90%;
 }
 
 

@@ -41,7 +41,7 @@ require_once(__DIR__ . "/../include/header.php");
                     <!-- h2 class="mb-4 text-center">Cadastro</h2> -->
 
                     <form method="POST" id="formUsuario"
-                        action="<?= BASEURL ?>/controller/UsuarioController.php?action=save&search=<?php echo $dados['data']; ?>">
+                        action="<?= BASEURL ?>/controller/UsuarioController.php?action=save">
                         <!-- Nome e sobrenome -->
                         <div class="form-group mb-3">
                             <label for="txtNomeSobrenome" class="form-label">

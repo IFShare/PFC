@@ -1,50 +1,48 @@
 <style>
-    .btn-custom {
+    .btn-post-custom {
         background: none;
         color: black;
-        border: 3px solid #004f44;
+        border: 3px solid #1a5f53;
         border-radius: 30px;
         padding: 10px 20px;
         font-size: 16px;
         font-weight: bold;
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         transition: background-color 0.3s, transform 0.3s;
-
     }
 
-    .btn-custom:hover {
+    .btn-post-custom:hover {
         color: white;
-        background-color: #004f44;
+        background-color: #1a5f53;
         transform: scale(1.05);
     }
 
-    .modal-header {
+    .post-modal-header {
         padding-bottom: 0;
         border: none;
     }
 
-    .modal-body {
+    .post-modal-body {
         border-radius: 20px;
-        box-shadow: 0px 0px 30px #004f44;
+        box-shadow: 0px 0px 30px #1a5f53;
     }
 
-    .modal-content {
+    .post-modal-content {
         transition: all 0.4s;
         border-radius: 25px;
     }
 
-    #postModal {
-        backdrop-filter: blur(5px);
+    #postModalNew {
+        backdrop-filter: blur(10px);
     }
 
-    #labelLegenda {
+    #labelLegendaNew {
         color: black;
     }
 
-    /* Estilo específico do campo de edição onde o texto é inserido */
-    #txtLegenda {
+    #txtLegendaNew {
         color: black;
-        border: 3px solid #004f44;
+        border: 3px solid #1a5f53;
         border-radius: 10px;
         resize: none;
         outline: none;
@@ -54,94 +52,125 @@
         font-weight: bold;
     }
 
-    #txtLegenda:focus {
+    #txtLegendaNew:focus {
         box-shadow: none;
         border: 3px solid #81a880;
     }
 
-    .preview {
+    .post-preview {
         cursor: pointer;
         border-radius: 15px;
-        border: 4px solid #004f44;
+        border: 4px solid #1a5f53;
         transition: all 0.3s;
     }
 
-    .preview:hover {
+    .post-preview:hover {
         border: 4px solid #81a880;
     }
 
-    #imgPreview {
+    #imgPreviewAddPost {
         width: 100%;
         border-radius: 10px;
     }
 
-    #imgPreview:hover {
+    #imgPreviewAddPost:hover {
         width: 100%;
         border-radius: 10px;
     }
 
-    .dark .modal-body {
-        background-color: #002923;
+    .dark .post-modal-body {
+        background-color: #0b362e;
     }
 
-    .dark #txtLegenda {
+    .dark #txtLegendaNew {
         color: white;
         background: none;
     }
 
-    .dark #labelLegenda {
+    .dark #labelLegendaNew {
         color: white;
     }
 
-    .dark .btn-custom {
+    .dark .btn-post-custom {
         margin-top: 10px;
         color: white;
-        border: 2px solid #004f44;
+        border: 2px solid #1a5f53;
         border-radius: 30px;
         padding: 10px 20px;
         font-size: 16px;
         font-weight: bold;
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         transition: background-color 0.3s, transform 0.3s;
-
     }
 
-    .dark .btn-custom:hover {
+    .dark .btn-post-custom:hover {
         transform: scale(1.05);
     }
 </style>
 
 
+
 <!-- Modal de Inserção de Postagem -->
-<div class="modal fade" id="postModal" tabindex="-1" aria-labelledby="postModalLabel" aria-hidden="true">
+<div class="modal fade" id="postModalNew" tabindex="-1" aria-labelledby="postModalLabelNew" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-body">
+        <div class="modal-content post-modal-content">
+            <div class="modal-body post-modal-body">
                 <form
-                    id="formPost"
+                    id="formPostNew"
                     enctype="multipart/form-data" method="post"
                     action="<?= BASEURL ?>/controller/PostagemController.php?action=save">
+
                     <!-- Imagem -->
-                    <div class="mb-2 preview">
-                        <input hidden type="file" class="form-control" id="fileImg" name="imagem" accept="image/*" required>
+                    <div class="mb-2 post-preview">
+                        <input hidden type="file" class="form-control" id="fileImgNew" name="imagem" accept="image/*">
                         <img id="imgPreviewAddPost" src="/PFC/app/assets/addPost.png" alt="Preview">
                     </div>
 
-                    <?php
-                        if(isset($erros['imagem'])) {
-                            echo $erros['imagem'];
-                        }
-                    ?>
 
                     <!-- Legenda -->
-                    <div class=" mb-1">
-                        <label id="labelLegenda" for="txtLegenda" class="mb-1">Legenda</label>
-                        <textarea class="form-control" id="txtLegenda" name="legenda" rows="4"></textarea>
+                    <div class="mb-1">
+                        <label id="labelLegendaNew" for="txtLegendaNew" class="mb-1">
+                            <?php
+                                if(isset($erros['legenda'])) {
+                                    echo $erros['legenda'];
+                                }
+                            ?>    
+                        Legenda</label>
+                        <textarea class="form-control" id="txtLegendaNew" name="legenda" rows="4"></textarea>
                     </div>
 
-                    <button type="submit" class="btn btn-custom">Publicar</button>
+                    <button type="submit" class="btn btn-post-custom">Publicar</button>
                 </form>
             </div>
         </div>
     </div>
 </div>
+
+
+<script>
+    const file =
+        document.querySelector('#fileImgNew');
+
+    const img =
+        document.querySelector('#imgPreviewAddPost');
+    img.addEventListener("click", function() {
+        file.click();
+    });
+
+    file.addEventListener("change", function(e) {
+
+        if (file.files.length <= 0) {
+            return;
+        }
+
+        let reader = new FileReader();
+
+        reader.onload = function() {
+            img.src = reader.result;
+            console.log(reader.result);
+        }
+
+        reader.readAsDataURL(file.files[0]);
+
+    })
+</script>

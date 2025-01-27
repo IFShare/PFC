@@ -19,7 +19,7 @@ require_once(__DIR__ . "/../include/header.php");
                 if (isset($msgErro["banco"])) {
                     echo "<p class='mb-0 fw-bold label-invalid'>" . $msgErro["banco"] . "</p>";
                 } else {
-                    echo "Editar perfil";
+                    echo "Editar senha";
                 }
                 ?>
             </h2>

@@ -297,17 +297,18 @@ class UsuarioDAO
         $stmt = $conn->prepare($sql);
         $stmt->bindParam(':id', $id);
         $stmt->execute();
-        $result = $stmt->fetch(PDO::FETCH_ASSOC); 
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
         return $result['senha'] ?? null;
     }
 
-     //Método para atualizar um Usuario
-     public function updateSenha(Usuario $usuario) {
+    //Método para atualizar um Usuario
+    public function updateSenha(Usuario $usuario)
+    {
         $conn = Connection::getConnection();
 
-        $sql = "UPDATE usuario SET senha = :senha" .   
-               " WHERE id = :id";
-        
+        $sql = "UPDATE usuario SET senha = :senha" .
+            " WHERE id = :id";
+
         $stm = $conn->prepare($sql);
         $senhaCript = password_hash($usuario->getSenha(), PASSWORD_DEFAULT);
         $stm->bindValue("senha", $senhaCript);
@@ -315,7 +316,8 @@ class UsuarioDAO
         $stm->execute();
     }
 
-    public function likedPosts($idUsuario) {
+    public function likedPosts($idUsuario)
+    {
         $conn = Connection::getConnection();
 
         $sql = "SELECT curtida.*, postagem.imagem
@@ -329,6 +331,37 @@ class UsuarioDAO
 
         return $result;
     }
+
+    public function countPostsByUserId($id)
+    {
+        $conn = Connection::getConnection();
+
+        $sql = "SELECT COUNT(*) AS total
+        FROM postagem WHERE postagem.idUsuario = :id";
+        $stm = $conn->prepare($sql);
+        $stm->bindValue(':id', "$id");
+        $stm->execute();
+        $result = $stm->fetchAll();
+
+        return $result[0]["total"];
+    }
+
+    public function countLikesByUserId($id)
+    {
+        $conn = Connection::getConnection();
+
+        $sql = "SELECT COUNT(c.id) AS total
+        FROM curtida c
+        INNER JOIN postagem p ON c.idPostagem = p.id
+        WHERE p.idUsuario = :id";
+
+        $stm = $conn->prepare($sql);
+        $stm->bindValue(':id', $id);
+        $stm->execute();
+        $result = $stm->fetchAll();
+        return $result[0]["total"];
+    }
+
 
     ####################################################################################
 
@@ -351,6 +384,7 @@ class UsuarioDAO
             $usuario->setCompMatricula($reg['compMatricula']);
             $usuario->setStatus($reg['status']);
             $usuario->setIsEstudante($reg['isEstudante']);
+
             array_push($usuarios, $usuario);
         }
 

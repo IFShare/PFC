@@ -10,7 +10,7 @@ require_once(__DIR__ . "/../include/header.php");
 
 <h3 class="text-center">Listagem de denuncias</h3>
 
-<div class="container-list position-relative" id="container">
+<div class="container-list position-relative sidebar-open" id="container">
 
 
     <?php

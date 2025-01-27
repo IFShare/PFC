@@ -2,12 +2,8 @@ const file = document.querySelector('#fileImg');
 const img = document.querySelector('#imgPreview');
 const preview = document.querySelector('.preview');
 
-preview.addEventListener("click", function() {
-    file.click();
-});
-
 file.addEventListener("change", function(e) {
-    if(file.files.length <= 0) { // Corrigido "length"
+    if(file.files.length <= 0) { 
         return;
     }
 

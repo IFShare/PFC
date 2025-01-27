@@ -56,10 +56,6 @@ require_once(__DIR__ . "/../include/header.php");
 
 }
 
-.btn-custom:hover {
-    background-color: #81a880;
-    transform: scale(1.05);
-}
 </style>
 
 <div class="container">

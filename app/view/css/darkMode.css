@@ -15,6 +15,7 @@
     width: 40px;
     height: 40px;
     cursor: pointer;
+    transition: all 0.3s ease-out;
 }
 
 #theme-switch svg#light {
@@ -89,4 +90,16 @@ body.dark, html.dark{
 
 .dark h3 {
     color: white;
+}
+
+.dark .fotoPerfil {
+    box-shadow: 0 0 50px 2px #004f44;
+}
+
+.dark .fotoPerfil.active {
+    box-shadow: 0 0 70px 50px #004f44;
+}
+
+.dark #svgLight.active {
+    color: #81a880;
 }
