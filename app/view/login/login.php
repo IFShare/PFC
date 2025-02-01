@@ -12,7 +12,6 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=verified" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=send" />
     <link rel="shortcut icon" href="/PFC/app/assets/logo.png" type="image/x-icon">
-    <link rel="stylesheet" href="/PFC/app/view/css/index.css">
 </head>
 
 <body>
@@ -76,6 +75,9 @@
 
                 if (isset($msgErro['ambos']))
                     echo $msgErro['ambos'];
+
+                if(isset($msgErro['status']))
+                        echo $msgErro['status'];
                 ?>
 
                 <button type="submit" class="btn btn-custom w-100">Logar</button>

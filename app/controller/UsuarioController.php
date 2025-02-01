@@ -256,7 +256,7 @@ class UsuarioController extends Controller
                 $this->usuarioDao->updateFotoPerfil($usuario);
 
                 // Redirecionar para o perfil
-                header("location: /PFC/app/controller/UsuarioController.php?action=perfil&id=" . $_SESSION[SESSAO_USUARIO_ID]);
+                header("location: /PFC/app/controller/UsuarioController.php?action=perfilUsuario");
                 exit;
             } catch (PDOException $e) {
                 $erros = array("Erro ao salvar a postagem na base de dados: " . $e->getMessage());
@@ -267,7 +267,7 @@ class UsuarioController extends Controller
         //Carregar os valores recebidos por POST de volta para o formulário
         $dados["usuario"] = $usuario;
 
-        $this->loadView("usuario/editFotoPerfil.php", $dados, $erros);
+        header("location: /PFC/app/controller/UsuarioController.php?action=perfilUsuario");
     }
 
     protected function savePerfil()
@@ -276,7 +276,7 @@ class UsuarioController extends Controller
         $dados["id"] = isset($_POST['id']) ? $_POST['id'] : 0;
         $nomeSobrenome = isset($_POST['nomeSobrenome']) ? trim($_POST['nomeSobrenome']) : NULL;
         $nomeUsuario = isset($_POST['nomeUsuario']) ? trim($_POST['nomeUsuario']) : NULL;
-        $bio = trim(nl2br($_POST['bio'])) ? trim(nl2br($_POST['bio'])) : NULL;
+        $bio = trim($_POST['bio']) ? trim($_POST['bio']) : NULL;
         $usuario = new Usuario();
 
         $usuario->setId($dados["id"]);
@@ -375,6 +375,26 @@ class UsuarioController extends Controller
         if (isset($_GET['id'])) {
             $id = $_GET['id'];
         }
+
+        $postagens = $this->postDao->listPostByUserId($id);
+        $totalPostagens = $this->usuarioDao->countPostsByUserId($id);
+        $totalCurtidas = $this->usuarioDao->countLikesByUserId($id);
+        $usuario = $this->usuarioDao->findById($id);
+        $likedPosts = $this->usuarioDao->likedPosts($id);
+
+        $dados['postagens'] = $postagens;
+        $dados['totalPostagens'] = $totalPostagens;
+        $dados['totalCurtidas'] = $totalCurtidas;
+        $dados['usuario'] = $usuario;
+        $dados['likedPosts'] = $likedPosts;
+
+
+        $this->loadView("usuario/perfil.php", $dados, []);
+    }
+
+    protected function perfilUsuario()
+    {
+        $id = $_SESSION[SESSAO_USUARIO_ID];
 
         $postagens = $this->postDao->listPostByUserId($id);
         $totalPostagens = $this->usuarioDao->countPostsByUserId($id);

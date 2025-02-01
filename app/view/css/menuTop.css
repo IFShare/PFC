@@ -4,7 +4,10 @@
     top: 0;
     left: 0;
     z-index: 2;
-    background: linear-gradient(90deg, #81a880, #004f44);
+    background: linear-gradient(90deg, #81a880, #004f44, #002923, #002923);
+    background-size: 300%;
+    background-position: 0%;
+    transition: all 1.4s ease-out;    
     width: 100%;
     user-select: none;
 }
@@ -94,7 +97,6 @@
     width: 50px;
     height: 50px;
     border-radius: 50%;
-    border: 2px solid white;
     background-color: rgb(172, 172, 172) !important;
     cursor: pointer;
     overflow: hidden;
@@ -144,6 +146,10 @@
     transform: scale(1.05); /* Efeito de leve aumento */
 }
 
+.btn-search:active {
+    background-color: #004f44;
+}
+
 .voltar {
     display: flex;
     align-items: center;
@@ -167,10 +173,28 @@
 
 @media screen and (max-width: 768px) {
 
-    .box-search {
-        width: 75%;
-        margin: 0; /* Centraliza o campo na página */
+    .boxTopBar {
+        margin-left: 0;
+        padding: 0 10px;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
         position: relative;
+        transition: all .5s ease-out;
+    }
+
+    .box-search {
+        width: 50%;
+        margin: 0 0 0 auto; 
+        position: relative;
+        display: flex;
+    }
+
+    .leftElements {
+        width: 50%;
+        margin-right: 0;
+        position: absolute;
+        left: 0;
     }
     
     #pesquisar {
@@ -213,5 +237,8 @@
         transform: scale(1.05); /* Efeito de leve aumento */
     }
     
+    .fotoPerfilTop {
+        display: none;
+    }
 
 }

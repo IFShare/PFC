@@ -45,10 +45,10 @@ require_once(__DIR__ . "/../include/header.php");
                         <h5 class="card-title text-center fw-bold"><?= $usu->getNomeUsuario(); ?></h5>
                         <p class="card-text">
                             <strong>ID:</strong> <?= $usu->getId(); ?><br>
-                            <strong>Nome completo:</strong> <?= $usu->getNomeSobrenome(); ?><br>
+                            <strong>Nome e sobrenome:</strong> <?= $usu->getNomeSobrenome(); ?><br>
                             <strong>Email:</strong> <?= $usu->getEmail(); ?><br>
-                            <strong>Data de cadastro:</strong> 
-                            <?= date('d/m/y', strtotime($usu->getDataCriacao())); ?><br>                            <strong>Tipo de usuário:</strong>
+                            <strong>Data de cadastro:</strong>
+                            <?= date('d/m/y', strtotime($usu->getDataCriacao())); ?><br> <strong>Tipo de usuário:</strong>
                             <span <?= $usu->getTipoUsuario() === "ADM" ? "style= 'color: purple; font-weight: bold;" : ($usu->getTipoUsuario() === "ESTUDANTE" ? "style = 'color: green; font-weight: bold;" : ""); ?>'>
                                 <?= $usu->getTipoUsuario(); ?>
 
@@ -65,13 +65,16 @@ require_once(__DIR__ . "/../include/header.php");
 
                             </span>
                         </p>
-                        <div class="text-center">
+                        <div class="d-flex btns-options">
                             <a class="btn btn-primary" href="<?= BASEURL ?>/controller/UsuarioController.php?action=edit&id=<?= $usu->getId() ?>&search=<?php echo $dados['dadoPesquisa']; ?>">
                                 <i class="bi bi-pencil-square"></i> Editar
                             </a>
                             <a class="btn btn-danger" onclick="return confirm('Confirma a exclusão do usuário?');" href="<?= BASEURL ?>/controller/UsuarioController.php?action=delete&id=<?= $usu->getId() ?>">
                                 <i class="fa-solid fa-trash"></i> Excluir
                             </a>
+
+                            
+
                         </div>
                     </div>
                 </div>

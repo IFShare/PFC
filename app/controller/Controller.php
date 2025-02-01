@@ -2,6 +2,8 @@
 #Classe controller padrão
 
 require_once(__DIR__ . "/../util/config.php");
+require_once(__DIR__ . "/../model/Post.php");
+require_once(__DIR__ . "/../model/Comentario.php");
 
 class Controller
 {
@@ -82,20 +84,31 @@ class Controller
     }
 
 
-    // protected function usuarioIsAdmPostOwner()
-    // {
-    //     $idPost = $_GET['id'] ? $_GET['id'] : NULL;
+    protected function usuarioIsAdmPostOwner(Post $post)
+    {
+        if ($_SESSION[SESSAO_USUARIO_TIPO_USUARIO] == TipoUsuario::ADM)
+            return true;
 
-    //     $post = $this->findPostById($idPost);
+        if (
+            $_SESSION[SESSAO_USUARIO_TIPO_USUARIO] == TipoUsuario::ESTUDANTE
+            && $post->getUsuario()->getId() == $_SESSION[SESSAO_USUARIO_ID]
+        )
+            return true;
 
-    //     if (
-    //         $_SESSION[SESSAO_USUARIO_TIPO_USUARIO] == TipoUsuario::ADM ||
-    //         ($_SESSION[SESSAO_USUARIO_TIPO_USUARIO] == TipoUsuario::ESTUDANTE
-    //             && $post->getUsuario()->getIdUsuario() == $_SESSION[SESSAO_USUARIO_ID])
-    //     ) {
-    //         return true;
-    //     }
-    //     return false;
-    // }
+        return false;
+    }
 
+    protected function usuarioIsAdmComentOwner(Comentario $coment)
+    {
+        if ($_SESSION[SESSAO_USUARIO_TIPO_USUARIO] == TipoUsuario::ADM)
+            return true;
+
+        if (
+            $_SESSION[SESSAO_USUARIO_TIPO_USUARIO] == TipoUsuario::ESTUDANTE
+            && $coment->getUsuario()->getId() == $_SESSION[SESSAO_USUARIO_ID]
+        )
+            return true;
+
+        return false;
+    }
 }

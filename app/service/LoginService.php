@@ -4,27 +4,34 @@
 
 require_once(__DIR__ . "/../model/Usuario.php");
 
-class LoginService {
+class LoginService
+{
 
-    public function validarCampos(?string $email, ?string $senha) {
+    public function validarCampos(?Usuario $usuarioEmail, ?string $email, ?string $senha)
+    {
         $arrayMsg = array();
 
         //Valida o campo email
-        if(! $email)
+        if (! $email)
             $arrayMsg['emailLogin'] = "Preencha seu e-mail.";
-        elseif (filter_var($email, FILTER_VALIDATE_EMAIL) === false) 
+        elseif (filter_var($email, FILTER_VALIDATE_EMAIL) === false)
             $arrayMsg['emailLogin'] = "Formato de email inválido!";
 
         //Valida o campo senha
-        if(! $senha)
+        if (! $senha)
             $arrayMsg['senhaLogin'] = "Preencha sua senha";
         elseif (strlen($senha) < 5)
             $arrayMsg['senhaLogin'] = "A senha precisa ter pelo menos 5 caracteres";
 
+        if ($usuarioEmail && $usuarioEmail->getStatus() == 'INATIVO') {
+            $arrayMsg['status'] = "Email inativo.<br>Verifique com um administrador.";
+        }
+
         return $arrayMsg;
     }
 
-    public function salvarUsuarioSessao(Usuario $usuario) {
+    public function salvarUsuarioSessao(Usuario $usuario)
+    {
         //Habilitar o recurso de sessão no PHP nesta página
         session_start();
 
@@ -34,19 +41,21 @@ class LoginService {
         $_SESSION[SESSAO_USUARIO_TIPO_USUARIO] = $usuario->getTipoUsuario();
     }
 
-    public function getIdUsuarioLogado() {
+    public function getIdUsuarioLogado()
+    {
         //Habilitar o recurso de sessão no PHP nesta página
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
         }
 
-        if(isset($_SESSION[SESSAO_USUARIO_ID]))
+        if (isset($_SESSION[SESSAO_USUARIO_ID]))
             return $_SESSION[SESSAO_USUARIO_ID];
 
         die("Usuário não está logado!");
     }
 
-    public function removerUsuarioSessao() {
+    public function removerUsuarioSessao()
+    {
         //Habilitar o recurso de sessão no PHP nesta página
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
@@ -54,5 +63,4 @@ class LoginService {
         //Destroi a sessão 
         session_destroy();
     }
-
 }

@@ -15,7 +15,7 @@ require_once(__DIR__ . '/enum/DenunciaStatus.php');
         public function __construct() {
                 $this->usuario = null;
                 $this->post = null;
-            }
+        }
 
         /**
          * Get the value of id

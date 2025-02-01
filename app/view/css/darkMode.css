@@ -51,7 +51,7 @@
 }
 
 body.dark, html.dark{
-    background: var(--fundo);
+    background-position: 100%;
 }
 
 .dark .post {
@@ -63,7 +63,7 @@ body.dark, html.dark{
 }
 
 .dark .sidebar {
-    background-color: var(--sidebar-fundo);
+    background-position: 100%;
     box-shadow: none;
 }
 
@@ -80,7 +80,7 @@ body.dark, html.dark{
 }
 
 .dark .topBar {
-    background: #002923;
+    background-position: 100%;
     box-shadow: 5px 0 10px 5px #002923;
 }
 

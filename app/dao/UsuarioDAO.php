@@ -289,6 +289,34 @@ class UsuarioDAO
             " - Erro: mais de um usuário encontrado.");
     }
 
+    public function findByEmail(string $email)
+    {
+        $conn = Connection::getConnection();
+
+        $sql = "SELECT * FROM usuario u" .
+            " WHERE BINARY u.email = ?";
+        $stm = $conn->prepare($sql);
+        $stm->execute([$email]);
+        $result = $stm->fetchAll();
+
+        $usuarios = $this->mapUsuarios($result);
+        return $usuarios[0];
+    }
+
+    public function findByNomeUsuario(string $nomeUsuario)
+    {
+        $conn = Connection::getConnection();
+
+        $sql = "SELECT * FROM usuario u" .
+            " WHERE u.nomUsuario = ?";
+        $stm = $conn->prepare($sql);
+        $stm->execute();
+        $result = $stm->fetchAll([$nomeUsuario]);
+
+        $usuarios = $this->mapUsuarios($result);
+        return $usuarios[0];
+    }
+
     public function buscarSenhaPorId($id)
     {
         $conn = Connection::getConnection();

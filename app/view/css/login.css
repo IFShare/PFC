@@ -2,6 +2,12 @@
     font-family: 'Abril Fatface', cursive; /* Fonte personalizada */
 /*}
 */
+body, html {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(90deg, #81a880, #004f44);
+}
 
 .title-ifshare {
     font-size: 4rem; /* Ajuste o tamanho da fonte conforme necessário */
@@ -21,12 +27,6 @@
     margin-top: 7px;
 }
 
-body, html {
-    height: 100%;
-    margin: 0;
-    padding: 0;
-    background: linear-gradient(90deg, #81a880, #004f44);
-}
 
 .form-container {
     height: 100vh; /* altura da tela inteira */
@@ -134,4 +134,12 @@ body, html {
 .form-control.error:focus {
     border-color: #d9534f; /* Contorno vermelho ao focar */
     box-shadow: 0 0 0 2px rgba(217, 83, 79, 0.3); /* Sombra mais pronunciada ao focar */
+}
+
+@media screen and (max-width:768px) {
+
+    .logo {
+        width: 60%;
+    }
+    
 }

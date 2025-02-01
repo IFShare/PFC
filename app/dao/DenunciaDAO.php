@@ -25,15 +25,16 @@ class DenunciaDAO
 
         $conn = Connection::getConnection();
 
-        $sql = "SELECT * FROM denuncia
-        WHERE denuncia.idPostagem = :idPostagem
-        ORDER BY denuncia.id DESC";
+        $sql = "SELECT d.*, u.nomeUsuario FROM denuncia d
+                    JOIN usuario u ON (u.id = d.idUsuario)
+                WHERE d.idPostagem = :idPostagem
+                ORDER BY d.id DESC";
         $stm = $conn->prepare($sql);
         $stm->bindValue(':idPostagem', $idPostagem);
         $stm->execute();
         $result = $stm->fetchAll();
 
-        return $result;
+        return $this->mapDenuncias($result);
     }
 
     public function listTotalDenunciaForEachPost()
@@ -41,41 +42,40 @@ class DenunciaDAO
 
         $conn = Connection::getConnection();
 
-        $sql = "SELECT p.id, d.status, d.solucao,
-		COUNT(d.id) AS total_denuncias
-        FROM postagem p
-        JOIN denuncia d ON p.id = d.idPostagem
-        GROUP BY p.id 
-        ORDER BY total_denuncias DESC";
+        $sql = "SELECT p.id AS idPostagem, u.id idUsuario, u.nomeUsuario, 
+                    COUNT(d.id) AS totalDenuncias
+                FROM postagem p
+                    JOIN denuncia d ON p.id = d.idPostagem
+                    JOIN usuario u ON (u.id = p.idUsuario)
+                GROUP BY p.id 
+                ORDER BY totalDenuncias DESC";
         $stm = $conn->prepare($sql);
 
         $stm->execute();
         $result = $stm->fetchAll();
 
-        return $result;
+        return $this->mapDenunciasPostagem($result);
     }
 
-    public function search($data)
+    public function listTotalDenunciaForEachPostNaoVerificado()
     {
 
         $conn = Connection::getConnection();
 
-        $sql = "SELECT * FROM denuncia d
-                JOIN usuario u ON d.idUsuario = u.id
-                WHERE d.id LIKE :search
-                OR d.motivo LIKE :search
-                OR d.status LIKE :search
-                OR d.idPostagem LIKE :search
-                OR d.idUsuario LIKE :search
-                OR u.nomeUsuario LIKE :search
-                ORDER BY d.id DESC";
+        $sql = "SELECT p.id AS idPostagem, u.id idUsuario, u.nomeUsuario, 
+                    COUNT(d.id) AS totalDenuncias
+                FROM postagem p
+                    JOIN denuncia d ON p.id = d.idPostagem
+                    JOIN usuario u ON (u.id = p.idUsuario)
+                WHERE d.status = 'NAOVERIFICADO'
+                GROUP BY p.id 
+                ORDER BY totalDenuncias DESC";
         $stm = $conn->prepare($sql);
-        $stm->bindValue(':search', "%$data%");
 
         $stm->execute();
         $result = $stm->fetchAll();
 
-        return $this->mapDenuncias($result);
+        return $this->mapDenunciasPostagem($result);
     }
 
     public function countDenunciasNaoVerificados()
@@ -117,12 +117,12 @@ class DenunciaDAO
 
         $sql = "UPDATE denuncia
                 SET solucao = :solucao, status = :status
-                WHERE idPostagem = :idPostagem";
+                WHERE id = :idDenuncia";
 
         $stm = $conn->prepare($sql);
         $stm->bindValue(":solucao", $denuncia->getSolucao());
-        $stm->bindValue(":idPostagem", $denuncia->getPost()->getId());
         $stm->bindValue(":status", $denuncia->getStatus());
+        $stm->bindValue(":idDenuncia", $denuncia->getId());
         $stm->execute();
     }
 
@@ -169,6 +169,24 @@ class DenunciaDAO
 
     #CONVERTE REGISTRO DA BASE EM OBJETO
 
+    private function mapDenunciasPostagem($result) {
+        $postagens = array();
+        foreach ($result as $reg) {
+            $usuario = new Usuario();
+            $usuario->setId($reg['idUsuario']);
+            $usuario->setNomeUsuario($reg['nomeUsuario']);
+
+            $post = new Post();
+            $post->setId($reg['idPostagem']);
+            $post->setUsuario($usuario);
+            $post->setTotalDenuncias($reg['totalDenuncias']);
+
+            array_push($postagens, $post);
+        }
+
+        return $postagens;
+    }
+
     private function mapDenuncias($result)
     {
         $denuncias = array();
@@ -181,13 +199,13 @@ class DenunciaDAO
 
             $usuario = new Usuario();
             $usuario->setId($reg['idUsuario']);
-            $usuario->setNomeUsuario($reg['nomeUsuario']);
+            if(isset($reg['nomeUsuario']))
+                $usuario->setNomeUsuario($reg['nomeUsuario']);
             $denuncia->setUsuario($usuario);
 
             $post = new Post();
             $post->setId($reg['idPostagem']);
             $denuncia->setPost($post);
-
 
             array_push($denuncias, $denuncia);
         }

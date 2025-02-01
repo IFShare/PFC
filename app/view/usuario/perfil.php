@@ -25,20 +25,26 @@ $isPostsList = (!isset($_GET['likedPosts'])) ? 'active' : '';
         </svg>
     </div>
 
-    <div class="settings dropdown">
-        <svg
-            data-bs-toggle="dropdown"
-            aria-expanded="false"
-            xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-gear" viewBox="0 0 16 16">
-            <path d="M8 4.754a3.246 3.246 0 1 0 0 6.492 3.246 3.246 0 0 0 0-6.492M5.754 8a2.246 2.246 0 1 1 4.492 0 2.246 2.246 0 0 1-4.492 0" />
-            <path d="M9.796 1.343c-.527-1.79-3.065-1.79-3.592 0l-.094.319a.873.873 0 0 1-1.255.52l-.292-.16c-1.64-.892-3.433.902-2.54 2.541l.159.292a.873.873 0 0 1-.52 1.255l-.319.094c-1.79.527-1.79 3.065 0 3.592l.319.094a.873.873 0 0 1 .52 1.255l-.16.292c-.892 1.64.901 3.434 2.541 2.54l.292-.159a.873.873 0 0 1 1.255.52l.094.319c.527 1.79 3.065 1.79 3.592 0l.094-.319a.873.873 0 0 1 1.255-.52l.292.16c1.64.893 3.434-.902 2.54-2.541l-.159-.292a.873.873 0 0 1 .52-1.255l.319-.094c1.79-.527 1.79-3.065 0-3.592l-.319-.094a.873.873 0 0 1-.52-1.255l.16-.292c.893-1.64-.902-3.433-2.541-2.54l-.292.159a.873.873 0 0 1-1.255-.52zm-2.633.283c.246-.835 1.428-.835 1.674 0l.094.319a1.873 1.873 0 0 0 2.693 1.115l.291-.16c.764-.415 1.6.42 1.184 1.185l-.159.292a1.873 1.873 0 0 0 1.116 2.692l.318.094c.835.246.835 1.428 0 1.674l-.319.094a1.873 1.873 0 0 0-1.115 2.693l.16.291c.415.764-.42 1.6-1.185 1.184l-.291-.159a1.873 1.873 0 0 0-2.693 1.116l-.094.318c-.246.835-1.428.835-1.674 0l-.094-.319a1.873 1.873 0 0 0-2.692-1.115l-.292.16c-.764.415-1.6-.42-1.184-1.185l.159-.291A1.873 1.873 0 0 0 1.945 8.93l-.319-.094c-.835-.246-.835-1.428 0-1.674l.319-.094A1.873 1.873 0 0 0 3.06 4.377l-.16-.292c-.415-.764.42-1.6 1.185-1.184l.292.159a1.873 1.873 0 0 0 2.692-1.115z" />
-        </svg>
+    <?php
+    if (isset($_GET['action']) && $_GET['action'] == 'perfilUsuario'):
+    ?>
+        <div class="settings dropdown">
+            <svg
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+                xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-gear" viewBox="0 0 16 16">
+                <path d="M8 4.754a3.246 3.246 0 1 0 0 6.492 3.246 3.246 0 0 0 0-6.492M5.754 8a2.246 2.246 0 1 1 4.492 0 2.246 2.246 0 0 1-4.492 0" />
+                <path d="M9.796 1.343c-.527-1.79-3.065-1.79-3.592 0l-.094.319a.873.873 0 0 1-1.255.52l-.292-.16c-1.64-.892-3.433.902-2.54 2.541l.159.292a.873.873 0 0 1-.52 1.255l-.319.094c-1.79.527-1.79 3.065 0 3.592l.319.094a.873.873 0 0 1 .52 1.255l-.16.292c-.892 1.64.901 3.434 2.541 2.54l.292-.159a.873.873 0 0 1 1.255.52l.094.319c.527 1.79 3.065 1.79 3.592 0l.094-.319a.873.873 0 0 1 1.255-.52l.292.16c1.64.893 3.434-.902 2.54-2.541l-.159-.292a.873.873 0 0 1 .52-1.255l.319-.094c1.79-.527 1.79-3.065 0-3.592l-.319-.094a.873.873 0 0 1-.52-1.255l.16-.292c.893-1.64-.902-3.433-2.541-2.54l-.292.159a.873.873 0 0 1-1.255-.52zm-2.633.283c.246-.835 1.428-.835 1.674 0l.094.319a1.873 1.873 0 0 0 2.693 1.115l.291-.16c.764-.415 1.6.42 1.184 1.185l-.159.292a1.873 1.873 0 0 0 1.116 2.692l.318.094c.835.246.835 1.428 0 1.674l-.319.094a1.873 1.873 0 0 0-1.115 2.693l.16.291c.415.764-.42 1.6-1.185 1.184l-.291-.159a1.873 1.873 0 0 0-2.693 1.116l-.094.318c-.246.835-1.428.835-1.674 0l-.094-.319a1.873 1.873 0 0 0-2.692-1.115l-.292.16c-.764.415-1.6-.42-1.184-1.185l.159-.291A1.873 1.873 0 0 0 1.945 8.93l-.319-.094c-.835-.246-.835-1.428 0-1.674l.319-.094A1.873 1.873 0 0 0 3.06 4.377l-.16-.292c-.415-.764.42-1.6 1.185-1.184l.292.159a1.873 1.873 0 0 0 2.692-1.115z" />
+            </svg>
 
-        <ul class="dropdown-menu settings-menu">
-            <li><a class="dropdown-item" href="/PFC/app/controller/UsuarioController.php?action=editPerfil&id=<?= $idUsuario ?>"">Editar perfil</a></li>
+            <ul class="dropdown-menu settings-menu">
+                <li><a class="dropdown-item" href="/PFC/app/controller/UsuarioController.php?action=editPerfil&id=<?= $idUsuario ?>"">Editar perfil</a></li>
             <li><a class=" dropdown-item" href="/PFC/app/controller/UsuarioController.php?action=editSenha&id=72">Alterar senha</a></li>
-        </ul>
-    </div>
+            </ul>
+        </div>
+    <?php
+    endif;
+    ?>
 
     <script>
         const settingsIcon = document.querySelector('.settings svg');
@@ -58,9 +64,16 @@ $isPostsList = (!isset($_GET['likedPosts'])) ? 'active' : '';
 
         <div class="fotoPerfil" id="fotoPerfil">
             <img
+
+                <?php
+                if (isset($_GET['action']) && $_GET['action'] == 'perfilUsuario'):
+                ?>
                 data-bs-toggle="modal"
                 data-bs-target="#perfilModal"
                 style="cursor: pointer;"
+                <?php
+                endif;
+                ?>
                 class="fotoPerfil"
                 src="<?php echo $usuario->getFotoPerfil() != null
                             ? "/PFC/arquivos/fotosPerfil/" . $usuario->getFotoPerfil()
@@ -91,11 +104,11 @@ $isPostsList = (!isset($_GET['likedPosts'])) ? 'active' : '';
         </div>
 
         <?php
-        if (!empty($dados['usuario']->getBio())):
+        if (!empty($dados['usuario']->getBioHTML())):
         ?>
             <div class="bio">
                 <p class="mb-0">
-                    <?php echo $dados['usuario']->getBio(); ?>
+                    <?php echo $dados['usuario']->getBioHTML(); ?>
                 </p>
             </div>
 
@@ -110,49 +123,56 @@ $isPostsList = (!isset($_GET['likedPosts'])) ? 'active' : '';
 
     </div>
 
-    <!-- Modal de Inserção de Postagem -->
-    <div class="modal fade" id="perfilModal" tabindex="-1" aria-labelledby="postModalLabelNew" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content editFotoPerfil">
-                <div class="modal-body editFotoPerfil">
-                    <h3>Foto de perfil</h3>
-                    <form
-                        id="formFotoPerfil"
-                        enctype="multipart/form-data" method="post"
-                        action="<?= BASEURL ?>/controller/UsuarioController.php?action=saveFotoPerfil">
-                        <!-- Imagem -->
-                        <div class="previewEditFotoPerfil">
-                            <img
-                                id="imgPreviewEdit"
-                                class="fotoPerfilEdit-form"
-                                src="<?php echo $usuario->getFotoPerfil() != null
-                                            ? "/PFC/arquivos/fotosPerfil/" . $usuario->getFotoPerfil()
-                                            : "/PFC/arquivos/fotosPerfil/defaultPfp.png"; ?>"
-                                alt="Foto de Perfil">
-                        </div>
+    <?php
+    if (isset($_GET['action']) && $_GET['action'] == 'perfilUsuario'):
+    ?>
+        <!-- Modal de edição de foto de perfil -->
+        <div class="modal fade" id="perfilModal" tabindex="-1" aria-labelledby="postModalLabelNew" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content editFotoPerfil">
+                    <div class="modal-body editFotoPerfil">
+                        <h3>Foto de perfil</h3>
+                        <form
+                            id="formFotoPerfil"
+                            enctype="multipart/form-data" method="post"
+                            action="<?= BASEURL ?>/controller/UsuarioController.php?action=saveFotoPerfil">
+                            <!-- Imagem -->
+                            <div class="previewEditFotoPerfil">
+                                <img
+                                    id="imgPreviewEdit"
+                                    class="fotoPerfilEdit-form"
+                                    src="<?php echo $usuario->getFotoPerfil() != null
+                                                ? "/PFC/arquivos/fotosPerfil/" . $usuario->getFotoPerfil()
+                                                : "/PFC/arquivos/fotosPerfil/defaultPfp.png"; ?>"
+                                    alt="Foto de Perfil">
+                            </div>
 
-                        <div class="nomeArquivo">
-                            <label id="labelFileImg" for="fileImg">Escolha uma foto de perfil</label>
-                            <input
-                                onchange="showFileName()"
-                                hidden
-                                type="file"
-                                class="form-control"
-                                id="fileImg"
-                                name="imagem"
-                                accept="image/*">
-                        </div>
+                            <div class="nomeArquivo">
+                                <label id="labelFileImg" for="fileImg">Escolha uma foto de perfil</label>
+                                <input
+                                    onchange="showFileName()"
+                                    hidden
+                                    type="file"
+                                    class="form-control"
+                                    id="fileImg"
+                                    name="imagem"
+                                    accept="image/*">
+                            </div>
 
-                        <input type="hidden" id="hddId" name="id" value="<?= $usuario->getId(); ?>" />
+                            <input type="hidden" id="hddId" name="id" value="<?= $usuario->getId(); ?>" />
 
-                    </form>
-                    <button type="submit" form="formFotoPerfil" class="form-btn">
-                        SALVAR
-                    </button>
+                        </form>
+                        <button type="submit" form="formFotoPerfil" class="form-btn">
+                            SALVAR
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+
+    <?php
+    endif;
+    ?>
 
     <div class="selectTypeList">
 
@@ -209,8 +229,9 @@ $isPostsList = (!isset($_GET['likedPosts'])) ? 'active' : '';
         </div>
 
     <?php
-    else:
+    elseif($_SESSION[SESSAO_USUARIO_TIPO_USUARIO] !== "USUARIO"):
     ?>
+
 
         <?php
         if (empty($dados['postagens'])):
@@ -269,9 +290,10 @@ $isPostsList = (!isset($_GET['likedPosts'])) ? 'active' : '';
         <?php
         endif;
         ?>
-    <?php
+
+<?php
     endif;
-    ?>
+?>
 
 </div>
 

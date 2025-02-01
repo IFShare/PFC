@@ -30,28 +30,42 @@ require_once(__DIR__ . "/../include/header.php");
                 <div class="card mb-4" style="border: 1px solid #ddd; border-radius: 8px;">
                     <div class="card-body">
                         <p class="card-text">
-                            <strong>ID do usuário:</strong> <?= $den['idUsuario'] ?><br>
+                            <strong>Usuário denunciante:</strong> <?= $den->getUsuario()->getNomeUsuario() ?><br>
 
                             <strong>Motivo:</strong>
                             <span>
-                                <?= $den['motivo'] ?>
+                                <?= $den->getMotivo() ?>
                             </span>
-                            <!-- <br>
+                            <br>
                             <strong>Status:</strong>
-                            <span <?= $den['status'] === "NAOVERIFICADO" ? "style = 'color: red; font-weight: bold;" : ($den['status'] === "VERIFICADO" ? "style = 'color: green; font-weight: bold;" : "") ?>'>
-                                <?= $den['status']; ?></span> -->
+                            <span <?= $den->getStatus() === "NAOVERIFICADO" ? "style = 'color: red; font-weight: bold;" : ($den->getStatus() === "VERIFICADO" ? "style = 'color: green; font-weight: bold;" : "") ?>'>
+                                <?= $den->getStatus(); ?></span>
+                            <br>
+                            <strong>Solução tomada:</strong>
+                            <span style="color: black; font-weight: bold; text-decoration: underline;"><?= $den->getSolucao(); ?></span>
+                            <br>
                         </p>
                         <div class="btn-verify text-center d-flex justify-content-center gap-4">
-                            <a class="btn" href="/PFC/app/controller/PostagemController.php?action=viewPost&id=<?= $den['idPostagem'] ?>&isDenuncia=sim">
+                            <a class="btn" href="/PFC/app/controller/PostagemController.php?action=viewPost&id=<?= $den->getPost()->getId() ?>&isDenuncia=sim">
                                 Verificar Postagem
                             </a>
 
                         </div>
 
                         <?php
-                            if ($den['status'] === "NAOVERIFICADO"):
+                            if ($den->getStatus() === "NAOVERIFICADO"):
                         ?>
-
+                            <div class="solution d-flex mt-3">
+                                <form action="/PFC/app/controller/DenunciaController.php?action=insertSolution" method="post">
+                                    <input name="solucao" type="text" id="inp-solution" placeholder="Digite a solução tomada">
+                                    <button type="submit" id="insertSolution">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-send" viewBox="0 0 16 16">
+                                            <path d="M15.854.146a.5.5 0 0 1 .11.54l-5.819 14.547a.75.75 0 0 1-1.329.124l-3.178-4.995L.643 7.184a.75.75 0 0 1 .124-1.33L15.314.037a.5.5 0 0 1 .54.11ZM6.636 10.07l2.761 4.338L14.13 2.576zm6.787-8.201L1.591 6.602l4.339 2.76z" />
+                                        </svg>
+                                    </button>
+                                    <input type="hidden" name="idDenuncia" value="<?= $den->getId() ?>">
+                                </form>
+                            </div>
                         <?php endif; ?>
                     </div>
                 </div>

@@ -31,9 +31,9 @@ class EditPerfilService
         elseif ($this->usuarioDAO->nomeUsuarioCadastrado($usuario->getNomeUsuario(), $usuario->getId())) // Verificação se o email já está cadastrado
             $erros['nomeUsuario'] = "Nome de usuário já em uso.";
 
-        if (strlen($usuario->getBio()) > 45)
+        if (strlen($usuario->getBio()) > 300)
             $erros['bio'] = "Biografia muito grande";
-        if (substr_count($usuario->getBio(), '<br>') > 4) {
+        if (substr_count($usuario->getBio(), "\n") > 4) {
             $erros['bio'] = "A biografia não pode conter mais de 4 quebras de linha.";
         }
 

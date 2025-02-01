@@ -47,11 +47,13 @@ class LoginController extends Controller
         $email = isset($_POST['email']) ? trim($_POST['email']) : null;
         $senha = isset($_POST['senha']) ? trim($_POST['senha']) : null;
 
+        $usuario = $this->usuarioDao->findByEmailSenha($email, $senha);
+        $usuarioEmail = $this->usuarioDao->findByEmail($email);
+
         //Validar os campos
-        $erros = $this->loginService->validarCampos($email, $senha);
+        $erros = $this->loginService->validarCampos($usuarioEmail, $email, $senha);
         if (empty($erros)) {
             //Valida o login a partir do banco de dados
-            $usuario = $this->usuarioDao->findByEmailSenha($email, $senha);
             if ($usuario) {
                 //Se encontrou o usuário, salva a sessão e redireciona para a HOME do sistema
                 $this->loginService->salvarUsuarioSessao($usuario);
@@ -60,7 +62,10 @@ class LoginController extends Controller
 
                 header("location: " . HOME_PAGE);
                 exit;
-            } else {
+            } elseif($usuarioEmail) {
+                $erros['inativoEmail'] = "<p class='mb-1 fw-bold text-danger text-center'>Email cadastrado inativo<br>Verifique com um administrador</p>";
+            }
+            else {
                 $erros['ambos'] = "<p class='mb-1 fw-bold text-danger text-center'>Login ou senha informados são inválidos!</p>";
             }
         }

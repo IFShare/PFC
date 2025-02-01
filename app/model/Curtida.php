@@ -3,16 +3,10 @@
 require_once(__DIR__ . '/Usuario.php');
 require_once(__DIR__ . '/Post.php');
     
-    class Curtida implements JsonSerializable{
+    class Curtida{
         private ?int $id;
         private ?Usuario $usuario;
         private ?Post $post;
-
-        public function jsonSerialize(): array {
-            return array("id" => $this->id,
-                         "usuario" => $this->usuario,
-                         "post" => $this->post);
-        }
 
         /**
          * Get the value of id

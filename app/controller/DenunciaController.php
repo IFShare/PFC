@@ -34,15 +34,11 @@ class DenunciaController extends Controller
      protected function listDenunciaByPost()
      {
         $idPostagem = isset($_GET['idPostagem']) ? $_GET['idPostagem'] : NULL;
-        $data = isset($_GET['search']) ? $_GET['search'] : NULL;
+        //$data = isset($_GET['search']) ? $_GET['search'] : NULL;
 
-         if (!empty($data)) {
-             $denuncias = $this->denunciaDao->search($data);
-         } else {
-             $denuncias = $this->denunciaDao->listDenunciaByPost($idPostagem);
-         }
+         $denuncias = $this->denunciaDao->listDenunciaByPost($idPostagem);
 
-         $dados["dadoPesquisa"] = $data;
+         $dados["dadoPesquisa"] = "";
          $dados["lista"] = $denuncias;
 
          $this->loadView("postagem/listDenunciasByPost.php", $dados, []);
@@ -53,7 +49,7 @@ class DenunciaController extends Controller
         $data = isset($_GET['search']) ? $_GET['search'] : NULL;
 
         if (!empty($data)) {
-            $denuncias = $this->denunciaDao->search($data);
+            $denuncias = $this->denunciaDao->listTotalDenunciaForEachPostNaoVerificado();
         } else {
             $denuncias = $this->denunciaDao->listTotalDenunciaForEachPost();
         }
@@ -118,23 +114,17 @@ class DenunciaController extends Controller
 
         //Captura os dados do formulário
         $solucao = isset(($_POST['solucao'])) ? trim(($_POST['solucao'])) : null;
-        $idPostagem = isset(($_POST['idPostagem'])) ? ($_POST['idPostagem']) : null;;
+        $idDenuncia = isset(($_POST['idDenuncia'])) ? ($_POST['idDenuncia']) : null;
 
-        $denuncia = new Denuncia();
+        $denuncia = $this->denunciaDao->findById($idDenuncia);
         $denuncia->setSolucao($solucao);
         $denuncia->setStatus(DenunciaStatus::VERIFICADO);
-
-        $post = new Post();
-        $post->setId($idPostagem);
-        $denuncia->setPost($post);
 
         $this->denunciaDao->insertSolution($denuncia);
 
 
         //Carregar os valores recebidos por POST de volta para o formulário
-        header("location: " . "/PFC/app/controller/DenunciaController.php?action=listTotalDenunciaForEachPost");
-
-        $this->loadView("postagem/postView.php", [], []);
+        header("location: /PFC/app/controller/DenunciaController.php?action=listDenunciaByPost&idPostagem=" . $denuncia->getPost()->getId());
     }
 
     protected function delDenuncia()

@@ -3,8 +3,10 @@ body {
     width: 100%;
     margin: 0;
     padding: 0;
-    background: linear-gradient(90deg, #81a880, #004f44);
-    font-family: Arial, sans-serif; /* Fonte mais limpa */
+    background: linear-gradient(90deg, #81a880, #004f44, #002923, #002923);
+    background-size: 300%;
+    background-position: 0%;
+    transition: all 1.4s ease-out;
 }
 
 h3.text-center {
@@ -32,30 +34,12 @@ h3.text-center {
     width: 94%;
 }
 
-.btn-success, .btn-primary, .btn-danger {
+.btn-success, .btn-primary, .btn-danger, .btn-secondary {
     padding: 10px 20px; 
     border-radius: 30px; 
     font-size: 16px; 
     font-weight: bold; 
     transition: background-color 0.3s, transform 0.3s; 
-}
-
-.card {
-    position: relative;
-    background: linear-gradient(90deg, #81a880, #81a880, #004f44);
-    background-size: 200%;
-    background-position: 1%;
-    color: black;
-    transition: all .9s ease-out;
-}
-
-.coluna {
-    z-index: 1;
-}
-
-.card:hover {
-    background-position: 90%;
-    color: white;
 }
 
 .insertBtn {
@@ -163,3 +147,66 @@ h3.text-center {
     object-fit: cover;
     transition: all 0.2s ease-in-out;
 }
+
+.coluna {
+    z-index: 0;
+}
+
+.card {
+    z-index: 10; /* Garante que o card não fique acima do dropdown */
+    position: relative; /* Mantém a hierarquia correta */    
+    width: 100%;
+    background: #004f4597;
+    background-size: 200%;
+    background-position: 1%;
+    color: white;
+    transition: all .9s ease-out;
+    border: 1px solid white;
+    overflow: visible;
+}
+
+.card-body {
+    position: relative;
+    z-index: 0;
+}
+
+.dropdown-menu {
+    position: absolute;
+    z-index: 1000 !important; /* Garante que o menu fique acima de tudo */
+}
+
+.dropdown-menu.show {
+    z-index: 200 !important; /* Garante que o menu fique acima de tudo */
+}
+
+.card:hover {
+    background: #004f44;
+    color: white;
+}
+
+.btns-options {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    width: 100%;
+}
+
+.btns-options a{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 12px;
+    gap: 5px;
+}
+
+.btns-options .btn-group button{
+    font-size: 12px;
+}
+
+.dropdown .btn{
+    font-size: 12px;
+}
+
+
+

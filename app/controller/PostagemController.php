@@ -108,10 +108,6 @@ class PostagemController extends Controller
 
 
 
-        /* echo $legenda . "<br>";
-        print_r($imagem);
-        */
-
         $post = new Post();
         $post->setLegenda($legenda);
 
@@ -129,7 +125,17 @@ class PostagemController extends Controller
                 try {
                     $this->postDao->insertPost($post);
 
-                    header("location: " . HOME_PAGE);
+
+                    // Determinar a view com base na action
+                    $view = '';
+
+                    if (isset($_GET['view']) && $_GET['view'] === 'perfilUsuario') {
+                        $view = "/PFC/app/controller/UsuarioController.php?action=perfilUsuario";
+                    } elseif (isset($_GET['view']) && $_GET['view'] === 'home') {
+                        $view = "/PFC/app/controller/HomeController.php?action=home";
+                    }
+
+                    header("location: " . $view);
                     exit;
                 } catch (PDOException $e) {
                     echo $e->getMessage();
@@ -138,22 +144,6 @@ class PostagemController extends Controller
                 }
             }
         }
-        //Se há erros, volta para o formulário
-
-        //Carregar os valores recebidos por POST de volta para o formulário
-        $dados["post"] = $post;
-
-        // Verificar a action na URL
-        $action = isset($_GET['action']) ? $_GET['action'] : null;
-
-        // Determinar a view com base na action
-        $view = '';
-        if ($action == 'home') {
-            $view = "home/home.php";
-        }
-
-        // Carregar a view
-        $this->loadView($view, $dados, $erros);
     }
 
 
@@ -165,6 +155,12 @@ class PostagemController extends Controller
 
         if (!$postagem) {
             print "<script>alert('Postagem não encontrada.');</script>";
+            return;
+        }
+
+        //Validar se o usuário pode excluir a postagem
+        if (! $this->usuarioIsAdmPostOwner($postagem)) {
+            header("location: " . ACESSO_NEGADO);
             return;
         }
 

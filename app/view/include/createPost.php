@@ -108,7 +108,19 @@
     }
 </style>
 
+<?php
 
+$action = isset($_GET['action']) ? $_GET['action'] : '';
+$view = '';
+
+if ($action == 'perfilUsuario') {
+    $view = "perfilUsuario";
+} 
+elseif ($action == 'home'){
+    $view = "home";
+}
+
+?>
 
 <!-- Modal de Inserção de Postagem -->
 <div class="modal fade" id="postModalNew" tabindex="-1" aria-labelledby="postModalLabelNew" aria-hidden="true">
@@ -118,11 +130,11 @@
                 <form
                     id="formPostNew"
                     enctype="multipart/form-data" method="post"
-                    action="<?= BASEURL ?>/controller/PostagemController.php?action=save">
+                    action="<?= BASEURL ?>/controller/PostagemController.php?action=save&view=<?= $view ?>">
 
                     <!-- Imagem -->
                     <div class="mb-2 post-preview">
-                        <input hidden type="file" class="form-control" id="fileImgNew" name="imagem" accept="image/*">
+                        <input hidden type="file" class="form-control" id="fileImgNew" name="imagem" accept="image/*" required>
                         <img id="imgPreviewAddPost" src="/PFC/app/assets/addPost.png" alt="Preview">
                     </div>
 
@@ -131,11 +143,11 @@
                     <div class="mb-1">
                         <label id="labelLegendaNew" for="txtLegendaNew" class="mb-1">
                             <?php
-                                if(isset($erros['legenda'])) {
-                                    echo $erros['legenda'];
-                                }
-                            ?>    
-                        Legenda</label>
+                            if (isset($erros['legenda'])) {
+                                echo $erros['legenda'];
+                            }
+                            ?>
+                            Legenda</label>
                         <textarea class="form-control" id="txtLegendaNew" name="legenda" rows="4"></textarea>
                     </div>
 

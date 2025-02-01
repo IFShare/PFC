@@ -78,12 +78,14 @@ class ComentarioController extends Controller
 
     protected function delComentario()
     {
-        if (! $this->usuarioIsAdminStudent()) {
+        $comentario = $this->findComentarioById();
+
+
+        if (! $this->usuarioIsAdmComentOwner($comentario)) {
             header("location: " . ACESSO_NEGADO);
             exit;
         }
 
-        $comentario = $this->findComentarioById();
         if ($comentario) {
             //Excluir
             $this->comentarioDao->deleteById($comentario->getId());

@@ -7,7 +7,7 @@ $usuario = $dados['usuario'];
 
 <div class="container-fluid form-container h-100">
     <a class="voltar"
-        href="/PFC/app/controller/UsuarioController.php?action=perfil&id=<?php echo $usuario->getId(); ?>">
+        href="/PFC/app/controller/UsuarioController.php?action=perfilUsuario">
         <i class="fs-4 bi bi-arrow-left-square"></i>
 
     </a>
@@ -99,9 +99,7 @@ $usuario = $dados['usuario'];
                             onblur="this.placeholder='Insira uma biografia para o seu perfil.'";
                             class="form-control"
                             id="txtBio"
-                            name="bio">
-                            <?php echo (isset($dados["usuario"]) ? htmlspecialchars($dados["usuario"]->getBio()) : ''); ?>
-                        </textarea>
+                            name="bio"><?php echo (isset($dados["usuario"]) ? htmlspecialchars($dados["usuario"]->getBio()) : ''); ?></textarea>
                     </div>
 
                     <input type="hidden" id="hddId" name="id" value="<?= $usuario->getId(); ?>" />

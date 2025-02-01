@@ -10,9 +10,13 @@ class Post
         private $dataPostagem;
         private ?Usuario $usuario;
 
+        //Campo para exibir o total de denuncias da postagem
+        private int $totalDenuncias;
+
         public function __construct() {
                 $this->id = null;
-            }
+                $this->totalDenuncias = 0;
+        }
         /**
          * Get the value of id
          */
@@ -109,6 +113,26 @@ class Post
         public function setUsuario($usuario)
         {
                 $this->usuario = $usuario;
+
+                return $this;
+        }
+
+        /**
+         * Get the value of totalDenuncias
+         */ 
+        public function getTotalDenuncias()
+        {
+                return $this->totalDenuncias;
+        }
+
+        /**
+         * Set the value of totalDenuncias
+         *
+         * @return  self
+         */ 
+        public function setTotalDenuncias($totalDenuncias)
+        {
+                $this->totalDenuncias = $totalDenuncias;
 
                 return $this;
         }

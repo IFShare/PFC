@@ -3,6 +3,7 @@ require_once(__DIR__ . "/../include/header.php");
 
 
 $usuario = $dados['usuario'];
+$usuarioLogado = $_SESSION["usuarioLogado"];
 ?>
 
 <link rel="stylesheet" href="<?= BASEURL ?>/view/css/home.css">
@@ -100,14 +101,27 @@ $usuario = $dados['usuario'];
                     </svg>
                 </button>
 
-                <div class="dropdown">
-                    <button class="btn dropdown-toggle" type="button" id="dropdownMenu" data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class='dots-excluir bi bi-three-dots'></i>
-                    </button>
-                    <ul class="dropdown-menu delete-post" aria-labelledby="dropdownMenuButton">
-                        <li><a class="" href="/PFC/app/controller/PostagemController.php?action=delPost&id=<?= $dados['postagem']->getId() ?>">Excluir Postagem</a></li>
-                    </ul>
-                </div>
+                <?php
+                if (
+                    ($_SESSION[SESSAO_USUARIO_TIPO_USUARIO] == TipoUsuario::ESTUDANTE
+                    && $dados["postagem"]->getUsuario()->getId() == $_SESSION[SESSAO_USUARIO_ID])
+                    || $_SESSION[SESSAO_USUARIO_TIPO_USUARIO] == TipoUsuario::ADM
+                ):
+                ?>
+
+                    <div class="dropdown">
+                        <button class="btn dropdown-toggle" type="button" id="dropdownMenu" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class='dots-excluir bi bi-three-dots'></i>
+                        </button>
+                        <ul class="dropdown-menu delete-post" aria-labelledby="dropdownMenuButton">
+                            <li><a class="" href="/PFC/app/controller/PostagemController.php?action=delPost&id=<?= $dados['postagem']->getId() ?>">Excluir Postagem</a></li>
+                        </ul>
+                    </div>
+
+                <?php
+                endif;
+                ?>
+
             </div>
 
 
@@ -122,7 +136,7 @@ $usuario = $dados['usuario'];
                                 action="<?= BASEURL ?>/controller/DenunciaController.php?action=insertDenuncia&id=<?php echo $dados['postagem']->getId(); ?>">
                                 <!-- Motivo -->
                                 <div class="mb-2 motivo">
-                                    <label id="labelMotivo" for="motivo">Qual seria o motivo da denuncia?</label>
+                                    <label id="labelMotivo" for="motivo">Qual é o motivo da denuncia?</label>
                                     <input placeholder="Não obrigatório" type="text" class="form-control" id="motivo" name="motivo">
                                 </div>
 
@@ -144,16 +158,27 @@ $usuario = $dados['usuario'];
                                     : "https://s3.amazonaws.com/37assets/svn/765-default-avatar.png"; ?>"
                         alt="Foto de Perfil">
 
-                    <a href="/PFC/app/controller/UsuarioController.php?action=perfil&id=<?php echo $dados["postagem"]->getUsuario()->getId() ?>">
-                        <span class="nomeUsuario">
-                            <?php echo $dados["nomeUsuario"]; ?>
+                    <?php
+                    if ($dados["postagem"]->getUsuario()->getId() == $_SESSION[SESSAO_USUARIO_ID]):
+                    ?>
+                        <a href="/PFC/app/controller/UsuarioController.php?action=perfilUsuario">
+
+                        <?php
+                    else:
+                        ?>
+                            <a href="/PFC/app/controller/UsuarioController.php?action=perfil&id=<?= $dados["postagem"]->getUsuario()->getId() ?>">
                             <?php
-                            if ($dados["tipoUsuario"] == "ADM"):
+                        endif;
                             ?>
-                                <i class="bi bi-patch-check verificado" title="Este usuário é um ADM do sistema"></i>
-                            <?php endif ?>
-                        </span>
-                    </a>
+                            <span class="nomeUsuario">
+                                <?php echo $dados["nomeUsuario"]; ?>
+                                <?php
+                                if ($dados["tipoUsuario"] == "ADM"):
+                                ?>
+                                    <i class="bi bi-patch-check verificado" title="Este usuário é um ADM do sistema"></i>
+                                <?php endif ?>
+                            </span>
+                            </a>
                 </div>
 
                 <p id="legenda">
@@ -169,63 +194,80 @@ $usuario = $dados['usuario'];
                             echo "<div class='coment'>";
                             echo "<div class='user-coment'>";
                     ?>
-                            <a class="d-flex" href="/PFC/app/controller/UsuarioController.php?action=perfil&id=<?php echo $comentario->getUsuario()->getId() ?>">
-                                <div class="fotoPerfilComent">
-                                    <img class="fotoPerfil mb-0"
-                                        src="<?php echo $comentario->getUsuario()->getFotoPerfil() != null
-                                                    ? "/PFC/arquivos/fotosPerfil/" . $comentario->getUsuario()->getFotoPerfil()
-                                                    : "https://s3.amazonaws.com/37assets/svn/765-default-avatar.png"; ?>"
-                                        alt="Foto de Perfil">
-                                </div>
-                                <?php
-
-
-                                echo "<span class='userComent'>" . $comentario->getUsuario()->getNomeUsuario() . "</span>";
-                                echo "</a></div>";
-                                echo "<span class='conteudo'>" . $comentario->getConteudo() . "</span>";
-                                ?>
-                            <div class="data-del">
+                            <?php
+                            if ($comentario->getUsuario()->getId() == $_SESSION[SESSAO_USUARIO_ID]):
+                            ?>
+                                <a href="/PFC/app/controller/UsuarioController.php?action=perfilUsuario">
 
                                 <?php
-                                $dataComentario = new DateTime($comentario->getDataComentario());
-
-                                $dataAtual = new DateTime();
-
-                                $diferenca = $dataComentario->diff($dataAtual);
-
-                                if ($diferenca->y > 0) {
-                                    // Mais de um ano
-                                    echo "<span id='dataResumidaComent' onclick='changeDataComent()'>Há " . $diferenca->y . ($diferenca->y == 1 ? " ano" : " anos") . ".</span>";
-                                } elseif ($diferenca->m > 0) {
-                                    // Mais de um mês
-                                    echo "<span id='dataResumidaComent' onclick='changeDataComent()'>Há " . $diferenca->m . ($diferenca->m == 1 ? " mês" : " meses") . ".</span>";
-                                } elseif ($diferenca->d > 0) {
-                                    // Mais de um dia
-                                    echo "<span id='dataResumidaComent' onclick='changeDataComent()'>Há " . $diferenca->d . ($diferenca->d == 1 ? " dia" : " dias") . ".</span>";
-                                } elseif ($diferenca->h > 0) {
-                                    // Mais de uma hora
-                                    echo "<span id='dataResumidaComent' onclick='changeDataComent()'>Há " . $diferenca->h . ($diferenca->h == 1 ? " hora" : " horas") . ".</span>";
-                                } elseif ($diferenca->i > 0) {
-                                    // Mais de um minuto
-                                    echo "<span id='dataResumidaComent' onclick='changeDataComent()'>Há " . $diferenca->i . ($diferenca->i == 1 ? " minuto" : " minutos") . ".</span>";
-                                } else {
-                                    // Menos de um minuto (segundos)
-                                    echo "<span id='dataResumidaComent' onclick='changeDataComent()'>Agora mesmo." . "</span>";
-                                }
-
-                                // Dropdown de opções
-                                echo "<div class='dropdown'>";
-                                echo "<button class='btn btn-link dropdown-toggle' type='button' id='dropdownMenuButton' data-bs-toggle='dropdown' aria-expanded='false'>";
-                                echo "<i class='bi bi-three-dots'></i>"; // Ícone de três pontinhos
-                                echo "</button>";
-                                echo "<ul class='dropdown-menu' aria-labelledby='dropdownMenuButton'>";
-                                echo "<li><a class='dropdown-item' href='/PFC/app/controller/ComentarioController.php?action=delComentario&id=" . $comentario->getId() . "'>Excluir</a></li>";
-
-                                echo "</ul>";
-                                echo "</div>";
+                            else:
                                 ?>
-                            </div>
-                    <?php
+                                    <a href="/PFC/app/controller/UsuarioController.php?action=perfil&id=<?= $comentario->getUsuario()->getId() ?>">
+                                    <?php
+                                endif;
+                                    ?> <div class="fotoPerfilComent">
+                                        <img class="fotoPerfil mb-0"
+                                            src="<?php echo $comentario->getUsuario()->getFotoPerfil() != null
+                                                        ? "/PFC/arquivos/fotosPerfil/" . $comentario->getUsuario()->getFotoPerfil()
+                                                        : "https://s3.amazonaws.com/37assets/svn/765-default-avatar.png"; ?>"
+                                            alt="Foto de Perfil">
+                                    </div>
+                                    <?php
+
+
+                                    echo "<span class='userComent'>" . $comentario->getUsuario()->getNomeUsuario() . "</span>";
+                                    echo "</a></div>";
+                                    echo "<span class='conteudo'>" . $comentario->getConteudo() . "</span>";
+                                    ?>
+                                    <div class="data-del">
+
+                                        <?php
+                                        $dataComentario = new DateTime($comentario->getDataComentario());
+
+                                        $dataAtual = new DateTime();
+
+                                        $diferenca = $dataComentario->diff($dataAtual);
+
+                                        if ($diferenca->y > 0) {
+                                            // Mais de um ano
+                                            echo "<span id='dataResumidaComent' onclick='changeDataComent()'>Há " . $diferenca->y . ($diferenca->y == 1 ? " ano" : " anos") . ".</span>";
+                                        } elseif ($diferenca->m > 0) {
+                                            // Mais de um mês
+                                            echo "<span id='dataResumidaComent' onclick='changeDataComent()'>Há " . $diferenca->m . ($diferenca->m == 1 ? " mês" : " meses") . ".</span>";
+                                        } elseif ($diferenca->d > 0) {
+                                            // Mais de um dia
+                                            echo "<span id='dataResumidaComent' onclick='changeDataComent()'>Há " . $diferenca->d . ($diferenca->d == 1 ? " dia" : " dias") . ".</span>";
+                                        } elseif ($diferenca->h > 0) {
+                                            // Mais de uma hora
+                                            echo "<span id='dataResumidaComent' onclick='changeDataComent()'>Há " . $diferenca->h . ($diferenca->h == 1 ? " hora" : " horas") . ".</span>";
+                                        } elseif ($diferenca->i > 0) {
+                                            // Mais de um minuto
+                                            echo "<span id='dataResumidaComent' onclick='changeDataComent()'>Há " . $diferenca->i . ($diferenca->i == 1 ? " minuto" : " minutos") . ".</span>";
+                                        } else {
+                                            // Menos de um minuto (segundos)
+                                            echo "<span id='dataResumidaComent' onclick='changeDataComent()'>Agora mesmo." . "</span>";
+                                        }
+
+                                        if (($_SESSION[SESSAO_USUARIO_TIPO_USUARIO] == TipoUsuario::ESTUDANTE
+                                            && $comentario->getUsuario()->getId() == $_SESSION[SESSAO_USUARIO_ID])
+                                            || $_SESSION[SESSAO_USUARIO_TIPO_USUARIO] == TipoUsuario::ADM):
+                                            // Dropdown de opções
+                                            echo "<div class='dropdown'>";
+                                            echo "<button class='btn btn-link dropdown-toggle' type='button' id='dropdownMenuButton' data-bs-toggle='dropdown' aria-expanded='false'>";
+                                            echo "<i class='bi bi-three-dots'></i>"; // Ícone de três pontinhos
+                                            echo "</button>";
+                                            echo "<ul class='dropdown-menu' aria-labelledby='dropdownMenuButton'>";
+                                            echo "<li><a class='dropdown-item' href='/PFC/app/controller/ComentarioController.php?action=delComentario&id=" . $comentario->getId() . "'>Excluir</a></li>";
+
+                                            echo "</ul>";
+                                            echo "</div>";
+                                        ?>
+                                        <?php
+                                        endif;
+                                        ?>
+                                    </div>
+
+                            <?php
 
 
                             echo "</div>";
@@ -234,7 +276,7 @@ $usuario = $dados['usuario'];
                         echo "<p class='noComent mt-5'>Ainda não há nenhum comentário.</p>";
                         echo "<p class='fs-4 text-center'>Inicie a conversa!</p>";
                     }
-                    ?>
+                            ?>
 
                 </div>
 

@@ -89,17 +89,32 @@ require_once(__DIR__ . "/../include/menu.php");
                 } else ?>
                 <h5 id="foundPfp" class="textoSimples">Perfis encontrados:</h5>
                 <?php foreach ($dados['listPerfis'] as $perfil): ?>
-                    <a style="color: white;" class="text-decoration-none" href="/PFC/app/controller/UsuarioController.php?action=perfil&id=<?= $perfil->getId() ?>">
-                        <div class="perfil d-flex">
-                            <img
-                                class="fotoPerfilTop" id="fotoPerfil"
-                                src="/PFC/arquivos/fotosPerfil/<?= $perfil->getFotoPerfil(); ?>"
-                                alt="Imagem do perfil">
-                            <span id="nomeUsuario"><?= $perfil->getNomeUsuario();
-                                                    if ($perfil->getId() == $_SESSION[SESSAO_USUARIO_ID]) echo " (você)" ?> </span>
-                        </div>
-                    </a>
-                <?php endforeach; ?>
+
+                    <?php
+                    if ($perfil->getId() == $_SESSION[SESSAO_USUARIO_ID]):
+                    ?>
+                        <a style="color: white;" class="text-decoration-none" href="/PFC/app/controller/UsuarioController.php?action=perfilUsuario">
+
+                        <?php
+                    else:
+                        ?>
+
+                            <a style="color: white;" class="text-decoration-none" href="/PFC/app/controller/UsuarioController.php?action=perfil&id=<?= $perfil->getId() ?>">
+
+                            <?php
+                        endif;
+                            ?>
+
+                            <div class="perfil d-flex">
+                                <img
+                                    class="fotoPerfilTop" id="fotoPerfil"
+                                    src="/PFC/arquivos/fotosPerfil/<?= $perfil->getFotoPerfil(); ?>"
+                                    alt="Imagem do perfil">
+                                <span id="nomeUsuario"><?= $perfil->getNomeUsuario();
+                                                        if ($perfil->getId() == $_SESSION[SESSAO_USUARIO_ID]) echo " (você)" ?> </span>
+                            </div>
+                            </a>
+                        <?php endforeach; ?>
             </section>
 
         <?php endif; ?>

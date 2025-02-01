@@ -138,6 +138,11 @@ class Usuario
                 return $this->bio;
         }
 
+        public function getBioHTML(): ?string
+        {
+                return nl2br($this->bio);
+        }
+
         /**
          * Set the value of bio
          *

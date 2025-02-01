@@ -6,7 +6,7 @@ require_once(__DIR__ . "/../include/header.php");
 
 <div class="container-fluid form-container h-100">
     <a class="voltar"
-        href="/PFC/app/controller/UsuarioController.php?action=perfil&id=<?= $_SESSION[SESSAO_USUARIO_ID]?>">
+        href="/PFC/app/controller/UsuarioController.php?action=perfilUsuario">
         <i class="fs-4 bi bi-arrow-left-square"></i>
 
     </a>
