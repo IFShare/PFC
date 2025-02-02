@@ -23,13 +23,18 @@
     }
 
     .post-modal-body {
+        width: 100%;
+        height: 100%;
         border-radius: 20px;
         box-shadow: 0px 0px 30px #1a5f53;
+        padding: 16px;
     }
 
     .post-modal-content {
         transition: all 0.4s;
         border-radius: 25px;
+        width: 100%;
+        height: 100%;
     }
 
     #postModalNew {
@@ -114,10 +119,7 @@ $action = isset($_GET['action']) ? $_GET['action'] : '';
 $view = '';
 
 if ($action == 'perfilUsuario') {
-    $view = "perfilUsuario";
-} 
-elseif ($action == 'home'){
-    $view = "home";
+    $view = "&view=perfilUsuario";
 }
 
 ?>
@@ -130,7 +132,7 @@ elseif ($action == 'home'){
                 <form
                     id="formPostNew"
                     enctype="multipart/form-data" method="post"
-                    action="<?= BASEURL ?>/controller/PostagemController.php?action=save&view=<?= $view ?>">
+                    action="<?= BASEURL ?>/controller/PostagemController.php?action=save<?= $view ?>">
 
                     <!-- Imagem -->
                     <div class="mb-2 post-preview">
@@ -142,13 +144,12 @@ elseif ($action == 'home'){
                     <!-- Legenda -->
                     <div class="mb-1">
                         <label id="labelLegendaNew" for="txtLegendaNew" class="mb-1">
-                            <?php
-                            if (isset($erros['legenda'])) {
-                                echo $erros['legenda'];
-                            }
-                            ?>
                             Legenda</label>
-                        <textarea class="form-control" id="txtLegendaNew" name="legenda" rows="4"></textarea>
+                        <textarea 
+                        class="form-control" 
+                        id="txtLegendaNew" 
+                        name="legenda" 
+                        rows="4"></textarea>
                     </div>
 
                     <button type="submit" class="btn btn-post-custom">Publicar</button>

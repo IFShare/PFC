@@ -19,6 +19,10 @@
 </head>
 
 <style>
+    body {
+        font-family: Arial, Helvetica, sans-serif;
+    }
+
     ::-webkit-scrollbar {
         width: 10px;
     }
@@ -42,10 +46,12 @@ date_default_timezone_set('America/Sao_Paulo');
 
 <body id="body">
     <?php
+    $usuarioLogado = $_SESSION["usuarioLogado"];
     $darkMode = false;
     if (isset($_COOKIE['darkMode']) && $_COOKIE['darkMode'] === 'true') {
         $darkMode = true;
     }
+
     ?>
 
     <script>

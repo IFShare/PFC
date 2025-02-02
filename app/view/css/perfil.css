@@ -147,7 +147,7 @@ body {
 }
 
 
-.modal-content {
+.modal-content.editFotoPerfil {
     background: none; 
     border: none;
     display: flex;
@@ -155,7 +155,7 @@ body {
     align-items: center;
 }
 
-.modal-body {
+.modal-body.editFotoPerfil {
     box-shadow: none !important;
     padding: 0;
     border-radius: 15px;

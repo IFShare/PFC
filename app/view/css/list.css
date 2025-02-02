@@ -9,6 +9,11 @@ body {
     transition: all 1.4s ease-out;
 }
 
+h1.list-den {
+    color: white;
+    margin: 0 auto; /* Centraliza o campo na página */
+}
+
 h3.text-center {
     color: white;
     margin: 20px 0; /* Espaço em cima e embaixo do título */
@@ -34,10 +39,9 @@ h3.text-center {
     width: 94%;
 }
 
-.btn-success, .btn-primary, .btn-danger, .btn-secondary {
+.btn-success, .btn-primary, .btn-secondary {
     padding: 10px 20px; 
     border-radius: 30px; 
-    font-size: 16px; 
     font-weight: bold; 
     transition: background-color 0.3s, transform 0.3s; 
 }
@@ -47,6 +51,7 @@ h3.text-center {
     width: fit-content;
     background-color: #004f44;
     border: none;
+    font-size: 1rem;
 }
 
 .naoVerificados {
@@ -170,13 +175,65 @@ h3.text-center {
     z-index: 0;
 }
 
-.dropdown-menu {
-    position: absolute;
-    z-index: 1000 !important; /* Garante que o menu fique acima de tudo */
+.card-body a {
+    width: max-content;
 }
 
-.dropdown-menu.show {
-    z-index: 200 !important; /* Garante que o menu fique acima de tudo */
+.dropdown{
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    z-index: 99;
+}
+
+.dropdown i {
+    color: white;
+}
+
+.dropdown-menu.more-options.show {
+    width: 250px !important;
+    transform: translate(0, 35px) !important;
+    z-index: 99;
+    background-color: #004f44;
+    text-align: start;
+    border: 2px solid white;
+    padding: 0;
+    border-radius: 10px;
+}
+
+a.linkDropdown {
+    color: white;
+    text-decoration: none;
+}
+
+.liDropDown {
+    padding: 5px;
+}
+
+.liDropDown.delete i {
+    color: red;
+    font-weight: bold;
+}
+
+.liDropDown.adm i {
+    color: purple;
+    font-weight: bold;
+}
+
+.liDropDown.usuario i {
+    color: white;
+    font-weight: bold;
+}
+
+.liDropDown.estudante i {
+    color: #24a424;
+    font-weight: bold;
+}
+
+.liDropDown:hover {
+    background-color: #81a880;
+    color: black;
+    border-radius: 5px;
 }
 
 .card:hover {
@@ -188,7 +245,7 @@ h3.text-center {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 5px;
+    gap: 15px;
     width: 100%;
 }
 
@@ -196,7 +253,7 @@ h3.text-center {
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 12px;
+    font-size: .9rem;
     gap: 5px;
 }
 

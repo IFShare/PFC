@@ -141,7 +141,7 @@ class DenunciaDAO
         $stm->bindValue("id", $id);
         $stm->execute();
     }
-
+    
     #BUSCA UMA DENUNCIA PELO ID
 
     public function findById(int $id)

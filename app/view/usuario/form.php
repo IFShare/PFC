@@ -197,7 +197,7 @@ require_once(__DIR__ . "/../include/header.php");
                                 } elseif ((isset($dados["usuario"]) ? $dados["usuario"]->getIsEstudante() : '')) {
                                     echo "<p class='mb-0 fw-bold form-label label-valid'>" . (isset($dados["usuario"]) ? $dados["usuario"]->getIsEstudante() : '') . "</p>";
                                 } else {
-                                    echo "<p class='mb-0 form-label'>Status do usuário</p>";
+                                    echo "<p class='mb-0 form-label'>Usuário é estudante?</p>";
                                 }
                                 ?>
                             </label>

@@ -59,24 +59,49 @@ $isOldestPostsSelected = (isset($_GET['search']) && $_GET['search'] === 'OLDESTP
         </div>
 
 
-        <div class="box-search d-flex">
+        <?php
+        if (isset($_GET['action']) && $_GET['action'] !== "listTotalDenunciaForEachPost"
+            && $_GET['action'] !== "listDenunciaByPost"):
+        ?>
 
-            <input
-                value="<?php
-                        if ($dados['dadoPesquisa'] == "OLDESTPOSTS" || $dados['dadoPesquisa'] == "MOSTLIKEDPOSTS")
-                            echo "";
-                        else echo $dados['dadoPesquisa'] ?>"
-                id="pesquisar"
-                placeholder="Pesquisar..."
-                type="search"
-                class="form-control">
-            <button onclick="searchData();" class="btn-search">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
-                    <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
-                </svg>
-            </button>
+            <div class="box-search d-flex">
 
-        </div>
+                <input
+                    value="<?php
+                            if ($dados['dadoPesquisa'] == "OLDESTPOSTS" || $dados['dadoPesquisa'] == "MOSTLIKEDPOSTS")
+                                echo "";
+                            else echo $dados['dadoPesquisa'] ?>"
+                    id="pesquisar"
+                    placeholder="Pesquisar..."
+                    type="search"
+                    class="form-control">
+                <button onclick="searchData();" class="btn-search">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                        <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
+                    </svg>
+                </button>
+
+            </div>
+        <?php
+        elseif (isset($_GET['action']) && $_GET['action'] == "listTotalDenunciaForEachPost"):
+        ?>
+            <h1 class="text-center list-den">Listagens de denuncias</h1>
+
+        <?php
+        elseif (isset($_GET['action']) && $_GET['action'] == "listDenunciaByPost"):
+
+            $idPostagem = isset($_GET["idPostagem"]) ? $_GET['idPostagem'] : '';
+        ?>
+
+            <h1 class="text-center list-den">Denuncias da postagem: <?= $idPostagem ?></h1>
+
+        <?php
+        endif;
+        ?>
+
+
+
+
 
         <div class="rightElements">
 

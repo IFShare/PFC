@@ -188,6 +188,73 @@ class UsuarioDAO
         $stm->execute();
     }
 
+    public function inactivateById(int $id)
+    {
+        $conn = Connection::getConnection();
+
+
+        $sql = "UPDATE usuario SET status = 'INATIVO'" .
+            " WHERE id = :id";
+
+        $stm = $conn->prepare($sql);
+        $stm->bindValue("id", $id);
+        $stm->execute();
+    }
+
+    public function activateById(int $id)
+    {
+        $conn = Connection::getConnection();
+
+
+        $sql = "UPDATE usuario SET status = 'ATIVO'" .
+            " WHERE id = :id";
+
+        $stm = $conn->prepare($sql);
+        $stm->bindValue("id", $id);
+        $stm->execute();
+    }
+
+    public function verifyAsAdm(int $id)
+    {
+        $conn = Connection::getConnection();
+
+
+        $sql = "UPDATE usuario 
+        SET tipoUsuario = 'ADM', isEstudante = 'SIM', status = 'ATIVOVERIFICADO'" .
+            " WHERE id = :id";
+
+        $stm = $conn->prepare($sql);
+        $stm->bindValue("id", $id);
+        $stm->execute();
+    }
+
+    public function verifyAsStudent(int $id)
+    {
+        $conn = Connection::getConnection();
+
+
+        $sql = "UPDATE usuario 
+        SET tipoUsuario = 'ESTUDANTE', isEstudante = 'SIM', status = 'ATIVOVERIFICADO'" .
+            " WHERE id = :id";
+
+        $stm = $conn->prepare($sql);
+        $stm->bindValue("id", $id);
+        $stm->execute();
+    }
+
+    public function verifyAsUser(int $id)
+    {
+        $conn = Connection::getConnection();
+
+
+        $sql = "UPDATE usuario 
+        SET tipoUsuario = 'USUARIO', isEstudante = 'NAO', status = 'ATIVO'" .
+            " WHERE id = :id";
+
+        $stm = $conn->prepare($sql);
+        $stm->bindValue("id", $id);
+        $stm->execute();
+    }
 
     ####################################################################################
 

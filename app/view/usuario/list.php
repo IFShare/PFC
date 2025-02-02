@@ -17,6 +17,7 @@ require_once(__DIR__ . "/../include/header.php");
     <?php
     require_once(__DIR__ . "/../include/menu.php");
     require_once(__DIR__ . "/../include/menuTop.php");
+    require_once(__DIR__ . "/../include/createPost.php");
     ?>
 
 
@@ -35,6 +36,40 @@ require_once(__DIR__ . "/../include/header.php");
         <?php foreach ($dados['lista'] as $usu): ?>
             <div class="col-md-4 coluna mb-4">
                 <div class="card" style="border-radius: 8px;">
+                    <div class="dropdown">
+                        <button class="btn dropdown-toggle" type="button" id="dropdownMenu" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class='dots-info bi bi-three-dots'></i>
+                        </button>
+                        <ul class="dropdown-menu more-options" aria-labelledby="dropdownMenuButton">
+                            <li class="liDropDown estudante">
+                                <a class="linkDropdown" onclick="return confirmAction();"
+                                    href="/PFC/app/controller/UsuarioController.php?action=verifyAsStudent&id=<?= $usu->getId() ?>">
+                                    <i class="fa-solid fa-user-graduate"></i>
+                                    Verificar como ESTUDANTE</a>
+                            </li>
+                            <li class="liDropDown adm">
+                                <a class="linkDropdown" onclick="return confirmAction();"
+                                    href="/PFC/app/controller/UsuarioController.php?action=verifyAsAdm&id=<?= $usu->getId() ?>">
+                                    <i class="fa-solid fa-crown me-1"></i>
+                                    Verificar como ADM</a>
+                            </li>
+
+                            <li class="liDropDown usuario">
+                                <a class="linkDropdown" onclick="return confirmAction();"
+                                    href="/PFC/app/controller/UsuarioController.php?action=verifyAsUser&id=<?= $usu->getId() ?>">
+                                    <i class="fa-solid fa-user"></i>
+                                    Verificar como USUARIO</a>
+                            </li>
+
+                            <li class="liDropDown delete">
+                                <a class="linkDropdown"
+                                    onclick="return confirmAction();"
+                                    href="/PFC/app/controller/UsuarioController.php?action=delete&id=<?= $usu->getId() ?>">
+                                    <i class="bi bi-trash-fill me-1"></i>
+                                    Excluir usuário</a>
+                            </li>
+                        </ul>
+                    </div>
                     <div class="card-body position-relative">
                         <a href="/PFC/app/controller/UsuarioController.php?action=perfil&id=<?= $usu->getId() ?>">
                             <h5 class="card-title d-flex justify-content-center fw-bold">
@@ -49,7 +84,7 @@ require_once(__DIR__ . "/../include/header.php");
                             <strong>Email:</strong> <?= $usu->getEmail(); ?><br>
                             <strong>Data de cadastro:</strong>
                             <?= date('d/m/y', strtotime($usu->getDataCriacao())); ?><br> <strong>Tipo de usuário:</strong>
-                            <span <?= $usu->getTipoUsuario() === "ADM" ? "style= 'color: purple; font-weight: bold;" : ($usu->getTipoUsuario() === "ESTUDANTE" ? "style = 'color: green; font-weight: bold;" : ""); ?>'>
+                            <span <?= $usu->getTipoUsuario() === "ADM" ? "style= 'color: purple; font-weight: bold;" : ($usu->getTipoUsuario() === "ESTUDANTE" ? "style = 'color: #24a424; font-weight: bold;" : ($usu->getTipoUsuario() === "USUARIO" ? "style = 'color: white; font-weight: bold;" : "")); ?>'>
                                 <?= $usu->getTipoUsuario(); ?>
 
                             </span><br>
@@ -60,7 +95,7 @@ require_once(__DIR__ . "/../include/header.php");
                                 : "Sem declaração.";
                             ?><br>
                             <strong>Status:</strong>
-                            <span <?= $usu->getStatus() === "ATIVOVERIFICADO" ? "style = 'color: blue; font-weight: bold;" : ($usu->getStatus() === "ATIVO" ? "style = 'color: green; font-weight: bold;" : ($usu->getStatus() === "INATIVO" ? "color: gray; font-weight: bold;" : ($usu->getStatus() === "NAOVERIFICADO" ? "style = 'color: red; font-weight: bold;" : ""))); ?>'>
+                            <span <?= $usu->getStatus() === "ATIVOVERIFICADO" ? "style = 'color: blue; font-weight: bold;" : ($usu->getStatus() === "ATIVO" ? "style = 'color: #24a424; font-weight: bold;" : ($usu->getStatus() === "INATIVO" ? "style='color: orange; font-weight: bold;'" : ($usu->getStatus() === "NAOVERIFICADO" ? "style = 'color: red; font-weight: bold;" : ""))); ?>'>
                                 <?= $usu->getStatus(); ?>
 
                             </span>
@@ -69,11 +104,28 @@ require_once(__DIR__ . "/../include/header.php");
                             <a class="btn btn-primary" href="<?= BASEURL ?>/controller/UsuarioController.php?action=edit&id=<?= $usu->getId() ?>&search=<?php echo $dados['dadoPesquisa']; ?>">
                                 <i class="bi bi-pencil-square"></i> Editar
                             </a>
-                            <a class="btn btn-danger" onclick="return confirm('Confirma a exclusão do usuário?');" href="<?= BASEURL ?>/controller/UsuarioController.php?action=delete&id=<?= $usu->getId() ?>">
-                                <i class="fa-solid fa-trash"></i> Excluir
-                            </a>
 
-                            
+                            <?php
+                            if ($usu->getStatus() !== "INATIVO"):
+                            ?>
+
+                                <a class="btn btn-secondary" onclick="return confirmAction();"
+                                    href="<?= BASEURL ?>/controller/UsuarioController.php?action=inactivateActivateUser&id=<?= $usu->getId() ?>">
+                                    <i class="bi bi-person-fill-slash"></i> Inativar
+                                </a>
+
+                            <?php
+                            elseif ($usu->getStatus() == "INATIVO"):
+                            ?>
+
+                                <a class="btn btn-success" onclick="return confirmAction();"
+                                    href="<?= BASEURL ?>/controller/UsuarioController.php?action=inactivateActivateUser&id=<?= $usu->getId() ?>">
+                                    <i class="bi bi-person-fill-slash"></i> Ativar
+                                </a>
+
+                            <?php
+                            endif;
+                            ?>
 
                         </div>
                     </div>

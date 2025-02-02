@@ -131,7 +131,7 @@ class PostagemController extends Controller
 
                     if (isset($_GET['view']) && $_GET['view'] === 'perfilUsuario') {
                         $view = "/PFC/app/controller/UsuarioController.php?action=perfilUsuario";
-                    } elseif (isset($_GET['view']) && $_GET['view'] === 'home') {
+                    } elseif (! isset($_GET['view'])){
                         $view = "/PFC/app/controller/HomeController.php?action=home";
                     }
 

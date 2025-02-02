@@ -84,10 +84,13 @@ require_once(__DIR__ . "/../include/menu.php");
 
         <?php if (isset($_GET['search']) && !empty($_GET['search'])): ?>
             <section class="perfis">
-                <?php if ($dados['listPerfis'] == NULL) {
-                    echo "<h4 class='mt-3 textoSimples'>Nenhum perfil encontrado!</h4>";
-                } else ?>
-                <h5 id="foundPfp" class="textoSimples">Perfis encontrados:</h5>
+                <?php if ($dados['listPerfis'] == NULL):
+                ?>
+                    <h4 class='mt-3 textoSimples'>Nenhum perfil encontrado!</h4>
+                <?php
+                else: ?>
+                    <h5 id="foundPfp" class="textoSimples">Perfis encontrados:</h5>
+                <?php endif ?>
                 <?php foreach ($dados['listPerfis'] as $perfil): ?>
 
                     <?php

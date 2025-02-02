@@ -342,7 +342,7 @@ class UsuarioController extends Controller
     protected function delete()
     {
 
-        if (! $this->usuarioIsAdminStudent()) {
+        if (! $this->usuarioIsAdmin()) {
             header("location: " . ACESSO_NEGADO);
             exit;
         }
@@ -355,6 +355,81 @@ class UsuarioController extends Controller
         } else {
             //Mensagem q não encontrou o usuário
             $this->list("Usuário não encontrado!");
+        }
+    }
+
+    protected function inactivateActivateUser()
+    {
+
+        if (! $this->usuarioIsAdmin()) {
+            header("location: " . ACESSO_NEGADO);
+            exit;
+        }
+
+        $usuario = $this->findUsuarioById();
+        if ($usuario) {
+
+            if ($usuario->getStatus() !== "INATIVO") {
+                $this->usuarioDao->inactivateById($usuario->getId());
+                header("location: UsuarioController.php?action=list");
+            } elseif ($usuario->getStatus() == "INATIVO") {
+                $this->usuarioDao->activateById($usuario->getId());
+                header("location: UsuarioController.php?action=list");
+            }
+        } else {
+            //Mensagem q não encontrou o usuário
+            echo "Usuário não encontrado.";
+        }
+    }
+
+    protected function verifyAsAdm()
+    {
+        if (! $this->usuarioIsAdmin()) {
+            header("location: " . ACESSO_NEGADO);
+            exit;
+        }
+
+        $usuario = $this->findUsuarioById();
+        if ($usuario) {
+            $this->usuarioDao->verifyAsAdm($usuario->getId());
+            header("location: UsuarioController.php?action=list");
+        } else {
+            //Mensagem q não encontrou o usuário
+            echo "Usuário não encontrado.";
+        }
+    }
+
+    protected function verifyAsStudent()
+    {
+        if (! $this->usuarioIsAdmin()) {
+            header("location: " . ACESSO_NEGADO);
+            exit;
+        }
+
+        $usuario = $this->findUsuarioById();
+        if ($usuario) {
+            $this->usuarioDao->verifyAsStudent($usuario->getId());
+            header("location: UsuarioController.php?action=list");
+        } else {
+            //Mensagem q não encontrou o usuário
+            echo "Usuário não encontrado.";
+        }
+    }
+
+    protected function verifyAsUser()
+    {
+        if (! $this->usuarioIsAdmin()) {
+            header("location: " . ACESSO_NEGADO);
+            exit;
+        }
+
+        $usuario = $this->findUsuarioById();
+        if ($usuario) {
+            $this->usuarioDao->verifyAsUser($usuario->getId());
+            header("location: UsuarioController.php?action=list");
+        } else {
+            //Mensagem q não encontrou o usuário
+            echo "Usuário não encontrado.";
         }
     }
 

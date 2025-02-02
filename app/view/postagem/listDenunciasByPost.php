@@ -16,6 +16,7 @@ require_once(__DIR__ . "/../include/header.php");
     <?php
     require_once(__DIR__ . "/../include/menu.php");
     require_once(__DIR__ . "/../include/menuTop.php");
+    require_once(__DIR__ . "/../include/createPost.php");
     ?>
 
     <div class="row col-12">
@@ -53,7 +54,7 @@ require_once(__DIR__ . "/../include/header.php");
                         </div>
 
                         <?php
-                            if ($den->getStatus() === "NAOVERIFICADO"):
+                        if ($den->getStatus() === "NAOVERIFICADO"):
                         ?>
                             <div class="solution d-flex mt-3">
                                 <form action="/PFC/app/controller/DenunciaController.php?action=insertSolution" method="post">

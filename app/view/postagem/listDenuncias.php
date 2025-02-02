@@ -8,17 +8,16 @@ require_once(__DIR__ . "/../include/header.php");
 <link rel="stylesheet" href="<?= BASEURL ?>/view/css/list.css">
 <link rel="stylesheet" href="<?= BASEURL ?>/view/css/pesquisaStyle.css">
 
-<h3 class="text-center">Listagem de denuncias</h3>
-
 <div class="container-list position-relative sidebar-open" id="container">
 
 
     <?php
     require_once(__DIR__ . "/../include/menu.php");
     require_once(__DIR__ . "/../include/menuTop.php");
+    require_once(__DIR__ . "/../include/createPost.php");
     ?>
 
-    <div class="row col-12">
+    <div class="row col-12 mt-5">
 
         <?php
         if ($dados['lista'] == null) {

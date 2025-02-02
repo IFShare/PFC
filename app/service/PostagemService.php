@@ -14,10 +14,6 @@ class PostagemService
         if ($imagem["size"] <= 0)
             $erros['imagem'] = "Escolha uma imagem.";
 
-        if(strlen($post->getLegenda()) > 5) {
-            $erros['legenda'] = "Legenda muito pirocuda";
-        }
-
         return $erros;
     }
 }

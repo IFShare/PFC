@@ -1,6 +1,5 @@
 <?php
 require_once(__DIR__ . "/../include/header.php");
-require_once(__DIR__ . "/../include/createPost.php");
 
 $idUsuario = isset($_SESSION[SESSAO_USUARIO_ID]) ? $_SESSION[SESSAO_USUARIO_ID] : NULL;
 $usuario = $dados['usuario'];
@@ -13,10 +12,14 @@ $isPostsList = (!isset($_GET['likedPosts'])) ? 'active' : '';
 <link rel="stylesheet" href="<?= BASEURL ?>/view/css/editFotoPerfil.css">
 <link rel="stylesheet" href="<?= BASEURL ?>/view/css/formPost.css">
 
+<?php
+require_once(__DIR__ . "/../include/menu.php");
+
+?>
 <div class="sidebar-open position-relative" id="container">
 
     <?php
-    require_once(__DIR__ . "/../include/menu.php");
+    require_once(__DIR__ . "/../include/createPost.php");
     ?>
 
     <div class="lightStatus">
@@ -229,7 +232,7 @@ $isPostsList = (!isset($_GET['likedPosts'])) ? 'active' : '';
         </div>
 
     <?php
-    elseif($_SESSION[SESSAO_USUARIO_TIPO_USUARIO] !== "USUARIO"):
+    elseif ($_SESSION[SESSAO_USUARIO_TIPO_USUARIO] !== "USUARIO"):
     ?>
 
 
@@ -291,9 +294,9 @@ $isPostsList = (!isset($_GET['likedPosts'])) ? 'active' : '';
         endif;
         ?>
 
-<?php
+    <?php
     endif;
-?>
+    ?>
 
 </div>
 

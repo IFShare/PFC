@@ -1,9 +1,7 @@
 <?php
 require_once(__DIR__ . "/../include/header.php");
 
-
 $usuario = $dados['usuario'];
-$usuarioLogado = $_SESSION["usuarioLogado"];
 ?>
 
 <link rel="stylesheet" href="<?= BASEURL ?>/view/css/home.css">
@@ -91,41 +89,6 @@ $usuarioLogado = $_SESSION["usuarioLogado"];
 
         <div class="postRight position-relative">
 
-            <div class="topOpt">
-                <button
-                    data-bs-target="#postModal"
-                    data-bs-toggle="modal">
-                    <svg id="denunciaSVG" xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-exclamation-triangle" viewBox="0 0 16 16">
-                        <path d="M7.938 2.016A.13.13 0 0 1 8.002 2a.13.13 0 0 1 .063.016.15.15 0 0 1 .054.057l6.857 11.667c.036.06.035.124.002.183a.2.2 0 0 1-.054.06.1.1 0 0 1-.066.017H1.146a.1.1 0 0 1-.066-.017.2.2 0 0 1-.054-.06.18.18 0 0 1 .002-.183L7.884 2.073a.15.15 0 0 1 .054-.057m1.044-.45a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767z" />
-                        <path d="M7.002 12a1 1 0 1 1 2 0 1 1 0 0 1-2 0M7.1 5.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0z" />
-                    </svg>
-                </button>
-
-                <?php
-                if (
-                    ($_SESSION[SESSAO_USUARIO_TIPO_USUARIO] == TipoUsuario::ESTUDANTE
-                    && $dados["postagem"]->getUsuario()->getId() == $_SESSION[SESSAO_USUARIO_ID])
-                    || $_SESSION[SESSAO_USUARIO_TIPO_USUARIO] == TipoUsuario::ADM
-                ):
-                ?>
-
-                    <div class="dropdown">
-                        <button class="btn dropdown-toggle" type="button" id="dropdownMenu" data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class='dots-excluir bi bi-three-dots'></i>
-                        </button>
-                        <ul class="dropdown-menu delete-post" aria-labelledby="dropdownMenuButton">
-                            <li><a class="" href="/PFC/app/controller/PostagemController.php?action=delPost&id=<?= $dados['postagem']->getId() ?>">Excluir Postagem</a></li>
-                        </ul>
-                    </div>
-
-                <?php
-                endif;
-                ?>
-
-            </div>
-
-
-
             <div class="modal fade" id="postModal" tabindex="-1" aria-labelledby="postModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
@@ -149,7 +112,39 @@ $usuarioLogado = $_SESSION["usuarioLogado"];
 
 
             <!--LEGENDA E COMENTÁRIOS -->
-            <div class="infos">
+            <div class="infos position-relative">
+                <div class="topOpt">
+                    <button
+                        data-bs-target="#postModal"
+                        data-bs-toggle="modal">
+                        <svg id="denunciaSVG" xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-exclamation-triangle" viewBox="0 0 16 16">
+                            <path d="M7.938 2.016A.13.13 0 0 1 8.002 2a.13.13 0 0 1 .063.016.15.15 0 0 1 .054.057l6.857 11.667c.036.06.035.124.002.183a.2.2 0 0 1-.054.06.1.1 0 0 1-.066.017H1.146a.1.1 0 0 1-.066-.017.2.2 0 0 1-.054-.06.18.18 0 0 1 .002-.183L7.884 2.073a.15.15 0 0 1 .054-.057m1.044-.45a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767z" />
+                            <path d="M7.002 12a1 1 0 1 1 2 0 1 1 0 0 1-2 0M7.1 5.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0z" />
+                        </svg>
+                    </button>
+
+                    <?php
+                    if (
+                        ($_SESSION[SESSAO_USUARIO_TIPO_USUARIO] == TipoUsuario::ESTUDANTE
+                            && $dados["postagem"]->getUsuario()->getId() == $_SESSION[SESSAO_USUARIO_ID])
+                        || $_SESSION[SESSAO_USUARIO_TIPO_USUARIO] == TipoUsuario::ADM
+                    ):
+                    ?>
+
+                        <div class="dropdown">
+                            <button class="btn dropdown-toggle" type="button" id="dropdownMenu" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class='dots-excluir bi bi-three-dots'></i>
+                            </button>
+                            <ul class="dropdown-menu delete-post" aria-labelledby="dropdownMenuButton">
+                                <li><a class="" href="/PFC/app/controller/PostagemController.php?action=delPost&id=<?= $dados['postagem']->getId() ?>">Excluir Postagem</a></li>
+                            </ul>
+                        </div>
+
+                    <?php
+                    endif;
+                    ?>
+
+                </div>
                 <div class="usuario">
                     <img
                         class="fotoPerfil"
@@ -249,8 +244,9 @@ $usuarioLogado = $_SESSION["usuarioLogado"];
                                         }
 
                                         if (($_SESSION[SESSAO_USUARIO_TIPO_USUARIO] == TipoUsuario::ESTUDANTE
-                                            && $comentario->getUsuario()->getId() == $_SESSION[SESSAO_USUARIO_ID])
-                                            || $_SESSION[SESSAO_USUARIO_TIPO_USUARIO] == TipoUsuario::ADM):
+                                                && $comentario->getUsuario()->getId() == $_SESSION[SESSAO_USUARIO_ID])
+                                            || $_SESSION[SESSAO_USUARIO_TIPO_USUARIO] == TipoUsuario::ADM
+                                        ):
                                             // Dropdown de opções
                                             echo "<div class='dropdown'>";
                                             echo "<button class='btn btn-link dropdown-toggle' type='button' id='dropdownMenuButton' data-bs-toggle='dropdown' aria-expanded='false'>";
