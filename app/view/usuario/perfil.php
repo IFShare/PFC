@@ -133,7 +133,14 @@ require_once(__DIR__ . "/../include/menu.php");
         <div class="modal fade" id="perfilModal" tabindex="-1" aria-labelledby="postModalLabelNew" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content editFotoPerfil">
-                    <div class="modal-body editFotoPerfil">
+                    <div class="modal-body editFotoPerfil position-relative">
+                        <div class="delPfp">
+                            <a
+                                title="Excluir foto de perfil"
+                                href="/PFC/app/controller/UsuarioController.php?action=DeleteFotoPerfil">
+                                <i class="bi bi-trash-fill me-1"></i>
+                            </a>
+                        </div>
                         <h3>Foto de perfil</h3>
                         <form
                             id="formFotoPerfil"
@@ -179,7 +186,14 @@ require_once(__DIR__ . "/../include/menu.php");
 
     <div class="selectTypeList">
 
-        <a class="curtidas <?= $isPostsList ?>" href="/PFC/app/controller/UsuarioController.php?action=perfil&id=<?= $dados['usuario']->getId(); ?>">
+        <a class="curtidas <?= $isPostsList ?>" href="/PFC/app/controller/UsuarioController.php?action=
+<?php
+if ($dados['usuario']->getId() == $_SESSION[SESSAO_USUARIO_ID])
+    echo "perfilUsuario";
+else
+    echo "perfil&id=" . $dados['usuario']->getId();
+?>
+">
             <span>
                 <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-view-list" viewBox="0 0 16 16">
                     <path d="M3 4.5h10a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2m0 1a1 1 0 0 0-1 1v3a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1v-3a1 1 0 0 0-1-1zM1 2a.5.5 0 0 1 .5-.5h13a.5.5 0 0 1 0 1h-13A.5.5 0 0 1 1 2m0 12a.5.5 0 0 1 .5-.5h13a.5.5 0 0 1 0 1h-13A.5.5 0 0 1 1 14" />
@@ -189,7 +203,13 @@ require_once(__DIR__ . "/../include/menu.php");
         </a>
 
 
-        <a class="curtidas <?= $isLikedPosts ?>" href="/PFC/app/controller/UsuarioController.php?action=perfil&id=<?= $dados['usuario']->getId(); ?>&likedPosts">
+        <a class="curtidas <?= $isLikedPosts ?>" href="/PFC/app/controller/UsuarioController.php?action=
+<?php
+if ($dados['usuario']->getId() == $_SESSION[SESSAO_USUARIO_ID])
+    echo "perfilUsuario&likedPosts";
+else
+    echo "perfil&id=" . $dados['usuario']->getId() . "&likedPosts";
+?>">
             <span>
                 <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
                     <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143q.09.083.176.171a3 3 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15" />
@@ -197,8 +217,6 @@ require_once(__DIR__ . "/../include/menu.php");
             </span>
 
         </a>
-
-
 
     </div>
 

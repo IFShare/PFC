@@ -173,6 +173,19 @@ class UsuarioDAO
         $stm->execute();
     }
 
+    public function deleteFotoPerfil(int $id)
+    {
+        $conn = Connection::getConnection();
+
+        $sql = "UPDATE usuario SET fotoPerfil = '/defaultPfp.png'" .
+            " WHERE id = :id";
+
+        $stm = $conn->prepare($sql);
+        $stm->bindValue("id", $id);
+
+        $stm->execute();
+    }
+
     ####################################################################################
 
     #DELETA UM USUÁRIO PELO ID
@@ -255,7 +268,6 @@ class UsuarioDAO
         $stm->bindValue("id", $id);
         $stm->execute();
     }
-
     ####################################################################################
 
     #CONTA O NÚMERO DE USUÁRIOS DO SISTEMA

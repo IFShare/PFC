@@ -259,7 +259,7 @@ class UsuarioController extends Controller
                 header("location: /PFC/app/controller/UsuarioController.php?action=perfilUsuario");
                 exit;
             } catch (PDOException $e) {
-                $erros = array("Erro ao salvar a postagem na base de dados: " . $e->getMessage());
+                $erros = array("Erro ao salvar a foto de perfil na base de dados: " . $e->getMessage());
             }
         }
         //Se há erros, volta para o formulário
@@ -269,6 +269,32 @@ class UsuarioController extends Controller
 
         header("location: /PFC/app/controller/UsuarioController.php?action=perfilUsuario");
     }
+
+    protected function DeleteFotoPerfil()
+    {
+        $id = $_SESSION[SESSAO_USUARIO_ID];
+
+        $usuario = $this->usuarioDao->findById($id);
+        $fotoPerfilAtual = $usuario ? $usuario->getFotoPerfil() : null;
+
+        try {
+            if ($fotoPerfilAtual && $fotoPerfilAtual !== "/defaultPfp.png") {
+                $caminhoCompleto =  $_SERVER['DOCUMENT_ROOT'] . "/PFC/arquivos/fotosPerfil/" . $fotoPerfilAtual;
+                if (file_exists($caminhoCompleto)) {
+                    unlink($caminhoCompleto);
+                }
+            }
+            // Exclui a foto antiga do banco de dados
+            $this->usuarioDao->deleteFotoPerfil($id);
+
+            // Redirecionar para o perfil
+            header("location: /PFC/app/controller/UsuarioController.php?action=perfilUsuario");
+            exit;
+        } catch (PDOException $e) {
+            echo "Erro ao deletar a foto de perfil na base de dados: " . $e->getMessage();
+        }
+    }
+    //Se há erros, volta para o formulário
 
     protected function savePerfil()
     {
