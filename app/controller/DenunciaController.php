@@ -10,23 +10,13 @@ class DenunciaController extends Controller
 {
 
     private DenunciaDAO  $denunciaDao;
-    private PostagemDao  $postagemDao;
-    private UsuarioDAO  $usuarioDao;
 
     //Método construtor do controller - será executado a cada requisição a está classe
     public function __construct()
     {
         if (!$this->usuarioLogado())
             exit;
-
-        if (! $this->usuarioIsAdmin()) {
-            header("location: " . ACESSO_NEGADO);
-            exit;
-        }
-
         $this->denunciaDao = new DenunciaDAO();
-        $this->postagemDao = new PostagemDao();
-        $this->usuarioDao = new UsuarioDAO();
 
         $this->handleAction();
     }
@@ -95,13 +85,11 @@ class DenunciaController extends Controller
         $postagem->setId($idPostagem);
         $denuncia->setPost($postagem);
         $this->denunciaDao->insertDenuncia($denuncia);
-
-
-        //Carregar os valores recebidos por POST de volta para o formulário
-        $dados["denuncia"] = $denuncia;
+        $_SESSION['denunciaEnviada'] = true;
         header("location: " . "/PFC/app/controller/PostagemController.php?action=viewPost&id=" . $idPostagem);
+        exit;
 
-        $this->loadView("postagem/postView.php", $dados, []);
+        $this->loadView("postagem/postView.php", [], []);
     }
 
     protected function insertSolution()

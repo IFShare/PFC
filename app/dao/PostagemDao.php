@@ -186,7 +186,8 @@ class PostagemDAO
         $sql = "SELECT postagem.*, usuario.nomeUsuario, usuario.nomeSobrenome
         FROM postagem
         JOIN usuario ON postagem.idUsuario = usuario.id
-        WHERE postagem.idUsuario = ?";
+        WHERE postagem.idUsuario = ?
+        ORDER BY postagem.id DESC";
         $stm = $conn->prepare($sql);
 
         $stm->execute([$id]);

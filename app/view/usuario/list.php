@@ -20,6 +20,22 @@ require_once(__DIR__ . "/../include/header.php");
     require_once(__DIR__ . "/../include/createPost.php");
     ?>
 
+    <?php
+    if (
+        (isset($_SESSION['userDeleted'])  && $_SESSION['userDeleted'] == true)
+    ):
+    ?>
+
+        <?php
+        require_once(__DIR__ . "/../include/msgToast.php");
+        ?>
+
+    <?php
+        if (isset($_SESSION['userDeleted'])  && $_SESSION['userDeleted'] == true)
+            unset($_SESSION['userDeleted']);
+    endif;
+    ?>
+
 
     <a class="insertBtn btn btn-success mb-3" href="<?= BASEURL ?>/controller/UsuarioController.php?action=create">
         Inserir novo usuário
@@ -42,20 +58,26 @@ require_once(__DIR__ . "/../include/header.php");
                         </button>
                         <ul class="dropdown-menu more-options" aria-labelledby="dropdownMenuButton">
                             <li class="liDropDown estudante">
-                                <a class="linkDropdown" onclick="return confirmAction();"
+                                <a
+                                    class="linkDropdown"
+                                    onclick="return confirm('Tem certeza de que deseja verificar <?= $usu->getNomeUsuario(); ?> como ESTUDANTE?');"
                                     href="/PFC/app/controller/UsuarioController.php?action=verifyAsStudent&id=<?= $usu->getId() ?>">
                                     <i class="fa-solid fa-user-graduate"></i>
                                     Verificar como ESTUDANTE</a>
                             </li>
                             <li class="liDropDown adm">
-                                <a class="linkDropdown" onclick="return confirmAction();"
+                                <a
+                                    class="linkDropdown"
+                                    onclick="return confirm('Tem certeza de que deseja verificar <?= $usu->getNomeUsuario(); ?> como ADM?');"
                                     href="/PFC/app/controller/UsuarioController.php?action=verifyAsAdm&id=<?= $usu->getId() ?>">
                                     <i class="fa-solid fa-crown me-1"></i>
                                     Verificar como ADM</a>
                             </li>
 
                             <li class="liDropDown usuario">
-                                <a class="linkDropdown" onclick="return confirmAction();"
+                                <a
+                                    class="linkDropdown"
+                                    onclick="return confirm('Tem certeza de que deseja verificar <?= $usu->getNomeUsuario(); ?> como USUARIO?');"
                                     href="/PFC/app/controller/UsuarioController.php?action=verifyAsUser&id=<?= $usu->getId() ?>">
                                     <i class="fa-solid fa-user"></i>
                                     Verificar como USUARIO</a>
@@ -88,7 +110,6 @@ require_once(__DIR__ . "/../include/header.php");
                                 <?= $usu->getTipoUsuario(); ?>
 
                             </span><br>
-                            <strong>Estudante:</strong> <?= $usu->getIsEstudante(); ?><br>
                             <strong>Declaração:</strong>
                             <?= $usu->getCompMatricula()
                                 ? "<a href='/PFC/arquivos/compMatricula/" . $usu->getCompMatricula() . "' target='_blank'>Ver declaração</a>"
@@ -120,7 +141,7 @@ require_once(__DIR__ . "/../include/header.php");
 
                                 <a class="btn btn-success" onclick="return confirmAction();"
                                     href="<?= BASEURL ?>/controller/UsuarioController.php?action=inactivateActivateUser&id=<?= $usu->getId() ?>">
-                                    <i class="bi bi-person-fill-slash"></i> Ativar
+                                    <i class="bi bi-person-fill-check"></i> Ativar
                                 </a>
 
                             <?php

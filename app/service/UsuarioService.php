@@ -20,28 +20,30 @@ class UsuarioService
 
         //Validar campos vazios
         if (! $usuario->getNomeSobrenome())
-            $erros['nomeSobrenome'] = "Preecnha seu nome e sobrenome";
+            $erros['nomeSobrenome'] = "Preencha seu nome e sobrenome";
         elseif (strlen($usuario->getNomeSobrenome()) <= 2)
             $erros['nomeSobrenome'] = "Isso é um nome?";
 
         if (! $usuario->getNomeUsuario())
-            $erros['nomeUsuario'] = "Preecnha seu nome de usuário";
+            $erros['nomeUsuario'] = "Preencha seu nome de usuário";
         elseif (strpos($usuario->getNomeUsuario(), ' ') !== false)
             $erros['nomeUsuario'] = "O nome de usuário não pode conter espaços.";
-        elseif ($this->usuarioDAO->nomeUsuarioCadastrado($usuario->getNomeUsuario(), $usuario->getId())) // Verificação se o email já está cadastrado
+        elseif ($this->usuarioDAO->nomeUsuarioCadastrado($usuario->getNomeUsuario(), $usuario->getId())) 
             $erros['nomeUsuario'] = "Nome de usuário já em uso.";
+        elseif (strlen($usuario->getNomeUsuario()) < 5) 
+            $erros['nomeUsuario'] = "Nome de usuário precisa conter pelo menos 5 carcateres.";
 
         if (! $usuario->getEmail())
-            $erros['email'] = "Preecnha seu email";
+            $erros['email'] = "Preencha seu email";
         elseif (filter_var($usuario->getEmail(), FILTER_VALIDATE_EMAIL) === false)
             $erros['email'] = "Formato de email inválido!";
-        elseif ($this->usuarioDAO->emailJaCadastrado($usuario->getEmail(), $usuario->getId())) // Verificação se o email já está cadastrado
+        elseif ($this->usuarioDAO->emailJaCadastrado($usuario->getEmail(), $usuario->getId())) 
             $erros['email'] = "Este e-mail já foi cadastrado.";
 
 
 
         if ($usuario->getId() == 0 && !$usuario->getSenha())
-            $erros['senha'] = "Preecnha sua senha";
+            $erros['senha'] = "Preencha sua senha";
         elseif ($usuario->getId() == 0 && strlen($usuario->getSenha()) < 5)
             $erros['senha'] = "A senha precisa ter pelo menos 5 caracteres";
 

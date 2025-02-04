@@ -31,9 +31,9 @@
 
             <?php
             // Exibe a mensagem de sucesso, se existir
-            if (isset($_SESSION['mensagem_sucesso']) && isset($_SESSION['nomeUsuario'])) {
+            if (isset($_SESSION['mensagem_sucesso'])){
                 echo "<div class='alert alert-success'>" . $_SESSION['mensagem_sucesso'] . "</div>";
-                unset($_SESSION['mensagem_sucesso']); // Remove a mensagem da sessão para exibir apenas uma vez
+                unset($_SESSION['mensagem_sucesso']); 
             } else {
                 echo "<h4 class='texto-login'>Informe os dados para logar:</h4>";
             }
@@ -73,8 +73,8 @@
 
                 <?php
 
-                if (isset($msgErro['ambos']))
-                    echo $msgErro['ambos'];
+                if (isset($msgErro['emailSenhaErro']))
+                    echo $msgErro['emailSenhaErro'];
 
                 if(isset($msgErro['status']))
                         echo $msgErro['status'];

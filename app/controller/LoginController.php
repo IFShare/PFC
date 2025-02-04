@@ -57,16 +57,15 @@ class LoginController extends Controller
             if ($usuario) {
                 //Se encontrou o usuário, salva a sessão e redireciona para a HOME do sistema
                 $this->loginService->salvarUsuarioSessao($usuario);
-                if ($usuario->getStatus() == "NAOVERIFICADO" && $usuario->getTipoUsuario() == "USUARIO")
+                if ($usuario->getStatus() == "NAOVERIFICADO" && $usuario->getTipoUsuario() == "USUARIO"
+                    && !empty($usuario->getCompMatricula()))
                     $_SESSION['login_naoverificado'] = true;
 
                 header("location: " . HOME_PAGE);
                 exit;
-            } elseif($usuarioEmail) {
-                $erros['inativoEmail'] = "<p class='mb-1 fw-bold text-danger text-center'>Email cadastrado inativo<br>Verifique com um administrador</p>";
             }
             else {
-                $erros['ambos'] = "<p class='mb-1 fw-bold text-danger text-center'>Login ou senha informados são inválidos!</p>";
+                $erros['emailSenhaErro'] = "<p class='mb-1 fw-bold text-danger text-center'>Email ou senha informados são inválidos!</p>";
             }
         }
 

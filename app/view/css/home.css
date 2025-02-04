@@ -33,52 +33,6 @@ html {
     font-size: 30px;
 }
 
-#myToast {
-    background-color: #004f44; /* Fundo principal verde */
-    color: #ffffff; /* Texto branco */
-    border: 2px solid #81a880; /* Borda verde escuro */
-    border-radius: 8px; /* Bordas arredondadas */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra leve */
-}
-
-#myToast .toast-header {
-    background-color: #81a880; /* Verde mais escuro para o cabeçalho */
-    color: #004f44; /* Texto branco */
-    font-weight: bold; /* Negrito no título */
-    border-bottom: 1px solid #004f44;
-}
-
-
-#myToast .toast-body {
-    font-size: 1rem; /* Tamanho da fonte */
-    padding: 1rem; /* Espaçamento interno */
-    text-align: justify; /* Alinha o texto */
-}
-
-#myToast .mt-2.pt-2.border-top {
-    border-top: 1px solid #388E3C; /* Linha divisória verde */
-    padding-top: 0.5rem; /* Espaçamento no topo */
-}
-
-#myToast .msgToast {
-    font-size: 1rem;
-    padding: 7px;
-    border-radius: 10px;
-    background: transparent; /* Fundo verde escuro */
-    border-color: #81a880; /* Borda combinando */
-    color: #ffffff; /* Texto branco */
-    border: 2px solid #81a880;
-}
-
-#myToast .msgToast:hover {
-    font-size: 1rem;
-    padding: 7px;
-    border-radius: 10px;
-    background: #81a880; /* Fundo verde escuro */
-    border-color: #81a880; /* Borda combinando */
-    color: #004f44; /* Texto branco */
-}
-
 .perfis {
     width: 50%;
     border-bottom: 5px solid #004f44;

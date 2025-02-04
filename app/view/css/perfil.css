@@ -447,3 +447,32 @@ div.fotoPerfil:hover {
     cursor: pointer;
     font-size: 1.1rem;
 }
+
+.arrow-up {
+    z-index: 99;
+    position: fixed;
+    bottom: 3%;
+    right: 3%;
+    border-radius: 50%;
+    padding: 20px 20px;
+    background-color: #81a880;
+    color:white;
+    opacity: 0; /* Inicialmente invisível */
+    visibility: hidden; /* Elemento não é clicável nem exibido */
+    transition: all 0.3s ease; /* Animação suave */
+}
+
+.arrow-up svg {
+    width: 32px;
+    height: 32px;
+    fill: white;
+}
+
+.arrow-up.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+.arrow-up a {
+    color: white;
+}

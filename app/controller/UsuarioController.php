@@ -38,6 +38,8 @@ class UsuarioController extends Controller
         $this->handleAction();
     }
 
+    //Método que lista todos os usuários
+
     protected function list()
     {
         if (! $this->usuarioIsAdmin()) {
@@ -55,13 +57,15 @@ class UsuarioController extends Controller
 
         $naoVerifiacdos = $this->usuarioDao->countUsersNaoVerificados();
 
-        //print_r($usuarios);
         $dados["dadoPesquisa"] = $data;
         $dados["lista"] = $usuarios;
         $dados["naoVerificados"] = $naoVerifiacdos;
 
         $this->loadView("usuario/list.php", $dados, []);
     }
+
+
+    //Método que lista perfis dos usuários
 
     protected function listPerfis()
     {
@@ -76,6 +80,8 @@ class UsuarioController extends Controller
 
         $this->loadView("home/home.php", $dados, []);
     }
+
+    //Método que salva um usuário no banco de dados
 
     protected function save()
     {
@@ -94,6 +100,12 @@ class UsuarioController extends Controller
         $isEstudante = isset($_POST['isEstudante']) ? trim($_POST['isEstudante']) : NULL;
         $status = isset($_POST['status']) ? trim($_POST['status']) : NULL;
         $data = isset($_GET['search']) ? $_GET['search'] : NULL;
+
+        $usuarioAtual = $this->usuarioDao->findById($dados["id"]);
+
+        if($usuarioAtual && ($usuarioAtual->getFotoPerfil() !== "/defaultPfp.png"))
+            $fotoPerfil = $usuarioAtual->getFotoPerfil();
+        else
         $fotoPerfil = "/defaultPfp.png";
 
         //Cria objeto Usuario
@@ -205,7 +217,8 @@ class UsuarioController extends Controller
                 $usuario->setSenha($senhaNova);
 
                 $this->usuarioDao->updateSenha($usuario);
-                header("location: /PFC/app/controller/UsuarioController.php?action=perfil&id=" . $usuario->getId());
+                $_SESSION['senhaSaved'] = true;
+                header("location: /PFC/app/controller/UsuarioController.php?action=perfilUsuario");
             } catch (PDOException $e) {
                 //echo $e->getMessage();
                 $erros['banco'] = "Erro ao salvar o usuário na base de dados." . $e;
@@ -254,6 +267,7 @@ class UsuarioController extends Controller
 
                 // Atualizar o banco de dados com a nova foto
                 $this->usuarioDao->updateFotoPerfil($usuario);
+                $_SESSION['fotoPerfilSaved'] = true;
 
                 // Redirecionar para o perfil
                 header("location: /PFC/app/controller/UsuarioController.php?action=perfilUsuario");
@@ -286,7 +300,7 @@ class UsuarioController extends Controller
             }
             // Exclui a foto antiga do banco de dados
             $this->usuarioDao->deleteFotoPerfil($id);
-
+            $_SESSION['fotoDeleted'] = true;
             // Redirecionar para o perfil
             header("location: /PFC/app/controller/UsuarioController.php?action=perfilUsuario");
             exit;
@@ -317,7 +331,8 @@ class UsuarioController extends Controller
         if (empty($erros)) {
             try {
                 $this->usuarioDao->updatePerfil($usuario);
-                header("location: /PFC/app/controller/UsuarioController.php?action=perfil&id=" . $usuario->getId());
+                $_SESSION['perfilSaved'] = true;
+                header("location: /PFC/app/controller/UsuarioController.php?action=perfilUsuario");
             } catch (PDOException $e) {
                 //echo $e->getMessage();
                 $erros['banco'] = "Erro ao salvar o usuário na base de dados." . $e;
@@ -377,6 +392,7 @@ class UsuarioController extends Controller
         if ($usuario) {
             //Excluir
             $this->usuarioDao->deleteById($usuario->getId());
+            $_SESSION['userDeleted'] = true;
             header("location: UsuarioController.php?action=list");
         } else {
             //Mensagem q não encontrou o usuário
@@ -512,6 +528,12 @@ class UsuarioController extends Controller
 
         $this->loadView("usuario/perfil.php", $dados, []);
     }
+
+    protected function msgNegado()
+    {
+        $this->loadView("include/msgNegado.php", [], []);
+    }
+
 }
 
 #Criar objeto da classe para assim executar o construtor

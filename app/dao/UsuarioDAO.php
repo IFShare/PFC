@@ -108,8 +108,6 @@ class UsuarioDAO
         $stm->bindValue("status", $usuario->getStatus());
         $stm->bindValue("isEstudante", $usuario->getIsEstudante());
 
-
-
         $stm->execute();
     }
 
@@ -379,22 +377,12 @@ class UsuarioDAO
         $result = $stm->fetchAll();
 
         $usuarios = $this->mapUsuarios($result);
-        return $usuarios[0];
+        if ($usuarios)
+            return $usuarios[0];
+        else
+            return null;
     }
 
-    public function findByNomeUsuario(string $nomeUsuario)
-    {
-        $conn = Connection::getConnection();
-
-        $sql = "SELECT * FROM usuario u" .
-            " WHERE u.nomUsuario = ?";
-        $stm = $conn->prepare($sql);
-        $stm->execute();
-        $result = $stm->fetchAll([$nomeUsuario]);
-
-        $usuarios = $this->mapUsuarios($result);
-        return $usuarios[0];
-    }
 
     public function buscarSenhaPorId($id)
     {

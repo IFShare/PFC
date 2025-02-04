@@ -3,7 +3,7 @@
     position: fixed;
     top: 0;
     left: 0;
-    z-index: 2;
+    z-index: 95;
     background: linear-gradient(90deg, #81a880, #004f44, #002923, #002923);
     background-size: 300%;
     background-position: 0%;

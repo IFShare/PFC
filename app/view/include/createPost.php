@@ -8,7 +8,13 @@
         font-size: 16px;
         font-weight: bold;
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        transition: background-color 0.3s, transform 0.3s;
+        transition: background-color 0.5s, transform 0.3s;
+    }
+
+    .btn-post-custom.reset {
+        background-color: #1a5f53;
+        margin-left: auto;
+        color: white;
     }
 
     .btn-post-custom:hover {
@@ -63,7 +69,6 @@
     }
 
     .post-preview {
-        cursor: pointer;
         border-radius: 15px;
         border: 4px solid #1a5f53;
         transition: all 0.3s;
@@ -108,8 +113,50 @@
         transition: background-color 0.3s, transform 0.3s;
     }
 
+    .dark .btn-post-custom.reset {
+        background-color: #1a5f53;
+        margin-left: auto;
+        color: white;
+    }
+
     .dark .btn-post-custom:hover {
         transform: scale(1.05);
+    }
+
+    .nomeArquivoAddPost {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .nomeArquivoAddPost label {
+        color: white;
+        text-align: center;
+        border: 2px solid #81a880;
+        width: 70%;
+        border-radius: 20px;
+        padding: 10px 5px;
+        margin: 10px 0 5px 0;
+        cursor: pointer;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+        transition: all 0.3s ease;
+    }
+
+    .nomeArquivoAddPost label {
+        cursor: pointer;
+        color: black;
+    }
+
+    .dark .nomeArquivoAddPost label {
+        color: white;
+    }
+
+
+    .nomeArquivoAddPost label:hover {
+        background-color: #81a880;
+        color: black;
     }
 </style>
 
@@ -140,19 +187,24 @@ if ($action == 'perfilUsuario') {
                         <img id="imgPreviewAddPost" src="/PFC/app/assets/addPost.png" alt="Preview">
                     </div>
 
+                    <div class="nomeArquivoAddPost">
+                        <label id="labelFileImg" for="fileImgNew">Escolha uma foto de perfil</label>
+                    </div>
+
 
                     <!-- Legenda -->
                     <div class="mb-1">
                         <label id="labelLegendaNew" for="txtLegendaNew" class="mb-1">
                             Legenda</label>
-                        <textarea 
-                        class="form-control" 
-                        id="txtLegendaNew" 
-                        name="legenda" 
-                        rows="4"></textarea>
+                        <textarea
+                            class="form-control"
+                            id="txtLegendaNew"
+                            name="legenda"
+                            rows="4"></textarea>
                     </div>
 
                     <button type="submit" class="btn btn-post-custom">Publicar</button>
+                    <button type="reset" class="btn btn-post-custom reset">Limpar</button>
                 </form>
             </div>
         </div>
@@ -161,29 +213,25 @@ if ($action == 'perfilUsuario') {
 
 
 <script>
-    const file =
-        document.querySelector('#fileImgNew');
+    document.getElementById('fileImgNew').addEventListener('change', function() {
+        const fileInput = this;
+        const imgPreview = document.getElementById('imgPreviewAddPost');
+        const fileNameLabel = document.getElementById('labelFileImg');
 
-    const img =
-        document.querySelector('#imgPreviewAddPost');
-    img.addEventListener("click", function() {
-        file.click();
+        if (fileInput.files.length > 0) {
+            const file = fileInput.files[0];
+            const reader = new FileReader();
+
+            // Atualiza o preview da imagem
+            reader.onload = function() {
+                imgPreview.src = reader.result;
+            };
+            reader.readAsDataURL(file);
+
+            fileNameLabel.textContent = file.name;
+        } else {
+            fileNameLabel.textContent = 'Escolha uma foto de perfil';
+        }
     });
 
-    file.addEventListener("change", function(e) {
-
-        if (file.files.length <= 0) {
-            return;
-        }
-
-        let reader = new FileReader();
-
-        reader.onload = function() {
-            img.src = reader.result;
-            console.log(reader.result);
-        }
-
-        reader.readAsDataURL(file.files[0]);
-
-    })
 </script>

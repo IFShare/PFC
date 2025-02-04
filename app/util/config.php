@@ -9,7 +9,7 @@ define("DB_PASSWORD", "");
 //Constante com a URL do sistema
 define("BASEURL", "/PFC/app");
 
-define("ACESSO_NEGADO", BASEURL . '/view/include/msgNegado.php');
+define("ACESSO_NEGADO", BASEURL . '/controller/UsuarioController.php?action=msgNegado');
 
 define("HOME_LOGIN", BASEURL . '/view/include/msgNegado.php');
 

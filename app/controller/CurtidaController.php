@@ -90,21 +90,6 @@ class CurtidaController extends Controller
         }
     }
 
-    // public function likedPosts() {
-    //     $idUsuario = $_GET['id'] ?? $_GET['id'] ?? null;
-
-    //     if (!$idUsuario) {
-    //         echo "ID do usuário não fornecido!";
-    //         exit;
-    //     }
-
-    //     $likedPosts = $this->curtidaDao->likedPosts($idUsuario);
-
-    //     $dados['likedPosts'] = $likedPosts;
-
-
-        
-    // }
 }
 
 new CurtidaController();

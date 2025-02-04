@@ -9,7 +9,6 @@ require_once(__DIR__ . "/../include/header.php");
 <link rel="stylesheet" href="<?= BASEURL ?>/view/css/post.css">
 
 <?php
-$usuarioLogado = $_SESSION['usuarioLogado'];
 require_once(__DIR__ . "/../include/menu.php");
 ?>
 <div class="container-posts sidebar-open position-relative" id="container">
@@ -21,41 +20,15 @@ require_once(__DIR__ . "/../include/menu.php");
     ?>
 
     <?php
-    if (
-        $usuarioLogado->getTipoUsuario() == "USUARIO" &&
-        $usuarioLogado->getStatus() == "NAOVERIFICADO" &&
-        !empty($usuarioLogado->getCompMatricula()) &&
-        $_SESSION['login_naoverificado'] == true
-    ):
+    if (isset($_SESSION['login_naoverificado'])  && $_SESSION['login_naoverificado'] == true):
     ?>
-        <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
-            <div id="myToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
-                <div class="toast-header">
-                    <strong class="me-auto">IFShare</strong>
-                    <button type="button" class="btn-close btn-success" data-bs-dismiss="toast" aria-label="Close"></button>
-                </div>
-                <div class="toast-body">
-                    Olá, <?= $usuarioLogado->getNomeUsuario() ?>! 😊Sua declaração de matrícula está em análise!
-                </div>
-                <div class="mb-2 me-2 text-end">
-                    <button type="button" class="btn btn-success btn-sm msgToast" data-bs-dismiss="toast">Entendi!</button>
-                </div>
-            </div>
-        </div>
 
-        <script>
-            // Exibir o toast ao carregar a página
-            document.addEventListener('DOMContentLoaded', () => {
-                const myToastElement = document.getElementById('myToast');
-                const myToast = new bootstrap.Toast(myToastElement, {
-                    autohide: false // Desativa o fechamento automático
-                });
-                myToast.show();
-            });
-        </script>
+        <?php
+        require_once(__DIR__ . "/../include/msgToast.php");
+        ?>
 
     <?php
-        $_SESSION['login_naoverificado'] = false;
+        unset($_SESSION['login_naoverificado']);
     endif;
     ?>
 

@@ -25,14 +25,6 @@ require_once(__DIR__ . "/../include/header.php");
         transition: all 0.4s;
     }
 
-    .mensagem:hover {
-        box-shadow: 8px 12px 30px black;
-    }
-
-    .mensagem:hover h1 {
-        font-size: 60px;
-    }
-
     .mensagem h1 {
         font-size: 50px;
         font-weight: bold;

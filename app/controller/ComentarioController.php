@@ -11,9 +11,6 @@ class ComentarioController extends Controller
 {
 
     private ComentarioDAO  $comentarioDao;
-    private Comentario  $comentario;
-    private PostagemDao  $postagemDao;
-    private UsuarioDAO  $usuarioDao;
 
     //Método construtor do controller - será executado a cada requisição a está classe
     public function __construct()
@@ -27,9 +24,6 @@ class ComentarioController extends Controller
         }
 
         $this->comentarioDao = new ComentarioDAO();
-        $this->comentario = new Comentario();
-        $this->postagemDao = new PostagemDao();
-        $this->usuarioDao = new UsuarioDAO();
 
         $this->handleAction();
     }

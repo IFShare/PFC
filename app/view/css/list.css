@@ -210,6 +210,10 @@ a.linkDropdown {
     padding: 5px;
 }
 
+.liDropDown.delete {
+    border-top: 1px solid white;
+}
+
 .liDropDown.delete i {
     color: red;
     font-weight: bold;

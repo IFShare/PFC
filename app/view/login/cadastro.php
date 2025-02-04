@@ -49,7 +49,7 @@
                             <label for="txtNomeSobrenome" class="form-label">
                                 <?php
                                 if (isset($msgErro['nomeSobrenome'])) {
-                                    echo "<p class='mb-0 label-invalid'>" . $msgErro['nomeSobrenome'] . "</p>";
+                                    echo "<p class='mb-0 label-invalid fw-bold'>" . $msgErro['nomeSobrenome'] . "</p>";
                                 } elseif ((isset($dados["usuario"]) ? $dados["usuario"]->getNomeSobrenome() : '')) {
                                     echo "<p class='mb-0 form-label label-valid'>" . (isset($dados["usuario"]) ? "<i class='fa-solid fa-check'></i> Nome válido" : '') . "</p>";
                                 } else {
@@ -71,7 +71,7 @@
                             <label for="txtNomeUsuario" class="form-label">
                                 <?php
                                 if (isset($msgErro['nomeUsuario'])) {
-                                    echo "<p class='mb-0 label-invalid'>" . $msgErro['nomeUsuario'] . "</p>";
+                                    echo "<p class='mb-0 label-invalid fw-bold'>" . $msgErro['nomeUsuario'] . "</p>";
                                 } elseif ((isset($dados["usuario"]) ? $dados["usuario"]->getNomeUsuario() : '')) {
                                     echo "<p class='mb-0 form-label label-valid'>" . (isset($dados["usuario"]) ? "<i class='fa-solid fa-check'></i> Nome de usuário válido" : '') . "</p>";
                                 } else {
@@ -93,7 +93,7 @@
                             <label for="txtEmail" class="form-label">
                                 <?php
                                 if (isset($msgErro['email'])) {
-                                    echo "<p class='mb-0 label-invalid'>" . $msgErro['email'] . "</p>";
+                                    echo "<p class='mb-0 label-invalid fw-bold'>" . $msgErro['email'] . "</p>";
                                 } elseif ((isset($dados["usuario"]) ? $dados["usuario"]->getEmail() : '')) {
                                     echo "<p class='mb-0 form-label label-valid'>" . (isset($dados["usuario"]) ? "<i class='fa-solid fa-check'></i> E-mail válido" : '') . "</p>";
                                 } else {
@@ -115,7 +115,7 @@
                             <label for="txtSenha" class="form-label">
                                 <?php
                                 if (isset($msgErro['senha'])) {
-                                    echo "<p class='mb-0 label-invalid'>" . $msgErro['senha'] . "</p>";
+                                    echo "<p class='mb-0 label-invalid fw-bold'>" . $msgErro['senha'] . "</p>";
                                 } elseif ((isset($dados["usuario"]) ? "<i class='fa-solid fa-check'></i>" : '')) {
                                     echo "<p class='mb-0 form-label label-valid'><i class='fa-solid fa-check'></i> Senha válida</p>";
                                 } else {
@@ -137,7 +137,7 @@
                         <div class="form-group mb-3">
                             <?php
                             if (isset($msgErro['isEstudante'])) {
-                                echo "<h5 class='mb-2 label-invalid'>" . $msgErro['isEstudante'] . "</h5>";
+                                echo "<h5 class='mb-2 label-invalid fw-bold'>" . $msgErro['isEstudante'] . "</h5>";
                             } else {
                                 echo "<h5 class='mb-2 form-label'>Selecione uma das opções abaixo:</h5>";
                             }
@@ -154,7 +154,7 @@
 
                         <?php
                         if (isset($msgErro['compMatricula'])) {
-                            echo "<h5 class='mb-2 label-invalid'>" . $msgErro['compMatricula'] . "</h5>";
+                            echo "<h5 class='mb-2 label-invalid fw-bold'>" . $msgErro['compMatricula'] . "</h5>";
                         }
                         ?>
                         <div class="form-group mb-3">

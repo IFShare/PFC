@@ -96,7 +96,7 @@ require_once(__DIR__ . "/../include/header.php");
                     </div>
 
 
-                    <input type="hidden" id="hddId" name="id" value="<?= $dados['usuario']->getId(); ?>" />
+                    <input type="hidden" id="hddId" name="id" value="<?= $_SESSION[SESSAO_USUARIO_ID] ?>" />
 
                 </form>
             </div>

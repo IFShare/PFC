@@ -10,6 +10,22 @@ $usuario = $dados['usuario'];
 <div class="container">
 
     <?php
+    if (
+        (isset($_SESSION['denunciaEnviada'])  && $_SESSION['denunciaEnviada'] == true)
+    ):
+    ?>
+
+        <?php
+        require_once(__DIR__ . "/../include/msgToast.php");
+        ?>
+
+    <?php
+        if (isset($_SESSION['denunciaEnviada'])  && $_SESSION['denunciaEnviada'] == true)
+            unset($_SESSION['denunciaEnviada']);
+    endif;
+    ?>
+
+    <?php
     if (isset($_GET['isDenuncia']) && $_GET['isDenuncia'] == "sim"):
     ?>
 
@@ -19,6 +35,18 @@ $usuario = $dados['usuario'];
                 data-bs-toggle="tooltip" data-bs-title="Default tooltip data-bs-title=">
             </i>
         </a>
+
+    <?php
+    elseif (isset($_GET['listDenunciaByPost']) && isset($_GET['idPostagem'])):
+    ?>
+
+        <a class="voltar"
+            href="/PFC/app/controller/DenunciaController.php?action=listDenunciaByPost&idPostagem=<?= $_GET['idPostagem'] ?>">
+            <i class="fs-4 bi bi-arrow-left-square"
+                data-bs-toggle="tooltip" data-bs-title="Default tooltip data-bs-title=">
+            </i>
+        </a>
+
 
     <?php
     elseif (isset($_GET['idPerfil'])):
@@ -89,6 +117,7 @@ $usuario = $dados['usuario'];
 
         <div class="postRight position-relative">
 
+
             <div class="modal fade" id="postModal" tabindex="-1" aria-labelledby="postModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
@@ -113,15 +142,30 @@ $usuario = $dados['usuario'];
 
             <!--LEGENDA E COMENTÁRIOS -->
             <div class="infos position-relative">
+
                 <div class="topOpt">
-                    <button
-                        data-bs-target="#postModal"
-                        data-bs-toggle="modal">
-                        <svg id="denunciaSVG" xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-exclamation-triangle" viewBox="0 0 16 16">
-                            <path d="M7.938 2.016A.13.13 0 0 1 8.002 2a.13.13 0 0 1 .063.016.15.15 0 0 1 .054.057l6.857 11.667c.036.06.035.124.002.183a.2.2 0 0 1-.054.06.1.1 0 0 1-.066.017H1.146a.1.1 0 0 1-.066-.017.2.2 0 0 1-.054-.06.18.18 0 0 1 .002-.183L7.884 2.073a.15.15 0 0 1 .054-.057m1.044-.45a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767z" />
-                            <path d="M7.002 12a1 1 0 1 1 2 0 1 1 0 0 1-2 0M7.1 5.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0z" />
-                        </svg>
-                    </button>
+
+                    <?php
+
+                    if (
+                        ($_SESSION[SESSAO_USUARIO_TIPO_USUARIO] == TipoUsuario::ESTUDANTE)
+                        || ($_SESSION[SESSAO_USUARIO_TIPO_USUARIO] == TipoUsuario::ADM)
+                    ):
+                    ?>
+
+                        <button
+                            data-bs-target="#postModal"
+                            data-bs-toggle="modal">
+                            <svg id="denunciaSVG" xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-exclamation-triangle" viewBox="0 0 16 16">
+                                <path d="M7.938 2.016A.13.13 0 0 1 8.002 2a.13.13 0 0 1 .063.016.15.15 0 0 1 .054.057l6.857 11.667c.036.06.035.124.002.183a.2.2 0 0 1-.054.06.1.1 0 0 1-.066.017H1.146a.1.1 0 0 1-.066-.017.2.2 0 0 1-.054-.06.18.18 0 0 1 .002-.183L7.884 2.073a.15.15 0 0 1 .054-.057m1.044-.45a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767z" />
+                                <path d="M7.002 12a1 1 0 1 1 2 0 1 1 0 0 1-2 0M7.1 5.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0z" />
+                            </svg>
+                        </button>
+
+                    <?php
+                    endif;
+                    ?>
+
 
                     <?php
                     if (
@@ -321,6 +365,14 @@ $usuario = $dados['usuario'];
                 <input hidden type="number" id="idPost" value="<?php echo $dados["postagem"]->getId(); ?>">
                 <input hidden type="number" id="idUsuario" value="<?php echo $_SESSION[SESSAO_USUARIO_ID] ?>">
             </form>
+            <form id="formComent" action="/PFC/app/controller/ComentarioController.php?action=InsertComentario" method="post">
+                <input type="hidden" name="idPostagem" value="<?= $dados["postagem"]->getId(); ?>"> <!-- ID da postagem -->
+            </form>
+            <script>
+                document.getElementById("formComent").addEventListener("submit", function() {
+                    document.getElementById("insertComent").disabled = true;
+                });
+            </script>
 
 
             <!--DATA -->
@@ -365,9 +417,7 @@ $usuario = $dados['usuario'];
                 ?>
             </div>
 
-            <form id="formComent" action="/PFC/app/controller/ComentarioController.php?action=InsertComentario" method="post">
-                <input type="hidden" name="idPostagem" value="<?= $dados["postagem"]->getId(); ?>"> <!-- ID da postagem -->
-            </form>
+
 
         </div>
 

@@ -22,6 +22,33 @@ require_once(__DIR__ . "/../include/menu.php");
     require_once(__DIR__ . "/../include/createPost.php");
     ?>
 
+    <?php
+    if (
+        (isset($_SESSION['fotoPerfilSaved'])  && $_SESSION['fotoPerfilSaved'] == true)
+        || (isset($_SESSION['senhaSaved'])  && $_SESSION['senhaSaved'] == true)
+        || (isset($_SESSION['perfilSaved'])  && $_SESSION['perfilSaved'] == true)
+        || (isset($_SESSION['fotoDeleted'])  && $_SESSION['fotoDeleted'] == true)
+    ):
+    ?>
+
+        <?php
+        require_once(__DIR__ . "/../include/msgToast.php");
+        ?>
+
+    <?php
+        if (isset($_SESSION['fotoPerfilSaved'])  && $_SESSION['fotoPerfilSaved'] == true)
+            unset($_SESSION['fotoPerfilSaved']);
+        elseif (isset($_SESSION['senhaSaved'])  && $_SESSION['senhaSaved'] == true)
+            unset($_SESSION['senhaSaved']);
+        elseif (isset($_SESSION['perfilSaved'])  && $_SESSION['perfilSaved'] == true)
+            unset($_SESSION['perfilSaved']);
+        elseif (isset($_SESSION['fotoDeleted'])  && $_SESSION['fotoDeleted'] == true)
+            unset($_SESSION['fotoDeleted']);
+    endif;
+    ?>
+
+
+
     <div class="lightStatus">
         <svg id="svgLight" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-lightbulb" viewBox="0 0 16 16">
             <path d="M2 6a6 6 0 1 1 10.174 4.31c-.203.196-.359.4-.453.619l-.762 1.769A.5.5 0 0 1 10.5 13a.5.5 0 0 1 0 1 .5.5 0 0 1 0 1l-.224.447a1 1 0 0 1-.894.553H6.618a1 1 0 0 1-.894-.553L5.5 15a.5.5 0 0 1 0-1 .5.5 0 0 1 0-1 .5.5 0 0 1-.46-.302l-.761-1.77a2 2 0 0 0-.453-.618A5.98 5.98 0 0 1 2 6m6-5a5 5 0 0 0-3.479 8.592c.263.254.514.564.676.941L5.83 12h4.342l.632-1.467c.162-.377.413-.687.676-.941A5 5 0 0 0 8 1" />
@@ -160,7 +187,6 @@ require_once(__DIR__ . "/../include/menu.php");
                             <div class="nomeArquivo">
                                 <label id="labelFileImg" for="fileImg">Escolha uma foto de perfil</label>
                                 <input
-                                    onchange="showFileName()"
                                     hidden
                                     type="file"
                                     class="form-control"
@@ -250,7 +276,7 @@ else
         </div>
 
     <?php
-    elseif ($_SESSION[SESSAO_USUARIO_TIPO_USUARIO] !== "USUARIO"):
+    elseif ($dados['usuario']->getTipoUsuario() !== "USUARIO"):
     ?>
 
 
@@ -315,6 +341,25 @@ else
     <?php
     endif;
     ?>
+
+    <a href="#">
+        <div class="arrow-up" id="arrowUp">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.-->
+                <path d="M214.6 41.4c-12.5-12.5-32.8-12.5-45.3 0l-160 160c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L160 141.2 160 448c0 17.7 14.3 32 32 32s32-14.3 32-32l0-306.7L329.4 246.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3l-160-160z" />
+            </svg>
+        </div>
+    </a>
+
+    <script>
+        window.addEventListener('scroll', function() {
+            const arrowUp = document.querySelector('#arrowUp');
+            if (window.scrollY > 100) {
+                arrowUp.classList.add('show');
+            } else {
+                arrowUp.classList.remove('show');
+            }
+        });
+    </script>
 
 </div>
 

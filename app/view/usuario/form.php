@@ -144,7 +144,7 @@ require_once(__DIR__ . "/../include/header.php");
                                 if (isset($msgErro['tipoUsuario'])) {
                                     echo "<p class='mb-0 fw-bold label-invalid'>" . $msgErro['tipoUsuario'] . "</p>";
                                 } elseif ((isset($dados["usuario"]) ? $dados["usuario"]->getTipoUsuario() : '')) {
-                                    echo "<p class='mb-0 fw-bold form-label label-valid'>" . (isset($dados["usuario"]) ? $dados["usuario"]->getTipoUsuario() : '') . "</p>";
+                                    echo "<p class='mb-0 fw-bold form-label label-valid'>Tipo de usuário: " . (isset($dados["usuario"]) ? $dados["usuario"]->getTipoUsuario() : '') . "</p>";
                                 } else {
                                     echo "<p class='mb-0 form-label'>Tipo de usuário</p>";
                                 }
@@ -169,7 +169,7 @@ require_once(__DIR__ . "/../include/header.php");
                                 if (isset($msgErro['status'])) {
                                     echo "<p class='mb-0 fw-bold label-invalid'>" . $msgErro['status'] . "</p>";
                                 } elseif ((isset($dados["usuario"]) ? $dados["usuario"]->getStatus() : '')) {
-                                    echo "<p class='mb-0 fw-bold form-label label-valid'>" . (isset($dados["usuario"]) ? $dados["usuario"]->getStatus() : '') . "</p>";
+                                    echo "<p class='mb-0 fw-bold form-label label-valid'>Status do usuário: " . (isset($dados["usuario"]) ? $dados["usuario"]->getStatus() : '') . "</p>";
                                 } else {
                                     echo "<p class='mb-0 form-label'>Status do usuário</p>";
                                 }
@@ -195,7 +195,7 @@ require_once(__DIR__ . "/../include/header.php");
                                 if (isset($msgErro['isEstudante'])) {
                                     echo "<p class='mb-0 fw-bold label-invalid'>" . $msgErro['isEstudante'] . "</p>";
                                 } elseif ((isset($dados["usuario"]) ? $dados["usuario"]->getIsEstudante() : '')) {
-                                    echo "<p class='mb-0 fw-bold form-label label-valid'>" . (isset($dados["usuario"]) ? $dados["usuario"]->getIsEstudante() : '') . "</p>";
+                                    echo "<p class='mb-0 fw-bold form-label label-valid'>Estudante: " . (isset($dados["usuario"]) ? $dados["usuario"]->getIsEstudante() : '') . "</p>";
                                 } else {
                                     echo "<p class='mb-0 form-label'>Usuário é estudante?</p>";
                                 }

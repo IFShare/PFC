@@ -47,7 +47,7 @@ require_once(__DIR__ . "/../include/header.php");
                             <br>
                         </p>
                         <div class="btn-verify text-center d-flex justify-content-center gap-4">
-                            <a class="btn" href="/PFC/app/controller/PostagemController.php?action=viewPost&id=<?= $den->getPost()->getId() ?>&isDenuncia=sim">
+                            <a class="btn" href="/PFC/app/controller/PostagemController.php?action=viewPost&id=<?= $den->getPost()->getId() ?>&listDenunciaByPost&idPostagem=<?= $den->getPost()->getId() ?>">
                                 Verificar Postagem
                             </a>
 

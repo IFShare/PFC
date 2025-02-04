@@ -100,7 +100,9 @@ class Controller
 
     protected function usuarioIsAdmComentOwner(Comentario $coment)
     {
-        if ($_SESSION[SESSAO_USUARIO_TIPO_USUARIO] == TipoUsuario::ADM)
+        if (($_SESSION[SESSAO_USUARIO_TIPO_USUARIO] == TipoUsuario::ADM)
+            || ($_SESSION[SESSAO_USUARIO_TIPO_USUARIO] == TipoUsuario::ESTUDANTE)
+        )
             return true;
 
         if (

@@ -24,7 +24,7 @@ class LoginService
             $arrayMsg['senhaLogin'] = "A senha precisa ter pelo menos 5 caracteres";
 
         if ($usuarioEmail && $usuarioEmail->getStatus() == 'INATIVO') {
-            $arrayMsg['status'] = "Email inativo.<br>Verifique com um administrador.";
+            $arrayMsg['status'] = "Esta conta está inativa. Por favor, entre em contato com um administrador para mais informações.";
         }
 
         return $arrayMsg;
