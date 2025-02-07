@@ -113,6 +113,7 @@ class PostagemController extends Controller
 
         //Validar os dados
         $erros = $this->postService->validarDados($post, $imagem);
+        
         if (empty($erros)) {
             $nomeArquivo = $this->imgService->salvarArquivo($imagem);
             if ($nomeArquivo)
