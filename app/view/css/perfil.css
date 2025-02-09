@@ -4,6 +4,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-direction: column;
     background: linear-gradient(90deg, #81a880, #004f44, #002923, #002923);
     background-size: 300%;
     background-position: 0%;
@@ -22,7 +23,7 @@ body {
 
 #container.sidebar-open {
     margin-left: 17%;
-    width: 97%;
+    width: 83%;
 }
 
 #container.sidebar-closed {
@@ -476,3 +477,4 @@ div.fotoPerfil:hover {
 .arrow-up a {
     color: white;
 }
+

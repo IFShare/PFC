@@ -188,14 +188,22 @@ if ($action == 'perfilUsuario') {
                     </div>
 
                     <div class="nomeArquivoAddPost">
-                        <label id="labelFileImg" for="fileImgNew">Escolha uma foto de perfil</label>
+                        <label id="labelFileImg" for="fileImgNew">Clique aqui para adicionar uma foto</label>
                     </div>
-
 
                     <!-- Legenda -->
                     <div class="mb-1">
-                        <label id="labelLegendaNew" for="txtLegendaNew" class="mb-1">
-                            Legenda</label>
+                        <div class="mb-1 d-flex">
+                            <label id="labelLegendaNew" for="txtLegendaNew" class="mb-1">
+                                Legenda
+                            </label>
+
+                            <div class="caracteres ms-auto" style="color: white;">
+                                <span id="numeroCaracteres">0</span>
+                                <span id="maxCaracteres">/600</span>
+                            </div>
+                        </div>
+
                         <textarea
                             class="form-control"
                             id="txtLegendaNew"
@@ -203,14 +211,44 @@ if ($action == 'perfilUsuario') {
                             rows="4"></textarea>
                     </div>
 
-                    <button type="submit" class="btn btn-post-custom">Publicar</button>
+
+
+                    <button id="submitFormPost" type="submit" class="btn btn-post-custom">Publicar</button>
                     <button type="reset" class="btn btn-post-custom reset">Limpar</button>
                 </form>
+
+                <script>
+                    var legenda = document.querySelector('#txtLegendaNew');
+                    var caracteres = document.querySelector('#numeroCaracteres');
+                    const maxCaracteres = document.querySelector('#maxCaracteres');
+                    const formPost = document.querySelector('#formPostNew');
+                    const submitFormPost = document.querySelector('#submitFormPost');
+
+                    legenda.addEventListener('input', function() {
+                        caracteres.textContent = legenda.value.length;
+
+                        if (legenda.value.length > 600) {
+                            caracteres.style.color = 'red';
+                            maxCaracteres.style.color = 'red';
+                            submitFormPost.style.opacity = '0.5';
+                            submitFormPost.style.pointerEvents = 'none';
+                        } else {
+                            caracteres.style.color = 'white';
+                            maxCaracteres.style.color = 'white';
+                            submitFormPost.style.opacity = '1';
+                            submitFormPost.style.pointerEvents = 'initial';
+                        }
+                    })
+                </script>
             </div>
         </div>
     </div>
 </div>
 
+
+<script>
+
+</script>
 
 <script>
     document.getElementById('fileImgNew').addEventListener('change', function() {
@@ -233,5 +271,4 @@ if ($action == 'perfilUsuario') {
             fileNameLabel.textContent = 'Escolha uma foto de perfil';
         }
     });
-
 </script>

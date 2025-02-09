@@ -67,6 +67,7 @@ html {
     width: 32px;
     height: 32px;
     fill: white;
+    pointer-events: initial;
 }
 
 .arrow-up.show {

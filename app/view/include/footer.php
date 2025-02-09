@@ -2,7 +2,6 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
 <script src="https://kit.fontawesome.com/ece9031cab.js" crossorigin="anonymous"></script>
 
-
 <script>
     window.addEventListener('DOMContentLoaded', () => {
         const darkModeEnabled = <?= $darkMode ? 'true' : 'false' ?>;

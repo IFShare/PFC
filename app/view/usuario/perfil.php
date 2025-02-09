@@ -360,10 +360,11 @@ else
             }
         });
     </script>
-
 </div>
 
-
+<?php
+require_once(__DIR__ . "/../include/footer.php");
+?>
 <script src="<?= BASEURL ?>/view/js/postagens.js"></script>
 
 <script>
@@ -392,6 +393,3 @@ else
     });
 </script>
 
-<?php
-require_once(__DIR__ . "/../include/footer.php");
-?>

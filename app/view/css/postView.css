@@ -96,8 +96,9 @@ html {
 /* Estilo básico da legenda */
 #legenda {
     font-size: 1rem;
-    overflow: hidden;
-    overflow-x: hidden;
+    width: 100%;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
     padding-left: 0;
     margin-bottom: 5px;
     border-bottom: 1px solid #004f44;

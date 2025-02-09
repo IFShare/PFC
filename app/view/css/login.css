@@ -136,6 +136,25 @@ body, html {
     box-shadow: 0 0 0 2px rgba(217, 83, 79, 0.3); /* Sombra mais pronunciada ao focar */
 }
 
+.inp {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.inp svg{
+    color: #004f44;
+    position: absolute;
+    right: 5%;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+}
+
+#eyeClose {
+    display: none;
+}
+
 @media screen and (max-width:768px) {
 
     .logo {
